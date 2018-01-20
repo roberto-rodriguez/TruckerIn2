@@ -1,0 +1,58 @@
+[
+  {
+    "id": 0,
+    "name": "Language",
+    "icon": "md-people",
+    "bg": "#5985FF"
+  },
+  {
+    "id": 1,
+    "name": "Edit my personal Information",
+    "icon": "md-calendar",
+    "bg": "#ffc890"
+  },
+  {
+    "id": 2,
+    "name": "Edit my Job Experience",
+    "icon": "ios-people",
+    "bg": "#ff6c6c"
+  },
+  {
+    "id": 3,
+    "name": "Edit my Resume",
+    "icon": "ios-cart",
+    "bg": "#b4dd8b"
+  },
+  {
+    "id": 5,
+    "name": "Receive Push Notifications",
+    "icon": "ios-time",
+    "bg": "#00b7b7"
+  }, 
+  {
+    "id": 9,
+    "name": "Saved Jobs",
+    "icon": "ios-ribbon",
+    "bg": "#7aa5ff"
+  },
+  {
+    "id": 10,
+    "name": "App Settings",
+    "icon": "ios-list-box",
+    "bg": "#999999"
+  },
+  {
+    "id": 11,
+    "name": "Privacy",
+    "icon": "ios-lock",
+    "bg": "#999999",
+    "divider": "true"
+  },
+  {
+    "id": 12,
+    "name": "Help Center",
+    "icon": "ios-help",
+    "bg": "#999999",
+    "last": "true"
+  }
+]
