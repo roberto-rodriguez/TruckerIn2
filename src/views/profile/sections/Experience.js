@@ -81,7 +81,7 @@ class Experience extends Component {
         return (
           <AgentMsg  onPress={()=> nav(this.props.navigation, 'EditProfileExperience')}  >
             <View>
-              <T14 green>this.t('emptyText')</T14>
+              <T14 green>{this.t('emptyText')}</T14>
             </View>
           </AgentMsg>
         )

@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { ContactListItem, nav } from "src/components/";
 
 import { connect } from "react-redux";
-import * as contactActions from "./reducer/contactActions";
+import * as contactActions from "src/views/contacts/contacts.actions";
 
 import ContactsTabBar from "./ContactsTabBar";
 import ScrollableTabView from 'react-native-scrollable-tab-view';

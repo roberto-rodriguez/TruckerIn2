@@ -6,7 +6,7 @@ import {Feed } from 'src/components/'
 import MsgItem from './MsgItem'
 
 import { connect } from "react-redux";
-import * as msgActions from 'src/views/msg/msgActions'
+import * as msgActions from 'src/views/msg/msg.actions'
 
 class Conversations extends Component {
 

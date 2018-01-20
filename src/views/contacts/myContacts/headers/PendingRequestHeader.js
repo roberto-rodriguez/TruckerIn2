@@ -3,7 +3,7 @@ import { View } from "react-native";
 import {  AgentMsg, T11, T14, nav } from "src/components/";
 
 import { connect } from "react-redux";
-import * as contactActions from "../../reducer/contactActions";
+import * as contactActions from "src/views/contacts/contacts.actions";
 
 class PendingRequestHeader extends Component {
 

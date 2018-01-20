@@ -34,7 +34,7 @@ const es = {
       recentOver: 'Recent Over the Road Experience?',
       wouldOver: 'Would you take an Over the Road Job?',
       moreThan: 'More than ',
-      emptyText: 'Increase your possibilities by completing your experience information.'
+      emptyText: 'Increase your possibilities by completing your experience information'
     },
     career:{
         career: 'Career',

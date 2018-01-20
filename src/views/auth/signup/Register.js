@@ -6,7 +6,7 @@ import {BlockButton, AgentImg, T16, T15, T14, T13, T12, Row, Column, SimpleButto
 import styles from "./styles";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
-import * as authActions from "../reducer/authActions";
+import * as authActions from "src/views/auth/auth.actions";
 import * as validator from './validator'
 
 import Information from 'src/views/auth/signup/sections/Information'
@@ -149,7 +149,7 @@ class Register extends Component {
                <T14 red>{I18n.t('signup.completeRed')}</T14>
             }
           </View>
- 
+
           {this.buildHeader()}
           {this.buildFlowSection()}
 

@@ -4,7 +4,7 @@ import { Container, Content, Thumbnail } from "native-base";
 import Icon from 'react-native-fa-icons';
 import {Row, Header, T16, T12, T13, Column, TransparentButton, ListItem, Select, InputListItem, AgentImg} from 'src/components/'
 import { connect } from "react-redux";
-import * as profileActions from "../reducer/profileActions";
+import * as profileActions from "src/views/profile/profile.actions";
 const agentImg = require("../../../../assets/contacts/agent.jpg");
 import I18n from 'react-native-i18n'
 

@@ -4,7 +4,7 @@ import {  TransparentButton, Row, Column, nav,  T14, AgentMsg} from "src/compone
 
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
-import * as jobActions from "../reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 import * as roles from 'src/components/c/Role'
 
 

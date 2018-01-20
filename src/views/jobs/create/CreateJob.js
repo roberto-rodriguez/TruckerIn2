@@ -5,7 +5,7 @@ import Icon from 'react-native-fa-icons';
 import {Row, Header, BlockButton, T12, T13, T14, T16, Column,ListItem, Select} from 'src/components/'
 
 import { connect } from "react-redux";
-import * as jobActions from "../reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 
 
 const items = [
@@ -82,7 +82,7 @@ class CreateJob extends Component {
          return prevState
        }
     )), 200)
-  } 
+  }
   }
  }
 

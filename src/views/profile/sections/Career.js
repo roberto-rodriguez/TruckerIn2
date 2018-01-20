@@ -75,8 +75,7 @@ class Career extends Component {
 }
 
   const mapStateToProps = ({profileReducer}) => ({
-      careerHistory: Object.values(profileReducer.profileCareer.careerHistory),
-      lang: globalReducer.config.lang
+      careerHistory: Object.values(profileReducer.profileCareer.careerHistory)
     })
 
   export default connect(mapStateToProps)( Career);

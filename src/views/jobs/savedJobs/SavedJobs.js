@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { View } from 'react-native';
 import { Container, Content } from "native-base";
 import { Header, Feed} from 'src/components/'
-import * as jobActions from "../reducer/jobActions";
-import { connect } from "react-redux"; 
+import * as jobActions from "src/views/jobs/jobs.actions";
+import { connect } from "react-redux";
 import SavedJobPost from './SavedJobPost'
 
 

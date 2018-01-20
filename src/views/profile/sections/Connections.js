@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
 import Search from 'src/components/header/Search'
 import theme from 'src/theme/variables/platform'
-import * as profileActions from "../reducer/profileActions";
+import * as profileActions from "src/views/profile/profile.actions";
 
 
 class Connections extends Component {

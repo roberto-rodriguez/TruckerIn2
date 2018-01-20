@@ -2,7 +2,6 @@
 //import I18n from 'react-native-i18n'
 import I18n from 'react-native-i18n'
 import * as Storage from './storage.actions'
-const profileImg = require("../../assets/contacts/yo.png");
 
 export const setLoadingAction = (isLoading) => ({ type: 'IS_LOADING', isLoading })
 export const loadConfigAction = (config) => ({ type: 'LOAD_CONFIG', config })
@@ -79,15 +78,15 @@ export function apiGetProfileInfo(userId){
     completion: 100,
     phone: '786-454-0209',
     email: 'titorobe@yahoo.com',
-    roleId:1,
+    roleId:2,
     role:'Driver',
     locationId:1,
     location: 'Atlanta, GA',
-    firstName:'Roberto',
-    lastName:'Rodriguez',
+    firstName:'Phuong',
+    lastName:'Tran',
     jobStatusId: 1,
     jobStatus: 'Actively Searching',
-    profileImg,   //:'http://res.cloudinary.com/truckerin/image/upload/v1511722092/yo_o1q3tq.png',
+  //  profileImg:'http://res.cloudinary.com/truckerin/image/upload/v1511722092/yo_o1q3tq.png',
     showPersonalInfo: 1,
     savedJobs: 0,
     appliedJobs: 3,

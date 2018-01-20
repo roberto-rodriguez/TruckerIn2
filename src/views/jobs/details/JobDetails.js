@@ -3,7 +3,7 @@ import { View  } from 'react-native';
 import { Container, Content } from "native-base";
 import { connect } from "react-redux";
 import {Row, Header, Text, Column, TransparentButton} from 'src/components/'
-import * as jobActions from "../reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 import BulletsView from 'src/components/widgets/BulletsView'
 import JobPost from 'src/views/jobs/JobPost'
 

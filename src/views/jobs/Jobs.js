@@ -8,7 +8,7 @@ import MainHeader from 'src/components/header/MainHeader'
 import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
-import * as jobActions from "./reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 import JobPost from './JobPost'
 import * as roles from 'src/components/c/Role'
 import JobListHeader from './list/JobListHeader'
@@ -47,7 +47,7 @@ loadItems = (page, callback) => {
 
  render(){
     const {navigation, roleId}  = this.props
-    
+
    return (
      <View style={{minHeight:'100%'}}>
         <MainHeader navigation={navigation}

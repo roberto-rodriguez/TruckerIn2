@@ -6,7 +6,7 @@ import { GiftedChat } from "react-native-gifted-chat";
 import styles from "./styles";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
-import * as msgActions from 'src/views/msg/msgActions'
+import * as msgActions from 'src/views/msg/msg.actions'
 
 class Chat extends Component {
   constructor(props) {

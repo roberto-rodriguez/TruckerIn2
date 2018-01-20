@@ -4,7 +4,7 @@ import { Container } from "native-base";
 import {  T13, T12, nav } from 'src/components/'
 import { connect } from "react-redux";
 import { NavigationActions } from "react-navigation";
-import * as profileActions from "../reducer/profileActions";
+import * as profileActions from "src/views/profile/profile.actions";
 //TODO remove npm install react-native-easy-grid --save
 
 class CareerItem extends Component {
@@ -13,7 +13,7 @@ class CareerItem extends Component {
 
   render() {
     var {id, company, date, desc} = this.props.careerItem
-    
+
     return (
       <TouchableOpacity style={styles.item} onPress={this.edit}>
         <View>

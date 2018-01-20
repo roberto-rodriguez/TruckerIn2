@@ -4,7 +4,7 @@ import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
 import {StackView, T11, T12, T13, T14, Column, TransparentButton, ListItem, Select, nav} from 'src/components/'
 import { connect } from "react-redux";
-import * as profileActions from "../reducer/profileActions";
+import * as profileActions from "src/views/profile/profile.actions";
 import I18n from 'react-native-i18n'
 
 class EditProfileCareer extends Component {

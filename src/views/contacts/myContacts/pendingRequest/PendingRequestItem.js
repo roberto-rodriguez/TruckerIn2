@@ -11,7 +11,8 @@ import { Thumbnail } from "native-base";
 
 import theme from 'src/theme/variables/platform';
 import Icon from 'react-native-fa-icons';
-import * as contactActions from '../../reducer/contactActions'
+
+import * as contactActions from "src/views/contacts/contacts.actions";
 import { connect } from "react-redux";
 
  class PendingRequestItem extends Component {

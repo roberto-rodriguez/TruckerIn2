@@ -78,17 +78,7 @@ export function doConnect(contactId, name, callback){
 
 
 
-//--- MOCK DATA ------------
-const pratikImg = require("../../../../assets/contacts/pratik.png");
-const atulImg = require("../../../../assets/contacts/atul.png");
-const meghaImg = require("../../../../assets/contacts/megha.png");
-const sauravImg = require("../../../../assets/contacts/saurav.png");
-const sanketImg = require("../../../../assets/contacts/sanket.png");
-const varunImg = require("../../../../assets/contacts/varun.png");
-const yoImg = require("../../../../assets/contacts/yo.png");
-const freddyImg = require("../../../../assets/contacts/Freddy.jpg");
-const marcoImg = require("../../../../assets/contacts/Marco.jpg");
-const romanImg = require("../../../../assets/contacts/Roman.jpg");
+//--- MOCK DATA ------------ 
 
 const filters = [ 'experienceId','name', 'locationId', 'equipmentId', 'roleId', 'jobStatusId' ]
 

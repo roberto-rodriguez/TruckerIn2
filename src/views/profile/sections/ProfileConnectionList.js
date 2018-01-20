@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import {  View, StyleSheet } from "react-native";
 import { Container  } from "native-base";
-import {StackView, ContactListItem, Row, Header, Feed} from 'src/components/' 
+import {StackView, ContactListItem, Row, Header, Feed} from 'src/components/'
 import { connect } from "react-redux";
-import * as profileActions from "../reducer/profileActions";
-
-
+import * as profileActions from "src/views/profile/profile.actions";
+ 
 class ProfileConnectionList extends Component {
 
   constructor(props) {

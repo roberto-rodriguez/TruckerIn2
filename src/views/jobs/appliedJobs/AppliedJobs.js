@@ -4,7 +4,7 @@ import { Container, Content } from "native-base";
 import { Header, Feed} from 'src/components/'
 
 import { NavigationActions } from "react-navigation";
-import * as jobActions from "../reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
 
 import AppliedJobPost from './AppliedJobPost'
@@ -29,7 +29,7 @@ class AppliedJobs extends Component {
   )
 
   loadItems = (page, callback) => {
-    this.props.loadJobs(page, {applied: true}, callback) 
+    this.props.loadJobs(page, {applied: true}, callback)
   }
 
 

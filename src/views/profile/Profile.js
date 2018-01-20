@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Image, View, TouchableOpacity,ScrollView, Dimensions } from "react-native";
 import { Container, Content, Text, Thumbnail, H1, H2, H3 } from "native-base";
-import {Header,Row, Column, TransparentButton,ConnectButton, Button, T13, T11, nav } from 'src/components/'
+import {Header,Row, Column, TransparentButton,ConnectButton, Button, T13, T11, nav, Avatar } from 'src/components/'
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import * as profileActions from "./reducer/profileActions";
+import * as profileActions from "src/views/profile/profile.actions";
 import I18n from 'react-native-i18n'
 import Icon from 'react-native-fa-icons';
 import styles from "./styles";
+
+const deviceWidth = Dimensions.get("window").width;
 
 import Information from './sections/Information'
 import Experience from './sections/Experience'
@@ -87,11 +89,11 @@ componentDidMount(){
 
           <View>
             <View style={styles.profileImgInnerView}>
-            <TouchableOpacity style={styles.profileImg}  onPress={()=>alert('pic')}>
-              <Image style={styles.profileImg} source={profileImg} />
+            <TouchableOpacity style={styles.profileImg}  onPress={()=>{}}>
+              <Avatar name={name} src={profileImg} size={(deviceWidth / 2 - 10)} square/>
             </TouchableOpacity>
 
-            {isMe && <TouchableOpacity style={styles.editProfileButton}  onPress={()=>alert('Change')}>
+            {isMe && <TouchableOpacity style={styles.editProfileButton}  onPress={()=>this.props.changeProfilePricture()}>
                         <Icon name='camera'  style={styles.editProfileIcon}/>
                       </TouchableOpacity>}
             </View>

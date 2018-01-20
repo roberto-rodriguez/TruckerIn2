@@ -5,7 +5,7 @@ import { Container } from "native-base";
 import { ContactListItem, Header, Feed} from 'src/components/'
 import HeaderBtn from 'src/components/header/buttons/HeaderBtn'
 
-import  * as contactActions  from '../reducer/contactActions'
+import * as contactActions from "src/views/contacts/contacts.actions";
 import { connect } from "react-redux";
 
 class SearchResults extends Component {

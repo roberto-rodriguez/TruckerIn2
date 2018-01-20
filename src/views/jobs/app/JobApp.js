@@ -5,7 +5,7 @@ import { Container, Content, Button} from "native-base";
 import { Column,Row, Header, BlockButton,  T12, T13,T14, AgentImg, ListItem } from 'src/components/'
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
-import * as jobActions from "../reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 
 class JobApp extends Component {
 

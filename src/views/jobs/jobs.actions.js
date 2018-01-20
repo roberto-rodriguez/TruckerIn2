@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 //import I18n from 'react-native-i18n'
-import data from '../list/data'
+import data from './list/data'
 import * as globalActions from 'src/reducers/globalActions'
 
 export function jobApply(jobId, availability, callback){
@@ -134,7 +134,7 @@ function apiLoadJobs(userId, page = 0, searchParams){
    return listWithId
 
 }
- 
+
 
 function apiLoadJob(jobId){
   return {

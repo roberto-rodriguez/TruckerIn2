@@ -6,7 +6,7 @@ import {Feed, Header} from 'src/components/'
 import NotificationItem from './NotificationItem'
 
 import { connect } from "react-redux";
-import * as notificationsActions from 'src/views/notifications/notificationsActions'
+import * as notificationsActions from 'src/views/notifications/notifications.actions'
 
 class Notifications extends Component {
 

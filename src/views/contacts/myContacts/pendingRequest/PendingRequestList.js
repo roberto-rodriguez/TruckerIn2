@@ -4,9 +4,10 @@ import { Container } from "native-base";
 import {  Row, Column, TransparentButton, Header, Feed} from 'src/components/'
 
 import PendingRequestItem from './PendingRequestItem'
-import { connect } from "react-redux";
 import theme from 'src/theme/variables/platform'
-import * as contactActions from "../../reducer/contactActions";
+
+import { connect } from "react-redux";
+import * as contactActions from "src/views/contacts/contacts.actions";
 
 class PendingRequestList extends Component {
 

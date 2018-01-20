@@ -3,8 +3,8 @@ import { View } from "react-native";
 import { Container } from "native-base";
 import {  Feed, ContactListItem } from "src/components/";
 
-import { connect } from "react-redux";
-import * as contactActions from "../reducer/contactActions";
+import { connect } from "react-redux"; 
+import * as contactActions from "src/views/contacts/contacts.actions";
 
 class Community extends Component {
 

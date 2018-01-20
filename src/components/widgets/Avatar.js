@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native';
 import initials from 'initials';
 
 // from https://flatuicolors.com/
-const defaultColors = ['#0B3A42', "#ffa07a", 'blue', '#629aa9', "#9acd32", "#fc6c85", 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', "crimson", 'teal', 'yellow', 'darkblue', 'steelblue', 'blueviolet', 'dodgerblue'];
+const defaultColors = ['#ff3366', "#ffa07a", 'blue', '#629aa9', "#9acd32", "#fc6c85", 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', "crimson", 'teal', 'yellow', 'darkblue', 'steelblue', 'blueviolet', 'dodgerblue'];
 
 function sumChars(str) {
   let sum = 0;

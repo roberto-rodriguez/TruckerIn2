@@ -7,7 +7,7 @@ import styles from "./styles";
 import Video from 'react-native-video'
 
 import { connect } from "react-redux";
-import * as authActions from "../reducer/authActions";
+import * as authActions from "src/views/auth/auth.actions";
 
 const commonColor = require("src/theme/variables/commonColor");
 const logo = require("../../../../assets/truckerin.jpg");

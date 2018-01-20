@@ -5,7 +5,7 @@ import { Card } from "native-base";
 import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T11, T12, T13, T14, Content, nav, Avatar} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import moment from 'moment';
-import * as jobActions from "../reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
 
 

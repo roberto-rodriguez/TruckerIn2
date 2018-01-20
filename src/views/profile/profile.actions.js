@@ -112,6 +112,11 @@ export function loadProfile(userId){
   }
 }
 
+export function changeProfilePricture(id){
+  return function( dispatch, getState ){
+      globalActions.showHeaderNotification('Change Profile Picture will be ready in the next version.')( dispatch, getState )
+  }
+}
 
 //--- MOCK DATA ------------
 export function apiGetProfileInfo(userId){
@@ -141,32 +146,20 @@ export function apiGetProfileInfo(userId){
 }
 
 
-const pratikImg = require("../../../../assets/contacts/pratik.png");
-const atulImg = require("../../../../assets/contacts/atul.png");
-const meghaImg = require("../../../../assets/contacts/megha.png");
-const sauravImg = require("../../../../assets/contacts/saurav.png");
-const sanketImg = require("../../../../assets/contacts/sanket.png");
-const varunImg = require("../../../../assets/contacts/varun.png");
-const yoImg = require("../../../../assets/contacts/yo.png");
-const freddyImg = require("../../../../assets/contacts/Freddy.jpg");
-const marcoImg = require("../../../../assets/contacts/Marco.jpg");
-const romanImg = require("../../../../assets/contacts/Roman.jpg");
-
-
 function apiGetProfileConnections(userId, page = 0, nameFilter){
   console.log('Retrieving connections. page: ' + page)
   var list = [
-    {id: page * 10 + 1, userName: 'Roberto Rodriguez', role: 'Broker', roleId: 2,  profileImg: yoImg},
-    {id: page * 10 + 2, userName: 'Julio Cesar', role: 'Driver', roleId: 1,profileImg: sanketImg, connectionStatus:2},
-    {id: page * 10 + 3, userName: 'Pedro Rodriguez', role: 'Driver', roleId: 1, profileImg: varunImg},
-    {id: page * 10 + 4, userName: 'Jorge Luis', role: 'Driver', roleId: 1, profileImg: sauravImg},
-    {id: page * 10 + 5, userName: 'Dori Lori',  role: 'Broker', roleId: 2, profileImg: meghaImg},
+    {id: page * 10 + 1, userName: 'Roberto Rodriguez', role: 'Broker', roleId: 2},
+    {id: page * 10 + 2, userName: 'Julio Cesar', role: 'Driver', roleId: 1, connectionStatus:2},
+    {id: page * 10 + 3, userName: 'Pedro Rodriguez', role: 'Driver', roleId: 1},
+    {id: page * 10 + 4, userName: 'Jorge Luis', role: 'Driver', roleId: 1},
+    {id: page * 10 + 5, userName: 'Dori Lori',  role: 'Broker', roleId: 2},
 
-    {id: page * 10 + 6, userName: 'Atul Ranjan', role: 'Driver', roleId: 1, profileImg: atulImg},
-    {id: page * 10 + 7, userName: 'Roberto Borroto', role: 'Driver', roleId: 1, profileImg: pratikImg, connectionStatus:2},
-    {id: page * 10 + 8, userName: 'Freddy Mercuri', role: 'Driver', roleId: 1, profileImg: freddyImg},
-    {id: page * 10 + 9, userName: 'Marco Silva', role: 'Driver', roleId: 1, profileImg: marcoImg},
-    {id: page * 10 + 10, userName: 'Roman Perez', role: 'Driver', roleId: 1, profileImg: romanImg}
+    {id: page * 10 + 6, userName: 'Atul Ranjan', role: 'Driver', roleId: 1},
+    {id: page * 10 + 7, userName: 'Roberto Borroto', role: 'Driver', roleId: 1, connectionStatus:2},
+    {id: page * 10 + 8, userName: 'Freddy Mercuri', role: 'Driver', roleId: 1},
+    {id: page * 10 + 9, userName: 'Marco Silva', role: 'Driver', roleId: 1},
+    {id: page * 10 + 10, userName: 'Roman Perez', role: 'Driver', roleId: 1}
   ]
 
   if(nameFilter){

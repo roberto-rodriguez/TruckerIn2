@@ -7,22 +7,27 @@
 import React, { Component } from 'react';
 import { Button, Thumbnail } from "native-base";
 import styles from '../styles'
-import {nav} from 'src/components/'
+import {Avatar, nav} from 'src/components/'
+import { connect } from "react-redux";
 const profileImg = require("../../../../assets/contacts/yo.png");
 
 class ProfileBtn extends Component {
 
   render(){
-    var {icon, disabled, handler, style} = this.props;
-    var {navigation} = this.props;
-    var disabledStyle = disabled ? {color: global.secondaryColor} : null
+    var {navigation, fullName, profileImg} = this.props;
 
     return (
       <Button  transparent onPress={() => nav(navigation, 'Profile')}  style={{padding:10, justifyContent:'center'}} >
-        <Thumbnail extrasmall source={profileImg} />
+        <Avatar name={fullName} src={profileImg} size={35}/>
       </Button>
     )
   }
 }
 
-export default ProfileBtn;
+
+const mapStateToProps = ({globalReducer}) => ({
+  profileImg: globalReducer.profileInfo.profileImg,
+  fullName: globalReducer.profileInfo.firstName + ' ' + globalReducer.profileInfo.lastName
+})
+
+ export default connect(mapStateToProps )(ProfileBtn);

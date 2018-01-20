@@ -4,7 +4,7 @@ import {  Container } from "native-base";
 import {StackView, Header, Feed, nav, CustomButton} from 'src/components/'
 import CareerItem from './CareerItem';
 import { connect } from "react-redux";
-import * as profileActions from "../reducer/profileActions";
+import * as profileActions from "src/views/profile/profile.actions";
 
 class ProfileCareerList extends Component {
 

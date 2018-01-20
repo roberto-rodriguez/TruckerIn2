@@ -9,7 +9,7 @@ import NoConnectionsHeader from './headers/NoConnectionsHeader'
 import theme from 'src/theme/variables/platform';
 
 import { connect } from "react-redux";
-import * as contactActions from "../reducer/contactActions";
+import * as contactActions from "src/views/contacts/contacts.actions";
 
 
 class MyContacts extends Component {

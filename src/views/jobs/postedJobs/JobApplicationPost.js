@@ -1,25 +1,12 @@
 
 import React, {Component} from 'react';
-import {Image,View, StyleSheet, TouchableHighlight  } from 'react-native';
-import { Card, CardItem, Left, Right,   Item  } from "native-base";
-import { NavigationActions } from "react-navigation";
-import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T11, T12, T13, T14, Content, Avatar} from 'src/components/'
+import { View, StyleSheet } from 'react-native';
+import { Card } from "native-base";
+import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T12, T14, Content, Avatar, nav} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import moment from 'moment';
 import { connect } from "react-redux";
-import * as jobActions from "../reducer/jobActions";
-
-const profileNavigateAction = userInfo =>
-  NavigationActions.navigate({
-    routeName: "Profile",
-    params: { userInfo }
-  });
-
-  const showTextInputAction = (title, text, callback) =>
-  NavigationActions.navigate({
-    routeName: "TextInputView",
-    params:{ title, text, callback }
-  });
+import * as jobActions from "src/views/jobs/jobs.actions";
 
  class JobApplicationPost extends Component {
 
@@ -41,7 +28,7 @@ const profileNavigateAction = userInfo =>
 
  delete = () => this.setState({deleted: true})
 
- sendMessage = () => this.props.navigation.dispatch( showTextInputAction('Message to Applicant', '', this.onSendMessage))
+ sendMessage = () => nav(navigation, 'TextInputView', {title: 'Message to Applicant', callback:this.onSendMessage})
 
  onSendMessage = (msg) => {
    var _this = this
@@ -63,7 +50,7 @@ const profileNavigateAction = userInfo =>
      <Card style={postStyle.container}>
       <View style={postStyle.header}>
         <View style={postStyle.headerLeft} >
-            <SimpleButton onPress={() => navigation.dispatch(profileNavigateAction(dataRow))}>
+            <SimpleButton onPress={() => nav(navigation, 'Profile', {userInfo: dataRow})}>
              <View>
               <Avatar name={dataRow.userName}  size={60} src={dataRow.profileImg} square/>
             </View>
@@ -95,7 +82,7 @@ const profileNavigateAction = userInfo =>
 
           <CustomButton white text={'PROFILE'}
             style={styles.button}
-            handler={() => navigation.dispatch(profileNavigateAction(dataRow))}/>
+            handler={() => nav(navigation, 'Profile', {userInfo: dataRow})}/>
 
           <CustomButton white text={'ACCEPT'}
           style={styles.button}

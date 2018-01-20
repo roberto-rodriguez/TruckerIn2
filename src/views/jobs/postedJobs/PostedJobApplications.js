@@ -5,7 +5,7 @@ import { Container, Content } from "native-base";
 import { Header, Feed} from 'src/components/'
 
 import { NavigationActions } from "react-navigation";
-import * as jobActions from "../reducer/jobActions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
 
 import JobApplicationPost from './JobApplicationPost'
@@ -31,7 +31,6 @@ class PostedJobApplications extends Component {
         <Header navigation={navigation} back title='Job Applications' />
         <View style={{minHeight:'100%'}}>
            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
-
         </View>
       </Container>
     );
