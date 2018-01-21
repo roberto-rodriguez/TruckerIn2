@@ -58,6 +58,6 @@ export { default as T10 } from './text/T10'
 
 
 //Functions
-export { default as nav } from './commonFuntions/nav'
-export { default as mapStateToProps } from './commonFuntions/mapStateToProps'
-export { default as formatDate } from './commonFuntions/formatDate'
+export { default as mapStateToProps } from 'src/components/commonFuntions/mapStateToProps'
+export { default as formatDate } from 'src/components/commonFuntions/formatDate'
+export { default as nav } from 'src/components/commonFuntions/nav'

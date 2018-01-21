@@ -25,5 +25,17 @@ export function loadConfig(){
   }
 }
 
+export function validateAccessCode(accessCode, callback){
+  return function( dispatch, getState ){
+    callback(accessCode === '1111', 'validatePhone')
+  }
+}
+
+export function validateUsername(username, callback){
+  return function( dispatch, getState ){
+    var result = username !== 'a'
+    callback(result, 'usernameTaken', result ? null : 'username')
+  }
+}
 
 //--- MOCK DATA ------------

@@ -11,7 +11,7 @@ const es = {
     password: 'Contraseña'
   },
   signup:{
-    completeRed: 'Por favor complete las secciones en rojo',
+
     iAccept: 'I accept the ',
     tos: 'Terms of Service',
     acceptAndFinish: 'Accept and Finish',
@@ -24,17 +24,25 @@ const es = {
       validatePhone: 'Validate Phone Number',
       tos: 'Terms of Service'
     },
+    titlesError:{
+      validatePhone: 'Invalid Access Code'
+    },
     subTitles:{
       welcome: 'The fastest growing network of Truckers',
       validatePhone: 'We just sent you a 4 digits access code via SMS',
-      contact: 'We will never share it without asking you' 
+      contact: 'We will never share it without asking you'
+    },
+    subTitlesError:{
+      completeRed: 'Please complete fields marked in red',
+      validatePhone: 'Make sure you entered the right phone number',
+      usernameTaken: 'This username is already taken',
+      tos: 'Terms of Service must to be accepted'
     },
     bullets:{
       personal: 'Personal',
       contact: 'Contact',
       experience: 'Experience',
       validatePhone: 'Validar Telefono',
-      profilePic: 'Imagen de Perfil',
       tos: 'Términos'
     },
     acceptTerms:{

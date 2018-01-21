@@ -8,13 +8,13 @@ import React, { Component } from 'react';
 import { TouchableHighlight, View, StyleSheet} from 'react-native';
 import {Row, Column,T14,T12, T13, nav } from 'src/components/'
 import Icon from 'react-native-fa-icons';
- 
+
  export default class ListItem extends Component {
 
   render() {
     var {icon, label, value, navigation, routeName, params, handler, borderTop, red} = this.props;
 
-    var action = handler ? handler : () => nav(navigation, routeName || 'TextInputView', {params})
+    var action = handler ? handler : () => nav(navigation, routeName || 'TextInputView', params)
 
       var borderStyle = {borderBottomWidth:0.3, borderColor: global.secondaryColor}
 
@@ -36,7 +36,7 @@ import Icon from 'react-native-fa-icons';
                 (
                   <View>
                     {label && <T12 light  red={red}>{label}</T12>}
-                    <T13  red={red}>{value && (value.length < 30 ? value : value.substring(0, 30) + '...')}</T13>
+                    <T13  red={red}>{value && (value.length < 30 ? value : (value + '').substring(0, 30) + '...')}</T13>
                   </View>
                 )
               }

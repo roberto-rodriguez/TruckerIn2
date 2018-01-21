@@ -19,16 +19,16 @@ import AcceptTerms from 'src/views/auth/signup/sections/AcceptTerms'
 
 import StepIndicator from 'react-native-step-indicator';
 
-
 const commonColor = require("src/theme/variables/commonColor");
 
 const titles = ['welcome','personal','contact','experience','validatePhone', 'tos']
-const subTitles = [ 'welcome', null, 'contact', null, 'validatePhone' ]
-const bullets = ['personal', 'contact', 'experience', 'validatePhone', 'profilePic', 'tos']
+const titlesError = [null, null     ,null     ,null        ,'validatePhone', null ]
+const subTitles=['welcome',null     ,'contact',null        ,'validatePhone', null ]
+const subTitlesError = [null, null  ,null     ,null        ,'validatePhone', 'tos']
 
-const logo = require("../../../../assets/logo.png");
+const bulletsKeys = ['personal', 'contact', 'experience', 'validatePhone', 'tos']
 
-const labels = ["Cart","Delivery Address","Order Summary","Payment Method","Track"];
+const labels = ["Cart", "Delivery Address", "Order Summary", "Payment Method", "Track"];
 
 class Register extends Component {
   constructor(props) {
@@ -37,8 +37,11 @@ class Register extends Component {
       view:{
         flowPage: 0,
         accessCode: null,
-        validFields: {},
-        validForm: true
+        invalidFields: [],
+        validForm: true,
+        bullets: bulletsKeys.map(key =>  I18n.t( ['signup', 'bullets', key ] )),
+        acceptTerms: false,
+        errorMsg: null
       },
       data:{
         roleId: null,  // 1-Driver, 2-Broker, 3-Company
@@ -62,7 +65,9 @@ class Register extends Component {
         jobStatusId: null,
         ownerOperator: null,
         overRoadExp: null,
-        willTakeOverRoad: null
+        willTakeOverRoad: null,
+
+        accessCode: null
       }
     };
   }
@@ -72,6 +77,7 @@ class Register extends Component {
   }
 
   setVal = (prop, val, valId) => this.setState((prevState) => {
+      debugger;
          prevState.data[prop] = val
 
          if(valId){ prevState.data[prop + 'Id'] = valId }
@@ -79,59 +85,11 @@ class Register extends Component {
          return prevState
       })
 
-  selectRole = ( role ) => {
-     this.setState(prevState => {
-         prevState.view.flowPage = 1
-         prevState.data.roleId = role
 
-         return prevState
-       })
-     }
-
-   nextBack = (next) => {
-     var {flowPage, validForm, validFields} = this.state.view
-
-     if(next){
-       validFields[flowPage] = validator.validate(flowPage, this.state.data)
-     }
-
-     var canProceed = true;
-
-     switch(flowPage){
-       case 0:
-         if(!next){
-           this.props.navigation.goBack()
-           return
-         }
-       case 3:
-          // if(next){
-          //    validForm = canProceed = validator.isValidForm(flowPage, validFields)
-          //  }
-       case 4:
-        //Call validate Phone Number
-          break;
-       case 5:
-         //Call register
-         if(next){
-           this.props.navigation.navigate("Drawer");
-           return
-         }
-     }
-
-      this.setState(prevState => {
-          prevState.view = {
-            ...prevState.view,
-            validFields,
-            validForm,
-            flowPage: prevState.view.flowPage + (canProceed ? (next ? 1 : -1) : 0)
-          }
-          return prevState
-        })
-      }
 
   render() {
     const navigation = this.props.navigation;
-    var {role, flowPage, validForm} = this.state.view
+    var {role, flowPage, validForm, errorMsg} = this.state.view
 
     return (
       <Container style={styles.background}>
@@ -142,11 +100,11 @@ class Register extends Component {
               <Icon name={'long-arrow-left'} style={{color:'white', fontSize: 26}}/>
             </View></SimpleButton>
             <AgentImg size={85}/>
-            <T16 style={{color:'white'}}>{I18n.t( ['signup', 'titles', titles[flowPage] ] ) }</T16>
+            <T16 style={{color:'white'}}>{I18n.t( ['signup', (!validForm && titlesError[flowPage] ? 'titlesError' : 'titles'), titles[flowPage] ] ) }</T16>
             {validForm ?
               subTitles[flowPage] && <T14 style={{color:'white'}}>{I18n.t( ['signup', 'subTitles', subTitles[flowPage] ] )}</T14>
               :
-               <T14 red>{I18n.t('signup.completeRed')}</T14>
+              <T14 red>{errorMsg}</T14>
             }
           </View>
 
@@ -156,16 +114,23 @@ class Register extends Component {
         </Content>
 
         {
-          flowPage === 6 && (
-            <Row style={{marginBottom: 10}}>
-              <Column columns={8} start>
-                <CheckBox checked={false} onPress={() => alert('Accept')} color={commonColor.secondaryColor}/>
-              </Column >
-              <Column columns={8} colspan={7} start>
-                <T15 green>{I18n.t('signup.iAccept')}</T15>
-                <LinkButton text={I18n.t('signup.tos')}  onPress={() => nav(navigation, 'TOS')}/>
-              </Column >
-            </Row>
+          flowPage === 5 && (
+            <SimpleButton onPress={this.acceptTerms}>
+              <View>
+                <Row style={{marginBottom: 10}}>
+                  <Column columns={8} start>
+                    <CheckBox
+                      checked={this.state.view.acceptTerms}
+                      color={validForm ? commonColor.secondaryColor : 'red'}
+                    />
+                  </Column>
+                  <Column columns={8} colspan={7} start>
+                    <T15 green>{I18n.t('signup.iAccept')}</T15>
+                    <LinkButton text={I18n.t('signup.tos')}  onPress={() => nav(navigation, 'TOS')}/>
+                  </Column>
+                </Row>
+              </View>
+          </SimpleButton>
           )
         }
 
@@ -177,97 +142,133 @@ class Register extends Component {
 
 
   buildHeader = () => {
-    var flowPage = this.state.view.flowPage
+    var {flowPage, bullets, validForm} = this.state.view
 
     if(flowPage === 0){
       return (<Row><Column>
                 <T15 style={{color:commonColor.primaryColor}}>SELECT ROLE</T15>
               </Column></Row>)
     }else{
+      var errorStyle = validForm ? {} :styles.stepIndicatorError
+
       return  (
                 <View style={{marginTop:15}}>
                   <StepIndicator
-                    customStyles={styles.stepIndicator}
+                    customStyles={{...styles.stepIndicator, ...errorStyle}}
                     currentPosition={flowPage - 1}
                     stepCount={5}
                     onPress={(number) => this.goToPage(number + 1)}
-                    labels={ ["Personal","Contact","Experience", "Validate Phone","Terms"]}
+                    labels={bullets}
                     />
+
                 </View>
               )
     }
   }
 
   buildFlowSection = () => {
+    debugger;
     var {data, view} = this.state
     const navigation = this.props.navigation;
-    var flowPage = view.flowPage
+    var {flowPage, validForm} = view
 
     switch(flowPage){
       case 0: return <Roles selectRole={this.selectRole}/>
-      case 1: return <Information data={data} setVal={this.setVal}/>
-      case 2: return <Contact data={data} setVal={this.setVal} navigation={navigation}/>
-      case 3: return <Experience data={data} setVal={this.setVal}/>
-      case 4: return <ValidatePhone data={data} setVal={this.setVal}/>
-      case 5: return <ProfilePic data={data} setVal={this.setVal} doItLatter={() => this.nextBack(true)}/>
-      case 6: return <AcceptTerms data={data} setVal={this.setVal}/>
+      case 1: return <Information data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
+      case 2: return <Contact data={data} setVal={this.setVal} navigation={navigation} invalidFields={view.invalidFields}/>
+      case 3: return <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
+      case 4: return <ValidatePhone data={data} setVal={this.setVal} valid={validForm}/>
+      case 5: return <AcceptTerms data={data} setVal={this.setVal}/>
     }
   }
 
-  buildBullet = (selected, number, text) => {
-    // debugger;
-    // if( !validator.isValid(number, this.state.view.validForm, this.state.view.validFields) ){
-    //   return (<Column columns={3} h={60} key={number}>
-    //     <SimpleButton onPress={() => this.goToPage(number)}>
-    //       <View style={{alignItems: "center", justifyContent: "center"}}>
-    //         <View  style={[styles.bullet, styles.redBullet]}>
-    //           <T12 shortLine strong={selected} style={{color:'white'}}>{number}</T12>
-    //         </View>
-    //         <T12 shortLine strong={selected} red>{text}</T12>
-    //       </View>
-    //     </SimpleButton>
-    //   </Column>)
-    // }
-
-    return selected ?
-    (
-
-        <Column columns={3} h={60} key={number}>
-          <SimpleButton onPress={() => this.goToPage(number)}>
-            <View style={{alignItems: "center", justifyContent: "center"}}>
-              <View  style={[styles.bullet, styles.selectedBullet]}>
-                <T12 shortLine strong style={{color:'white'}}>{number}</T12>
-              </View>
-              <T12 shortLine strong style={styles.greenColor}
-                red={ !validator.isValid(number, this.state.view.validForm, this.state.view.validFields) }
-              >{text}</T12>
-            </View>
-          </SimpleButton>
-        </Column>
-
-     )
-      :
-      (
-          <Column columns={3} h={60} key={number}>
-            <SimpleButton onPress={() => this.goToPage(number)}>
-              <View style={{alignItems: "center", justifyContent: "center"}}>
-                <View  style={[styles.bullet, styles.deselectedBullet]}>
-                  <T12 shortLine strong style={{color: commonColor.primaryColor}}>{number}</T12>
-                </View>
-                <T12 shortLine
-                 red={ !validator.isValid(number, this.state.view.validForm, this.state.view.validFields) }
-                >{text}</T12>
-              </View>
-            </SimpleButton>
-          </Column>
-      )
+  goToPage = ( page ) => {
+    if(page < this.state.view.flowPage){
+      this.setState({
+        ...this.state,
+        view: {
+          ...this.state.view,
+          validForm: true,
+          flowPage: page
+        }
+      })
   }
+}
 
-  goToPage = ( page ) => this.setState(prevState => {
-    prevState.view.flowPage = page
+selectRole = ( role ) => {
+   this.setState(prevState => {
+       prevState.view.flowPage = 1
+       prevState.data.roleId = role
+
+       return prevState
+     })
+   }
+
+ nextBack = (next) => {
+   var {flowPage, validForm, invalidFields} = this.state.view
+
+   if(next){
+     invalidFields = validator.validate(flowPage, this.state.data)
+     validForm = invalidFields.length === 0
+   }
+
+   switch(flowPage){
+     case 0:
+       if(!next){
+         this.props.navigation.goBack()
+         return
+       }
+     case 1:
+       if(validForm){
+           return this.validateUsername()
+       }
+     case 4:
+        return this.validateAccessCode()
+     case 5:
+       //Call register
+       validForm = this.state.view.acceptTerms
+
+       if(next && validForm){
+         this.props.navigation.navigate("Drawer");
+         return
+       }
+   }
+
+    this.setState(prevState => {
+        prevState.view = {
+          ...prevState.view,
+          invalidFields,
+          validForm,
+          errorMsg: I18n.t( ['signup', 'subTitlesError', (subTitlesError[flowPage] || 'completeRed')] ),
+          flowPage: prevState.view.flowPage + (next ? (validForm ? 1 : 0) : -1)
+        }
+        return prevState
+      })
+    }
+
+  validateAccessCode = () => this.props.validateAccessCode(this.state.data.accessCode, this.validationCallback)
+
+  validateUsername = () => this.props.validateUsername(this.state.data.username, this.validationCallback)
+
+  validationCallback = (result, errorMsgKey, invalidField) => this.setState(prevState => {
+      prevState.view = {
+        ...prevState.view,
+        validForm: result,
+        invalidFields: [invalidField],
+        flowPage: prevState.view.flowPage + (result ? 1 : 0),
+        errorMsg: I18n.t( ['signup', 'subTitlesError', errorMsgKey] )
+      }
+      return prevState
+    })
+
+  acceptTerms = () => this.setState((prevState) => {
+    prevState.view.acceptTerms = !prevState.view.acceptTerms
+    prevState.view.validForm = prevState.view.acceptTerms
     return prevState
   })
+
 }
+
 
 function mapStateToProps({globalReducer}) {
 	return {

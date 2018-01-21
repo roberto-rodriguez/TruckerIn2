@@ -14,7 +14,7 @@ import Icon from 'react-native-fa-icons';
  export default class InputListItem extends Component {
 
   render() {
-    var {icon, label, value, secureTextEntry, onChangeText} = this.props;
+    var {icon, label, value, secureTextEntry, onChangeText, invalid} = this.props;
 
     return (
        <View>
@@ -23,9 +23,9 @@ import Icon from 'react-native-fa-icons';
              <Icon name={icon} style={styles.icon}/>
            </Column>
            <Column h={60}  columns={7} colspan={6} style={{alignItems:'flex-start'}}>
-             <T12 light>{label}</T12>
+             <T12 light red={invalid}>{label}</T12>
              <TextInput underlineColorAndroid='transparent' style={styles.input}
-               value={value}
+               defaultValue={value} 
                secureTextEntry={secureTextEntry}
                onChangeText={(text) => onChangeText(text)}
               />

@@ -116,5 +116,6 @@ export default {
     labelColor: '#999999',
     labelSize: 11,
     currentStepLabelColor:commonColor.primaryColor,
-  }
+  },
+  stepIndicatorError: {stepStrokeCurrentColor: 'red', stepIndicatorLabelCurrentColor: 'red', currentStepLabelColor:'red'}
 };

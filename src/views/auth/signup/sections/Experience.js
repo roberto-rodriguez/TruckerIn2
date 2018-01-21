@@ -45,8 +45,8 @@ class Experience extends Component {
 
 
   render() {
-    const {navigation, equipmentOptions, experienceOptions, jobStatusOptions} = this.props
-    var state = this.state;
+    const {navigation, equipmentOptions, experienceOptions, jobStatusOptions, invalidFields} = this.props
+    var data = this.state;
 
     return (
           <View >
@@ -57,7 +57,8 @@ class Experience extends Component {
               navigation={navigation}
               icon={icon}
               label={title}
-              value={ state[prop] }
+              value={ data[prop] }
+              red={!data[prop] && invalidFields.indexOf(prop) >= 0}
               handler={ () => this.showSelect( prop ) }
               />) )
          }
@@ -68,7 +69,8 @@ class Experience extends Component {
                key={i}
                icon={icon}
                label={title}
-               value={ state[prop] }
+               value={ data[prop] }
+               invalid={!data[prop] && invalidFields.indexOf(prop) >= 0}
                handler={ (val) => this.setVal( prop, val ) }
                />) )
           }

@@ -1,24 +1,13 @@
 
-export function isValid(page, validForm, validFields){
-
-   return validForm || validFields[page]
-}
-
-
 export function validate(page, data){
-
    switch(page){
-     case 1: return data.firstName && data.lastName && data.username && data.password
-     case 2: return data.email && data.phone && data.locationId && data.showContactInfo
-    // case 3: return data.firstName && data.lastName && data.username && data.password
+      // case 1: return validatePage(data, [ 'firstName', 'lastName', 'username', 'password'])
+      // case 2: return validatePage(data, [ 'email', 'phone', 'locationId', 'showPersonalInfo'])
+      // case 3: return validatePage(data, [ 'experience', 'jobStatus', 'equipment', 'ownerOperator', 'overRoadExp', 'willTakeOverRoad'])
    }
-
+   return []
 }
 
-export function isValidForm(page, validFields){
-
-   switch(page){
-     case 3: return validFields[1] && validFields[2] && validFields[3]
-   }
-
+function validatePage(data, fields){
+  return fields.filter((field) => !(data[field] && (data[field].trim ? data[field].trim() : true)))
 }

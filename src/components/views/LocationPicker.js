@@ -20,7 +20,7 @@ class LocationPicker extends Component {
   render() {
     const navigation = this.props.navigation;
     var setVal = navigation.state.params && navigation.state.params.setVal
-
+debugger;
     callback = (locationId, location) => setVal('location', location, locationId)
 
     return (

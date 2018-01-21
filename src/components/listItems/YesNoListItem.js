@@ -12,7 +12,7 @@ import Icon from 'react-native-fa-icons';
  export default class YesNoListItem extends Component {
 
   render() {
-    var {icon, label, value, handler, leftText, rightText} = this.props;
+    var {icon, label, value, handler, leftText, rightText, invalid} = this.props;
 
     return (
        <View>
@@ -21,7 +21,7 @@ import Icon from 'react-native-fa-icons';
              <Icon name={icon} style={styles.icon}/>
            </Column>
            <Column h={60}  columns={8} colspan={3} style={{alignItems:'flex-start'}}>
-             <T12 light>{label}</T12>
+             <T12 light red={invalid}>{label}</T12>
            </Column>
            <Column  h={60}  columns={8}  colspan={2} end>
               <CustomButton radius={'left'} white={value != 1} text={leftText || 'YES'} handler={()=>handler(1)}/>

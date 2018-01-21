@@ -13,14 +13,34 @@ const items = [
 
 class Information extends Component {
 
+  constructor(props) {
+      super(props)
+      this.state = { }
+ }
+
+ componentDidMount(){
+     this.setState(this.props.data)
+ }
+
+ setVal = (prop, val, valId) => {
+   this.setState((prevState) => {
+        prevState[prop] = val
+
+        if(valId){ prevState[prop + 'Id'] = valId }
+
+        return prevState
+     })
+
+     this.props.setVal(prop, val, valId)
+ }
 
  showSelect(prop) {
    this[prop + 'Select'].show();
  }
 
   render() {
-    const { data, setVal, navigation} = this.props
-    debugger;
+    const { navigation, invalidFields} = this.props
+    var data  = this.state;
     return (
           <View >
              {
@@ -30,7 +50,8 @@ class Information extends Component {
                  icon={icon}
                  label={title}
                  value={ data[prop] }
-                 onChangeText={(text) => setVal(prop, text)}
+                 invalid={ invalidFields.indexOf(prop) >= 0}
+                 onChangeText={(text) => this.setVal(prop, text)}
                  secureTextEntry={ prop === "password" ? true : false}
                  />) )
             }

@@ -21,14 +21,12 @@ class Contact extends Component {
       this.state = { }
  }
 
-
-
   componentDidMount(){
       this.setState( this.props.data || {});
   }
 
   setVal = (prop, val, valId) => {
-  this.setState((prevState) => {
+    this.setState((prevState) => {
          prevState[prop] = val
 
          if(valId){ prevState[prop + 'Id'] = valId }
@@ -40,9 +38,9 @@ class Contact extends Component {
   }
 
   render() {
-    const {navigation, jobStatusOptions} = this.props
+    const {navigation, jobStatusOptions, invalidFields} = this.props
     var data  = this.state;
-
+ 
     return (
           <View >
           {
@@ -52,6 +50,7 @@ class Contact extends Component {
               icon={icon}
               label={I18n.t(['profile','information' , title])}
               value={ data[prop] }
+              invalid={!data[prop] && invalidFields.indexOf(prop) >= 0}
               onChangeText={ text => this.setVal(prop, text)}
               />) )
          }
@@ -61,8 +60,9 @@ class Contact extends Component {
            icon={'map-marker'}
            label={'Location'}
            value={ data.location}
+           red={!data.locationId && invalidFields.indexOf('locationId') >= 0}
            routeName={'LocationPicker'}
-           params={{setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}/>
+           params={{setVal: this.setVal}}/>
 
 
            {
@@ -72,6 +72,7 @@ class Contact extends Component {
                  icon={icon}
                  label={I18n.t(['profile','information' , title])}
                  value={ data[prop] }
+                 invalid={!data[prop] && invalidFields.indexOf(prop) >= 0}
                  handler={ val => this.setVal( prop, val ) }
                  />) )
             }
