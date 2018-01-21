@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import { StatusBar, Platform, TouchableHighlight, View } from "react-native";
 import { Container, Content, Text, CheckBox } from "native-base";
 import Icon from 'react-native-fa-icons';
-import {BlockButton, AgentImg, T16, T15, T14, T13, T12, Row, Column, SimpleButton, LinkButton, nav} from 'src/components/'
+import {BlockButton, AgentImg, T16, T15, T14, T13, T12, Row, Column, RowColumn, SimpleButton, LinkButton, nav} from 'src/components/'
 import styles from "./styles";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 import * as authActions from "src/views/auth/auth.actions";
 import * as validator from './validator'
-
+import * as roles from 'src/components/c/Role'
 import Information from 'src/views/auth/signup/sections/Information'
 import Contact from 'src/views/auth/signup/sections/Contact'
 import Experience from 'src/views/auth/signup/sections/Experience'
+import About from 'src/views/auth/signup/sections/About'
 import Roles from 'src/views/auth/signup/sections/Roles'
 import ValidatePhone from 'src/views/auth/signup/sections/ValidatePhone'
 import ProfilePic from 'src/views/auth/signup/sections/ProfilePic'
@@ -28,8 +29,6 @@ const subTitlesError = [null, null  ,null     ,null        ,'validatePhone', 'to
 
 const bulletsKeys = ['personal', 'contact', 'experience', 'validatePhone', 'tos']
 
-const labels = ["Cart", "Delivery Address", "Order Summary", "Payment Method", "Track"];
-
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +44,7 @@ class Register extends Component {
       },
       data:{
         roleId: null,  // 1-Driver, 2-Broker, 3-Company
+        role: null,
 
         firstName: null,
         lastName: null,
@@ -57,6 +57,7 @@ class Register extends Component {
         locationId: null,
         showContactInfo: null,
 
+        about: null,
         experience: null,
         experienceId: null,
         equipment: null,
@@ -89,7 +90,7 @@ class Register extends Component {
 
   render() {
     const navigation = this.props.navigation;
-    var {role, flowPage, validForm, errorMsg} = this.state.view
+    var {role, flowPage, validForm, errorMsg, bullets,} = this.state.view
 
     return (
       <Container style={styles.background}>
@@ -108,7 +109,24 @@ class Register extends Component {
             }
           </View>
 
-          {this.buildHeader()}
+          {flowPage ?
+          (
+            <View style={{marginTop:15, borderBottomWidth: 0.2, borderBottomColor: commonColor.secondaryColor}}>
+              <StepIndicator
+                customStyles={styles.stepIndicator}
+                currentPosition={flowPage - 1}
+                stepCount={5}
+                onPress={(number) => this.goToPage(number + 1)}
+                labels={bullets}
+                />
+            </View>
+          ) :
+          ( <RowColumn>
+              <T15 green>SELECT ROLE</T15>
+            </RowColumn>
+          )
+        }
+
           {this.buildFlowSection()}
 
         </Content>
@@ -118,11 +136,8 @@ class Register extends Component {
             <SimpleButton onPress={this.acceptTerms}>
               <View>
                 <Row style={{marginBottom: 10}}>
-                  <Column columns={8} start>
-                    <CheckBox
-                      checked={this.state.view.acceptTerms}
-                      color={validForm ? commonColor.secondaryColor : 'red'}
-                    />
+                  <Column columns={8}>
+                    <Icon name={this.state.view.acceptTerms ? 'check-circle-o' : 'circle-thin' } style={{color: (validForm ? commonColor.secondaryColor : 'red'), fontSize: 24}}/>
                   </Column>
                   <Column columns={8} colspan={7} start>
                     <T15 green>{I18n.t('signup.iAccept')}</T15>
@@ -140,31 +155,57 @@ class Register extends Component {
     );
   }
 
+  nextBack = (next) => {
+    var {view, data} = this.state
+    var {flowPage, validForm, invalidFields} = view
 
-  buildHeader = () => {
-    var {flowPage, bullets, validForm} = this.state.view
-
-    if(flowPage === 0){
-      return (<Row><Column>
-                <T15 style={{color:commonColor.primaryColor}}>SELECT ROLE</T15>
-              </Column></Row>)
-    }else{
-      var errorStyle = validForm ? {} :styles.stepIndicatorError
-
-      return  (
-                <View style={{marginTop:15}}>
-                  <StepIndicator
-                    customStyles={{...styles.stepIndicator, ...errorStyle}}
-                    currentPosition={flowPage - 1}
-                    stepCount={5}
-                    onPress={(number) => this.goToPage(number + 1)}
-                    labels={bullets}
-                    />
-
-                </View>
-              )
+    if(next){
+      invalidFields = validator.validate(flowPage, data)
+      validForm = invalidFields.length === 0
     }
-  }
+
+    var serverErrorMsg = null
+
+    switch(flowPage){
+      case 0:
+        if(!next){
+          this.props.navigation.goBack()
+          return
+        }
+        break;
+      case 1:
+        if(next && validForm){
+            return this.validateUsername()
+        }
+        break;
+      case 4:
+         return this.validateAccessCode()
+      case 5:
+        validForm = view.acceptTerms
+
+        if(next && validForm){
+            this.props.register( data, (result, resultMessage) => {
+              if(result){
+                this.props.navigation.navigate("Drawer");
+                return
+              }else{
+                serverErrorMsg = resultMessage
+              }
+            })
+        }
+    }
+
+     this.setState(prevState => {
+         prevState.view = {
+           ...prevState.view,
+           invalidFields,
+           validForm,
+           errorMsg: serverErrorMsg ||  I18n.t( ['signup', 'subTitlesError', (subTitlesError[flowPage] || 'completeRed')] ),
+           flowPage: prevState.view.flowPage + (next ? (validForm ? 1 : 0) : -1)
+         }
+         return prevState
+       })
+     }
 
   buildFlowSection = () => {
     debugger;
@@ -176,7 +217,9 @@ class Register extends Component {
       case 0: return <Roles selectRole={this.selectRole}/>
       case 1: return <Information data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
       case 2: return <Contact data={data} setVal={this.setVal} navigation={navigation} invalidFields={view.invalidFields}/>
-      case 3: return <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
+    case 3: return (data.roleId === roles.DRIVER ? <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
+                        : <About data={data} setVal={this.setVal}/>
+                      )
       case 4: return <ValidatePhone data={data} setVal={this.setVal} valid={validForm}/>
       case 5: return <AcceptTerms data={data} setVal={this.setVal}/>
     }
@@ -195,62 +238,24 @@ class Register extends Component {
   }
 }
 
-selectRole = ( role ) => {
+selectRole = ( role, roleKey ) => {
    this.setState(prevState => {
        prevState.view.flowPage = 1
        prevState.data.roleId = role
+       prevState.data.role = roleKey
 
        return prevState
      })
    }
 
- nextBack = (next) => {
-   var {flowPage, validForm, invalidFields} = this.state.view
 
-   if(next){
-     invalidFields = validator.validate(flowPage, this.state.data)
-     validForm = invalidFields.length === 0
-   }
-
-   switch(flowPage){
-     case 0:
-       if(!next){
-         this.props.navigation.goBack()
-         return
-       }
-     case 1:
-       if(validForm){
-           return this.validateUsername()
-       }
-     case 4:
-        return this.validateAccessCode()
-     case 5:
-       //Call register
-       validForm = this.state.view.acceptTerms
-
-       if(next && validForm){
-         this.props.navigation.navigate("Drawer");
-         return
-       }
-   }
-
-    this.setState(prevState => {
-        prevState.view = {
-          ...prevState.view,
-          invalidFields,
-          validForm,
-          errorMsg: I18n.t( ['signup', 'subTitlesError', (subTitlesError[flowPage] || 'completeRed')] ),
-          flowPage: prevState.view.flowPage + (next ? (validForm ? 1 : 0) : -1)
-        }
-        return prevState
-      })
-    }
 
   validateAccessCode = () => this.props.validateAccessCode(this.state.data.accessCode, this.validationCallback)
 
   validateUsername = () => this.props.validateUsername(this.state.data.username, this.validationCallback)
 
   validationCallback = (result, errorMsgKey, invalidField) => this.setState(prevState => {
+    debugger;
       prevState.view = {
         ...prevState.view,
         validForm: result,
@@ -275,7 +280,5 @@ function mapStateToProps({globalReducer}) {
     lang: globalReducer.config.lang
   }
 }
-
-
 
 export default connect(mapStateToProps, authActions)(Register);

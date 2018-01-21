@@ -28,7 +28,7 @@ import Icon from 'react-native-fa-icons';
                multiline={true}
                numberOfLines={8}
                style={styles.text}
-               value={value}
+               defaultValue={value}
                onChangeText={(text) => onChangeText(text)}
               />
            </Column>

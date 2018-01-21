@@ -11,7 +11,6 @@ const es = {
     password: 'Contraseña'
   },
   signup:{
-
     iAccept: 'I accept the ',
     tos: 'Terms of Service',
     acceptAndFinish: 'Accept and Finish',
@@ -65,6 +64,10 @@ const es = {
       requestAcess: 'Request New Access Code',
       support: 'Customer Support',
       didntReceive: 'Didnt receive Access Code?'
+    },
+    about: {
+      descBroker: 'Say few words about you, your role in the Trucking industry, type of Drivers you use to hire.. etc',
+      descCompany: 'Say few words about the company'
     }
   },
   tos:{

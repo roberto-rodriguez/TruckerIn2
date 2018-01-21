@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import { Container, Content, Text, List, Left, Right,   Body, ListItem } from "native-base";
-import { Avatar} from 'src/components'
+import { Container, Content, Text, List, Left, Right,   Body, ListItem, Avatar } from "native-base";
 import { NavigationActions } from "react-navigation";
 import data from "./data";
 import styles from "./style";
@@ -81,17 +80,17 @@ class SideBar extends Component {
           </View>
 
           <ListItem button thumbnail noBorder
-            onPress={() => navigation.navigate('Profile')}
+            onPress={() => navigation.navigate(userDataRow.link)}
             style={styles.userDataListitem} >
             <Left>
-               <Avatar name={fullName} size={60} src={profileImg} square/>
+              <Avatar name={fullName}  size={70} src={profileImg} square/>
             </Left>
             <Body style={{ borderBottomWidth: 0 }}>
               <Text style={styles.userDataNameText}>
                 {fullName}
               </Text>
               <Text style={styles.userDataDescriptionText}>
-                View your profile
+                {userDataRow.description}
               </Text>
             </Body>
             <Right style={{ borderBottomWidth: 0, paddingLeft: 5 }}>

@@ -17,12 +17,15 @@ const es = {
       information: 'Informacion',
       title: 'Update Information',
       firstName: 'First Name',
+      companyName: 'Company Name',
       lastName: 'Last Name',
       email: 'Email',
       phone: 'Phone',
       location: 'Location',
       jobStatus: 'Job Status',
-      showPersonalInfo: 'Show my Contact Information ?'
+      showPersonalInfo: 'Show my Contact Information ?',
+      username: 'Username',
+      password: 'Password'
     },
     experience:{
       experience: 'Experience',
@@ -51,9 +54,7 @@ const es = {
         connections: 'Connections',
         search: 'Search Connections'
     }
-
   }
-
 }
 
 export default es

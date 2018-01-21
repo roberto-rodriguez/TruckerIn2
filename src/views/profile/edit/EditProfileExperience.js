@@ -14,7 +14,6 @@ const items = [
 
 const yesNoItems = [
   {prop: 'ownerOperator',  icon: 'street-view', title:'ownerOperator'},
-  {prop: 'cdl',  icon: 'font', title:'hasCDL'},
   {prop: 'overRoadExp',  icon:'road', title:'recentOver'},
   {prop: 'willTakeOverRoad',  icon: 'hand-stop-o', title:'wouldOver'}
 ]
@@ -52,14 +51,13 @@ class EditProfileExperience extends Component {
 
  onAccept = () => {
    var completion = 0;
-   if(this.state.equipmentId)completion += 16.6;
-   if(this.state.experienceId)completion += 16.6;
-   if(this.state.ownerOperator)completion += 16.6;
-   if(this.state.cdl)completion += 16.6;
-   if(this.state.overRoadExp)completion += 16.6;
-   if(this.state.willTakeOverRoad)completion += 16.6;
+   if(this.state.equipmentId)completion += 20;
+   if(this.state.experienceId)completion += 20;
+   if(this.state.ownerOperator)completion += 20;
+   if(this.state.overRoadExp)completion += 20;
+   if(this.state.willTakeOverRoad)completion += 20;
 
-   if(completion > 99)completion = 100;
+   //if(completion > 99)completion = 100;
 
    this.state.completion = completion
 

@@ -45,16 +45,7 @@ class Experience extends Component {
                <Column columns={2}>
                  <T13>{this.getValString(profileExperience.ownerOperator)}</T13>
                </Column>
-             </Row>
-
-             <Row spaceBetween>
-               <Column start columns={2}>
-                 <T13>{t('hasCDL')}</T13>
-               </Column>
-               <Column columns={2}  >
-                 <T13>{this.getValString(profileExperience.cdl)}</T13>
-               </Column>
-             </Row>
+             </Row> 
 
              <Row h={60} spaceBetween>
                <Column  h={60} start columns={2}>

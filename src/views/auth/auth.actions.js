@@ -38,4 +38,22 @@ export function validateUsername(username, callback){
   }
 }
 
+export function register(data, callback){
+  return function( dispatch, getState ){
+   //Call register API
+   var resultCode = 1  //Everything OK
+   var resultMessage = 'SUCCESS'
+   var id = 1;
+
+   data.id = id;
+   data.userId = id;
+   data.completion = 100;
+
+   dispatch( globalActions.setGlobalProfileInfoAction( data ) )
+   dispatch( globalActions.setGlobalProfileExperienceAction( data ) )
+
+   callback(resultCode === 1, resultMessage)
+  }
+}
+
 //--- MOCK DATA ------------

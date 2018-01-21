@@ -31,12 +31,9 @@ const initialState = {
     equipment: '',
     experienceId: 0,
     experience: '',
-    ownerOperator:0,
-    cdl: 0,
+    ownerOperator:0, 
     overRoadExp: 0,
-    willTakeOverRoad: 0,
-    carAccident: 0,
-    dui:0
+    willTakeOverRoad: 0
   },
   config:{
     lang: I18n.currentLocale() &&  I18n.currentLocale().split('-')[0],
@@ -53,7 +50,6 @@ const initialState = {
   }
 };
 
-
 export default function(state: any = initialState, action: Function) {
 
   switch (action.type) {
@@ -64,7 +60,7 @@ export default function(state: any = initialState, action: Function) {
     case 'SET_GLOBAL_PROFILE_INFO':
       return { ...state, profileInfo: {...state.profileInfo, ...action.profileInfo }};
     case 'SET_GLOBAL_PROFILE_EXPERIENCE':
-      return { ...state, profileExperience: action.profileExperience };
+      return { ...state, profileExperience: {...state.profileExperience , ...action.profileExperience} };
     case 'SHOW_HEADER_NOTIFICATION':
       return { ...state, view: {...state.view, headerNotification: action.headerNotification} };
     case 'UPDATE_NOTIFICATIONS':

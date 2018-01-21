@@ -58,7 +58,7 @@ class EditProfile extends Component {
                  navigation={navigation}
                  icon={icon}
                  label={this.getSubText(i, prop)}
-                 value={I18n.t(['profile', title])}
+                 value={I18n.t(['profile', title, title])}
                  routeName= {route}
                  params= {{ setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}
                  red= {redable && this.props[prop + 'Completion'] < 100}
