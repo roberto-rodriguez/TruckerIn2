@@ -17,7 +17,8 @@ const initialState = {
     location: '',
     jobStatusId: 1,
     jobStatus: '',
-    showPersonalInfo:1
+    showPersonalInfo:1,
+    about: null
   },
   profileExperience:{
     completion: 0,
@@ -36,7 +37,8 @@ const initialState = {
     completion: 0,
     careerHistory:{}
   },
-  connections:[]
+  connections:[],
+  postedJobs:[]
 };
 export default function(state: any = initialState, action: Function) {
 
@@ -74,6 +76,9 @@ export default function(state: any = initialState, action: Function) {
                         careerHistory,
                         completion: Object.keys(careerHistory).length == 0 ? 0 : 100
                 }};
+
+    case "SAVE_PROFILE_POSTED_JOBS":
+        return { ...state, postedJobs: (action.list || [])};
 
     default:
       return state;

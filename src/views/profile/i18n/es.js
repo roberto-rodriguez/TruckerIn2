@@ -14,7 +14,7 @@ const es = {
       connections: ' Connections'
     },
     information:{
-      information: 'Informacion',
+      information: 'Contact',
       title: 'Update Information',
       firstName: 'First Name',
       companyName: 'Company Name',
@@ -53,6 +53,18 @@ const es = {
     connections:{
         connections: 'Connections',
         search: 'Search Connections'
+    },
+    about:{
+      about: 'About' 
+    },
+    aboutMe:{
+      aboutMe: 'About Me'
+    },
+    aboutUs:{
+      aboutUs: 'About Us'
+    },
+    postedJobs:{
+      postedJobs: 'Posted Jobs'
     }
   }
 }

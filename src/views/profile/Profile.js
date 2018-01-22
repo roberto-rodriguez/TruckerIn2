@@ -8,6 +8,7 @@ import * as profileActions from "src/views/profile/profile.actions";
 import I18n from 'react-native-i18n'
 import Icon from 'react-native-fa-icons';
 import styles from "./styles";
+import * as roles from 'src/components/c/Role'
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -15,15 +16,19 @@ import Information from './sections/Information'
 import Experience from './sections/Experience'
 import Career from './sections/Career'
 import Connections from './sections/Connections'
+import About from './sections/About'
+import PostedJobs from './sections/PostedJobs'
 
 const coverImg = require("../../../assets/cover.png");
-//const profileImg = require("../../../assets/contacts/yo.png");
 
-var buttonsData = [
-  {name: 'profileInfo', icon: 'user-circle-o', title: 'information', privacity:'justMe'},
-  {name: 'profileExperience', icon: 'truck', title: 'experience', privacity:'employer'},
-  {name: 'profileCareer', icon: 'graduation-cap', title: 'career', privacity:'public'},
-  {name: 'connections', icon: 'group', title: 'connections', privacity:'notMe'}
+var driverSections = [
+  {name: 'profileInfo', icon: 'phone-square', title: 'information' },
+  {name: 'profileExperience', icon: 'truck', title: 'experience' },
+  {name: 'profileCareer', icon: 'graduation-cap', title: 'career' },
+  {name: 'connections', icon: 'group', title: 'connections', showSubText: true},
+  {name: 'aboutMe', icon: 'user-secret', title: 'aboutMe' },
+  {name: 'aboutUs', icon: 'bank', title: 'aboutUs' },
+  {name: 'postedJobs', icon: 'truck', title: 'postedJobs', showSubText: true}
 ]
 
 
@@ -50,6 +55,7 @@ componentDidMount(){
         id,
         name,
         role,
+        roleId,
         profileImg,
         location,
         profileInfoCompletion,
@@ -60,8 +66,13 @@ componentDidMount(){
 
       var profileCompleted = (profileInfoCompletion + profileExperienceCompletion)/2
 
-    var profileOptions = buttonsData.filter((data) => {
-        return true; //Provissional
+    var profileOptions = driverSections.filter((data, i) => {
+        switch(roleId){
+          case roles.DRIVER: return i < 4
+          case roles.BROKER: return (i === 0) || (data.name === 'aboutMe') || (data.name === 'postedJobs')
+          case roles.COMPANY:return (i === 0) || (data.name === 'aboutUs') || (data.name === 'postedJobs')
+        }
+        return false; //Provissional
     }).map((data, i) => {
       if(!selectedSection && i === 0)selectedSection = data.name;  //For the first time
 
@@ -69,7 +80,7 @@ componentDidMount(){
       <TouchableOpacity transparent key={i} style={styles.optionBtn} onPress={() => _this.setState({selectedSection: data.name})}>
         <Icon name={data.icon} style={[styles.headerIcon, _this.buildStyle(selectedSection ? selectedSection === data.name : i === 0)]}/>
         <Text style={[styles.optionText, _this.buildStyle(selectedSection ? selectedSection === data.name : i === 0)]}>{I18n.t(['profile', data.title, data.title])}</Text>
-        {isMe && <Text style={styles.extraSmallText}>{this.buildSubText(data.name, isMe)}</Text>}
+        {(isMe || data.showSubText ) && <Text style={styles.extraSmallText}>{this.buildSubText(data.name, isMe)}</Text>}
       </TouchableOpacity>)
     })
 
@@ -140,13 +151,20 @@ componentDidMount(){
       case 'profileExperience': return (<Experience isMe={isMe} navigation={navigation}/>)
       case 'profileCareer': return (<Career isMe={isMe} navigation={navigation}/>)
       case 'connections': return (<Connections isMe={isMe} navigation={navigation}/>)
+      case 'postedJobs': return (<PostedJobs isMe={isMe} navigation={navigation}/>)
+      case 'aboutMe':
+      case 'aboutUs': return (<About isMe={isMe} navigation={navigation}/>)
     }
   }
 
   buildSubText(selectedSection, isMe){
+
     switch(selectedSection){
-      case 'connections': return this.props.connectionsCount
+      case 'connections': return this.props.connectionsCount 
+      case 'aboutMe':
+      case 'aboutUs':
       case 'profileCareer': return ''
+      case 'postedJobs': return this.props.postedJobs
       default:
         return this.props[selectedSection + 'Completion'] + ' %'
     }
@@ -175,11 +193,13 @@ componentDidMount(){
       id: userInfo.userId || userInfo.id, //userId is when is comming from other page, like Job
       name: isMe ? session.firstName + ' ' + session.lastName : userInfo.userName,
       role: profileInfo.role,
+      roleId: profileInfo.roleId,
       profileImg:  isMe ? session.profileImg : userInfo.profileImg,
       location: profileInfo.location,
       profileInfoCompletion: profileInfo.completion || 0,
       profileExperienceCompletion:  (isMe ? globalReducer.profileExperience.completion : profileReducer.profileExperience.completion) || 0,
-      connectionsCount: profileReducer.connectionsCount,
+      connectionsCount: profileInfo.connectionsCount,
+      postedJobs: profileInfo.postedJobs,
       lang: globalReducer.config.lang
     }
 

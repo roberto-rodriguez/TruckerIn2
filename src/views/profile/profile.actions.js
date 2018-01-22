@@ -3,6 +3,8 @@
 //import I18n from 'react-native-i18n'
 
 import * as globalActions from 'src/reducers/globalActions'
+import * as jobsActions from 'src/views/jobs/jobs.actions'
+import * as roles from 'src/components/c/Role'
 
 export const resetProfileAction = (profileInfo) => ({ type: 'RESET_PROFILE' })
 export const saveProfileInfoAction = (profileInfo) => ({ type: 'SAVE_PROFILE_INFO', profileInfo })
@@ -11,6 +13,54 @@ export const saveProfileCareerAction = (profileCareer) => ({ type: 'SAVE_PROFILE
 export const saveProfileCareerItemAction = (profileCareerItem) => ({ type: 'SAVE_PROFILE_CAREER_ITEM', profileCareerItem })
 export const deleteProfileCareerItemAction = (id) => ({ type: 'DELETE_PROFILE_CAREER_ITEM', id })
 export const saveProfileConnections = (list) => ({ type: 'SAVE_PROFILE_CONNECTIONS', list})
+export const saveProfilePostedJobs = (list) => ({ type: 'SAVE_PROFILE_POSTED_JOBS', list})
+
+
+
+export function loadProfile(userId){
+  return function( dispatch, getState ){
+
+    dispatch( resetProfileAction() )
+
+    var profileInfo = getState().globalReducer.profileInfo
+
+    if(userId != profileInfo.id){
+      profileInfo = apiGetProfileInfo(userId);
+      dispatch( saveProfileInfoAction(profileInfo));
+
+      if(profileInfo.roleId === roles.DRIVER){
+        var profileExperience = globalActions.apiGetProfileExperience(userId);
+        dispatch( saveProfileExperienceAction(profileExperience) )
+      }
+    }
+
+
+  if(profileInfo.roleId === roles.DRIVER){
+      var profileCareer = apiGetCareer(userId)
+
+      if(profileCareer.careerHistory){
+        profileCareer.careerHistory = profileCareer.careerHistory.reduce((acc, careerItem) => {
+                                         acc[careerItem.id] = careerItem;
+                                         return acc;
+                                       }, {});
+      }else{
+        profileCareer.careerHistory = {}
+      }
+
+      dispatch( saveProfileCareerAction(profileCareer) )
+
+
+      loadProfileConnections(userId)(dispatch, getState)
+
+  }else{
+
+     jobsActions.loadJobs(0, {userId, posted: true, limit: 3}, ( list ) => {
+       dispatch( saveProfilePostedJobs(list) )
+     })( dispatch, getState )
+  }
+
+  }
+}
 
 export function resetProfileInfo( ){
   return function( dispatch, getState ){
@@ -60,6 +110,23 @@ export function loadProfileConnections(userId, page = 0, nameFilter, callback, r
   }
 }
 
+
+export function loadProfilePostedJobs(userId, page = 0, callback ){
+  return function( dispatch, getState ){
+
+    userId = userId || getState().profileReducer.profileInfo.userId
+
+    var connections = apiGetProfileConnections( userId, page, nameFilter)
+
+    if(callback){
+      callback(connections, reset)   //This is from the feed
+    }else{
+       dispatch( saveProfileConnections(connections))
+    }
+
+  }
+}
+
 export function loadProfileCareer(isMe, page = 0, callback ){
   return function( dispatch, getState ){
 
@@ -80,43 +147,21 @@ export function deleteProfileCareerItem(id){
 }
 
 
-export function loadProfile(userId){
-  return function( dispatch, getState ){
 
-    dispatch( resetProfileAction() )
-
-    if(userId != getState().globalReducer.profileInfo.id){
-      var profileInfo = apiGetProfileInfo(userId);
-      dispatch( saveProfileInfoAction(profileInfo));
-
-      var profileExperience = globalActions.apiGetProfileExperience(userId);
-      dispatch( saveProfileExperienceAction(profileExperience) )
-    }
-
-
-    var profileCareer = apiGetCareer(userId)
-
-    if(profileCareer.careerHistory){
-      profileCareer.careerHistory = profileCareer.careerHistory.reduce((acc, careerItem) => {
-                                       acc[careerItem.id] = careerItem;
-                                       return acc;
-                                     }, {});
-    }else{
-      profileCareer.careerHistory = {}
-    }
-
-    dispatch( saveProfileCareerAction(profileCareer) )
-
-
-    loadProfileConnections(userId)(dispatch, getState)
-  }
-}
 
 export function changeProfilePricture(id){
   return function( dispatch, getState ){
       globalActions.showHeaderNotification('Change Profile Picture will be ready in the next version.')( dispatch, getState )
   }
 }
+
+export function saveAbout(aboutObj){
+  return function( dispatch, getState ){
+        debugger;
+     dispatch( globalActions.setGlobalProfileInfoAction(aboutObj) )
+   }
+}
+
 
 //--- MOCK DATA ------------
 export function apiGetProfileInfo(userId){
@@ -126,8 +171,8 @@ export function apiGetProfileInfo(userId){
     completion: 100,
     phone: '786-454-0209',
     email: 'titorobe@yahoo.com',
-    roleId:1,
-    role:'Driver',
+    roleId:2,
+    role:'Broker',
     locationId:1,
     location: 'Atlanta, GA',
     firstName:'Roberto',
@@ -136,10 +181,11 @@ export function apiGetProfileInfo(userId){
     jobStatus: 'Actively Searching',
 //    profileImg,   //:'http://res.cloudinary.com/truckerin/image/upload/v1511722092/yo_o1q3tq.png',
     showPersonalInfo: 1,
+    about: 'We are a brockerage company that believes in having a good time while doing what we love, and we do love what we do .  We are a brockerage company that believes in having a good time while doing what we love, and we do love what we do.',
 
     savedJobs: 2,
     appliedJobs: 3,
-    postedJobs: 6,
+    postedJobs: 3,
     connections: 12,
     pendingRequest: 10
   }

@@ -67,9 +67,9 @@ export default {
     paddingBottom: 4
   },
   optionsContainerView: {
-    padding: 15,
+    padding: 10,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginBottom: 15,
     marginTop: 5,
     borderTopWidth: 1, // 1 / PixelRatio.getPixelSizeForLayoutSize(1),

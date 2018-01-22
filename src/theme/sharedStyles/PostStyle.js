@@ -8,7 +8,8 @@ export default StyleSheet.create({
     container:{
       marginLeft:5,
       marginRight:5,
-      padding:15},
+      padding:15
+    },
     header:{
       marginBottom:15,
       justifyContent:'space-between',

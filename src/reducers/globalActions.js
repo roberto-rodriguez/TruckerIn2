@@ -86,11 +86,12 @@ export function apiGetProfileInfo(userId){
     lastName:'Tran',
     jobStatusId: 1,
     jobStatus: 'Actively Searching',
+    about: 'Join millions of people in millions of communities across millions of #tags. See something you love? Reblog it to your Tumblr and start a conversation. Or just lurk, if you’re feeling shy. No big deal.',
   //  profileImg:'http://res.cloudinary.com/truckerin/image/upload/v1511722092/yo_o1q3tq.png',
     showPersonalInfo: 1,
     savedJobs: 0,
     appliedJobs: 3,
-    postedJobs: 6,
+    postedJobs: 5,
     connections: 12,
     pendingRequest: 10,
     notifications:34

@@ -31,7 +31,7 @@ const initialState = {
     equipment: '',
     experienceId: 0,
     experience: '',
-    ownerOperator:0, 
+    ownerOperator:0,
     overRoadExp: 0,
     willTakeOverRoad: 0
   },
@@ -58,6 +58,7 @@ export default function(state: any = initialState, action: Function) {
     case "LOAD_CONFIG":
       return { ...state, config: {...state.config, ...action.config} };
     case 'SET_GLOBAL_PROFILE_INFO':
+    debugger;
       return { ...state, profileInfo: {...state.profileInfo, ...action.profileInfo }};
     case 'SET_GLOBAL_PROFILE_EXPERIENCE':
       return { ...state, profileExperience: {...state.profileExperience , ...action.profileExperience} };

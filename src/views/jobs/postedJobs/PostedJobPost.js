@@ -4,9 +4,9 @@ import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
 import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton,  T12, T14, Content, Avatar, nav} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
+import { connect } from "react-redux";
 
-
-export default class PostedJobPosts extends Component {
+ class PostedJobPosts extends Component {
 
   constructor(props) {
       super(props)
@@ -20,7 +20,7 @@ export default class PostedJobPosts extends Component {
 
   render() {
     var dataRow = this.props.data;
-    const navigation = this.props.navigation;
+    const {navigation, isMe} = this.props
 
     if(this.state.deleted)return null;
 
@@ -42,8 +42,10 @@ export default class PostedJobPosts extends Component {
 
         <View style={postStyle.headerRight} >
           <View style={{flexDirection: "row",justifyContent:'flex-end'}} >
-            <CustomButton text={'EDIT'} style={{width:60}}
-            handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'edit'}) }/>
+            {  isMe && (
+              <CustomButton text={'EDIT'} style={{width:60}}
+              handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'edit'}) }/>
+            )}
           </View>
           <PostingTime/>
         </View>
@@ -53,24 +55,31 @@ export default class PostedJobPosts extends Component {
       <Text><Text strong>Required Experience: </Text>{dataRow.experience}</Text>
       <Text><Text strong>Compensation: </Text>{dataRow.compensation}</Text>
 
-      {
-          <View style={{flexDirection: 'row', marginTop: 10, justifyContent:'space-between'}}>
-              <CustomButton text={dataRow.apps + ' Applications'} style={{height:32, width:100}}
-              handler={() => nav(navigation, 'PostedJobApplications', {jobId: dataRow.id})}/>
+    <View style={{flexDirection: 'row', marginTop: 10, justifyContent:'space-between' }}>
+        {isMe && (
+            <CustomButton text={dataRow.apps + ' Applications'} style={{height:32, width:100}}
+            handler={() => nav(navigation, 'PostedJobApplications', {jobId: dataRow.id})}/>
+          )
+        }
 
-              <CustomButton white text={'DETALLES'}
+          <CustomButton white text={'DETALLES'}
+          style={styles.button}
+          handler={() => navigation.navigate('JobDetails')}/>
+
+          {isMe && (
+            <CustomButton white text={'COPY'}
               style={styles.button}
-              handler={() => navigation.navigate('JobDetails')}/>
+              handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'copy'}) }/>
+            )
+          }
 
-             <CustomButton white text={'COPY'}
-               style={styles.button}
-               handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'copy'}) }/>
+          {isMe && (
+            <CustomButton white icon={'trash'} style={{width: 40}}
+              handler={ this.delete }/>
+            )
+          } 
+      </View>
 
-               <CustomButton white icon={'trash'}
-               handler={ this.delete }/>
-
-          </View>
-      }
     </Card>)
     }
 
@@ -83,3 +92,9 @@ export default class PostedJobPosts extends Component {
       },
       button: {width:70}
     })
+
+    const mapStateToProps = ({ globalReducer}, ownProps) =>  ({
+       isMe: ownProps.data && ownProps.data.userId === globalReducer.profileInfo.id
+    })
+
+    export default connect(mapStateToProps)(PostedJobPosts);

@@ -19,7 +19,7 @@ export function jobApply(jobId, availability, callback){
 
 export function loadJobs(page = 0, searchParams, callback, reset){
   return function( dispatch, getState ){
-    var userId =  getState().globalReducer.profileInfo.id
+    var userId = searchParams.userId ||  getState().globalReducer.profileInfo.id
 
     var jobs =  apiLoadJobs(userId, page, searchParams)
 
@@ -120,7 +120,7 @@ function apiLoadJobs(userId, page = 0, searchParams){
 
   var list = data.concat(data)
 
-  var listWithId = list.map((item, i) => ({...item, id: page * 10 + i}))
+  var listWithId = list.map((item, i) => ({...item, id: page * 10 + i, userId:1}))
 
   var filters = ['saved', 'experienceId','author', 'locationId', 'equipmentId', 'applied', 'posted']
 
@@ -129,6 +129,10 @@ function apiLoadJobs(userId, page = 0, searchParams){
       listWithId = applyFilter(filter, searchParams, listWithId)
     })
   }
+
+    if(searchParams.limit){
+      listWithId = listWithId.slice(0, searchParams.limit)
+    }
 
 //  jobs = jobs.concat(listWithId)
    return listWithId
