@@ -6,12 +6,12 @@ import Icon from 'react-native-fa-icons';
 import { connect } from "react-redux";
 import theme from 'src/theme/variables/platform';
 import call from 'react-native-phone-call'
+import I18n from 'react-native-i18n'
 
 class Information extends Component {
 
   render() {
-    var profileInfo = this.props.profileInfo
-    var isMe = this.props.isMe
+    var {profileInfo, isMe, isDriver} = this.props
 
     return (
        <Container>
@@ -54,11 +54,11 @@ class Information extends Component {
              this.buildEmptyCmp()
            }
            <Row h={50}  spaceBetween>
-             <Column start h={50}   columns={3}>
+             <Column start columns={2} h={50} >
                <Icon name={"hourglass-end"} style={style.smallIcon}/>
-               <T13 strong>Job Status:</T13>
+             <T13 strong>{I18n.t(['profile', 'information',  isDriver ? 'jobStatus' : 'hiringStatus' ])}</T13>
              </Column>
-               <Column end  columns={3} colspan={2} h={50}  >
+               <Column end  columns={2} h={50}  >
                <T13>{profileInfo.jobStatus}</T13>
              </Column>
            </Row>
@@ -100,7 +100,10 @@ const style = StyleSheet.create({
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
   var isMe = ownProps.isMe;
   var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
-  return {profileInfo}
+  return {
+    profileInfo,
+    isDriver: globalReducer.profileInfo.roleId === 1
+  }
 }
 
   export default connect(mapStateToProps)(Information);

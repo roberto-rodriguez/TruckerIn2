@@ -64,7 +64,7 @@ import { connect } from "react-redux";
 
           <CustomButton white text={'DETALLES'}
           style={styles.button}
-          handler={() => navigation.navigate('JobDetails')}/>
+          handler={() => nav(navigation, 'JobDetails', {data: dataRow})}/>
 
           {isMe && (
             <CustomButton white text={'COPY'}
@@ -77,7 +77,7 @@ import { connect } from "react-redux";
             <CustomButton white icon={'trash'} style={{width: 40}}
               handler={ this.delete }/>
             )
-          } 
+          }
       </View>
 
     </Card>)

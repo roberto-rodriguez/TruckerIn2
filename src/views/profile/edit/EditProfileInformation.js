@@ -32,8 +32,8 @@ class EditProfileInformation extends Component {
    this.setState( newState );
  }
 
- showSelect(prop) {
-   this[prop + 'Select'].show();
+ showSelect( ) {
+   this['statusSelect'].show();
  }
 
  onAccept = () => {
@@ -66,7 +66,7 @@ class EditProfileInformation extends Component {
 
   render() {
 
-    const {navigation, jobStatusOptions} = this.props
+    const {navigation, statusOptions, isDriver} = this.props
     var state = this.state;
 
     return (
@@ -77,7 +77,7 @@ class EditProfileInformation extends Component {
               <InputListItem
                  key={i}
                  icon={icon}
-                 label={I18n.t(['profile','information' , title])}
+                 label={I18n.t(['profile','information', title])}
                  value={ state[prop] }
                  onChangeText={(text) => this.setVal(prop, text)}
                  />) )
@@ -87,16 +87,17 @@ class EditProfileInformation extends Component {
                key={100}
                navigation={navigation}
                icon={'hourglass-end'}
-               label={I18n.t(['profile.information.jobStatus'])}
-               value={ state['jobStatus']}
-               handler={ () => this.showSelect( 'jobStatus' ) }
+               label={I18n.t(['profile', 'information',  isDriver ? 'jobStatus' : 'hiringStatus' ]) + ':'}
+               value={ state[ 'jobStatus' ]}
+               handler={ () => this.showSelect( ) }
                />
 
-            <Select
-               ref={o => this.jobStatusSelect = o}
-               options={jobStatusOptions}
-               onPress={(i) => this.setVal('jobStatus', jobStatusOptions[i].name, jobStatusOptions[i].id)}
-             />
+               <Select
+                  ref={o => this.statusSelect = o}
+                  options={statusOptions}
+                  onPress={(i) => this.setVal( 'jobStatus', statusOptions[i].name, statusOptions[i].id)}
+                />
+
 
              {!state.hidePrivacityOption &&
               yesNoItems.map( ({icon, title, prop}, i) => (
@@ -114,10 +115,16 @@ class EditProfileInformation extends Component {
   }
 }
 
-const mapStateToProps = ({ globalReducer}) => ({
-   profileInfo: globalReducer.profileInfo,
-   jobStatusOptions: globalReducer.config.jobStatusOptions,
-   lang: globalReducer.config.lang
- })
+const mapStateToProps = ({ globalReducer}) => {
+  var isDriver = globalReducer.profileInfo.roleId === 1
+  var {jobStatusOptions, hiringStatusOptions} = globalReducer.config
+
+  return {
+    isDriver,
+    statusOptions: isDriver ? jobStatusOptions : hiringStatusOptions,
+    profileInfo: globalReducer.profileInfo
+  }
+}
+
 
 export default connect(mapStateToProps, profileActions)(EditProfileInformation);

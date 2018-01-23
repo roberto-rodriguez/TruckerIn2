@@ -23,6 +23,7 @@ const es = {
       phone: 'Phone',
       location: 'Location',
       jobStatus: 'Job Status',
+      hiringStatus: 'Hiring Status',
       showPersonalInfo: 'Show my Contact Information ?',
       username: 'Username',
       password: 'Password'
@@ -55,7 +56,7 @@ const es = {
         search: 'Search Connections'
     },
     about:{
-      about: 'About' 
+      about: 'About'
     },
     aboutMe:{
       aboutMe: 'About Me'

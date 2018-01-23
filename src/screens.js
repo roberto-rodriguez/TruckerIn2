@@ -17,7 +17,7 @@
  export { default as EditAbout } from 'src/views/profile/edit/EditAbout'
  export { default as ProfileConnectionList } from 'src/views/profile/sections/ProfileConnectionList'
  export { default as ProfileCareerList } from 'src/views/profile/sections/ProfileCareerList'
-
+ export { default as PostedJobsList } from 'src/views/profile/sections/PostedJobsList'
 
 //jobs
  export { default as JobDetails } from 'src/views/jobs/details/JobDetails'

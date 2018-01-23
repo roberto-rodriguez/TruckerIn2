@@ -40,7 +40,8 @@ const initialState = {
     equipmentOptions: [],
     experienceOptions: [],
     jobStatusOptions: [],
-    roleOptions: []
+    roleOptions: [],
+    hiringStatus: []
   },
   // notifications:{
   //
@@ -58,7 +59,6 @@ export default function(state: any = initialState, action: Function) {
     case "LOAD_CONFIG":
       return { ...state, config: {...state.config, ...action.config} };
     case 'SET_GLOBAL_PROFILE_INFO':
-    debugger;
       return { ...state, profileInfo: {...state.profileInfo, ...action.profileInfo }};
     case 'SET_GLOBAL_PROFILE_EXPERIENCE':
       return { ...state, profileExperience: {...state.profileExperience , ...action.profileExperience} };

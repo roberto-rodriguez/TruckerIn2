@@ -65,7 +65,7 @@ componentDidMount(){
       } = this.props
 
       var profileCompleted = (profileInfoCompletion + profileExperienceCompletion)/2
-
+debugger;
     var profileOptions = driverSections.filter((data, i) => {
         switch(roleId){
           case roles.DRIVER: return i < 4
@@ -136,7 +136,7 @@ componentDidMount(){
             }
           </View>
 
-          {this.buildSection(selectedSection, isMe, navigation)}
+          {this.buildSection(selectedSection, isMe, navigation, id)}
 
           </Content>
       </Container>
@@ -145,13 +145,13 @@ componentDidMount(){
 
   // <TransparentButton border text={'Friends 10'} style={{padding:10}} textStyle={{fontSize:11}}/>
 
-  buildSection(selectedSection, isMe, navigation){
+  buildSection(selectedSection, isMe, navigation, id){
     switch(selectedSection){
       case 'profileInfo': return (<Information isMe={isMe} navigation={navigation}/>)
       case 'profileExperience': return (<Experience isMe={isMe} navigation={navigation}/>)
       case 'profileCareer': return (<Career isMe={isMe} navigation={navigation}/>)
       case 'connections': return (<Connections isMe={isMe} navigation={navigation}/>)
-      case 'postedJobs': return (<PostedJobs isMe={isMe} navigation={navigation}/>)
+      case 'postedJobs': return (<PostedJobs isMe={isMe} navigation={navigation} id={id}/>)
       case 'aboutMe':
       case 'aboutUs': return (<About isMe={isMe} navigation={navigation}/>)
     }
@@ -160,7 +160,7 @@ componentDidMount(){
   buildSubText(selectedSection, isMe){
 
     switch(selectedSection){
-      case 'connections': return this.props.connectionsCount 
+      case 'connections': return this.props.connectionsCount
       case 'aboutMe':
       case 'aboutUs':
       case 'profileCareer': return ''

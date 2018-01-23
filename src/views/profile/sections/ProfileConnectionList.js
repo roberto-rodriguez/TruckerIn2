@@ -4,7 +4,7 @@ import { Container  } from "native-base";
 import {StackView, ContactListItem, Row, Header, Feed} from 'src/components/'
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
- 
+
 class ProfileConnectionList extends Component {
 
   constructor(props) {
@@ -80,10 +80,4 @@ class ProfileConnectionList extends Component {
   }
 }
 
-
-const mapStateToProps = ({ profileReducer}) =>  ({
-  connections: profileReducer.connections
-})
-
-
-  export default connect(mapStateToProps, profileActions)(ProfileConnectionList);
+  export default connect(null, profileActions)(ProfileConnectionList);

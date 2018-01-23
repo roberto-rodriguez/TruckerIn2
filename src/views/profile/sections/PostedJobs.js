@@ -20,7 +20,7 @@ class PostedJobs extends Component {
        {postedJobs.map( (data, i) => (  <PostedJobPost navigation={navigation}  key={i} data={data}/> ))}
 
        {postedJobs.length === 3 && (
-         <Button full transparent onPress={() => nav(navigation, 'ProfileConnectionList', this.state)}>
+         <Button full transparent onPress={() => nav(navigation, 'PostedJobsList')}>
            <Text style={{ color: theme.secondaryColor }}>
              {I18n.t('profile.seeMore')}
            </Text>

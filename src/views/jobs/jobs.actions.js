@@ -120,7 +120,7 @@ function apiLoadJobs(userId, page = 0, searchParams){
 
   var list = data.concat(data)
 
-  var listWithId = list.map((item, i) => ({...item, id: page * 10 + i, userId:1}))
+  var listWithId = list.map((item, i) => ({...item, id: page * 10 + i, userId: page * 10 + i}))
 
   var filters = ['saved', 'experienceId','author', 'locationId', 'equipmentId', 'applied', 'posted']
 
@@ -151,7 +151,7 @@ function apiLoadJob(jobId){
     experienceId: 3,
     experience: '1 year',
     compensation: 'Compensation goes here',
-    desc: 'Desc goes here',
+    desc: 'We are looking for an experienced truck driver to serve our supply chain logistics department in a safe and timely manner.',
     requirements: 'Requirem goes here',
     responsabilities: 'Responsab goes here',
     benefits: 'Benefits goes here'

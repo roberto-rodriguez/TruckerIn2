@@ -16,7 +16,7 @@ const initialState = {
     locationId:0,
     location: '',
     jobStatusId: 1,
-    jobStatus: '',
+    jobStatus: '', 
     showPersonalInfo:1,
     about: null
   },

@@ -118,7 +118,8 @@ function apiLoadConfig(){
     equipmentOptions: [  {id:1, name:'Animal Carrier'}, {id:2, name:'Dump Truck'}, {id:3, name:'Hauler'}, {id:4, name:'Tanker'}, {id:5, name:'Tractor'} ],
     experienceOptions: [ {id:2, name:'6 Months'}, {id:3, name:'1 year'}, {id:4, name:'2 year'}, {id:5, name:'3 year'}, {id:6, name:'5 year'} ],
     jobStatusOptions: [ {id: 1, name: 'Actively searching'}, {id: 2, name: 'Not searching, but open to opportunities'}, {id:3, name:'Not interested'}],
-    roleOptions: [ {id: 1, name: 'Driver'}, {id: 2, name: 'Broker'}, {id:3, name:'Company'}]
+    roleOptions: [ {id: 1, name: 'Driver'}, {id: 2, name: 'Broker'}, {id:3, name:'Company'}],
+    hiringStatusOptions: [ {id: 1, name: 'Hiring Now'}, {id: 2, name: 'Possibly Hiring'}, {id:3, name:'Not Hiring'}]
   }
 }
 
