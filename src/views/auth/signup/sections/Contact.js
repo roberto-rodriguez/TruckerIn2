@@ -40,7 +40,7 @@ class Contact extends Component {
   render() {
     const {navigation, jobStatusOptions, invalidFields} = this.props
     var data  = this.state;
- 
+
     return (
           <View >
           {
@@ -58,7 +58,7 @@ class Contact extends Component {
            navigation={navigation}
            key={101}
            icon={'map-marker'}
-           label={'Location'}
+           label={I18n.t('profile.location.title')}
            value={ data.location}
            red={!data.locationId && invalidFields.indexOf('locationId') >= 0}
            routeName={'LocationPicker'}

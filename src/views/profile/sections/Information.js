@@ -10,12 +10,15 @@ import I18n from 'react-native-i18n'
 
 class Information extends Component {
 
+  t = (key) => I18n.t(['profile', 'information',  key])
+
   render() {
     var {profileInfo, isMe, isDriver} = this.props
+    var t = this.t
 
     return (
        <Container>
-           <BlockButton show={isMe} text={'Edit'}  onPress={() => nav(this.props.navigation, 'EditProfileInformation')}/>
+           <BlockButton show={isMe} text={I18n.t('general.edit')}  onPress={() => nav(this.props.navigation, 'EditProfileInformation')}/>
 
            {
              (isMe || profileInfo.showPersonalInfo === 1) ?
@@ -24,7 +27,7 @@ class Information extends Component {
                  <Row spaceBetween>
                    <Column start columns={5} colspan={2}>
                      <Icon name={"phone"} style={style.smallIcon}/>
-                     <T13 strong>Phone:</T13>
+                   <T13 strong>{t('phone') + ':'}</T13>
                    </Column>
                    <Column end columns={5} colspan={2}>
                      <T13>{profileInfo.phone}</T13>
@@ -42,7 +45,7 @@ class Information extends Component {
                  <Row  spaceBetween>
                    <Column start columns={3}>
                      <Icon name={"envelope"} style={style.smallIcon}/>
-                     <T13 strong>Email:</T13>
+                   <T13 strong>{t('email') + ':'}</T13>
                      </Column>
                      <Column end columns={3} colspan={2}>
                      <T13>{profileInfo.email}</T13>
@@ -56,7 +59,7 @@ class Information extends Component {
            <Row h={50}  spaceBetween>
              <Column start columns={2} h={50} >
                <Icon name={"hourglass-end"} style={style.smallIcon}/>
-             <T13 strong>{I18n.t(['profile', 'information',  isDriver ? 'jobStatus' : 'hiringStatus' ])}</T13>
+             <T13 strong>{t(isDriver ? 'jobStatus' : 'hiringStatus') + ':'}</T13>
              </Column>
                <Column end  columns={2} h={50}  >
                <T13>{profileInfo.jobStatus}</T13>
@@ -65,12 +68,12 @@ class Information extends Component {
            {
              isMe &&
              <Row h={50}  spaceBetween>
-               <Column start h={50} columns={3} colspan={2}>
+               <Column start h={50} columns={4} colspan={3}>
                  <Icon name={"lock"} style={style.smallIcon}/>
-                 <T13 strong>Show contact information:</T13>
+                 <T13 strong>{t('showPersonalInfo')}  </T13>
                </Column>
-               <Column end columns={3} h={50}>
-                 <T13>{profileInfo.showPersonalInfo === 1 ? 'YES' : 'NO'}</T13>
+               <Column end columns={4} h={50}>
+                 <T13>{profileInfo.showPersonalInfo === 1 ? I18n.t('general.yes') : 'NO'}</T13>
                </Column>
              </Row>
            }
@@ -81,12 +84,13 @@ class Information extends Component {
 
   buildEmptyCmp (){
        var {userId, firstName} = this.props.profileInfo
+       var t = this.t
 
        return (
          <AgentMsg onPress={()=> nav(this.props.navigation, 'Chat', {id: userId, name: firstName})}  >
            <View>
-             <T14 green>This user prefers to not show his contact information.</T14>
-             <T11 green>( Click here to send him a message )</T11>
+             <T14 green>{t('notShowInfo')}</T14>
+             <T11 green>{t('clickToMsg')}</T11>
            </View>
          </AgentMsg>
        )

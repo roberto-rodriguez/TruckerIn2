@@ -5,13 +5,13 @@ import { Header, Feed} from 'src/components/'
 import { connect } from "react-redux";
 import * as jobsActions from "src/views/jobs/jobs.actions";
 import PostedJobPost from 'src/views/jobs/postedJobs/PostedJobPost'
-
+import I18n from 'react-native-i18n'
 
 class PostedJobsList extends Component {
 
-    loadItems = (page, callback) => this.props.loadJobs(page,  {userId: this.props.id, posted: true}, callback)
+  loadItems = (page, callback) => this.props.loadJobs(page,  {userId: this.props.id, posted: true}, callback)
 
-    itemBuilder = (data, navigation, i, shouldUpdate) => ( <PostedJobPost navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate}/>)
+  itemBuilder = (data, navigation, i, shouldUpdate) => ( <PostedJobPost navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate}/>)
 
   render() {
     var {isMe, navigation} = this.props
@@ -20,7 +20,7 @@ class PostedJobsList extends Component {
       <Container white>
         <View style={{minHeight:'100%'}}>
           <Header back
-           title={isMe ? 'My Posted Jobs' : 'Posted Jobs' }
+           title={ I18n.t('profile.titles.postedJobs') }
            navigation={navigation} />
          <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
         </View>

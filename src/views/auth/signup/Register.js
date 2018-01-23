@@ -78,11 +78,8 @@ class Register extends Component {
   }
 
   setVal = (prop, val, valId) => this.setState((prevState) => {
-      debugger;
          prevState.data[prop] = val
-
          if(valId){ prevState.data[prop + 'Id'] = valId }
-
          return prevState
       })
 
@@ -120,7 +117,7 @@ class Register extends Component {
                     />
               ) :
               ( <RowColumn>
-                  <T15 green>SELECT ROLE</T15>
+                  <T15 green>{I18n.t('signup.roles.selectRole')}</T15>
                 </RowColumn>
               )
           }

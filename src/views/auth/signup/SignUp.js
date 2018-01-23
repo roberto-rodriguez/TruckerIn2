@@ -24,8 +24,6 @@ const titles = ['welcome','personal','contact','experience','validatePhone', 'pr
 const subTitles = [ 'welcome', null, null, null, 'validatePhone' ]
 const bullets = ['personal', 'contact', 'experience', 'validatePhone', 'profilePic', 'tos']
 
-const logo = require("../../../../assets/logo.png");
-
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -69,20 +67,15 @@ class SignUp extends Component {
 
   setVal = (prop, val, valId) => this.setState((prevState) => {
          prevState.data[prop] = val
-
          if(valId){ prevState.data[prop + 'Id'] = valId }
-
          return prevState
       })
 
-  selectRole = ( role ) => {
-     this.setState(prevState => {
+  selectRole = ( role ) => this.setState(prevState => {
          prevState.view.flowPage = 1
          prevState.data.roleId = role
-
          return prevState
        })
-     }
 
    nextBack = (next) => {
      var {flowPage, validForm, validFields} = this.state.view

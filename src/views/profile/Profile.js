@@ -65,7 +65,7 @@ componentDidMount(){
       } = this.props
 
       var profileCompleted = (profileInfoCompletion + profileExperienceCompletion)/2
-debugger;
+
     var profileOptions = driverSections.filter((data, i) => {
         switch(roleId){
           case roles.DRIVER: return i < 4
@@ -91,7 +91,9 @@ debugger;
           navigation={navigation}
           back
           title={I18n.t('profile.title')}
-          right={isMe ? <Button text={I18n.t('profile.edit')} handler={() => nav(navigation, 'EditProfile')} style={styles.topBarButton}/> : <Button text={I18n.t('profile.message')} handler={()=> nav(navigation, 'Chat', {id, name})} style={styles.topBarButton}/>}
+          right={isMe ?
+              <Button text={I18n.t('profile.edit')} handler={() => nav(navigation, 'EditProfile')} style={styles.topBarButton}/>
+            : <Button text={I18n.t('profile.message')} handler={()=> nav(navigation, 'Chat', {id, name})} style={styles.topBarButton}/>}
         />
 
           <View style={styles.coverBlock}>
@@ -123,10 +125,10 @@ debugger;
             <Column h={60} columns={5} colspan={3}>
               <T13 light>{role}</T13>
               <Text style={styles.pendingPostText}>{location}</Text>
-              <Text style={styles.extraSmallText}>{I18n.t('profile.completed') + profileCompleted + '%'} </Text>
+            <Text style={styles.extraSmallText}>{isMe ? I18n.t('profile.completed') + profileCompleted + '%' : ''} </Text>
             </Column>
             <Column h={40} columns={5} style={{marginTop:15}}>
-              {!isMe && <ConnectButton status={''} name={name} handler={() => alert('Connect')}/>}
+              {!isMe && <ConnectButton status={''} name={name} contactId={id}/>}
             </Column>
           </Row>
 

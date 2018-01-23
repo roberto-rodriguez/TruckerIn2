@@ -8,7 +8,10 @@ const es = {
   general:{
     error: 'Error inesperado. Por favor intente de nuevo.',
     yes: 'Si',
-    typeHere: 'Escriba aqui...'
+    edit: 'Editar',
+    add: 'Adicionar',
+    typeHere: 'Escriba aqui...',
+    moreThan: 'Mas que '
   }
 }
 

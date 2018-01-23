@@ -52,8 +52,7 @@ onDelete = () => {
           <InputListItem icon='bank' label={I18n.t('profile.career.companyName')} value={state.company} onChangeText={(text) => this.setVal('company', text)}/>
           <InputListItem icon='calendar' label={I18n.t('profile.career.when')} value={state.date} onChangeText={(text) => this.setVal('date', text)}/>
           <LongInputListItem icon='quote-left' label={I18n.t('profile.career.desc')} value={state.desc} onChangeText={(text) => this.setVal('desc', text)}/>
-         </View>
-
+         </View> 
      </StackView>
     );
   }

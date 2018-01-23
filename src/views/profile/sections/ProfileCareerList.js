@@ -5,6 +5,7 @@ import {StackView, Header, Feed, nav, CustomButton} from 'src/components/'
 import CareerItem from './CareerItem';
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
+import I18n from 'react-native-i18n'
 
 class ProfileCareerList extends Component {
 
@@ -14,7 +15,8 @@ class ProfileCareerList extends Component {
       this.props.loadProfileCareer(isMe, page, callback)
     }
 
-    itemBuilder = (item, navigation, i, shouldUpdate) => (<CareerItem
+    itemBuilder = (item, navigation, i, shouldUpdate) => (
+               <CareerItem
                     key={i}
                     careerItem={item}
                     isMe={this.props.navigation.state.params && this.props.navigation.state.params.isMe}
@@ -30,9 +32,9 @@ class ProfileCareerList extends Component {
       <Container white>
         <View style={{minHeight:'100%'}}>
           <Header back
-           title={'Recent Jobs'}
+           title={I18n.t('profile.titles.recentJobs')}
            navigation={navigation}
-           right={ <CustomButton text='Add' handler={() => nav(navigation, 'EditProfileAddExperience')} style={styles.topBarButton}/>}
+           right={ <CustomButton text={I18n.t('general.add')} handler={() => nav(navigation, 'EditProfileAddExperience')} style={styles.topBarButton}/>}
          />
           <Feed
            feedLoader={this.loadItems}

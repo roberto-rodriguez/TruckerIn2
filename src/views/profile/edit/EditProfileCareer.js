@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { StyleSheet,Image,View , Text, TouchableHighlight, FlatList} from 'react-native';
-import { Container, Content, Button } from "native-base";
+import {  View, FlatList} from 'react-native';
 import Icon from 'react-native-fa-icons';
-import {StackView, T11, T12, T13, T14, Column, TransparentButton, ListItem, Select, nav} from 'src/components/'
-import { connect } from "react-redux";
-import * as profileActions from "src/views/profile/profile.actions";
+import {StackView, T14, Column, ListItem,  nav} from 'src/components/'
+import { connect } from "react-redux"; 
 import I18n from 'react-native-i18n'
 
 class EditProfileCareer extends Component {
@@ -14,12 +12,12 @@ class EditProfileCareer extends Component {
     return (
       <StackView
         navigation={navigation}
-        title={I18n.t('profile.career.title')}
+        title={I18n.t('profile.titles.updateCareer')}
         buttonText={I18n.t('profile.career.addExp')}
         onAccept={() => nav(navigation, 'EditProfileAddExperience')}
       >
 
-        <T14 style={{margin:20}}>Companias para las que has trabajado en los ultimos 5 anos</T14>
+        <T14 style={{margin:20}}>{I18n.t('profile.career.updateCareerMsg')}</T14>
 
         <View style={{ flex: 1}}>
             <FlatList
@@ -42,9 +40,9 @@ class EditProfileCareer extends Component {
     );
   }
 }
+
 const mapStateToProps = ({profileReducer}) => ({
-    careerHistory: Object.values(profileReducer.profileCareer.careerHistory),
-    lang: globalReducer.config.lang
+    careerHistory: Object.values(profileReducer.profileCareer.careerHistory)
   })
 
-export default connect(mapStateToProps, profileActions)(EditProfileCareer);
+export default connect(mapStateToProps)(EditProfileCareer);

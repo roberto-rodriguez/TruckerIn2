@@ -18,7 +18,7 @@ class Career extends Component {
        <Container>
        <Row>
          <Column>
-           <T14 green>Recent laboral experience</T14>
+           <T14 green>{I18n.t('profile.career.recentLabExp')}</T14>
          </Column>
        </Row>
        <BlockButton show={isMe} text={I18n.t('profile.career.addLab')}  onPress={() => nav(navigation, 'EditProfileAddExperience')}/>

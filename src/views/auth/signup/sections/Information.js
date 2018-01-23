@@ -6,9 +6,7 @@ import * as roles from 'src/components/c/Role'
 import I18n from 'react-native-i18n'
 
 
-const items = [
-  // { icon: 'user-circle-o',   title: 'First Name', prop: 'firstName'},
-  // { icon: 'user-circle',   title: 'Last Name', prop: 'lastName'},
+const items = [ 
   { icon: 'user-o',  prop: 'username'},
   { icon: 'lock', prop: 'password'}
 ]

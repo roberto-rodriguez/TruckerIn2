@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import { View } from 'react-native';
 import { ListItem, Select, YesNoListItem} from 'src/components/'
 import { connect } from "react-redux";
+import I18n from 'react-native-i18n'
 
 const items = [
-  {prop: 'experience',  icon: 'tachometer',   title: 'Experience'},
-  {prop: 'jobStatus',  icon: 'hourglass-end', title:'Job Status'},
-  {prop: 'equipment',  icon: 'truck',   title: 'Equipment'}
+  {prop: 'experience',  icon: 'tachometer', title: 'experience'},
+  {prop: 'jobStatus',  icon: 'hourglass-end', title:'jobStatus'},
+  {prop: 'equipment',  icon: 'truck',title: 'equipment'}
 ]
 
 const yesNoItems = [
-  {prop: 'ownerOperator',  icon: 'street-view', title:'Owner Operator'},
-  {prop: 'overRoadExp',  icon:'road', title:'Recent Over the Road Experience?'},
-  {prop: 'willTakeOverRoad',  icon: 'hand-stop-o', title:'Will you take an Over the Road Job?'}
+  {prop: 'ownerOperator',  icon: 'street-view', title:'ownerOperator'},
+  {prop: 'overRoadExp',  icon:'road', title:'recentOver'},
+  {prop: 'willTakeOverRoad',  icon: 'hand-stop-o', title:'wouldOver'}
 ]
+
 
 class Experience extends Component {
 
@@ -56,7 +58,7 @@ class Experience extends Component {
               key={i}
               navigation={navigation}
               icon={icon}
-              label={title}
+              label={I18n.t(['profile','experience' , title])}
               value={ data[prop] }
               red={!data[prop] && invalidFields.indexOf(prop) >= 0}
               handler={ () => this.showSelect( prop ) }
@@ -68,7 +70,7 @@ class Experience extends Component {
             <YesNoListItem
                key={i}
                icon={icon}
-               label={title}
+               label={I18n.t(['profile','experience' , title])}
                value={ data[prop] }
                invalid={!data[prop] && invalidFields.indexOf(prop) >= 0}
                handler={ (val) => this.setVal( prop, val ) }
@@ -96,7 +98,7 @@ class Experience extends Component {
 }
 
 const mapStateToProps = ({globalReducer}) => ({
-  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : 'More than ' + exp.name})),
+  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('general.moreThan') + exp.name})),
   equipmentOptions: globalReducer.config.equipmentOptions,
   jobStatusOptions: globalReducer.config.jobStatusOptions,
   lang: globalReducer.config.lang

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import {  View,  StyleSheet } from "react-native";
+import {  View  } from "react-native";
 import { Button, Container,  Text } from "native-base";
-import {  nav} from 'src/components/'
+import { nav} from 'src/components/'
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
 import theme from 'src/theme/variables/platform'
 
-import * as profileActions from "src/views/profile/profile.actions";
 import PostedJobPost from 'src/views/jobs/postedJobs/PostedJobPost'
 
 class PostedJobs extends Component {
@@ -32,17 +31,10 @@ class PostedJobs extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    minHeight:'100%',
-    backgroundColor: '#FFF',
-    justifyContent: 'flex-start'
-  }
-});
 
 const mapStateToProps = ({ profileReducer}) =>  ({
   postedJobs: profileReducer.postedJobs
 })
 
 
-  export default connect(mapStateToProps, profileActions)(PostedJobs);
+  export default connect(mapStateToProps )(PostedJobs);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Image, View, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
-import { Button, Container, Icon, Item,  Input, Text } from "native-base";
+import { StyleSheet } from "react-native";
+import { Button, Container, Text } from "native-base";
 import {ContactListItem, nav} from 'src/components/'
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
@@ -18,15 +18,10 @@ class Connections extends Component {
       }
     }
 
- onSearchChangeText = (text) => {
-   this.setState({
-     nameFilter: text
-   })
- }
+ onSearchChangeText = (text) => this.setState({ nameFilter: text })
 
-  searchHandler = () => {
-    this.props.loadProfileConnections(0, 0, this.state.nameFilter)
-  }
+ searchHandler = () =>   this.props.loadProfileConnections(0, 0, this.state.nameFilter)
+
 
   render() {
     var {isMe, navigation} = this.props

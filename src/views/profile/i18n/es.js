@@ -26,7 +26,8 @@ const es = {
       about: 'About',
       aboutMe: 'About Me',
       aboutUs: 'About Us',
-      postedJobs: 'Posted Jobs'
+      postedJobs: 'Posted Jobs',
+      recentJobs: 'Recent Jobs'
     },
     information:{
       firstName: 'First Name',
@@ -39,7 +40,9 @@ const es = {
       hiringStatus: 'Hiring Status',
       showPersonalInfo: 'Show my Contact Information ?',
       username: 'Username',
-      password: 'Password'
+      password: 'Password',
+      notShowInfo: 'This user prefers to not show his contact information.',
+      clickToMsg: '( Click here to send him a message )'
     },
     experience:{
       experience: 'Experience',
@@ -49,6 +52,7 @@ const es = {
       recentOver: 'Recent Over the Road Experience?',
       wouldOver: 'Would you take an Over the Road Job?',
       moreThan: 'More than ',
+      jobStatus: 'Job Status',
       emptyText: 'Increase your possibilities by completing your experience information'
     },
     career:{
@@ -57,11 +61,16 @@ const es = {
         companyName: 'Company Name',
         when: 'When or how long?',
         desc: 'Description',
-        emptyIsMe: 'Increase your possibilities by showing to recruters and potential employers your laboral experience.',
-        emptyNoMe: 'Laboral experience not provided.'
+        emptyIsMe: 'Increase your possibilities by showing to recruters the companies you have been working for.',
+        emptyNoMe: 'Laboral experience not provided.',
+        updateCareerMsg: 'Companies you have been working for in the last 3 years.',
+        recentLabExp: 'Recent laboral experience'
     },
     connections:{
         search: 'Search Connections'
+    },
+    location: {
+      title: 'Location'
     }
   }
 }

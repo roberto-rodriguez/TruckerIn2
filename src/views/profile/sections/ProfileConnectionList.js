@@ -4,6 +4,7 @@ import { Container  } from "native-base";
 import {StackView, ContactListItem, Row, Header, Feed} from 'src/components/'
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
+import I18n from 'react-native-i18n'
 
 class ProfileConnectionList extends Component {
 
@@ -64,7 +65,7 @@ class ProfileConnectionList extends Component {
       <Container white>
         <View style={{minHeight:'100%'}}>
           <Header back
-           title={'Search Connections'}
+           title={I18n.t('profile.connections.search') }
            navigation={navigation}
            searchHandler={this.searchHandler}
            onSearchChangeText={this.onSearchChangeText}

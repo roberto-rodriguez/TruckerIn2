@@ -12,9 +12,10 @@ const items = [
 
 class ValidatePhone extends Component {
 
+ t = (key) => I18n.t(['signup', 'validatePhone', key])
 
   render() {
-    var state = this.state;
+    var t = this.t
     var {data, valid, setVal} = this.props
 
     var errorStyle = valid ? {} : {borderColor: 'red', color: 'red'}
@@ -22,7 +23,7 @@ class ValidatePhone extends Component {
     return (
          <View style={{marginTop: 10}}>
             <RowColumn h={30}>
-              <T15 green>{'Enter Access Code here'}</T15>
+              <T15 green>{ t('enterAccessCode') }</T15>
             </RowColumn>
             <RowColumn h={70}>
                 <TextInput underlineColorAndroid='transparent'
@@ -34,7 +35,7 @@ class ValidatePhone extends Component {
               !valid && (
                 <View>
                   <RowColumn h={30}>
-                    <T14>{I18n.t('signup.validatePhone.didntReceive')}</T14>
+                    <T14>{ t('didntReceive') }</T14>
                   </RowColumn>
                   {
                    items.map( ({icon, title, prop}, i) => (
@@ -42,7 +43,7 @@ class ValidatePhone extends Component {
                         borderTop={i === 0}
                         key={i}
                         icon={icon}
-                        label={I18n.t(['signup', 'validatePhone', title])}
+                        label={ t(title) }
                         onPress={() => {}}
                         />) )
                    }

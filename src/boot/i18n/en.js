@@ -6,7 +6,10 @@ const en = {
   general:{
     error: 'Unexpected Error. Please try again.',
     yes: 'Yes',
-    typeHere: 'Type here...'
+    edit: 'Edit',
+    add: 'Add',
+    typeHere: 'Type here...',
+    moreThan: 'More than '
   }
 }
 

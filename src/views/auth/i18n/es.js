@@ -60,12 +60,14 @@ const es = {
       broker: 'Broker',
       company: 'Company',
       canApply: 'Can apply to Jobs',
-      canPost: 'Can post Jobs Applications'
+      canPost: 'Can post Jobs Applications',
+      selectRole: 'SELECT ROLE'
     },
     validatePhone:{
       requestAcess: 'Request New Access Code',
       support: 'Customer Support',
-      didntReceive: 'Didnt receive Access Code?'
+      didntReceive: 'Didnt receive Access Code?',
+      enterAccessCode: 'Enter Access Code here'
     },
     about: {
       descBroker: 'Say few words about you, your role in the Trucking industry, type of Drivers you use to hire.. etc',

@@ -45,7 +45,7 @@ class Experience extends Component {
                <Column columns={2}>
                  <T13>{this.getValString(profileExperience.ownerOperator)}</T13>
                </Column>
-             </Row> 
+             </Row>
 
              <Row h={60} spaceBetween>
                <Column  h={60} start columns={2}>
@@ -80,7 +80,7 @@ class Experience extends Component {
 
   getValString(val){
     switch(val){
-      case 1: return 'YES'
+      case 1: return I18n.t('general.yes')
       case 2: return 'NO'
       default: return '-'
     }

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, Image,View , Text, TouchableHighlight} from 'react-native';
-import { Container, Content, Thumbnail } from "native-base";
+import { View , Text } from 'react-native';
+import { Container, Content } from "native-base";
 import Icon from 'react-native-fa-icons';
-import {Row, Header, T16, T12, T13, Column, TransparentButton, ListItem, Select, InputListItem, AgentImg} from 'src/components/'
+import { Header, ListItem, AgentImg} from 'src/components/'
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
-const agentImg = require("../../../../assets/contacts/agent.jpg");
+
 import I18n from 'react-native-i18n'
 import * as roles from 'src/components/c/Role'
 
@@ -17,8 +17,7 @@ const commonItems = [
 const additionalItems = [
   [   //DRIVER
     { icon: 'truck',   title: 'experience', route:'EditProfileExperience', prop: 'profileExperience', redable:true},
-    { icon: 'graduation-cap',   title: 'career', route:'EditProfileCareer', prop: 'profileCareer'},
-    { icon: 'group',   title: 'connections', route:'EditProfileConnections', prop: 'connections'}
+    { icon: 'graduation-cap',   title: 'career', route:'EditProfileCareer', prop: 'profileCareer'}
   ],
   [   // BROKER
     { icon: 'user-secret', title:'aboutMe', route:'EditAbout', prop: 'about', sendParamAbout: true}

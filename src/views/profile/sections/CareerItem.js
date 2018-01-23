@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Container } from "native-base";
 import {  T13, T12, nav } from 'src/components/'
 import { connect } from "react-redux";
-import { NavigationActions } from "react-navigation";
 import * as profileActions from "src/views/profile/profile.actions";
 //TODO remove npm install react-native-easy-grid --save
 
