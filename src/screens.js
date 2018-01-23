@@ -1,7 +1,6 @@
 
 //auth
- export { default as Login } from "src/views/auth/login/Login";
- export { default as SignUp } from "src/views/auth/signup/SignUp";
+ export { default as Login } from "src/views/auth/login/Login"; 
  export { default as Register } from "src/views/auth/signup/Register";
 
  export { default as TOS } from "src/views/auth/signup/tos/TOS";

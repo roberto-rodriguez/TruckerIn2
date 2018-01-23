@@ -22,12 +22,12 @@ import StepIndicator from 'react-native-step-indicator';
 
 const commonColor = require("src/theme/variables/commonColor");
 
-const titles = ['welcome','personal','contact','experience','validatePhone', 'tos']
+var titles = ['welcome','personal','contact','experience','validatePhone', 'tos']
 const titlesError = [null, null     ,null     ,null        ,'validatePhone', null ]
 const subTitles=['welcome',null     ,'contact',null        ,'validatePhone', null ]
 const subTitlesError = [null, null  ,null     ,null        ,'validatePhone', 'tos']
 
-const bulletsKeys = ['personal', 'contact', 'experience', 'validatePhone', 'tos']
+var bulletsKeys = ['personal', 'contact', 'about', 'validatePhone', 'tos']
 
 class Register extends Component {
   constructor(props) {
@@ -214,7 +214,7 @@ class Register extends Component {
       case 1: return <Information data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
       case 2: return <Contact data={data} setVal={this.setVal} navigation={navigation} invalidFields={view.invalidFields}/>
     case 3: return (data.roleId === roles.DRIVER ? <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
-                        : <About data={data} setVal={this.setVal}/>
+                        : <About data={data} setVal={this.setVal} navigation={navigation}/>
                       )
       case 4: return <ValidatePhone data={data} setVal={this.setVal} valid={validForm}/>
       case 5: return <AcceptTerms data={data} setVal={this.setVal}/>
@@ -235,6 +235,16 @@ class Register extends Component {
 }
 
 selectRole = ( role, roleKey ) => {
+  switch(role){
+    case roles.DRIVER: titles[3] = 'experience'
+        break;
+    case roles.BROKER: titles[3] = 'aboutMe'
+        break;
+    case roles.COMPANY: titles[3] = 'aboutUs'
+                        titles[1] = 'companyInfo'
+        break;
+  }
+
    this.setState(prevState => {
        prevState.view.flowPage = 1
        prevState.data.roleId = role
@@ -251,7 +261,6 @@ selectRole = ( role, roleKey ) => {
   validateUsername = () => this.props.validateUsername(this.state.data.username, this.validationCallback)
 
   validationCallback = (result, errorMsgKey, invalidField) => this.setState(prevState => {
-    debugger;
       prevState.view = {
         ...prevState.view,
         validForm: result,

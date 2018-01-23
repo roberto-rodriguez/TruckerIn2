@@ -18,10 +18,13 @@ const es = {
     titles:{
       welcome:'Welcome to TruckerIn',
       personal: 'Personal Information',
+      companyInfo: 'Company Information',
       contact: 'Contact Information',
       experience: 'Professional Experience',
       validatePhone: 'Validate Phone Number',
-      tos: 'Terms of Service'
+      tos: 'Terms of Service',
+      aboutMe: 'About Me',
+      aboutUs: 'About Us'
     },
     titlesError:{
       validatePhone: 'Invalid Access Code'
@@ -38,9 +41,9 @@ const es = {
       tos: 'Terms of Service must to be accepted'
     },
     bullets:{
-      personal: 'Personal',
+      personal: 'Information',
       contact: 'Contact',
-      experience: 'Experience',
+      about: 'About',
       validatePhone: 'Validar Telefono',
       tos: 'Términos'
     },
@@ -70,8 +73,8 @@ const es = {
       enterAccessCode: 'Enter Access Code here'
     },
     about: {
-      descBroker: 'Say few words about you, your role in the Trucking industry, type of Drivers you use to hire.. etc',
-      descCompany: 'Say few words about the company'
+      descBroker: 'Describe in few words your role in the Trucking industry, type of Drivers you use to hire.. etc',
+      descCompany: 'Describe in few words about the company, type of Drivers it use to hire.. etc'
     }
   },
   tos:{
