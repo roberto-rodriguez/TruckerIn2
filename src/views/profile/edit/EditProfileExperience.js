@@ -70,7 +70,7 @@ class EditProfileExperience extends Component {
     var state = this.state;
 
     return (
-       <StackView navigation={navigation} title={I18n.t('profile.experience.title')}  onAccept={this.onAccept}>
+       <StackView navigation={navigation} title={I18n.t('profile.titles.updateExperience')}  onAccept={this.onAccept}>
           <View >
              {
               items.map( ({icon, title, prop}, i) => (

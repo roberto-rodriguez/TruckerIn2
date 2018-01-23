@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { View } from 'react-native';
-import { SimpleListItem, mapStateToProps} from 'src/components/'
+import { ListItem, mapStateToProps} from 'src/components/'
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
+import * as roles from 'src/components/c/Role'
 
 const items = [
-  { icon: 'truck',   title: 'driver', prop: 1 },
-  { icon: 'user-secret',   title: 'broker', prop: 2 },
-  { icon: 'bank',   title: 'company', prop: 3 }
+  { icon: 'truck',   title: 'driver', prop: roles.DRIVER, desc: 'canApply' },
+  { icon: 'user-secret',   title: 'broker', prop: roles.BROKER, desc: 'canPost' },
+  { icon: 'bank',   title: 'company', prop: roles.COMPANY, desc: 'canPost' }
 ]
 
 class Roles extends Component {
@@ -21,13 +22,13 @@ class Roles extends Component {
     return (
           <View >
           {
-           items.map( ({icon, title, prop, roleKey}, i) => (
-             <SimpleListItem
-                borderTop={i === 0}
+           items.map( ({icon, title, prop, roleKey, desc}, i) => (
+             <ListItem
                 key={i}
                 icon={icon}
-                label={ t( title ) }
-                onPress={() => selectRole(prop, t( title ))}
+                label={ t( desc ) }
+                value={ t( title ) }
+                handler={() => selectRole(prop, t( title ))}
                 />) )
            }
          </View>

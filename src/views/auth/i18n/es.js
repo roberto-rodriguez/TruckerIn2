@@ -58,7 +58,9 @@ const es = {
     roles:{
       driver: 'Driver',
       broker: 'Broker',
-      company: 'Company'
+      company: 'Company',
+      canApply: 'Can apply to Jobs',
+      canPost: 'Can post Jobs Applications'
     },
     validatePhone:{
       requestAcess: 'Request New Access Code',

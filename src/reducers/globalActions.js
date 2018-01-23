@@ -78,7 +78,7 @@ export function apiGetProfileInfo(userId){
     completion: 100,
     phone: '786-454-0209',
     email: 'titorobe@yahoo.com',
-    roleId:2,
+    roleId:1,
     role:'Driver',
     locationId:1,
     location: 'Atlanta, GA',

@@ -22,7 +22,7 @@ import PostedJobs from './sections/PostedJobs'
 const coverImg = require("../../../assets/cover.png");
 
 var driverSections = [
-  {name: 'profileInfo', icon: 'phone-square', title: 'information' },
+  {name: 'profileInfo', icon: 'phone-square', title: 'contact' },
   {name: 'profileExperience', icon: 'truck', title: 'experience' },
   {name: 'profileCareer', icon: 'graduation-cap', title: 'career' },
   {name: 'connections', icon: 'group', title: 'connections', showSubText: true},
@@ -79,7 +79,7 @@ debugger;
       return (
       <TouchableOpacity transparent key={i} style={styles.optionBtn} onPress={() => _this.setState({selectedSection: data.name})}>
         <Icon name={data.icon} style={[styles.headerIcon, _this.buildStyle(selectedSection ? selectedSection === data.name : i === 0)]}/>
-        <Text style={[styles.optionText, _this.buildStyle(selectedSection ? selectedSection === data.name : i === 0)]}>{I18n.t(['profile', data.title, data.title])}</Text>
+      <Text style={[styles.optionText, _this.buildStyle(selectedSection ? selectedSection === data.name : i === 0)]}>{I18n.t(['profile', 'titles', data.title])}</Text>
         {(isMe || data.showSubText ) && <Text style={styles.extraSmallText}>{this.buildSubText(data.name, isMe)}</Text>}
       </TouchableOpacity>)
     })

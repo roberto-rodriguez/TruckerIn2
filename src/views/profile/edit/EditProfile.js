@@ -7,41 +7,32 @@ import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
 const agentImg = require("../../../../assets/contacts/agent.jpg");
 import I18n from 'react-native-i18n'
+import * as roles from 'src/components/c/Role'
 
-const items = [
-  { icon: 'user-circle-o',   title: 'information', route:'EditProfileInformation', prop:'profileInfo', redable:true},
-  { icon: 'truck',   title: 'experience', route:'EditProfileExperience', prop: 'profileExperience', redable:true},
-  { icon: 'graduation-cap',   title: 'career', route:'EditProfileCareer', prop: 'profileCareer'},
-  { icon: 'group',   title: 'connections', route:'EditProfileConnections', prop: 'connections'}
+
+const commonItems = [
+  { icon: 'user-circle-o',   title: 'contactInfo', route:'EditProfileInformation', prop:'profileInfo', redable:true}
 ]
+
+const additionalItems = [
+  [   //DRIVER
+    { icon: 'truck',   title: 'experience', route:'EditProfileExperience', prop: 'profileExperience', redable:true},
+    { icon: 'graduation-cap',   title: 'career', route:'EditProfileCareer', prop: 'profileCareer'},
+    { icon: 'group',   title: 'connections', route:'EditProfileConnections', prop: 'connections'}
+  ],
+  [   // BROKER
+    { icon: 'user-secret', title:'aboutMe', route:'EditAbout', prop: 'about', sendParamAbout: true}
+  ],
+  [   // COMPANY
+    { icon: 'bank', title:'aboutUs', route:'EditAbout', prop: 'about',sendParamAbout: true}
+  ]
+]
+
 
 class EditProfile extends Component {
 
-  constructor(props) {
-      super(props)
-
-      this.state = {
-        connectionsCount: 12,
-        profileInfo:{},
-        profileExperience:{ },
-        profileCareer:{}
-       }
- }
-
-
-//this is just for location
- setVal(prop, val, valId) {
-   if(!val)return;
-
-
-   this.props.saveProfileInfo({
-     [prop]: val,
-     [prop + 'Id']: valId
-   })
- }
-
   render() {
-    var {navigation, profileInfoCompletion, profileExperienceCompletion} = this.props
+    var {navigation, profileInfoCompletion, profileExperienceCompletion, roleId, about} = this.props
 
     return (
       <Container>
@@ -52,15 +43,15 @@ class EditProfile extends Component {
 
           <View >
              {
-              items.map( ({icon, title, prop, route, redable}, i) => (
+              commonItems.concat( additionalItems[roleId - 1] ).map( ({icon, title, prop, route, redable, param, sendParamAbout}, i) => (
               <ListItem
                  key={i}
                  navigation={navigation}
                  icon={icon}
-                 label={this.getSubText(i, prop)}
-                 value={I18n.t(['profile', title, title])}
+                 label={redable && this.getSubText(i, prop)}
+                 value={I18n.t(['profile', 'titles', title])}
                  routeName= {route}
-                 params= {{ setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}
+                 params= { sendParamAbout ? {about} : {} }
                  red= {redable && this.props[prop + 'Completion'] < 100}
                  />) )
             }
@@ -73,25 +64,15 @@ class EditProfile extends Component {
 
   getSubText(i, prop){
     var props = this.props
-    var percent = 0
-
-    switch(i){
-      // case 0:
-      //   return props['location']
-      case 2:
-        return null;
-      case 3:
-        return I18n.t('profile.editProfile.view') + props.connectionsCount +  I18n.t('profile.editProfile.connections')
-      default:
-         percent =  props[prop + 'Completion']
-    }
-
+    var percent =  props[prop + 'Completion']
     return 'Completed: ' +  percent + '%'
   }
 }
 
 
   const mapStateToProps = ({profileReducer, globalReducer}) => ({
+    roleId: globalReducer.profileInfo.roleId,
+    about: globalReducer.profileInfo.about,
     location: profileReducer.profileInfo.location,
     locationId: profileReducer.profileInfo.locationId,
     profileInfoCompletion: globalReducer.profileInfo.completion,

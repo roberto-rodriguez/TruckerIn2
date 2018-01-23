@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { View } from 'react-native';
-import { RowColumn, CustomButton, LinkButton, Row, T13, T15, LongInputListItem, mapStateToProps} from 'src/components/'
+import { AgentMsg, CustomButton, LinkButton, LongInputListItem} from 'src/components/'
 import { connect } from "react-redux";
 import styles from "../styles";
 import I18n from 'react-native-i18n'
 import * as roles from 'src/components/c/Role'
 
-class About extends Component {
+export default class About extends Component {
 
   t = key => I18n.t(['signup', 'about', key])
 
@@ -16,9 +16,7 @@ class About extends Component {
 
     return (
           <View>
-              <RowColumn h={90}>
-                <T15 green>{t( data.roleId === roles.BROKER ? 'descBroker' : 'descCompany')}</T15>
-              </RowColumn>
+              <AgentMsg text={I18n.t(['signup', 'about', (data.roleId === roles.BROKER ? 'descBroker' : 'descCompany')])}/>
 
               <LongInputListItem icon='quote-left'
                 label={ I18n.t( 'general.typeHere' ) }
@@ -28,5 +26,4 @@ class About extends Component {
     )
   }
 }
-
-export default connect(mapStateToProps )(About);
+ 

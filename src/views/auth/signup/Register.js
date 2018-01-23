@@ -109,23 +109,22 @@ class Register extends Component {
             }
           </View>
 
-          {flowPage ?
-          (
-            <View style={{marginTop:15, borderBottomWidth: 0.2, borderBottomColor: commonColor.secondaryColor}}>
-              <StepIndicator
-                customStyles={styles.stepIndicator}
-                currentPosition={flowPage - 1}
-                stepCount={5}
-                onPress={(number) => this.goToPage(number + 1)}
-                labels={bullets}
-                />
-            </View>
-          ) :
-          ( <RowColumn>
-              <T15 green>SELECT ROLE</T15>
-            </RowColumn>
-          )
-        }
+          <View style={{marginTop:15, borderBottomWidth: 0.2, borderBottomColor: commonColor.secondaryColor}}>
+            {flowPage ?
+              ( <StepIndicator
+                    customStyles={styles.stepIndicator}
+                    currentPosition={flowPage - 1}
+                    stepCount={5}
+                    onPress={(number) => this.goToPage(number + 1)}
+                    labels={bullets}
+                    />
+              ) :
+              ( <RowColumn>
+                  <T15 green>SELECT ROLE</T15>
+                </RowColumn>
+              )
+          }
+        </View>
 
           {this.buildFlowSection()}
 

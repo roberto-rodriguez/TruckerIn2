@@ -70,7 +70,7 @@ class EditProfileInformation extends Component {
     var state = this.state;
 
     return (
-      <StackView navigation={navigation}  title={I18n.t('profile.information.title')}  onAccept={this.onAccept}>
+      <StackView navigation={navigation}  title={I18n.t('profile.titles.editPersonalInfo')}  onAccept={this.onAccept}>
           <View >
              {
               items.map( ({icon, title, prop}, i) => (

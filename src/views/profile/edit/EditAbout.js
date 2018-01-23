@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from 'react-native';
-import {StackView, LongInputListItem, RowColumn, T15} from 'src/components/'
+import {StackView, LongInputListItem, RowColumn, T15, AgentMsg} from 'src/components/'
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
 import I18n from 'react-native-i18n'
@@ -17,7 +17,9 @@ class EditAbout extends Component {
  }
 
  componentDidMount(){
-   this.setState(this.props.navigation.state.params ? this.props.navigation.state.params : {});
+   var params = this.props.navigation.state.params || {}
+
+   setTimeout(() => this.setState(params), 200)
  }
 
  onAccept = () => {
@@ -36,11 +38,9 @@ class EditAbout extends Component {
     var data = this.state;
 
     return (
-      <StackView navigation={navigation} title={I18n.t('profile.career.addExp')}  onAccept={this.onAccept}  >
+      <StackView navigation={navigation} title={I18n.t(['profile', 'titles', roleId === 2 ? 'aboutMe' : 'aboutUs'])}  onAccept={this.onAccept}  >
       <View>
-          <RowColumn h={90}>
-            <T15 green>{I18n.t(['signup', 'about', (roleId === roles.BROKER ? 'descBroker' : 'descCompany')])}</T15>
-          </RowColumn>
+         <AgentMsg text={I18n.t(['signup', 'about', (roleId === roles.BROKER ? 'descBroker' : 'descCompany')])}/>
 
           <LongInputListItem icon='quote-left'
             label={ I18n.t( 'general.typeHere' ) }
@@ -55,7 +55,7 @@ class EditAbout extends Component {
 
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
   var isMe = ownProps.isMe;
-  var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
+  var profileInfo = globalReducer.profileInfo
 
   return {
     isMe,
