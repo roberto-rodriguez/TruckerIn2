@@ -1,6 +1,6 @@
 
 //auth
- export { default as Login } from "src/views/auth/login/Login"; 
+ export { default as Login } from "src/views/auth/login/Login";
  export { default as Register } from "src/views/auth/signup/Register";
 
  export { default as TOS } from "src/views/auth/signup/tos/TOS";
@@ -32,11 +32,7 @@
  //Contacts
  export { default as PendingRequestList } from 'src/views/contacts/myContacts/pendingRequest/PendingRequestList'
  export { default as SearchContacts } from 'src/views/contacts/search/SearchContacts'
-
-
-
-
-
+ 
 
  export { default as Notifications } from "src/views/notifications/Notifications";
  export { default as Chat } from 'src/views/msg/Chat'

@@ -1,4 +1,5 @@
 import I18n from 'react-native-i18n'
+import usStates from './usStates'
 
 const initialState = {
   isLoading: false,
@@ -41,7 +42,8 @@ const initialState = {
     experienceOptions: [],
     jobStatusOptions: [],
     roleOptions: [],
-    hiringStatus: []
+    hiringStatus: [],
+    usStates
   },
   // notifications:{
   //
