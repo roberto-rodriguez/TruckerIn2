@@ -15,24 +15,28 @@ class CityList extends Component {
         loading: false,
 
         searchStateText: null,
-        stateName: null,
-        stateId: null,
-        cityId: null,
-
         list:null,
         reset: null
      }
  }
 
- componentDidMount(){
+
+ shouldComponentUpdate(nextProps, nextState){
    debugger;
-  // this.listCities()
-//  setTimeout(this.listCities, 150)
+    return this.state.loading || this.props.stateId != nextProps.stateId
  }
 
- componentWillReceiveProps(props) {
-   if(this.state.stateId != props.stateId){
-     this.listCities( props.stateId )
+ componentWillReceiveProps(newProps) {
+   debugger;
+   if(this.props.stateId != newProps.stateId){
+     this.listCities( newProps.stateId )
+   }
+ }
+
+ componentDidMount(){
+    debugger;
+   if(this.props.stateId && !this.state.list){
+     this.listCities( this.props.stateId )
    }
  }
 
@@ -40,40 +44,40 @@ class CityList extends Component {
    debugger;
    this.setState({
      loading: true,
-     stateId,
      list: []
     })
 
     this.props.listCities(stateId, (list) => {
-      debugger;
       this.setState({
+        ...this.state,
         loading: false,
-        list
+        list,
+        reset: true
        })
     })
  }
 
  itemBuilder = (data, navigation, i , shouldUpdate) =>  (
        <CityItem
-         key={i} 
+         key={i}
          navigation={navigation}
          label={ data.name }
          value={ data.id }
-         handler={this.onSelectCity}
+         handler={this.props.onSelectCity}
          shouldUpdate={shouldUpdate}
        /> )
 
-  loadItems = (page, callback) => callback(this.state.list.slice(page * 20, (page + 1) * 20))
+  loadItems = (page, callback) => {
+    callback( (this.state.list || []).slice(page * 20, (page + 1) * 20))
 
-  onSelectCity = (cityId, cityName) => {
-    this.setState({ cityId })
-
-    this.props.onSelectCity(cityId, cityName)
+    this.setState({...this.state, reset: false})
   }
 
+
   render() {
-    const {navigation} = this.props
-    var {loading, stateId} = this.state
+     debugger;
+    const {navigation, stateId} = this.props
+    var {loading} = this.state
 
     if( loading ) return (<Spinner/>)
 
@@ -100,8 +104,17 @@ class CityList extends Component {
     label={ 'Any City' }
     value={ 0 }
     style={{color:'red'}}
-    params={{callback}}
+    handler={this.props.onSelectCity}
   />)
 }
 
-export default connect(null, locationsActions)(CityList);
+const mapStateToProps = ({locationReducer}, ownProps) => {
+  debugger;
+  return  ({
+    stateId: locationReducer.stateId,
+    timestamp: locationReducer.timestamp
+    })
+}
+
+
+export default connect(mapStateToProps, locationsActions)(CityList);

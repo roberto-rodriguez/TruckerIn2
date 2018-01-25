@@ -1,11 +1,18 @@
 
 export function validate(page, data){
+    var invalidFields = []
    switch(page){
-      // case 1: return validatePage(data, [ 'firstName', 'lastName', 'username', 'password'])
-      // case 2: return validatePage(data, [ 'email', 'phone', 'locationId', 'showPersonalInfo'])
-      // case 3: return validatePage(data, [ 'experience', 'jobStatus', 'equipment', 'ownerOperator', 'overRoadExp', 'willTakeOverRoad'])
+      // case 1: invalidFields = validatePage(data, [ 'firstName', 'lastName', 'username', 'password'])
+      //    break:
+      case 2: //invalidFields =  validatePage(data, [ 'email', 'phone',  'showPersonalInfo'])
+              if(!data['location']){
+                invalidFields.push('location')
+              }
+      //    break:
+      // case 3: invalidFields =  validatePage(data, [ 'experience', 'jobStatus', 'equipment', 'ownerOperator', 'overRoadExp', 'willTakeOverRoad'])
+      //    break:
    }
-   return []
+   return invalidFields
 }
 
 function validatePage(data, fields){

@@ -1,13 +1,19 @@
 const initialState = {
-  selectedCityId: null,
-  selectedStateId: null
+  stateId: null,
+  cityId: null,
+  stateName: null,
+  cityName: null,
+  timestamp: null
 };
 
 export default function(state: any = initialState, action: Function) {
 
   switch (action.type) {
-    case "SELECT_CITY": return { ...state, selectedCityId: action.selectedCityId };
-    case "SELECT_STATE": return { ...state, selectedStateId: action.selectedStateId }; 
+    case "SET_CITY": return { ...state, cityId: action.cityId, cityName: action.cityName };
+    case "SET_STATE": return { stateId: action.stateId, stateName: action.stateName }; //intentionally removing city data
+    case "SET_LOCATION": return {...(action.location || {}), timestamp: (new Date()).getMilliseconds() };
+
+    case "CLEAR_LOCATION": return initialState;
     default:
       return state;
   }

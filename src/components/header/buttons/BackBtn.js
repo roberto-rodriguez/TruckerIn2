@@ -6,15 +6,15 @@
 
 import React, { Component } from 'react';
 
-import { Icon, Button} from "native-base"; 
+import { Icon, Button} from "native-base";
 
  export default class BackBtn extends Component {
 
   render() {
-    var {navigation} = this.props;
+    var {navigation, onBack} = this.props;
 
     return (
-      <Button transparent onPress={() => navigation.goBack()}>
+      <Button transparent onPress={onBack || (() => navigation.goBack())}>
         <Icon name="arrow-back" />
       </Button>
     );

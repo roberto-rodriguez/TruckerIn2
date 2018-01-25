@@ -57,7 +57,7 @@ class StateList extends Component {
    />
  )
 
-  loadItems = (page, callback) => callback(this.state.list.slice(page * 20, (page + 1) * 20))
+  loadItems = (page, callback) => callback( (this.state.list || []).slice(page * 20, (page + 1) * 20))
 
   render() {
     const {navigation} = this.props

@@ -26,6 +26,7 @@ class Contact extends Component {
   }
 
   setVal = (prop, val, valId) => {
+    debugger;
     this.setState((prevState) => {
          prevState[prop] = val
 
@@ -33,9 +34,9 @@ class Contact extends Component {
 
          return prevState
       })
-
       this.props.setVal(prop, val, valId)
   }
+
 
   render() {
     const {navigation, jobStatusOptions, invalidFields} = this.props
@@ -59,10 +60,10 @@ class Contact extends Component {
            key={101}
            icon={'map-marker'}
            label={I18n.t('profile.location.title')}
-           value={ data.location}
-           red={!data.locationId && invalidFields.indexOf('locationId') >= 0}
+           value={ (data.location && data.location.locationName )}
+           red={!data.location && invalidFields.indexOf('location') >= 0}
            routeName={'LocationPicker'}
-           params={{setVal: this.setVal}}/>
+           params={{setVal: this.setVal, data: data.location}}/>
 
 
            {

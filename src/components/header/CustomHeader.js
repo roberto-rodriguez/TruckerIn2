@@ -18,10 +18,10 @@ import Title from './Title'
         ,onSearchChangeText
         ,searchDefaultValue
         ,left, right , toLeft, toRight,
-        headerNotification
+        headerNotification, onBack
        } = this.props;
 
-      var leftBtn = left ? left : (  back ? <BackBtn navigation={navigation}/> : <MenuBtn navigation={navigation} /> )
+      var leftBtn = left ? left : (  back ? <BackBtn navigation={navigation} onBack={onBack}/> : <MenuBtn navigation={navigation} /> )
       var centerSide = searchHandler ?
       <Search green
         searchHandler={searchHandler}

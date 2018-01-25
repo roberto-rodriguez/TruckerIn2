@@ -54,7 +54,16 @@ class Register extends Component {
         email: null,
         phone: null,
         location: null,
-        locationId: null,
+    //    locationId: null,
+        location: null,
+        //  {
+        //   stateId: null,
+        //   cityId: null,
+        //   stateName: null,
+        //   cityName: null,
+        //   locationName: null,
+        // },
+
         showContactInfo: null,
 
         about: null,
@@ -83,7 +92,7 @@ class Register extends Component {
          return prevState
       })
 
-
+//  setValues = (map) => this.setState((prevState) => ({...prevState, ...map}) )
 
   render() {
     const navigation = this.props.navigation;
@@ -211,8 +220,8 @@ class Register extends Component {
     switch(flowPage){
       case 0: return <Roles selectRole={this.selectRole}/>
       case 1: return <Information data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
-      case 2: return <Contact data={data} setVal={this.setVal} navigation={navigation} invalidFields={view.invalidFields}/>
-    case 3: return (data.roleId === roles.DRIVER ? <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
+      case 2: return <Contact data={data} setVal={this.setVal} setValues={this.setValues} navigation={navigation} invalidFields={view.invalidFields}/>
+      case 3: return (data.roleId === roles.DRIVER ? <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
                         : <About data={data} setVal={this.setVal} navigation={navigation}/>
                       )
       case 4: return <ValidatePhone data={data} setVal={this.setVal} valid={validForm}/>

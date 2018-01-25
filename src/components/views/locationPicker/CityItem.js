@@ -21,10 +21,9 @@ class CityItem extends Component {
   }
 
  onSelect = () => {
-   debugger;
    var {value, label} = this.props
 
-   this.props.selectCity(value)
+   this.props.selectCity(value, label)
 
    this.props.handler(value, label)
  }
@@ -53,7 +52,7 @@ class CityItem extends Component {
 
 
 const mapStateToProps = ({locationReducer}, ownProps) => ({
-    selected: locationReducer.selectedCityId === ownProps.value
+    selected: locationReducer.cityId === ownProps.value
   })
 
 export default connect(mapStateToProps, locationsActions)(CityItem);

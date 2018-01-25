@@ -20,11 +20,10 @@ class StateItem extends Component {
      return nextProps.shouldUpdate || this.props.selected !== nextProps.selected
   }
 
- onSelect = () => {
-   debugger;
+ onSelect = () => { 
    var {value, label} = this.props
 
-   this.props.selectState(value)
+   this.props.selectState(value, label)
 
    this.props.handler(value, label)
  }
@@ -53,7 +52,7 @@ class StateItem extends Component {
 
 
 const mapStateToProps = ({locationReducer}, ownProps) => ({
-    selected: locationReducer.selectedStateId === ownProps.value
+    selected: locationReducer.stateId === ownProps.value
   })
 
 
