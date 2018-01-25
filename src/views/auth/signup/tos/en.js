@@ -3,22 +3,29 @@
 const es = {
   p1:{
     title: 'Welcome',
-    text: 'Welcome to the TruckerIn mobile app (“The App”), the fastest growing network of Truckers Drivers, Brokers, and Tuck related companies. These TruckerIn Terms of Service (“TOS”) constitute a set of rules by which we operate such Services.'
+    text: 'Welcome to the TruckerIn mobile app (“The App”), the fastest growing network of Truckers Drivers, Brokers, and Tuck related companies.'+
+    ' These TruckerIn Terms of Service (“TOS”) constitute a set of rules by which we operate such Services.'
   },
   p2:{
     title: 'Acceptance of Terms',
-    text: 'TruckerIn provides its service to you, subject to the following Terms of Service (“TOS”). Your use of the Website, Mobile Apps, APIs or other services constitutes your agreement to be bound by all terms, conditions and notices contained herein. We reserve the right, in our sole discretion and with or without notice, to change, modify, add or remove any portion of these TOS, in whole or in part, at any time. IF YOU DO NOT AGREE TO BE FULLY BOUND BY ALL OF THESE TERMS, PLEASE DO NOT ACCESS THE SITE AND DO NOT USE THE SERVICES. You should read through all the Terms carefully as they constitute a legally binding agreement between you and us.'
+    text: 'TruckerIn provides its service to you, subject to the following Terms of Service (“TOS”).' +
+          ' Your use of the Website, Mobile Apps or other services constitutes your agreement to be bound by all terms,'+
+          ' conditions and notices contained herein. We reserve the right, in our sole discretion and with or without notice,'+
+          ' to change, modify, add or remove any portion of these TOS, in whole or in part, at any time.'+
+          ' IF YOU DO NOT AGREE TO BE FULLY BOUND BY ALL OF THESE TERMS, PLEASE DO NOT ACCESS THE SITE AND DO NOT USE THE SERVICES.'+
+          ' You should read through all the Terms carefully as they constitute a legally binding agreement between you and us.'
   },
   p3:{
     title:'Service Fees',
-    text:'TruckerIn is still a Beta version, completely FREE for the first year of use, counting from the day the user create his account.' +
+    text:'TruckerIn services are completely FREE for the first year of use, counting from the day the user create his account.' +
     'After that period, some premium features might require paid subscription. We reserve the right of determine which services' +
     'will keep in the FREE plan or which ones will be part of the premium plan.' +
     '(TOS will be updated with specific information about premium plan before it starts and the user will be notified about it)'
   },
   p4:{
     title: 'No Resale of Service',
-    text: 'You agree not to reproduce, duplicate, copy, sell, trade, resell or exploit for any commercial purposes, any portion of the Service, use of the Service, or access to the Service.'
+    text: 'You agree not to reproduce, duplicate, copy, sell, trade, resell or exploit for any commercial purposes, any portion of the Service,'+
+    ' use or access to the Service.'
   },
   p5:{
     title: 'Modification of Service',
@@ -27,7 +34,6 @@ const es = {
     'We may also impose limits or restrictions on certain services, features or content or' +
     'restrict your access to parts or all of our Site without notice.' +
     'You agree that TruckerIn shall not be liable to you or to any third party for any modification,' +
-    'You agree that TruckerIn shall not be liable to you or to any third party for any modification,' +
     'suspension or discontinuance of the Service.'
   },
   p6:{
@@ -35,7 +41,7 @@ const es = {
     text: 'If a problem is attributed to a service provided by TruckerIn,' +
     'our objective is to resolve the problem promptly, equitably and amicably.' +
     'All complaints must be sent by email to support@truckerin.com.' +
-    'Please include your name, subscription information, and complete description of your complaint' +
+    'Please include your name, contact information, and complete description of your complaint ' +
     'and we will do our best to answer within 24 hours.'
   },
   p7:{
@@ -45,19 +51,23 @@ const es = {
   },
   p8:{
     title: 'Content Submission',
-    text: 'By submitting content to our site, you warrant and represent that the information is accurate,' +
-    'that you are authorized to submit the information, and that the information content, format and delivery' +
-    'method is appropriate.' +
-    'In order to protect each user we reserve the absolute right to review,' +
-    'reject or modify the information submitted in our sole and independent discretion.' +
-    'By transferring information you agree that TruckerIn, its affiliates, and assigns are licensed to use,' +
-    'reproduce, display, perform, adapt, modify, distribute, and promote the information in a manner we deem' +                                                                                                                                                                                                                                                                                                                                                                                                 'reasonable in our sole and independent judgment.'
+    text: 'By submitting content to our site, you warrant and represent that the information is accurate, ' +
+    'that you are authorized to submit the information, and that the information content, format and delivery ' +
+    'method is appropriate. ' +
+    'In order to protect each user we reserve the absolute right to review, ' +
+    'reject or modify the information submitted in our sole and independent discretion. ' +
+    'By transfering information you agree that TruckerIn is licensed to use, ' +
+    'reproduce, display, perform, adapt, modify, distribute, and promote the information in a manner we deem ' +                                                                                                                                                                                                                                                                                                                                                                                                 'reasonable in our sole and independent judgment.'
   },
   p9:{
     title: 'Copyright',
     text: 'The content and software used on TruckerIn Mobile App and Website are the exclusive property of Truckerin' +
     'and are protected by copyrights, trademarks, service marks, patents, trade secrets, and other proprietary rights' +
-    'and laws. Users may not copy or retrieve data or other content from this app, either manually or through the use of automatic devices, for the purpose of creating, directly or indirectly, a collection, database, or directory without the express written permission of 123Loadboard. Subscribers may not use meta tags or other hidden text utilizing the 123Loadboard name or trademarks, nor may subscriber use framing techniques to enclose any portion of the Website, without express written' + 'permission. Unless expressly authorized in writing by TruckerIn, users may not reproduce, modify, distribute,' +
+    'and laws. Users may not copy or retrieve data or other content from this app, either manually or through the use of automatic devices,'+
+    ' for the purpose of creating, directly or indirectly, a collection, database, or directory without the express written permission of TruckerIn.'+
+    ' Subscribers may not use meta tags or other hidden text utilizing the TruckerIn name or trademarks, nor may subscriber use framing techniques to'+
+    ' enclose any portion of the Website, without express written' + 'permission. Unless expressly authorized in writing by TruckerIn,'+
+    ' users may not reproduce, modify, distribute,' +
     'transmit, republish, display, rent, sell, license, edit, or create derivative works from any of the content or' +
     'other material on this app.'
   },

@@ -10,13 +10,17 @@ import {Row, Column, T14 } from 'src/components/'
 
  export default class PlainListItem extends Component {
 
-  render() {
-    var {label, value, navigation, params, style} = this.props;
+   shouldComponentUpdate(nextProps, nextState){
+     if(nextProps.shouldUpdate === undefined || nextProps.shouldUpdate == null){
+       return true;
+     }
+      return nextProps.shouldUpdate
+   }
 
-    const action = () => {
-          params &&  params.callback && params.callback( value, label );
-           navigation.goBack();
-        }
+  render() {
+    var {label, value, navigation, params, style, handler} = this.props;
+
+    const action =  handler ? this.handler : this.defaultHandler
 
     return (
       <TouchableHighlight  underlayColor={'transparent'}  onPress={action}>
@@ -28,6 +32,17 @@ import {Row, Column, T14 } from 'src/components/'
          </Row>
        </View>
      </TouchableHighlight>
-    ) 
+    )
+  }
+
+  handler = () => {
+        var {label, value, handler} = this.props;
+        handler(value, label)
+  }
+
+  defaultHandler = () => {
+        var { params} = this.props;
+        params &&  params.callback && params.callback( value, label );
+        navigation.goBack();
   }
 }

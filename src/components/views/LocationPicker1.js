@@ -6,8 +6,6 @@ import {Row, Header, T11, T12, T13, Column,PlainListItem, Spinner, Feed} from 's
 import { connect } from "react-redux";
 import  * as locationsActions from './locations.actions'
 
-
-
 const mockData = [
   {id:1, name: 'Atlanta, GA'},
   {id:2, name: 'Miami, FL'},

@@ -32,14 +32,14 @@
  //Contacts
  export { default as PendingRequestList } from 'src/views/contacts/myContacts/pendingRequest/PendingRequestList'
  export { default as SearchContacts } from 'src/views/contacts/search/SearchContacts'
- 
+
 
  export { default as Notifications } from "src/views/notifications/Notifications";
  export { default as Chat } from 'src/views/msg/Chat'
 
 
 //cmp
- export { default as LocationPicker } from 'src/components/views/LocationPicker'
+ export { default as LocationPicker } from 'src/components/views/locationPicker/'
  export { default as TextInputView } from 'src/components/views/TextInputView'
 
 //SideBar

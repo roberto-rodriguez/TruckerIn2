@@ -34,7 +34,7 @@ class Register extends Component {
     super(props);
     this.state = {
       view:{
-        flowPage: 0,
+        flowPage: 2,
         accessCode: null,
         invalidFields: [],
         validForm: true,
@@ -43,7 +43,7 @@ class Register extends Component {
         errorMsg: null
       },
       data:{
-        roleId: null,  // 1-Driver, 2-Broker, 3-Company
+        roleId: 1,  // 1-Driver, 2-Broker, 3-Company
         role: null,
 
         firstName: null,
@@ -204,7 +204,6 @@ class Register extends Component {
      }
 
   buildFlowSection = () => {
-    debugger;
     var {data, view} = this.state
     const navigation = this.props.navigation;
     var {flowPage, validForm} = view

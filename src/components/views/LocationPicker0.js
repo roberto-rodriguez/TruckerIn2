@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { StyleSheet,Image,View , Text, ScrollView} from 'react-native';
 import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
-import {Row, Header, T11, T12, T13, Column,PlainListItem, Spinner, Feed} from 'src/components/'
+import {Row, Header, T11, T12, T13, Column,PlainListItem, Spinner} from 'src/components/'
 import { connect } from "react-redux";
 import  * as locationsActions from './locations.actions'
-
-
 
 const mockData = [
   {id:1, name: 'Atlanta, GA'},
@@ -104,7 +102,7 @@ selectState = (stateId, stateName) => {
    this.props.listCities(null, (list) => {
      this.setState({
        loading: false,
-       list
+       cities: list
       })
    })
 }
@@ -115,20 +113,11 @@ selectCity = (stateId, stateName) => {
 }
 
 
-itemBuilder = (data, navigation, i , shouldUpdate) => (
-  <PlainListItem
-    key={i}
-    navigation={navigation}
-    label={ data.name }
-    value={ data.id }
-    handler={this.selectState}
-    shouldUpdate={shouldUpdate}
-  />
-)
+ //listStates = () => this.props.listStates(this.state.statesText, (items) => this.setState({items}))
 
- loadItems = (page, callback) => callback(this.state.list.slice(page * 10, (page + 1) * 10))
 
   render() {
+    debugger;
     const navigation = this.props.navigation;
     // var {setVal, showAnywareOption} = navigation.state.params
 
@@ -157,10 +146,45 @@ itemBuilder = (data, navigation, i , shouldUpdate) => (
           onSearchChangeText={this.filterCities}
         />
 
-      {loading ?
-        (<Spinner/>) : (
-        <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
-      )}
+      {loading ? (<Spinner/>) : (
+        <Content fullscreen >
+
+              <ScrollView
+                scrollEventThrottle={160}
+                contentContainerStyle={{marginBottom: 40}}
+                showsVerticalScrollIndicator={false}
+                centerContent={true}
+                scrollsToTop={false}
+                stickyHeaderIndices={[]}  >
+
+                {
+                  showAnywareOption && (
+                    <PlainListItem
+                      key={-1}
+                      navigation={navigation}
+                      label={ 'Anywhere' }
+                      value={ 0 }
+                      style={{color:'red'}}
+                      params={{callback}}
+                    />
+                  )
+                }
+
+                {list.map( (d, i) => (
+                  <PlainListItem
+                    key={i}
+                    navigation={navigation}
+                    label={ d.name }
+                    value={ d.id }
+                    handler={this.selectState}
+                  />))
+                }
+               </ScrollView>
+
+
+        </Content>
+
+      ) }
       </Container>
     );
   }
