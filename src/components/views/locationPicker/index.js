@@ -17,20 +17,7 @@ class LocationPicker extends Component {
       super(props)
 
       this.state = {
-        loading: true,
-        pickerPage: 1,
-
-        // stateName: null,
-        // cityName: null,
-
-        // stateId: null,
-        // cityId: null,
-        //
-        // location: null,
-
-        list:null,
-        // cities:[]
-      //  , usStates: null
+        pickerPage: 1
      }
 
       this.onBack = this.onBack.bind(this);
@@ -52,8 +39,10 @@ componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.onBack);
 }
 
- onBack = () => {
-   var {cityId, stateId, stateName, cityName, navigation} = this.props
+ onBack = () => this.processAndGoBack(this.props.cityId, this.props.cityName)
+
+ processAndGoBack = (cityId, cityName) => {
+   var { stateName, stateId, navigation} = this.props
 
    var locationName = cityId ? (cityName + ', ' + stateId) : stateName
 
@@ -65,20 +54,6 @@ componentWillUnmount() {
  }
 
   onSelectState = (stateId, stateName) => this.setState({pickerPage: 2})
-
-  onSelectCity = (cityId, cityName) => {
-    this.setState(prevState => {
-      //if(!cityId.cityId){
-      //  prevState.pickerPage = 2
-  //    }
-      prevState.cityId = cityId
-      prevState.cityName = cityName
-
-      return prevState
-    })
-
-    //, pickerPage:  2
-  }
 
   onSwipe = (i) => this.setState({pickerPage: i})
 
@@ -113,7 +88,7 @@ componentWillUnmount() {
 
             <CityList
                tabLabel={cityName || 'Select City'}
-               onSelectCity={this.onSelectCity}
+               onSelectCity={this.processAndGoBack}
                navigation={navigation}
                key={2}/>
         </ScrollableTabView>

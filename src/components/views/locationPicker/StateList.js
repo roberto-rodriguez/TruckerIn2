@@ -87,8 +87,8 @@ class StateList extends Component {
   }
 }
 
-const mapStateToProps = ({globalReducer}, ownProps) => ({
-  usStates: globalReducer.config.usStates
+const mapStateToProps = ({locationReducer}, ownProps) => ({
+  usStates: locationReducer.usStates
 })
 
   export default connect(mapStateToProps)(StateList);

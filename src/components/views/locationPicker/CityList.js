@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { Container,  Content } from "native-base";
-import { Feed, Spinner, AgentMsg } from "src/components/";
+import { Feed, Spinner } from "src/components/";
 import CityItem from './CityItem'
 import theme from 'src/theme/variables/platform';
 import  * as locationsActions from './locations.actions'
@@ -26,7 +26,7 @@ class CityList extends Component {
 
  shouldComponentUpdate(nextProps, nextState){
    var {loading, reset} = this.state
-   debugger;
+
     return loading || nextState.reset || this.props.stateId != nextProps.stateId
 
  }
@@ -56,8 +56,7 @@ class CityList extends Component {
       this.setState({
         ...this.state,
         loading: false,
-        list,
-    //    reset: true
+        list
        })
     })
  }
@@ -82,7 +81,6 @@ class CityList extends Component {
 
 
   loadItems = (page, callback) => {
-         debugger;
     var {searchText, list} = this.state
 
     var filteredList = []
@@ -101,7 +99,6 @@ class CityList extends Component {
 
 
   render() {
-     debugger;
     const {navigation, stateId} = this.props
     var {loading, list} = this.state
 
@@ -116,15 +113,14 @@ class CityList extends Component {
              onSearchChangeText={this.onSearchChangeText}
 
              searchHandler={this.doSearch}/>
-         {showFeed ?
+           {showFeed &&
             (<Feed feedLoader={this.loadItems}
               feedBuilder={this.itemBuilder}
               navigation={navigation}
               searchText={this.state.searchText}
               reset={this.state.reset}>
               {this.anyCityItem()}
-            </Feed>) :
-            <AgentMsg text={'Please select state first'}/>
+            </Feed>)
           }
         </View>
       </Container>
@@ -142,7 +138,7 @@ class CityList extends Component {
 }
 
 const mapStateToProps = ({locationReducer}, ownProps) => {
-  debugger;
+
   return  ({
     stateId: locationReducer.stateId,
     timestamp: locationReducer.timestamp
