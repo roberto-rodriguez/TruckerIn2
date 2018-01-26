@@ -14,7 +14,7 @@ class JobListHeader extends Component {
      var {roleId, postedJobs, savedJobs} = profileInfo
 
        if(roleId === roles.DRIVER){
-         return (<Row h={50}>
+         return (<Row h={50} style={{borderBottomWidth:0.3, borderBottomColor: theme.secondaryColor}}>
            <Column h={50} columns={2} style={{borderRightColor: theme.secondaryColor, borderRightWidth:0.4}}>
             <TransparentButton color text={ savedJobs + ' Trabajos Salvados'} style={{paddingTop:4 }}
              handler={() => nav(navigation, 'SavedJobs')}/>

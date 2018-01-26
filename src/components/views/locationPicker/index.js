@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View , Text, BackHandler} from 'react-native';
 import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
-import {  Header}  from 'src/components/'
+import {  Header, AgentMsg}  from 'src/components/'
 import { connect } from "react-redux";
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import  * as locationsActions from './locations.actions'
@@ -17,7 +17,7 @@ class LocationPicker extends Component {
       super(props)
 
       this.state = {
-        pickerPage: 1
+        pickerPage: 0
      }
 
       this.onBack = this.onBack.bind(this);
@@ -32,6 +32,10 @@ class LocationPicker extends Component {
       this.props.setLocation( navigation.state.params.data )
     }else{
       this.props.clearLocation()
+
+      if(navigation.state.params.showGuidance){
+        this.props.showGuidance()
+      }
     }
 }
 
@@ -44,9 +48,10 @@ componentWillUnmount() {
  processAndGoBack = (cityId, cityName) => {
    var { stateName, stateId, navigation} = this.props
 
-   var locationName = cityId ? (cityName + ', ' + stateId) : stateName
-
-   navigation.state.params.setVal( 'location', {stateId, cityId, stateName, cityName, locationName} )
+   if(stateId){
+     var locationName = cityId ? (cityName + ', ' + stateId) : stateName
+     navigation.state.params.setVal( 'location', {stateId, cityId, stateName, cityName, locationName} )
+   }
 
    this.props.navigation.goBack()
 

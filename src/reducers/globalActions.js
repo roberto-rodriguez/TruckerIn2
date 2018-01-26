@@ -80,8 +80,13 @@ export function apiGetProfileInfo(userId){
     email: 'titorobe@yahoo.com',
     roleId:1,
     role:'Driver',
-    locationId:1,
-    location: 'Atlanta, GA',
+    location: {
+      stateId: 'CA',
+      cityId: 3,
+      stateName: 'California',
+      cityName: 'Miami',
+      locationName: 'Miami, CA'
+    },
     firstName:'Phuong',
     lastName:'Tran',
     jobStatusId: 1,

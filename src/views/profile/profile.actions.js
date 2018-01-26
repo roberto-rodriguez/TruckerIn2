@@ -173,8 +173,13 @@ export function apiGetProfileInfo(userId){
     email: 'titorobe@yahoo.com',
     roleId:2,
     role:'Broker',
-    locationId:1,
-    location: 'Atlanta, GA',
+    location: {
+      stateId: 'FL',
+      cityId: 5,
+      stateName: 'FL',
+      cityName: 'Jacksonville',
+      locationName: 'Jacksonville, FL'
+    },
     firstName:'Roberto',
     lastName:'Rodriguez',
     jobStatusId: 1,

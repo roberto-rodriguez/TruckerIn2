@@ -63,7 +63,7 @@ class Contact extends Component {
            value={ (data.location && data.location.locationName )}
            red={!data.location && invalidFields.indexOf('location') >= 0}
            routeName={'LocationPicker'}
-           params={{setVal: this.setVal, data: data.location}}/>
+           params={{setVal: this.setVal, data: data.location, showGuidance: true}}/>
 
 
            {

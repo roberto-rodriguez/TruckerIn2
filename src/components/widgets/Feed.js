@@ -85,13 +85,12 @@ handleSize = (width, height) => {
 
   render() {
     debbugFeed && console.log('Feed:  ---render---  this.state.page = ' + this.state.page);
-    var navigation = this.props.navigation,
-    feedBuilder = this.props.feedBuilder;
+    var {navigation, feedBuilder, emptyElement} = this.props
+    var {showLoadIndicator, feed, starting} = this.state
 
-    var size = this.state.feed.length
-    console.log('Feed.render -> size = ' + size);
+    var size = feed.length
 
-    if(this.state.starting){
+    if(starting){
       return (<Spinner/>)
     }
 
@@ -107,13 +106,14 @@ handleSize = (width, height) => {
         onContentSizeChange={this.handleSize} >
 
         {this.props.children}
-        {this.state.feed.map((data, i) => feedBuilder(data, navigation, i, (size - i < 10)))}
-        {this.state.showLoadIndicator && (<Button full transparent style={{marginBottom:40}}>
-            <Text style={{ color: global.secondaryColor }}>
-              Loading...
-            </Text>
-          </Button>
-        )}
+        {(size === 0 && emptyElement) ? emptyElement : feed.map((data, i) => feedBuilder(data, navigation, i, (size - i < 10)))}
+
+          { showLoadIndicator && (<Button full transparent style={{marginBottom:40}}>
+              <Text style={{ color: global.secondaryColor }}>
+                Loading...
+              </Text>
+            </Button>
+          )}
       </ScrollView >
     )
 

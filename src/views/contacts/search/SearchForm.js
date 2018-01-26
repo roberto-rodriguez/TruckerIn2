@@ -13,8 +13,7 @@ const items = [
 ]
 
 const initialState = {
-  locationId:null,
-  location: 'Anywhere',
+  location: null,
   equipmentId: null,
   equipment: 'Any',
   experienceId: null,
@@ -43,13 +42,13 @@ class SearchForm extends Component {
  }
 
  clear = () => this.setState({...initialState})
-  
+
  showSelect(prop) {
    this[prop + 'Select'].show();
  }
 
 
- setVal(prop, val, valId) {
+ setVal = (prop, val, valId) => {
    this.setState(prevState => {
      prevState[prop] = val
 
@@ -71,8 +70,15 @@ class SearchForm extends Component {
         <Header navigation={navigation} back title={'Search Contacts'}/>
         <Content fullscreen contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
           <View >
-            <ListItem navigation={navigation} key={101} icon={'map-marker'} label={'Where'} value={ state.location} routeName={'LocationPicker'} params={{setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}/>
-            {
+            <ListItem
+              navigation={navigation}
+               key={101} icon={'map-marker'}
+               label={'Where'}
+               value={ (state.location && state.location.locationName ) || 'Anywhere'}
+               routeName={'LocationPicker'}
+               params={{setVal: this.setVal, data: state.location }}/>
+
+        {
               items.filter((elem, i) => (state.showDriverOptions || i < 1)).map( ({icon, title, prop, isSelect}, i) => (
               <ListItem
                  key={i}

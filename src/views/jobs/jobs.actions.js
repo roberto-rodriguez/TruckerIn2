@@ -183,9 +183,8 @@ function applyFilter(filter, searchParams, list){
           return list.map((job, i) => addAppActions(filter, job, i))
       case 'experienceId':
         return list.filter((item) => (item[filter] <= val))
-      case 'author':
-      debugger;
-        return list.filter((item) => (item[filter].indexOf(val) >= 0))
+      case 'author': 
+        return list.filter((item) => (item[filter] && item[filter].indexOf(val) >= 0))
       default:
         return list.filter((item) => (item[filter] === val))
     }

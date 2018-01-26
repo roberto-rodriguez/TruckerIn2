@@ -1,5 +1,7 @@
 
 import * as connector from 'src/reducers/connector'
+import * as globalActions from 'src/reducers/globalActions'
+
 export const setCityAction = (cityId, cityName) => ({ type: 'SET_CITY', cityId, cityName })
 export const setStateAction = (stateId, stateName) => ({ type: 'SET_STATE', stateId , stateName})
 export const setLocationAction = (location) => ({ type: 'SET_LOCATION', location })
@@ -41,5 +43,11 @@ export function setLocation(location){
 export function clearLocation(){
   return function( dispatch, getState ){
     dispatch( clearLocationAction( ) )
+  }
+}
+
+export function showGuidance(){
+  return function( dispatch, getState ){
+      globalActions.showHeaderNotification('You can swipe to change between states and cities.')( dispatch, getState )
   }
 }

@@ -197,7 +197,7 @@ componentDidMount(){
       role: profileInfo.role,
       roleId: profileInfo.roleId,
       profileImg:  isMe ? session.profileImg : userInfo.profileImg,
-      location: profileInfo.location,
+      location: profileInfo.location && profileInfo.location.locationName,
       profileInfoCompletion: profileInfo.completion || 0,
       profileExperienceCompletion:  (isMe ? globalReducer.profileExperience.completion : profileReducer.profileExperience.completion) || 0,
       connectionsCount: profileInfo.connectionsCount,

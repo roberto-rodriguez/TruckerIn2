@@ -12,7 +12,7 @@ const items = [
   { icon: 'user-circle',   title: 'lastName', prop: 'lastName'},
   { icon: 'envelope-o',   title: 'email', prop: 'email'},
   { icon: 'phone',   title: 'phone', prop: 'phone'},
-  { icon: 'map-marker',   title: 'location', route:'LocationPicker', prop:'location'}
+//  { icon: 'map-marker',   title: 'location', route:'LocationPicker', prop:'location'}
 ]
 
 const yesNoItems = [
@@ -52,7 +52,7 @@ class EditProfileInformation extends Component {
    this.props.navigation.goBack();
  }
 
- setVal(prop, val, valId) {
+ setVal = (prop, val, valId) => {
    this.setState((prevState) => {
       prevState[prop] = val
 
@@ -82,6 +82,15 @@ class EditProfileInformation extends Component {
                  onChangeText={(text) => this.setVal(prop, text)}
                  />) )
             }
+
+            <ListItem
+              navigation={navigation}
+              key={101}
+              icon={'map-marker'}
+              label={I18n.t('profile.location.title')}
+              value={ (state.location && state.location.locationName )}
+              routeName={'LocationPicker'}
+              params={{setVal: this.setVal, data: state.location}}/>
 
             <ListItem
                key={100}

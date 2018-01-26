@@ -12,8 +12,8 @@ const items = [
 
 const initialState = {
   locationId:null,
-  location: 'Anywhere',
-  equipmentId: null,
+  location: null,
+  equipmentId:null,
   equipment: 'Any',
   experienceId: null,
   experience: 'Any',
@@ -34,23 +34,18 @@ class SearchJobs extends Component {
    }))
  }
 
- clear = () => {
-   this.setState(initialState)
- }
+ clear = () => this.setState(initialState)
 
  showSelect(prop) {
    this[prop + 'Select'].show();
  }
 
+ setVal = (prop, val, valId) => this.setState( prevState => {
+     prevState[prop] = val
+     prevState[prop + 'Id'] = valId
 
- setVal(prop, val, valId) {
-   var newState = { ...this.state }
-   newState[prop] = val
-
-   newState[prop + 'Id'] = valId
-
-   this.setState(newState)
- }
+     return prevState
+   } )
 
  onSearch = () => {
      var {navigation} = this.props
@@ -68,7 +63,13 @@ class SearchJobs extends Component {
         <Header navigation={navigation} back title={'Search Jobs'}/>
         <Content fullscreen contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
           <View >
-            <ListItem navigation={navigation} key={101} icon={'map-marker'} label={'Where'} value={ state.location} routeName={'LocationPicker'} params={{setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}/>
+            <ListItem
+              navigation={navigation}
+               key={101} icon={'map-marker'}
+               label={'Where'}
+               value={ (state.location && state.location.locationName ) || 'Anywhere'}
+               routeName={'LocationPicker'}
+               params={{setVal: this.setVal, data: state.location }}/>
             {
               items.map( ({icon, title, prop, isSelect}, i) => (
               <ListItem

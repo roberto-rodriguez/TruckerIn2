@@ -14,8 +14,7 @@ class CityList extends Component {
   constructor(props) {
       super(props)
       this.state = {
-        loading: false,
-
+        loading: false, 
         searchText: null,
         list:null,
         currentList: null,
@@ -32,7 +31,6 @@ class CityList extends Component {
  }
 
  componentWillReceiveProps(newProps) {
-   debugger;
    if(this.props.stateId != newProps.stateId){
      this.listCities( newProps.stateId )
    }
