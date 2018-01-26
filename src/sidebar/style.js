@@ -6,48 +6,21 @@ import theme from 'src/theme/variables/platform'
 export default {
   drawerContent: {
     paddingTop: Platform.OS === "android" ? 0 : 30,
-    backgroundColor:theme.primaryColor// "rgba(59, 90, 148, 0.9)"
-  },
-  headerView: {
-    flexDirection: "row",
-    paddingLeft: 15,
-
-    marginLeft: Platform.OS === "ios" ? undefined : -30,
-    marginBottom: 5
-  },
-  searchBlockView: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "stretch",
-    marginTop: Platform.OS === "android" ? 10 : 0
-  },
-  sidebarSearch: {
-    flex: 1,
-    height: Platform.OS === "android" ? 35 : 35,
-    paddingBottom: 0,
-
-    marginLeft: Platform.OS === "android" ? 25 : null,
-    backgroundColor:theme.secondaryColor,// commonColor.brandPrimary,
-    borderRadius: 8,
-    borderBottomWidth: 0,
-    paddingLeft: 15
-  },
-  searchIcon: {
-    fontSize: 20,
-    color: "#fff"
-  },
-  searchPlaceholder: {
-    top: Platform.OS === "ios" ? undefined : -2
-  },
-  settingsIcon: {
-    color: "#fff",
-    fontSize: 28
+//    backgroundColor:theme.primaryColor// "rgba(59, 90, 148, 0.9)"
   },
   userDataListitem: {
     paddingBottom: 15,
-    paddingLeft: Platform.OS === "android" ? 0 : 0,
-    position: "relative"
+    paddingLeft: 15, //  Platform.OS === "android" ? 0 : 0,
+    marginLeft: 0,
+    marginTop: 0,
+    paddingTop: 15,
+    position: "relative",
+    backgroundColor:theme.primaryColor
+  },
+  item:{
+     paddingTop: 10,
+     paddingBottom: 10 ,
+     backgroundColor: 'white'
   },
   userDataNameText: {
     color: "#FFFFFF",

@@ -4,19 +4,22 @@ import { SimpleListItem, RowColumn, Column, Row, T14, T15, mapStateToProps} from
 import { connect } from "react-redux";
 import styles from "../styles";
 import I18n from 'react-native-i18n'
+import * as authActions from "src/views/auth/auth.actions";
 
 const items = [
   { icon: 'key',   title: 'requestAcess' },
-  { icon: 'phone',   title: 'support' }
+  { icon: 'headphones',   title: 'support', routeName: 'ContactUs' }
 ]
 
 class ValidatePhone extends Component {
 
  t = (key) => I18n.t(['signup', 'validatePhone', key])
 
+ resendAccessCode = () => this.props.sendAccessCode(this.props.data.phone)
+
   render() {
     var t = this.t
-    var {data, valid, setVal} = this.props
+    var {data, valid, setVal, navigation} = this.props
 
     var errorStyle = valid ? {} : {borderColor: 'red', color: 'red'}
 
@@ -38,13 +41,15 @@ class ValidatePhone extends Component {
                     <T14>{ t('didntReceive') }</T14>
                   </RowColumn>
                   {
-                   items.map( ({icon, title, prop}, i) => (
+                   items.map( ({icon, title, prop, routeName, onPress}, i) => (
                      <SimpleListItem
                         borderTop={i === 0}
                         key={i}
                         icon={icon}
                         label={ t(title) }
-                        onPress={() => {}}
+                        routeName={routeName}
+                        navigation={navigation}
+                        onPress={routeName ? null : this.resendAccessCode}
                         />) )
                    }
                 </View>
@@ -56,4 +61,4 @@ class ValidatePhone extends Component {
   }
 }
 
-export default connect(mapStateToProps )(ValidatePhone);
+export default connect(mapStateToProps, authActions)(ValidatePhone);

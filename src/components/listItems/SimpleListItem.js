@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { TouchableHighlight, View, StyleSheet,Text} from 'react-native';
-import {Row, Column,T11,T13,T14 } from 'src/components/'
+import {Row, Column,T11,T13,T14, nav } from 'src/components/'
 import Icon from 'react-native-fa-icons';
 import { NavigationActions } from "react-navigation";
 
@@ -44,7 +44,7 @@ import { NavigationActions } from "react-navigation";
     );
   }
 }
- 
+
 const styles = StyleSheet.create({
     icon: {   fontSize: 18 }
   })

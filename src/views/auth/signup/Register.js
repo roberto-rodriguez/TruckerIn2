@@ -34,13 +34,14 @@ class Register extends Component {
     super(props);
     this.state = {
       view:{
-        flowPage: 2,
+        flowPage: 0,
         accessCode: null,
         invalidFields: [],
         validForm: true,
         bullets: bulletsKeys.map(key =>  I18n.t( ['signup', 'bullets', key ] )),
         acceptTerms: false,
-        errorMsg: null
+        errorMsg: null,
+        sentAccessCode: false
       },
       data:{
         roleId: 1,  // 1-Driver, 2-Broker, 3-Company
@@ -89,14 +90,17 @@ class Register extends Component {
   setVal = (prop, val, valId) => this.setState((prevState) => {
          prevState.data[prop] = val
          if(valId){ prevState.data[prop + 'Id'] = valId }
+
+         if(prop === 'phone' && prevState.view.sentAccessCode){ //If already sent the access code, but change the phone number, send it again
+           prevState.view.sentAccessCode = false
+         }
+
          return prevState
       })
 
-//  setValues = (map) => this.setState((prevState) => ({...prevState, ...map}) )
-
   render() {
-    const navigation = this.props.navigation;
-    var {role, flowPage, validForm, errorMsg, bullets,} = this.state.view
+    const {navigation, showHeaderNotification} = this.props
+    var {role, flowPage, validForm, errorMsg, bullets} = this.state.view
 
     return (
       <Container style={styles.background}>
@@ -130,6 +134,17 @@ class Register extends Component {
                 </RowColumn>
               )
           }
+          {
+            showHeaderNotification && (
+              <View style={{backgroundColor: '#d5f4e6', borderWidth: 0.3, borderColor: commonColor.primaryColor}}>
+                 <RowColumn h={60}>
+                   <T14 style={{color:commonColor.primaryColor}}>{'Se le ha enviado un codigo de verificacion'}</T14>
+                   <T14 style={{color:commonColor.primaryColor}}>{' por mensaje de text al numero: ' + this.state.data.phone}</T14>
+                 </RowColumn>
+               </View>
+            )
+          }
+
         </View>
 
           {this.buildFlowSection()}
@@ -170,6 +185,7 @@ class Register extends Component {
     }
 
     var serverErrorMsg = null
+    var sentAccessCode = null
 
     switch(flowPage){
       case 0:
@@ -181,6 +197,13 @@ class Register extends Component {
       case 1:
         if(next && validForm){
             return this.validateUsername()
+        }
+        break;
+      case 2:
+      debugger;
+        if(next && validForm && !view.sentAccessCode){
+             this.props.sendAccessCode( data.phone )
+             sentAccessCode = true
         }
         break;
       case 4:
@@ -205,6 +228,7 @@ class Register extends Component {
            ...prevState.view,
            invalidFields,
            validForm,
+           sentAccessCode: (sentAccessCode || prevState.sentAccessCode),
            errorMsg: serverErrorMsg ||  I18n.t( ['signup', 'subTitlesError', (subTitlesError[flowPage] || 'completeRed')] ),
            flowPage: prevState.view.flowPage + (next ? (validForm ? 1 : 0) : -1)
          }
@@ -224,7 +248,7 @@ class Register extends Component {
       case 3: return (data.roleId === roles.DRIVER ? <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
                         : <About data={data} setVal={this.setVal} navigation={navigation}/>
                       )
-      case 4: return <ValidatePhone data={data} setVal={this.setVal} valid={validForm}/>
+      case 4: return <ValidatePhone data={data} setVal={this.setVal} valid={validForm}  navigation={navigation}/>
       case 5: return <AcceptTerms data={data} setVal={this.setVal}/>
     }
   }
@@ -290,6 +314,7 @@ selectRole = ( role, roleKey ) => {
 
 function mapStateToProps({globalReducer}) {
 	return {
+    showHeaderNotification: globalReducer.view.headerNotification,
     lang: globalReducer.config.lang
   }
 }

@@ -4,7 +4,7 @@ import { StyleSheet, View} from 'react-native';
 import {StackView,  T11, AgentImg, RowColumn, SimpleListItem} from 'src/components/'
 
 const items = [
-  { icon: 'gavel',   title: 'Terms of Service', routeName: 'TOS'},
+  { icon: 'balance-scale',   title: 'Terms of Service', routeName: 'TOS'},
   { icon: 'envelope-o',   title: 'Contact Us', routeName: 'ContactUs'}
 ]
 

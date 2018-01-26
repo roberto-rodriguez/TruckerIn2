@@ -6,7 +6,7 @@ export function validate(page, data){
       //    break:
       case 2: //invalidFields =  validatePage(data, [ 'email', 'phone',  'showPersonalInfo'])
               if(!data['location']){
-                invalidFields.push('location')
+            //    invalidFields.push('location')
               }
       //    break:
       // case 3: invalidFields =  validatePage(data, [ 'experience', 'jobStatus', 'equipment', 'ownerOperator', 'overRoadExp', 'willTakeOverRoad'])

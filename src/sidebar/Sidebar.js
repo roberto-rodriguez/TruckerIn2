@@ -10,36 +10,42 @@ import theme from 'src/theme/variables/platform'
 import { connect } from "react-redux";
 
 const menuItems = [
-  {
-    link: "SecureDocs",
-    icon: "key",
-    text: "My Secure Documents",
-    bg: theme.primaryColor
-  },
+  // {
+  //   link: "SecureDocs",
+  //   icon: "key",
+  //   text: "My Secure Documents",
+  //   bg: theme.primaryColor
+  // },
   {
     link: "AppliedJobs",
     icon: "address-card-o",
     text: "My Job Applications",
-    bg: "#ffa07a"
+    bg: 'steelblue'
   },
   {
-    link: "Home",
-    icon: "truck",
-    text: "Job Suggestions",
-    bg: "#9acd32"
+    link: "SavedJobs",
+    icon: "briefcase",
+    text: "My Saved Jobs",
+    bg: 'teal'
   },
-  {
-    link: "NearbyFriends",
-    icon: "hand-o-right",
-    text: "Contact Suggestions",
-    bg: "#fc6c85"
-  },
-  {
-    link: "BlankPage",
-    icon: "fax",
-    text: "Invite from contact list",
-    bg: "#ffb66c"
-  },
+  // {
+  //   link: "Home",
+  //   icon: "truck",
+  //   text: "Job Suggestions",
+  //   bg: "#9acd32"
+  // },
+  // {
+  //   link: "NearbyFriends",
+  //   icon: "hand-o-right",
+  //   text: "Contact Suggestions",
+  //   bg: "#fc6c85"
+  // },
+  // {
+  //   link: "BlankPage",
+  //   icon: "fax",
+  //   text: "Invite from contact list",
+  //   bg: "#ffb66c"
+  // },
   {
     link: "About",
     icon: "university",
@@ -73,13 +79,8 @@ class SideBar extends Component {
     const {navigation, fullName, profileImg} = this.props
 
     return (
-      <Container>
-        <Content fullscreen style={styles.drawerContent}>
-          <View style={styles.headerView}>
-            <View style={styles.searchBlockView}>
-            </View>
-          </View>
-
+      <Container >
+        <Content fullscreen   style={styles.drawerContent}>
           <ListItem button thumbnail noBorder
             onPress={() => navigation.navigate('Profile')}
             style={styles.userDataListitem} >
@@ -111,9 +112,11 @@ class SideBar extends Component {
                   button
                   iconLeft
                   noBorder
-                  style={{ paddingTop: 8, paddingBottom: 4 }}
+                  style={styles.item}
                   onPress={() => {
-                    navigation.navigate(menuItemRow.link);
+                    setTimeout( () => navigation.navigate( menuItemRow.link) , 300)
+                    navigation.navigate('DrawerClose')
+                //    navigation.navigate(menuItemRow.link);
                   }}
                 >
                   <View
@@ -133,7 +136,7 @@ class SideBar extends Component {
               button
               iconLeft
               noBorder
-              style={{ paddingTop: 5, paddingBottom: 50 }}
+              style={styles.item}
               onPress={() => {
                 navigation.dispatch(resetAction);
               }}
