@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { Container,  Content } from "native-base";
 import { Feed, Spinner } from "src/components/";
-import  * as locationsActions from './locations.actions'
+import { connect } from "react-redux"
 import theme from 'src/theme/variables/platform';
+
 import StateItem from './StateItem'
-import { connect } from "react-redux";
+import LocationSearch from './LocationSearch'
+import  * as locationsActions from './locations.actions'
 
 class StateList extends Component {
 
@@ -15,7 +17,7 @@ class StateList extends Component {
       this.state = {
         loading: true,
 
-        searchStateText: null,
+        searchText: null,
         stateName: null,
         stateId: null,
 
@@ -25,7 +27,7 @@ class StateList extends Component {
  }
 
  componentDidMount(){
-  setTimeout(this.filterStates, 150)
+    setTimeout(this.filterStates, 150)
  }
 
  filterStates  = (text) => {
@@ -33,15 +35,17 @@ class StateList extends Component {
       text = text.toLowerCase()
       var newList = this.props.usStates.filter((o) => o.name.toLowerCase().indexOf( text ) >= 0)
       this.setState({
-        searchStateText: text,
-        list: newList
+        searchText: text,
+        list: newList,
+        reset: true
       })
 
     }else{
       this.setState({
         list: this.props.usStates,
         loading: false,
-        searchStateText: ''
+        searchText: '',
+        reset: true
        })
     }
   }
@@ -57,7 +61,10 @@ class StateList extends Component {
    />
  )
 
-  loadItems = (page, callback) => callback( (this.state.list || []).slice(page * 20, (page + 1) * 20))
+  loadItems = (page, callback) => {
+    callback( (this.state.list || []).slice(page * 20, (page + 1) * 20))
+    this.setState({ reset: false })
+  }
 
   render() {
     const {navigation} = this.props
@@ -65,6 +72,7 @@ class StateList extends Component {
     return (
       <Container white>
         <View style={{minHeight:'100%'}}>
+            <LocationSearch title={'Search States'}  onSearchChangeText={this.filterStates} value={this.state.searchText}/>
            {this.state.loading ? (<Spinner/>) :
             (<Feed feedLoader={this.loadItems}
               feedBuilder={this.itemBuilder}

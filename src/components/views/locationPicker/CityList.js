@@ -6,6 +6,8 @@ import CityItem from './CityItem'
 import theme from 'src/theme/variables/platform';
 import  * as locationsActions from './locations.actions'
 import { connect } from "react-redux";
+import LocationSearch from './LocationSearch'
+
 
 class CityList extends Component {
 
@@ -14,16 +16,19 @@ class CityList extends Component {
       this.state = {
         loading: false,
 
-        searchStateText: null,
+        searchText: null,
         list:null,
+        currentList: null,
         reset: null
      }
  }
 
 
  shouldComponentUpdate(nextProps, nextState){
+   var {loading, reset} = this.state
    debugger;
-    return this.state.loading || this.props.stateId != nextProps.stateId
+    return loading || nextState.reset || this.props.stateId != nextProps.stateId
+
  }
 
  componentWillReceiveProps(newProps) {
@@ -34,7 +39,6 @@ class CityList extends Component {
  }
 
  componentDidMount(){
-    debugger;
    if(this.props.stateId && !this.state.list){
      this.listCities( this.props.stateId )
    }
@@ -44,7 +48,8 @@ class CityList extends Component {
    debugger;
    this.setState({
      loading: true,
-     list: []
+     list: [],
+     searchText: null
     })
 
     this.props.listCities(stateId, (list) => {
@@ -52,9 +57,17 @@ class CityList extends Component {
         ...this.state,
         loading: false,
         list,
-        reset: true
+    //    reset: true
        })
     })
+ }
+
+ onSearchChangeText = (searchText) => {
+     this.setState({searchText})
+ }
+
+ doSearch = (searchText) => {
+        this.setState({reset: true})
  }
 
  itemBuilder = (data, navigation, i , shouldUpdate) =>  (
@@ -67,27 +80,47 @@ class CityList extends Component {
          shouldUpdate={shouldUpdate}
        /> )
 
-  loadItems = (page, callback) => {
-    callback( (this.state.list || []).slice(page * 20, (page + 1) * 20))
 
-    this.setState({...this.state, reset: false})
+  loadItems = (page, callback) => {
+         debugger;
+    var {searchText, list} = this.state
+
+    var filteredList = []
+
+    if(searchText){
+      filteredList = this.state.list.filter((o) => o.name.toLowerCase().indexOf( searchText ) >= 0)
+    }else{
+      filteredList = list || []
+    }
+
+
+    callback( filteredList.slice(page * 20, (page + 1) * 20))
+
+    this.setState({ reset: false, loading: false, searchText})
   }
 
 
   render() {
      debugger;
     const {navigation, stateId} = this.props
-    var {loading} = this.state
+    var {loading, list} = this.state
 
     if( loading ) return (<Spinner/>)
+    var showFeed = stateId &&  list && list.length > 0
 
     return (
       <Container white>
         <View style={{minHeight:'100%'}}>
-           {stateId ?
+           <LocationSearch
+             title={'Search Cities'}
+             onSearchChangeText={this.onSearchChangeText}
+
+             searchHandler={this.doSearch}/>
+         {showFeed ?
             (<Feed feedLoader={this.loadItems}
               feedBuilder={this.itemBuilder}
               navigation={navigation}
+              searchText={this.state.searchText}
               reset={this.state.reset}>
               {this.anyCityItem()}
             </Feed>) :

@@ -35,8 +35,8 @@ const App = StackNavigator(
   {
     index: 0,
 //    initialRouteName: "Drawer",
-    initialRouteName: "Login",
-//    initialRouteName: "LocationPicker",
+     initialRouteName: "Login",
+//   initialRouteName: "LocationPicker",
     headerMode: "none"
   }
 );

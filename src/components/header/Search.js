@@ -11,14 +11,14 @@ import theme from 'src/theme/variables/platform'
 
 export default class Search extends Component {
   render(){
-    var {title, searchHandler, onChangeText, green, searchDefaultValue} = this.props;
+    var {title, searchHandler, onChangeText, green, searchDefaultValue, style} = this.props;
 
     var styles = green ? stylesGreen : stylesWhite
     var placeholderTextColor = green ? 'white' : theme.secondaryColor
 
     return (
-    <Item style={styles.searchBar}>
-      <Button transparent onPress={() => searchHandler()} style={{height:'100%'}} >
+    <Item style={[style, styles.searchBar]}>
+      <Button transparent onPress={searchHandler} style={{height:'100%'}} >
         <Icon name="search" style={styles.searchIcon} />
       </Button>
       <Input

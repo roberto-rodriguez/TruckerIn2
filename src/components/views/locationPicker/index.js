@@ -38,7 +38,7 @@ class LocationPicker extends Component {
 
  componentWillMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBack);
-debugger;
+
     var {navigation} = this.props
 
     if(navigation.state.params.data){
@@ -56,7 +56,7 @@ componentWillUnmount() {
    var {cityId, stateId, stateName, cityName, navigation} = this.props
 
    var locationName = cityId ? (cityName + ', ' + stateId) : stateName
-debugger;
+
    navigation.state.params.setVal( 'location', {stateId, cityId, stateName, cityName, locationName} )
 
    this.props.navigation.goBack()
