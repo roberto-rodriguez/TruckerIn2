@@ -2,11 +2,13 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
-import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T12, T14, Content, Avatar, nav} from 'src/components/'
+import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T12, T14, Content, Avatar, nav, formatDate} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import moment from 'moment';
 import { connect } from "react-redux";
 import * as jobActions from "src/views/jobs/jobs.actions";
+import I18n from 'react-native-i18n'
+
 
  class JobApplicationPost extends Component {
 
@@ -28,7 +30,7 @@ import * as jobActions from "src/views/jobs/jobs.actions";
 
  delete = () => this.setState({deleted: true})
 
- sendMessage = () => nav(navigation, 'TextInputView', {title: 'Message to Applicant', callback:this.onSendMessage})
+ sendMessage = () => nav(navigation, 'TextInputView', {title: I18n.t('jobs.app.msgToApplicant'), callback:this.onSendMessage})
 
  onSendMessage = (msg) => {
    var _this = this
@@ -71,24 +73,24 @@ import * as jobActions from "src/views/jobs/jobs.actions";
         </View>
       </View>
 
-      <Text><Text strong>Experience: </Text>{dataRow.experience}</Text>
-      <Text><Text strong>Equipment: </Text>{dataRow.equipment}</Text>
-      <Text><Text strong>Availability: </Text>{'I can start working in the next couple weeks or after Chistmas'}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.ex')} </Text>{dataRow.experience}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.equipment')} </Text>{dataRow.equipment}</Text>
+    <Text><Text strong>{I18n.t('jobs.app.availability')} </Text>{dataRow.availability}</Text>
 
 
       <View style={{flexDirection: 'row', marginTop: 10, justifyContent:'space-between'}}>
-          <CustomButton text={'Enviar Mensaje'} style={{height:32, width:100}}
+          <CustomButton text={I18n.t('jobs.app.sendMsg')} style={{height:32, width:100}}
           handler={ this.sendMessage }/>
 
-          <CustomButton white text={'PROFILE'}
+        <CustomButton white text={I18n.t('jobs.post.profile')}
             style={styles.button}
             handler={() => nav(navigation, 'Profile', {userInfo: dataRow})}/>
 
-          <CustomButton white text={'ACCEPT'}
+          <CustomButton white text={I18n.t('jobs.post.details')}
           style={styles.button}
           handler={() => navigation.navigate('JobDetails')}/>
 
-         <CustomButton white text={'REJECT'}
+         <CustomButton white text={I18n.t('jobs.post.reject')}
            style={styles.button}
            handler={() => {}}/>
       </View>
@@ -117,22 +119,14 @@ import * as jobActions from "src/views/jobs/jobs.actions";
              light
              red={action.request &&  i ===  appActions.length - 1}
              green={action.answer}>
-             {this._formatDate(action.date)} </T12>
+             { formatDate(action.createdAt, 'MMM Do')} </T12>
              {': ' + action.text}
 
              <T10 light>
-              {'   (' + this._formatTime(action.date) + ')'}
+              {'   (' + formatDate(action.createdAt, 'LT') + ')'}
              </T10>
           </T12>))
       return actionsCmp
-    }
-
-    _formatDate(dateStr){
-      return moment(dateStr,'YYYYMMDDTHH:mm:ss').format("MMM Do");
-    }
-
-    _formatTime(dateStr){
-      return moment(dateStr,'YYYYMMDDTHH:mm:ss').format('LT');
     }
 
 

@@ -78,8 +78,8 @@ export function apiGetProfileInfo(userId){
     completion: 100,
     phone: '786-454-0209',
     email: 'titorobe@yahoo.com',
-    roleId:1,
-    role:'Driver',
+    roleId:2,
+    role:'Broker',
     location: {
       stateId: 'CA',
       cityId: 3,

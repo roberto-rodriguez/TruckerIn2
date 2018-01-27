@@ -28,8 +28,7 @@ export function loadConfig(){
 export function sendAccessCode(phone, callback ){
   return function( dispatch, getState ){
     //TODO, validate if htat phone belongs to an existent user, if not create one and send the id back, to be stored in the globalReducer, that will help in case of contactUs in page 4
-      globalActions.showHeaderNotification('Access code was sent you you via SMS to number ' + phone )( dispatch, getState )
-  }
+   }
 }
 
 export function validateAccessCode(accessCode, callback){

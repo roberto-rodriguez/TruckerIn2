@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import {Image,View  } from 'react-native';
 import { Container, Content } from "native-base";
 import { Header, Feed} from 'src/components/'
-
+import I18n from 'react-native-i18n'
 import { NavigationActions } from "react-navigation";
 import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
@@ -28,7 +28,7 @@ class PostedJobApplications extends Component {
 
     return (
       <Container>
-        <Header navigation={navigation} back title='Job Applications' />
+        <Header navigation={navigation} back title={I18n.t('jobs.app.titles')/>
         <View style={{minHeight:'100%'}}>
            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
         </View>

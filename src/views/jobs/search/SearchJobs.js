@@ -4,10 +4,11 @@ import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
 import { Header, BlockButton, ListItem, Select, InputListItem} from 'src/components/'
 import { connect } from "react-redux";
+import I18n from 'react-native-i18n'
 
 const items = [
-  { icon: 'truck',   title: 'Equipment', prop: 'equipment'},
-  { icon: 'tachometer',   title: 'Experience', prop: 'experience'}
+  { icon: 'truck',   title: 'equipment', prop: 'equipment'},
+  { icon: 'tachometer',   title: 'exp', prop: 'experience'}
 ]
 
 const initialState = {
@@ -60,14 +61,14 @@ class SearchJobs extends Component {
 
     return (
       <Container>
-        <Header navigation={navigation} back title={'Search Jobs'}/>
+        <Header navigation={navigation} back title={I18n.t('jobs.search.title')}/>
         <Content fullscreen contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
           <View >
             <ListItem
               navigation={navigation}
                key={101} icon={'map-marker'}
-               label={'Where'}
-               value={ (state.location && state.location.locationName ) || 'Anywhere'}
+               label={I18n.t('general.where')}
+               value={ (state.location && state.location.locationName ) || I18n.t('general.anywhere')}
                routeName={'LocationPicker'}
                params={{setVal: this.setVal, data: state.location }}/>
             {
@@ -76,22 +77,25 @@ class SearchJobs extends Component {
                  key={i}
                  navigation={navigation}
                  icon={icon}
-                 label={title}
+                 label={I18n.t(['jobs','post', title])}
                  value={ state[prop]}
                  handler={ () => this.showSelect( prop ) }
                  />) )
 
             }
-            <InputListItem icon='user-o' label="Employer's Name" value={state.author} onChangeText={(text) => this.setVal('author', text)}/>
+            <InputListItem
+              icon='user-o'
+              label={I18n.t('jobs.search.name')}
+              value={state.author} onChangeText={(text) => this.setVal('author', text)}/>
 
             <Button onPress={this.clear} full transparent>
                 <Text style={{ color: global.secondaryColor }}>
-                  Clear
+                  {I18n.t('jobs.search.clear')}
                 </Text>
               </Button>
          </View>
 
-          <BlockButton text='Search' onPress={this.onSearch}/>
+          <BlockButton text={I18n.t('jobs.search.title')} onPress={this.onSearch}/>
 
            <Select
               ref={o => this.equipmentSelect = o}
@@ -110,8 +114,8 @@ class SearchJobs extends Component {
 }
 
 const mapStateToProps = ({globalReducer}) => ({
-  equipmentOptions: [{id:0, name:'Any'}, ...globalReducer.config.equipmentOptions] ,
-  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : 'At least ' + exp.name}))
+  equipmentOptions: [{id:0, name: I18n.t('general.any')}, ...globalReducer.config.equipmentOptions] ,
+  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('general.atLeast') + exp.name}))
 });
 
 export default connect(mapStateToProps)(SearchJobs);

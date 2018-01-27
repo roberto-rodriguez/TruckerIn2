@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {View, StyleSheet} from 'react-native'
 import { Button } from "native-base";
-import {Feed, TransparentButton, Row, Column, nav, Header, T14, AgentImg} from "src/components/";
-
+import {Feed, nav, Header, T14, AgentImg} from "src/components/";
 import HeaderBtn from 'src/components/header/buttons/HeaderBtn'
 import MainHeader from 'src/components/header/MainHeader'
 import Icon from 'react-native-fa-icons';
@@ -12,6 +11,8 @@ import * as jobActions from "src/views/jobs/jobs.actions";
 import JobPost from './JobPost'
 import * as roles from 'src/components/c/Role'
 import JobListHeader from './list/JobListHeader'
+import I18n from 'react-native-i18n'
+
 
  class Jobs extends Component {
 
@@ -39,10 +40,7 @@ loadItems = (page, callback) => {
   this.props.loadJobs(page, this.state.searchParams, callback, reset)
 
   if(reset){
-    this.setState((prevState) => ({
-      ...prevState,
-      reset: false
-    }))
+    this.setState( {reset: false })
   }
 }
 
@@ -52,15 +50,17 @@ loadItems = (page, callback) => {
    return (
      <View style={{minHeight:'100%' }}>
         <MainHeader navigation={navigation}
-          title={'Jobs'}
-          right={<HeaderBtn icon='search' handler={() => nav(navigation, 'SearchJobs', {searchParams: this.state.searchParams, callback: this.onSearch})} style={{padding:10}}/>}
+          title={I18n.t('jobs.title')}
+          right={<HeaderBtn icon='search'
+                  handler={() => nav(navigation, 'SearchJobs', {searchParams: this.state.searchParams, callback: this.onSearch})}
+                  style={{padding:10}}/>}
          />
 
          <Feed
            reset={this.state.reset}
            feedLoader={this.loadItems}
            feedBuilder={(data, navigation, i, shouldUpdate) => (<JobPost applyBar navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate} />)}
-           emptyElement={(<AgentImg text={'Not Jobs were found with the specified criterias.'}/>)}
+           emptyElement={(<AgentImg text={I18n.t('jobs.headers.emptyText')}/>)}
            navigation={navigation}>
 
            <JobListHeader navigation={navigation}/>

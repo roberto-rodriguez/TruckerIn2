@@ -178,12 +178,12 @@ function applyFilter(filter, searchParams, list){
       case 'saved':
         return list.slice(0, 2)
       case 'applied':
-          return list.map((job, i) => addAppActions(filter, job, i))
+          return list.map((job, i) => ({...job, appTime: (new Date()).getTime() - (i * 1000000000)})).map((job, i) => addAppActions(filter, job, i))
       case 'posted':
           return list.map((job, i) => addAppActions(filter, job, i))
       case 'experienceId':
         return list.filter((item) => (item[filter] <= val))
-      case 'author': 
+      case 'author':
         return list.filter((item) => (item[filter] && item[filter].indexOf(val) >= 0))
       default:
         return list.filter((item) => (item[filter] === val))
@@ -208,36 +208,36 @@ function addAppActions(filter, job, i){
 appActions = [
   {
   id:1,
-  date:'20171101T15:23:45',
+  createdAt: 1517085498990,
   text:'Application seen'
 },
 {
   id:2,
-  date:'20171102T16:24:45',
+  createdAt: 1517085498990,
   text:'Started reviewing'
 },
 {
   id:3,
-  date:'20171103T17:25:45',
+  createdAt: 1517085498990,
   text:'Information Requested: Please send a picture of your Id and Driver License to this email: titorobe@yahoo.com',
   request:true,
   relevant:true
 },
 {
   id:4,
-  date:'20171104T18:26:45',
+  createdAt: 1517085498990,
   answer:true,
   text:'Answer: Picture of ID and Driver License were sent to the provided email',
   relevant:true
 },
 {
   id:5,
-  date:'20171105T19:27:45',
+  createdAt: 1517085498990,
   text:'Answer seen'
 },
 {
   id:6,
-  date:'20171106T20:28:45',
+  createdAt: 1517085498990,
   request:true,
   text:'Information Requested: Need a copy of the insurance.',
   relevant:true

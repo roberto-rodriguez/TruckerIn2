@@ -55,7 +55,6 @@ class Register extends Component {
         email: null,
         phone: null,
         location: null,
-    //    locationId: null,
         location: null,
         //  {
         //   stateId: null,
@@ -138,8 +137,8 @@ class Register extends Component {
             showHeaderNotification && (
               <View style={{backgroundColor: '#d5f4e6', borderWidth: 0.3, borderColor: commonColor.primaryColor}}>
                  <RowColumn h={60}>
-                   <T14 style={{color:commonColor.primaryColor}}>{'Se le ha enviado un codigo de verificacion'}</T14>
-                   <T14 style={{color:commonColor.primaryColor}}>{' por mensaje de text al numero: ' + this.state.data.phone}</T14>
+                   <T14 style={{color:commonColor.primaryColor}}>{I18n.t('signup.sentCodeText1')}</T14>
+                   <T14 style={{color:commonColor.primaryColor}}>{I18n.t('signup.sentCodeText2') + this.state.data.phone}</T14>
                  </RowColumn>
                </View>
             )
@@ -207,7 +206,9 @@ class Register extends Component {
         }
         break;
       case 4:
-         return this.validateAccessCode()
+          if(next){
+            return this.validateAccessCode()
+          }
       case 5:
         validForm = view.acceptTerms
 
@@ -308,7 +309,6 @@ selectRole = ( role, roleKey ) => {
     prevState.view.validForm = prevState.view.acceptTerms
     return prevState
   })
-
 }
 
 

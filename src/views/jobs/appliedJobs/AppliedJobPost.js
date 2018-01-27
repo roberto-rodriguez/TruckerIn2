@@ -2,12 +2,12 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
-import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T11, T12, T13, T14, Content, nav, Avatar} from 'src/components/'
+import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T11, T12,  T14,  nav, Avatar, formatDate} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import moment from 'moment';
 import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
-
+import I18n from 'react-native-i18n'
 
  class AppliedJobPost extends Component {
 
@@ -28,7 +28,7 @@ import { connect } from "react-redux";
      this.setState(this.props.data)
    }
 
-  answer = () => nav(this.props.navigation, 'TextInputView', {title:'Answer to Employer', text:'', callback: this.onAnswer})
+  answer = () => nav(this.props.navigation, 'TextInputView', {title:I18n.t('jobs.applied.answerToEmployer'), text:'', callback: this.onAnswer})
 
   onDiscard = () => this.setState({...this.state, discarded: true})
 
@@ -48,16 +48,6 @@ import { connect } from "react-redux";
     })
   }
 
-//TODO put this in a util class
-  _formatDate(dateStr){
-    return moment(dateStr,'YYYYMMDDTHH:mm:ss').format("MMM Do");
-  }
-
-  _formatTime(dateStr){
-    return moment(dateStr,'YYYYMMDDTHH:mm:ss').format('LT');
-  }
-
-
   render() {
     var  job = this.state// this.props.data;
     const navigation = this.props.navigation;
@@ -68,7 +58,7 @@ import { connect } from "react-redux";
 
     <Card style={postStyle.container}>
       <View style={styles.header}>
-          <T12 green shortLine>{'Application submitted on Nov 28, 2017 at 3:35 PM'}</T12>
+          <T12 green shortLine>{I18n.t('jobs.applied.appSubmittedOn') + formatDate(job.appTime, 'LL')}</T12>
       </View>
       <View style={postStyle.header}>
         <View style={postStyle.headerLeft} >
@@ -85,22 +75,23 @@ import { connect } from "react-redux";
         </View>
 
         <View style={postStyle.headerRight} >
+          <T11 light shortLine>{I18n.t('jobs.applied.posted')}</T11>
+          <T11 light shortLine>{formatDate(job.createdAt)}</T11>
 
-          <PostingTime/>
         </View>
       </View>
 
-      <Text><Text strong>Equipment: </Text>{job.equipment}</Text>
-      <Text><Text strong>Required Experience: </Text>{job.experience}</Text>
-      <Text><Text strong>Compensation: </Text>{job.compensation}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.equipment')}</Text>{job.equipment}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.exp')}</Text>{job.experience}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.compensation')}</Text>{job.compensation}</Text>
 
       <Row h={30} style={{marginTop: 10}}>
 
-          <CustomButton white text={'DETALLES'}
+          <CustomButton white text={I18n.t('jobs.post.details')}
           style={styles.button}
           handler={() => nav(navigation, 'JobDetails', {data: job}) }/>
 
-         <CustomButton white text={'DISCARD'}
+         <CustomButton white text={I18n.t('jobs.post.discard')}
            style={styles.button}
            handler={() => this.props.discardJob(job.id, this.onDiscard)}/>
 
@@ -120,7 +111,7 @@ import { connect } from "react-redux";
       var actionsCmp = []
 
       if(appActions.length === 0){
-        actionsCmp.push(<T12 key={job.id} light>{"Application not seen yet."}</T12>)
+        actionsCmp.push(<T12 key={job.id} light>{I18n.t('jobs.applied.notSeen')}</T12>)
       }else{
         actionsCmp = appActions.map((action, i) => (
           <T12 key={job.id + '-' + action.id}
@@ -132,17 +123,17 @@ import { connect } from "react-redux";
              light
              red={action.request &&  i ===  appActions.length - 1}
              green={action.answer}>
-             {this._formatDate(action.date)} </T12>
+             { formatDate(action.createdAt, 'MMM Do')} </T12>
              {': ' + action.text}
 
              <T10 light>
-              {'   (' + this._formatTime(action.date) + ')'}
+              {'   (' + formatDate(action.createdAt, 'LT') + ')'}
              </T10>
           </T12>))
 
           if(appActions[appActions.length -1].request){
             actionsCmp.push(
-              <CustomButton white text={'RESPONDER'}  key={'button-' + job.id}
+              <CustomButton white text={I18n.t('jobs.applied.answer')}  key={'button-' + job.id}
                  style={[styles.button, {marginTop: 5}]}
                  handler={this.answer}/>
              )

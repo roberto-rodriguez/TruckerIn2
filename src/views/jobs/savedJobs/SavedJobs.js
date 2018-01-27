@@ -5,7 +5,7 @@ import { Header, Feed} from 'src/components/'
 import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
 import SavedJobPost from './SavedJobPost'
-
+import I18n from 'react-native-i18n'
 
 class SavedJobs extends Component {
 
@@ -19,7 +19,7 @@ class SavedJobs extends Component {
 
     return (
       <Container>
-        <Header navigation={navigation} back title='Saved Jobs' />
+        <Header navigation={navigation} back title={I18n.t('jobs.saved.title')} />
         <View style={{minHeight:'100%'}}>
            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
         </View>

@@ -5,6 +5,7 @@ import { Card } from "native-base";
 import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton,  T12, T14, Content, Avatar, nav} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import { connect } from "react-redux";
+import I18n from 'react-native-i18n'
 
  class PostedJobPosts extends Component {
 
@@ -51,23 +52,23 @@ import { connect } from "react-redux";
         </View>
       </View>
 
-      <Text><Text strong>Equipment: </Text>{dataRow.equipment}</Text>
-      <Text><Text strong>Required Experience: </Text>{dataRow.experience}</Text>
-      <Text><Text strong>Compensation: </Text>{dataRow.compensation}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.equipment')}</Text>{dataRow.equipment}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.exp')}</Text>{dataRow.experience}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.compensation')}</Text>{dataRow.compensation}</Text>
 
     <View style={{flexDirection: 'row', marginTop: 10, justifyContent:'space-between' }}>
         {isMe && (
-            <CustomButton text={dataRow.apps + ' Applications'} style={{height:32, width:100}}
+            <CustomButton text={dataRow.apps + I18n.t('jobs.posted.app')} style={{height:32, width:100}}
             handler={() => nav(navigation, 'PostedJobApplications', {jobId: dataRow.id})}/>
           )
         }
 
-          <CustomButton white text={'DETALLES'}
+          <CustomButton white text={I18n.t('jobs.post.details')}
           style={styles.button}
           handler={() => nav(navigation, 'JobDetails', {data: dataRow})}/>
 
           {isMe && (
-            <CustomButton white text={'COPY'}
+            <CustomButton white text={I18n.t('jobs.post.copy')}
               style={styles.button}
               handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'copy'}) }/>
             )

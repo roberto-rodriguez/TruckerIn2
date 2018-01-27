@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import {Image,View  } from 'react-native';
+import { View  } from 'react-native';
 import { Container, Content } from "native-base";
 import { Header, Feed} from 'src/components/'
-
+import I18n from 'react-native-i18n'
 import { NavigationActions } from "react-navigation";
 import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
@@ -38,7 +38,7 @@ class AppliedJobs extends Component {
 
     return (
       <Container>
-        <Header navigation={navigation} back title='Applied Jobs' />
+        <Header navigation={navigation} back title={I18n.t('jobs.applied.title')} />
         <View style={{minHeight:'100%'}}>
           {
             this.state.mounted &&

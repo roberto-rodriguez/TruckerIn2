@@ -15,6 +15,8 @@ const es = {
     tos: 'Terms of Service',
     acceptAndFinish: 'Accept and Finish',
     next: 'Next',
+    sentCodeText1: 'We just sent you an Access Code',
+    sentCodeText2: 'via SMS to the number: ',
     titles:{
       welcome:'Welcome to TruckerIn',
       personal: 'Personal Information',
@@ -80,6 +82,11 @@ const es = {
   tos:{
     ...tos,
     lastUpdated: 'Last updated on February 14th, 2018.'
+  },
+  forgotPassword: {
+    title: 'Forgot Password',
+    contactUs: 'Contact Us',
+    text: 'Password recovery functionality will be ready in the next version, but for now you can Contact Us and we will help you.'
   }
 }
 

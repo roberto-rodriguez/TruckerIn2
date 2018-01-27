@@ -7,6 +7,7 @@ import {Row, Header, T18, CustomButton, T13, T14, T16, T15,ListItem, AgentImg } 
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
 import * as globalActions from "src/reducers/globalActions";
+import I18n from 'react-native-i18n'
 
 class PreCreateJob extends Component {
 
@@ -32,7 +33,7 @@ onCreate = (jobId) => {
 
     return (
       <Container>
-        <Header navigation={navigation} back title={'Create Job'}/>
+        <Header navigation={navigation} back title={I18n.t('jobs.create')}/>
 
         {this.state.created ? this.postCreate(navigation) : this.preCreate(navigation)}
 
@@ -42,27 +43,27 @@ onCreate = (jobId) => {
 
   preCreate = (navigation) => (
     <Content fullscreen contentContainerStyle={styles.container}>
-      <AgentImg text={'Want to create a Job?'}/>
+      <AgentImg text={I18n.t('jobs.pre.wantToCreate')}/>
 
-      <T15 green  style={{marginTop:10, marginBottom:20}}>Is very easy...</T15>
+    <T15 green  style={{marginTop:10, marginBottom:20}}>{I18n.t('jobs.pre.isEasy')}</T15>
 
       <ListItem
         borderTop
         icon={'hand-o-right'}
-        value={'Create a new Job'}
+        value={I18n.t('jobs.pre.createNew')}
         navigation={navigation}
         routeName={'CreateJob'}
         params={{callback: this.onCreate}}
       />
 
-      <T14 green  style={{margin:10}}>If you have created a Job before, you can take one of those as starting point, and <T14 strong green>COPY IT</T14></T14>
+    <T14 green style={{margin:10}}>{I18n.t('jobs.pre.copyJobDesc')}<T14 strong green></T14>{I18n.t('jobs.pre.copyIt')}</T14>
 
       <ListItem
         borderTop
         icon={'hand-o-right'}
         navigation={navigation}
         routeName={'PostedJobs'}
-        value={'See my posted Jobs'}
+        value={I18n.t('jobs.pre.seePostedJobs')}
       />
 
 
@@ -71,31 +72,31 @@ onCreate = (jobId) => {
 
 postCreate = (navigation) => (
   <Content fullscreen contentContainerStyle={styles.container}>
-    <AgentImg text={'Job Created Successfuly'}/>
+    <AgentImg text={I18n.t('jobs.pre.success')}/>
 
-    <T14 green  style={{margin:10}}>From now you can follow the applications here:</T14>
+    <T14 green  style={{margin:10}}>{I18n.t('jobs.pre.followUpDesc')}</T14>
 
     <ListItem
       borderTop
       icon={'hand-o-right'}
       navigation={navigation}
       routeName={'PostedJobs'}
-      value={'See all my posted Jobs'}
+      value={I18n.t('jobs.pre.seePosted')}
     />
 
-    <T14 green  style={{margin:10}}>Or you can copy it, in case you want to create a new Job taking information from this one:</T14>
+  <T14 green  style={{margin:10}}>{I18n.t('jobs.pre.copyJobDesc2')}</T14>
 
     <ListItem
       borderTop
       icon={'hand-o-right'}
-      value={'Copy and create a new Job'}
+      value={I18n.t('jobs.pre.copyAndCreate')}
       navigation={navigation}
       routeName={'CreateJob'}
       params={{callback: this.onCreate, action: 'copy', jobId: this.state.jobId}}
     />
     <ListItem
       icon={'hand-o-right'}
-      value={'Create a new Job'}
+      value={I18n.t('jobs.pre.createNew')}
       navigation={navigation}
       routeName={'CreateJob'}
       params={{callback: this.onCreate}}

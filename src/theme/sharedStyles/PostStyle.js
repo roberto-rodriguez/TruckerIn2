@@ -17,13 +17,13 @@ export default StyleSheet.create({
     },
     headerLeft:{
       flexDirection: "row",
-      width:availableWidth * 0.75
+      width:availableWidth * 0.65
     },
     headerRight:{
       flexDirection: "column",
-      width: availableWidth * 0.2,
-     justifyContent:'flex-start',
-     alignItems: 'flex-end'
+      width: availableWidth * 0.3,
+      justifyContent:'flex-start',
+     alignItems: 'center'
     },
     settingsIcon:{
       fontSize:16,

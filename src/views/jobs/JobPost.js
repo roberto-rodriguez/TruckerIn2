@@ -6,6 +6,8 @@ import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T11, T12, T1
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import * as roles from 'src/components/c/Role'
 import * as jobActions from "src/views/jobs/jobs.actions";
+import I18n from 'react-native-i18n'
+
 
  class JobPost extends Component {
 
@@ -40,7 +42,7 @@ import * as jobActions from "src/views/jobs/jobs.actions";
         <View style={postStyle.headerRight} >
           <View style={{flexDirection: "row",justifyContent:'flex-end'}} >
             {roleId === roles.DRIVER &&
-              <CustomButton text={'APLICAR'} style={{width:60}}
+              <CustomButton text={I18n.t('jobs.post.apply')} style={{width:60}}
                handler={() => nav(navigation, 'JobApp', {jobId: data.id}) }/>
              }
           </View>
@@ -48,20 +50,21 @@ import * as jobActions from "src/views/jobs/jobs.actions";
         </View>
       </View>
 
-      <Text><Text strong>Equipment: </Text>{data.equipment}</Text>
-      <Text><Text strong>Required Experience: </Text>{data.experience}</Text>
-      <Text><Text strong>Compensation: </Text>{data.compensation}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.equipment')}</Text>{data.equipment}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.exp')}</Text>{data.experience}</Text>
+      <Text><Text strong>{I18n.t('jobs.post.compensation')}</Text>{data.compensation}</Text>
+
 
       <Content text={data.desc} style={{marginTop: 10}}/>
       {
         applyBar && (
           <Row h={30} style={{marginTop: 10}}>
 
-            <CustomButton white text={'DETALLES'}
+            <CustomButton white text={I18n.t('jobs.post.details')}
              style={styles.button}
              handler={() => nav(navigation, 'JobDetails', {data})}/>
 
-            <CustomButton white text={'GUARDAR'}
+           <CustomButton white text={I18n.t('jobs.post.save')}
              style={styles.button}
              handler={() => this.props.saveJob( data.id ) }/>
           </Row>

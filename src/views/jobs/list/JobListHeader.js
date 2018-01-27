@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View, StyleSheet} from 'react-native'
 import {  TransparentButton, Row, Column, nav,  T14, AgentMsg} from "src/components/";
-
+import I18n from 'react-native-i18n'
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
 import * as jobActions from "src/views/jobs/jobs.actions";
@@ -16,11 +16,11 @@ class JobListHeader extends Component {
        if(roleId === roles.DRIVER){
          return (<Row h={50} style={{borderBottomWidth:0.3, borderBottomColor: theme.secondaryColor}}>
            <Column h={50} columns={2} style={{borderRightColor: theme.secondaryColor, borderRightWidth:0.4}}>
-            <TransparentButton color text={ savedJobs + ' Trabajos Salvados'} style={{paddingTop:4 }}
+            <TransparentButton color text={ savedJobs + ' ' + I18n.t('jobs.saved.title')  } style={{paddingTop:4 }}
              handler={() => nav(navigation, 'SavedJobs')}/>
            </Column>
            <Column h={50} columns={2}>
-             <TransparentButton color text={'2 Trabajos Aplicados'} style={{paddingTop:4}}
+             <TransparentButton color text={'2' + ' ' + I18n.t('jobs.applied.title') } style={{paddingTop:4}}
              handler={() => nav(navigation, 'AppliedJobs')}/>
            </Column>
          </Row>)
@@ -29,7 +29,7 @@ class JobListHeader extends Component {
            return (
              <AgentMsg h={70} onPress={() => nav(navigation, 'PostedJobs')}>
                 <View>
-                  <T14 green>{'Click here to follow up on your ' + postedJobs + ' Posted Jobs'}</T14>
+                  <T14 green>{I18n.t('jobs.headers.postedJobs') + postedJobs + ' ' + I18n.t('jobs.posted.title')}</T14>
                 </View>
               </AgentMsg>
             )
@@ -37,7 +37,7 @@ class JobListHeader extends Component {
            return (
              <AgentMsg h={70} onPress={() => nav(navigation, 'PreCreateJob')}>
                 <View>
-                  <T14 green>{'Click here to post your first Job'}</T14>
+                  <T14 green>{I18n.t('jobs.headers.postFirst')}</T14>
                 </View>
               </AgentMsg>
             )
@@ -46,10 +46,6 @@ class JobListHeader extends Component {
   }
 }
 
-const mapStateToProps = ({globalReducer}) => {
-  return  ({
-    profileInfo: globalReducer.profileInfo
-  })
-}
+const mapStateToProps = ({globalReducer}) => ({ profileInfo: globalReducer.profileInfo })
 
 export default connect(mapStateToProps, jobActions)(JobListHeader);

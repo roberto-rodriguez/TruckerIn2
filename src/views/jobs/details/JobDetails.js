@@ -6,12 +6,12 @@ import {Row, Header, Text, Column, TransparentButton} from 'src/components/'
 import * as jobActions from "src/views/jobs/jobs.actions";
 import BulletsView from 'src/components/widgets/BulletsView'
 import JobPost from 'src/views/jobs/JobPost'
-
+import I18n from 'react-native-i18n'
 
 const tabs = [
-  {title: 'Requirements', prop: 'requirements'},
-  {title: 'Responsabilities', prop: 'responsabilities'},
-  {title: 'Benefits', prop: 'benefits'}
+  {title: 'req', prop: 'requirements'},
+  {title: 'resp', prop: 'responsabilities'},
+  {title: 'benefits', prop: 'benefits'}
 ]
 
 class JobDetails extends Component {
@@ -63,7 +63,10 @@ class JobDetails extends Component {
            <Row style={{height:50}}>
             {tabs.map(({title}, i) => (
               <Column columns={3} key={i}>
-                <TransparentButton text={title} active={selectedTab === i} handler={() => this.setState({...this.state, selectedTab: i})}/>
+                <TransparentButton
+                  text={I18n.t(['jobs','post', title])}
+                  active={selectedTab === i}
+                  handler={() => this.setState({...this.state, selectedTab: i})}/>
               </Column>
             )) }
            </Row>

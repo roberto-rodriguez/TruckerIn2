@@ -3,19 +3,19 @@ import { StyleSheet,Image,View , Text } from 'react-native';
 import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
 import {Row, Header, BlockButton, T12, T13, T14, T16, Column,ListItem, Select} from 'src/components/'
-
+import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 import * as jobActions from "src/views/jobs/jobs.actions";
 
 
 const items = [
-  { icon: 'truck',   title: 'Equipment', prop: 'equipment', isSelect: true },
-  { icon: 'tachometer',   title: 'Required Experience', prop: 'experience', isSelect: true },
-  { icon: 'dollar',   title: 'Compensation', prop: 'compensation' },
-  { icon: 'vcard-o',   title: 'Description', prop: 'description' },
-  { icon: 'book',   title: 'Requirements', prop: 'requirements' },
-  { icon: 'server',   title: 'Responsabilities', prop: 'responsabilities' },
-  { icon: 'pie-chart',   title: 'Benefits', prop: 'benefits' }
+  { icon: 'truck',   title: 'equipment', prop: 'equipment', isSelect: true },
+  { icon: 'tachometer',   title: 'exp', prop: 'experience', isSelect: true },
+  { icon: 'dollar',   title: 'compensation', prop: 'compensation' },
+  { icon: 'vcard-o',   title: 'desc', prop: 'description' },
+  { icon: 'book',   title: 'req', prop: 'requirements' },
+  { icon: 'server',   title: 'resp', prop: 'responsabilities' },
+  { icon: 'pie-chart',   title: 'benefits', prop: 'benefits' }
 ]
 
 const title = 'Which one do you like?'
@@ -30,11 +30,11 @@ class CreateJob extends Component {
         title:'',
         data:{
           locationId:null,
-          location: 'Anywhere',
+          location: I18n.t('general.anywhere'),
           equipmentId: null,
-          equipment: 'Any',
+          equipment: I18n.t('general.any'),
           experienceId: null,
-          experience: 'Any',
+          experience: I18n.t('general.any'),
           compensation: '',
           description: '',
           requirements: '',
@@ -56,12 +56,12 @@ class CreateJob extends Component {
 
     var title;
     switch(action){
-        case 'copy': title = 'Copy Job'
+        case 'copy': title = I18n.t('jobs.copy')
                     break;
-        case 'edit': title = 'Editar Job'
+        case 'edit': title = I18n.t('jobs.edit')
                     break;
         default: action = 'create';
-                title = 'Create Job'
+                title = I18n.t('jobs.create')
     }
 
     this.setState((prevState) => {
@@ -130,24 +130,35 @@ onAcceptCallback = (jobId) => {
         <Header navigation={navigation} back title={this.state.title}/>
         <Content fullscreen contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
           <View >
-            <ListItem navigation={navigation} key={101} icon={'map-marker'} label={'Where'} value={ state.location} routeName={'LocationPicker'} params={{setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}/>
-            {
+            <ListItem
+              navigation={navigation}
+              key={101}
+              icon={'map-marker'}
+              label={I18n.t('general.where')}
+              value={ state.location}
+              routeName={'LocationPicker'}
+              params={{setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}/>
+
+          {
               items.map(({icon, title, prop, isSelect}, i) =>
                (<ListItem
                   key={i}
                   navigation={navigation}
                   icon={icon}
-                  label={title}
+                  label={I18n.t(['jobs','post', title])}
                   value={ state[prop]}
-                  params={!isSelect && {title, text: state[prop], callback: (text)=> _this.setVal(prop, text)}}
+                  params={!isSelect && {
+                    title: I18n.t(['jobs', 'applied', title]),
+                    text: state[prop],
+                    callback: (text)=> _this.setVal(prop, text)
+                  }}
                   handler={isSelect && (() => this.showSelect( prop ))}
                   />))
             }
          </View>
 
          <BlockButton onPress={() => this.onAccept()}/>
-
-           <Select
+            <Select
               ref={o => this.equipmentSelect = o}
               options={equipmentOptions}
               onPress={(i) => this.setVal('equipment', equipmentOptions[i].name, equipmentOptions[i].id)}
@@ -157,7 +168,6 @@ onAcceptCallback = (jobId) => {
                options={experienceOptions}
                onPress={(i) => this.setVal('experience', experienceOptions[i].name, experienceOptions[i].id)}
              />
-
         </Content>
       </Container>
     );
@@ -170,8 +180,8 @@ const styles = StyleSheet.create({
     })
 
     const mapStateToProps = ({globalReducer}) => ({
-      equipmentOptions: [{id:0, name:'Any'}, ...globalReducer.config.equipmentOptions] ,
-      experienceOptions:[{id:0, name:'Any'}, ...globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : 'More than ' + exp.name})) ]
+      equipmentOptions: [{id:0, name: I18n.t('general.any')}, ...globalReducer.config.equipmentOptions] ,
+      experienceOptions:[{id:0, name: I18n.t('general.any')}, ...globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('general.moreThan')  + exp.name})) ]
     });
 
     export default connect(mapStateToProps, jobActions)(CreateJob);

@@ -6,6 +6,7 @@ import { Column,Row, Header, BlockButton,  T12, T13,T14, AgentImg, ListItem } fr
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
 import * as jobActions from "src/views/jobs/jobs.actions";
+import I18n from 'react-native-i18n'
 
 class JobApp extends Component {
 
@@ -53,7 +54,7 @@ class JobApp extends Component {
 
     return (
       <Container white>
-        <Header navigation={navigation} back title={'Job Application'}/>
+        <Header navigation={navigation} back title={I18n.t('jobs.app.title')}/>
         <Content fullscreen contentContainerStyle={styles.container}>
 
          {submitted ? this.postApplyView(navigation, appSuccess, resultMsg)
@@ -61,8 +62,8 @@ class JobApp extends Component {
 
         </Content>
         {
-          submitted ? <BlockButton text={'Go Back'} onPress={()=> navigation.goBack()}/>
-                    : <BlockButton text={'Apply'} disabled={disableButton} onPress={this.jobApply}/>
+          submitted ? <BlockButton text={I18n.t('jobs.app.goBack')} onPress={()=> navigation.goBack()}/>
+                    : <BlockButton text={I18n.t('jobs.app.apply')} disabled={disableButton} onPress={this.jobApply}/>
         }
       </Container>
     );
@@ -70,12 +71,12 @@ class JobApp extends Component {
 
   preApplyView = (navigation, disableButton, profileInfoCompletion, profileExperienceCompletion) => (
     <View>
-    <AgentImg text={'The following information will be shared with the employer:'}/>
+    <AgentImg text={I18n.t('jobs.app.infoWillBeShared')}/>
 
     {disableButton &&
       (
         <Row h={20}><Column h={20}>
-          <T12 red>Items in red needs to be completted</T12>
+          <T12 red>{I18n.t('jobs.app.itemsInRed')}</T12>
         </Column></Row>
       )
     }
@@ -87,7 +88,7 @@ class JobApp extends Component {
         routeName={'EditProfileInformation'}
         params={{hidePrivacityOption: true}}
         label={'Completted ' + profileInfoCompletion + '%'}
-        value={'Personal Information'}
+        value={I18n.t('jobs.app.personalInfo')}
       />
 
       <ListItem
@@ -95,8 +96,8 @@ class JobApp extends Component {
         icon={'truck'}
         navigation={navigation}
         routeName={'EditProfileExperience'}
-        label={'Completted ' + profileExperienceCompletion + '%'}
-        value={'Experience'}
+        label={I18n.t('jobs.app.completted') + profileExperienceCompletion + '%'}
+        value={I18n.t('profile.titles.experience')}
       />
 
       <ListItem
@@ -104,16 +105,16 @@ class JobApp extends Component {
         navigation={navigation}
         routeName={'ProfileCareerList'}
         params={{isMe: true}}
-        value={'Professional Career'}
+        value={I18n.t('jobs.app.career')}
       />
 
       <ListItem
         icon={'rocket'}
         navigation={navigation}
         routeName={'TextInputView'}
-        params={{title: 'Availability', text: this.state.availability, callback: this.onavailabilityComplete}}
-        label={'Cuando podria comenzar?'}
-        value={'Disponibilidad'}
+        params={{title: I18n.t('jobs.app.availability'), text: this.state.availability, callback: this.onavailabilityComplete}}
+        label={I18n.t('jobs.app.whenCanStart')}
+        value={I18n.t('jobs.app.availability')}
         red={this.state.availability == null}
       />
     </View>
@@ -121,19 +122,19 @@ class JobApp extends Component {
 
   postApplyView = (navigation, appSuccess, resultMsg) => (
     <View>
-      <AgentImg text={appSuccess ? 'Your application was submitted successfuly' : 'There was a problem with your application'}/>
+      <AgentImg text={appSuccess ? I18n.t('jobs.app.appSuccess') : I18n.t('jobs.app.appFailed')}/>
 
       {
         appSuccess ?
         (<View>
-            <T14 green style={{margin:10}}>You can follow up the application process in the <T14 green strong>Job Applications Section</T14></T14>
+            <T14 green style={{margin:10}}> {I18n.t('jobs.app.followUp')} <T14 green strong> {I18n.t('jobs.app.jobsAppSection')}</T14></T14>
 
             <ListItem
               icon={'graduation-cap'}
               navigation={navigation}
               routeName={'AppliedJobs'}
               borderTop
-              value={'View my Job Applications'}
+              value={I18n.t('jobs.app.viewJobApps')}
             />
          </View>)
         :  <T14 red style={{margin:10}}>{resultMsg}</T14>
