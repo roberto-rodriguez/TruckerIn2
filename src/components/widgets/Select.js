@@ -22,7 +22,7 @@ const commonColor = require("src/theme/variables/commonColor");
     return (
       <ActionSheet
          ref={o => this.ActionSheet = o}
-         options={[{I18n.t('cmp.widgets.cancel')},  ...options.map(op => (op.name))]}
+         options={[ I18n.t('cmp.widgets.cancel') ,  ...options.map(op => (op.name))]}
          tintColor={commonColor.secondaryColor}
          cancelButtonIndex={0}
          onPress={(i) => {i > 0 && this.props.onPress(i - 1)}}
