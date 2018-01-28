@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { Container } from "native-base";
 import {Feed, Header} from 'src/components/'
-
+import I18n from 'react-native-i18n'
 import NotificationItem from './NotificationItem'
 
 import { connect } from "react-redux";
@@ -21,7 +21,7 @@ class Notifications extends Component {
     <Container>
       <View style={{minHeight:'100%'}}>
           <Header back
-           title={'Notifications'}
+           title={I18n.t('notifications.title')}
            navigation={this.props.navigation}
           />
           <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={this.props.navigation}/>

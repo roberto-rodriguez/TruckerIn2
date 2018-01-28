@@ -3,6 +3,7 @@ import { StyleSheet, View} from 'react-native';
 import {StackView, YesNoListItem, AgentImg } from 'src/components/'
 import * as globalActions from "src/reducers/globalActions"
 import { connect } from "react-redux"
+import I18n from 'react-native-i18n'
 
 class Settings extends Component {
 
@@ -11,12 +12,12 @@ class Settings extends Component {
   render() {
     const {navigation, lang} = this.props
     return (
-      <StackView navigation={navigation} title={'Settings'}>
+      <StackView navigation={navigation} title={I18n.t('settings.title')}>
 
       <YesNoListItem
          key={1}
          icon={'language'}
-         label={'Language'}
+         label={I18n.t('settings.lang')}
          value={lang && lang === 'es' ? 2 : 1}
          leftText={'ENG'}
          rightText={'ESP'}
@@ -25,14 +26,14 @@ class Settings extends Component {
        <YesNoListItem
           key={2}
           icon={'flag-o'}
-          label={'Receive Notifications'}
+          label={I18n.t('settings.receiveNotif')}
           value={true}
           handler={ (val) => alert(val)}
           />
         <YesNoListItem
            key={3}
            icon={'unlock-alt'}
-           label={'Show my contact Information'}
+           label={I18n.t('settings.showContactInfo')}
            value={true}
            handler={ (val) => alert(val)}
            />
@@ -42,7 +43,7 @@ class Settings extends Component {
 
 }
 
-function mapStateToProps({globalReducer}) { 
+function mapStateToProps({globalReducer}) {
 	return {
     lang: globalReducer.config.lang
   }

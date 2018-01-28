@@ -8,6 +8,7 @@ import styles from "./style";
 import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform'
 import { connect } from "react-redux";
+import I18n from 'react-native-i18n'
 
 const menuItems = [
   // {
@@ -19,13 +20,13 @@ const menuItems = [
   {
     link: "AppliedJobs",
     icon: "address-card-o",
-    text: "My Job Applications",
+    text: "myJobApps",
     bg: 'steelblue'
   },
   {
     link: "SavedJobs",
     icon: "briefcase",
-    text: "My Saved Jobs",
+    text: "mySavedJobs",
     bg: 'teal'
   },
   // {
@@ -49,19 +50,19 @@ const menuItems = [
   {
     link: "About",
     icon: "university",
-    text: "About TruckerIn",
+    text: "about",
     bg: theme.secondaryColor
   },
   {
     link: "ContactUs",
     icon: "envelope",
-    text: "Contact Us",
+    text: "contactUs",
     bg: 'red'
   },
   {
     link: "Settings",
     icon: "gear",
-    text: "Settings",
+    text: "settings",
     bg: 'grey'
   }
 ];
@@ -92,7 +93,7 @@ class SideBar extends Component {
                 {fullName}
               </Text>
               <Text style={styles.userDataDescriptionText}>
-                View your profile
+                {I18n.t('settings.sidebar.viewProfile')}
               </Text>
             </Body>
             <Right style={{ borderBottomWidth: 0, paddingLeft: 5 }}>
@@ -128,7 +129,7 @@ class SideBar extends Component {
                     <Icon name={menuItemRow.icon} style={styles.menuIcon} />
                   </View>
                   <Text style={styles.menuItemText}>
-                    {menuItemRow.text}
+                    {I18n.t(['settings', 'sidebar', menuItemRow.text])}
                   </Text>
                 </ListItem>}
             />
@@ -149,7 +150,7 @@ class SideBar extends Component {
               >
                 <Icon name="sign-out" style={styles.menuIcon} />
               </View>
-              <Text style={styles.menuItemText}>Log Out</Text>
+              <Text style={styles.menuItemText}>{I18n.t('settings.sidebar.logOut')}</Text>
             </ListItem>
           </View>
 

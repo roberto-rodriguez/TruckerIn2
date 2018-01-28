@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet} from 'react-native';
 import {Row, Column, T12, CustomButton } from 'src/components/'
 import Icon from 'react-native-fa-icons';
+import I18n from 'react-native-i18n'
 
  export default class YesNoListItem extends Component {
 
@@ -24,7 +25,7 @@ import Icon from 'react-native-fa-icons';
              <T12 light red={invalid}>{label}</T12>
            </Column>
            <Column  h={60}  columns={8}  colspan={2} end>
-              <CustomButton radius={'left'} white={value != 1} text={leftText || 'YES'} handler={()=>handler(1)}/>
+              <CustomButton radius={'left'} white={value != 1} text={leftText || I18n.t('general.yes')} handler={()=>handler(1)}/>
            </Column>
            <Column  h={60} columns={8} colspan={2} start>
               <CustomButton radius={'right'} white={value != 2} text={rightText || 'NO'} handler={()=>handler(2)}/>

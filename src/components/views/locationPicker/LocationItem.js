@@ -52,16 +52,9 @@ class LocationItem extends Component {
 }
 
 
-const mapStateToProps = ({locationReducer}, ownProps) => {
-  if(ownProps.selectedFieldName === 'selectedCityId'){
-    debugger;
-  }
-
-
-  return ({
-    selected: locationReducer[ownProps.selectedFieldName] === ownProps.value
-  })
-}
+const mapStateToProps = ({locationReducer}, ownProps) => ({
+  selected: locationReducer[ownProps.selectedFieldName] === ownProps.value
+})
 
 
 export default connect(mapStateToProps, locationsActions )(LocationItem);

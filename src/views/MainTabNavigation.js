@@ -11,7 +11,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import Contacts from 'src/views/contacts/Contacts'
 import Jobs from "src/views/jobs/Jobs";
 import theme from "src/theme/variables/platform";
-
+import I18n from 'react-native-i18n'
 
 export default class MainTabNavigation extends Component {
   state= {
@@ -26,7 +26,7 @@ export default class MainTabNavigation extends Component {
       <TabNavigator style={styles.container} tabBarStyle={{backgroundColor:theme.toolbarBottomBg, height: 45}}>
       <TabNavigator.Item
           selected={this.state.selectedTab === 'jobs'}
-          title="Jobs"
+          title={I18n.t('general.tabs.jobs')}
           titleStyle={{color:'white'}}
           selectedTitleStyle={styles.selectedText}
           renderIcon={() => <Icon name={"truck"}  style={styles.icon}/>}
@@ -36,7 +36,7 @@ export default class MainTabNavigation extends Component {
       </TabNavigator.Item>
       <TabNavigator.Item
         selected={this.state.selectedTab === 'contacts'}
-        title="Contacts"
+        title={I18n.t('general.tabs.contacts')}
         titleStyle={{color:'white'}}
         selectedTitleStyle={styles.selectedText}
         renderIcon={() => <Icon name={"handshake-o"}  style={styles.icon}/>}

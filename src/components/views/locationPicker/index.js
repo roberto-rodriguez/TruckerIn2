@@ -6,7 +6,7 @@ import {  Header, AgentMsg}  from 'src/components/'
 import { connect } from "react-redux";
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import  * as locationsActions from './locations.actions'
-
+import I18n from 'react-native-i18n'
 import TabBar from './TabBar'
 import StateList from './StateList'
 import CityList from './CityList'
@@ -75,7 +75,7 @@ componentWillUnmount() {
 
     return (
       <Container>
-        <Header navigation={navigation} back title={'Select Location'} onBack={ this.onBack }/>
+        <Header navigation={navigation} back title={I18n.t('cmp.loc.title')} onBack={ this.onBack }/>
 
         <ScrollableTabView
           style={{paddingTop: 30}}
@@ -86,13 +86,13 @@ componentWillUnmount() {
           onChangeTab={({i}) => this.onSwipe(i)}
           >
             <StateList
-              tabLabel={stateName || 'Select State'}
+              tabLabel={stateName || I18n.t('cmp.loc.selectState') }
               onSelectState={this.onSelectState}
               navigation={navigation}
               key={1}/>
 
             <CityList
-               tabLabel={cityName || 'Select City'}
+               tabLabel={cityName || I18n.t('cmp.loc.selectCity')}
                onSelectCity={this.processAndGoBack}
                navigation={navigation}
                key={2}/>

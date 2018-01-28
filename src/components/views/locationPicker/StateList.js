@@ -4,7 +4,7 @@ import { Container,  Content } from "native-base";
 import { Feed, Spinner } from "src/components/";
 import { connect } from "react-redux"
 import theme from 'src/theme/variables/platform';
-
+import I18n from 'react-native-i18n'
 import StateItem from './StateItem'
 import LocationSearch from './LocationSearch'
 import  * as locationsActions from './locations.actions'
@@ -72,7 +72,7 @@ class StateList extends Component {
     return (
       <Container white>
         <View style={{minHeight:'100%'}}>
-            <LocationSearch title={'Search States'}  onSearchChangeText={this.filterStates} value={this.state.searchText}/>
+            <LocationSearch title={I18n.t('cmp.loc.searchStates')}  onSearchChangeText={this.filterStates} value={this.state.searchText}/>
            {this.state.loading ? (<Spinner/>) :
             (<Feed feedLoader={this.loadItems}
               feedBuilder={this.itemBuilder}

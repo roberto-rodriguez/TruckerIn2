@@ -4,6 +4,7 @@ import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
 import {Row, Header, PlainListItem} from 'src/components/'
 const secondaryColor = require("src/theme/variables/commonColor").secondaryColor;
+import I18n from 'react-native-i18n'
 
 class TextInputView extends Component {
 
@@ -38,7 +39,7 @@ class TextInputView extends Component {
           <TextInput
               underlineColorAndroid='transparent'
              style={{textAlign:'left', padding:20, textAlignVertical: 'top'}}
-              placeholder={'Type here...'}
+              placeholder={I18n.t('general.typeHere')}
               multiline={true}
               numberOfLines={20}
               onChangeText={(text) => this.setState({text})}
@@ -47,7 +48,7 @@ class TextInputView extends Component {
          </Content>
          <View style={{backgroundColor:'white'}}>
             <Button block rounded style={styles.button} onPress={() => this.onAccept()}>
-                <Text style={{color: 'white'}}>{'Accept'}</Text>
+                <Text style={{color: 'white'}}>{I18n.t('cmp.accept')}</Text>
             </Button>
           </View>
       </Container>
@@ -60,7 +61,7 @@ class TextInputView extends Component {
   }
 }
 
- 
+
 const styles = StyleSheet.create({
   button:{backgroundColor: secondaryColor,
     width: '90%',

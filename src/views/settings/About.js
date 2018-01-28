@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, View} from 'react-native';
-
+import I18n from 'react-native-i18n'
 import {StackView,  T11, AgentImg, RowColumn, SimpleListItem} from 'src/components/'
 
 const items = [
-  { icon: 'balance-scale',   title: 'Terms of Service', routeName: 'TOS'},
-  { icon: 'envelope-o',   title: 'Contact Us', routeName: 'ContactUs'}
+  { icon: 'balance-scale',   title: 'tos', routeName: 'TOS'},
+  { icon: 'envelope-o',   title: 'contact', routeName: 'ContactUs'}
 ]
 
 class About extends Component {
@@ -13,8 +13,8 @@ class About extends Component {
   render() {
     const navigation = this.props.navigation;
     return (
-      <StackView navigation={navigation} title={'About TruckerIn'}>
-        <AgentImg text={'TruckerIn is the fastest growing network of Truck Drivers, Brockers and Truck Related companies.'}/>
+      <StackView navigation={navigation} title={I18n.t('settings.about.title')}>
+        <AgentImg text={I18n.t('settings.about.about')}/>
         <View style={{marginTop: 30}}>
             {
              items.map( ({icon, title, routeName}, i) => (
@@ -23,7 +23,7 @@ class About extends Component {
                   borderTop={i === 0}
                   key={i}
                   icon={icon}
-                  label={title}
+                  label={I18n.t(['settings', 'about', title])}
                   routeName={routeName}
                   />) )
              }

@@ -4,6 +4,7 @@ import {StackView, AgentImg, RowColumn } from 'src/components/'
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
 import * as settingsActions from './settings.actions'
+import I18n from 'react-native-i18n'
 
 class ContactUs extends Component {
 
@@ -24,13 +25,13 @@ class ContactUs extends Component {
   render() {
     const navigation = this.props.navigation;
     return (
-      <StackView navigation={navigation} title={'Contact Us'} onAccept={this.onAccept}>
-        <AgentImg text={'We want to hear from you!. Leave us your message and we will get back to you as soon as possible.'}/>
+      <StackView navigation={navigation} title={I18n.t('settings.contact.title')} onAccept={this.onAccept}>
+        <AgentImg text={I18n.t('settings.contact.text')}/>
         <View >
         <TextInput
             underlineColorAndroid='transparent'
            style={{textAlign:'left', margin:20, textAlignVertical: 'top', borderTopWidth: 0.2, borderTopColor: theme.secondaryColor}}
-            placeholder={'Type your message here...'}
+            placeholder={I18n.t('general.typeHere')}
             multiline={true}
             numberOfLines={20}
             onChangeText={(text) => this.setState({text})}

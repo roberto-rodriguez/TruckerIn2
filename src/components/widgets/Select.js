@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import ActionSheet from 'react-native-actionsheet'
-
+import I18n from 'react-native-i18n'
 const commonColor = require("src/theme/variables/commonColor");
 //secondaryColor
  export default class Select extends Component {
@@ -22,7 +22,7 @@ const commonColor = require("src/theme/variables/commonColor");
     return (
       <ActionSheet
          ref={o => this.ActionSheet = o}
-         options={['Cancel',  ...options.map(op => (op.name))]}
+         options={[{I18n.t('cmp.widgets.cancel')},  ...options.map(op => (op.name))]}
          tintColor={commonColor.secondaryColor}
          cancelButtonIndex={0}
          onPress={(i) => {i > 0 && this.props.onPress(i - 1)}}

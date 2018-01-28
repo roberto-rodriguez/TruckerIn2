@@ -7,14 +7,14 @@ import theme from 'src/theme/variables/platform';
 import  * as locationsActions from './locations.actions'
 import { connect } from "react-redux";
 import LocationSearch from './LocationSearch'
-
+import I18n from 'react-native-i18n'
 
 class CityList extends Component {
 
   constructor(props) {
       super(props)
       this.state = {
-        loading: false, 
+        loading: false,
         searchText: null,
         list:null,
         currentList: null,
@@ -107,7 +107,7 @@ class CityList extends Component {
       <Container white>
         <View style={{minHeight:'100%'}}>
            <LocationSearch
-             title={'Search Cities'}
+             title={I18n.t('cmp.loc.searchCity')}
              onSearchChangeText={this.onSearchChangeText}
 
              searchHandler={this.doSearch}/>
@@ -128,7 +128,7 @@ class CityList extends Component {
   anyCityItem = () => (<CityItem
     key={-1}
     navigation={this.props.navigation}
-    label={ 'Any City' }
+    label={ I18n.t('cmp.loc.anyCity')}
     value={ 0 }
     style={{color:'red'}}
     handler={this.props.onSelectCity}

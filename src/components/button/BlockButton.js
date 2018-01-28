@@ -1,8 +1,9 @@
- 
+
 import React, { Component } from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {RowColumn} from 'src/components/'
 import { Button} from "native-base";
+import I18n from 'react-native-i18n'
 
  export default class BlockButton extends Component {
 
@@ -14,7 +15,7 @@ import { Button} from "native-base";
       return (
         <RowColumn h={60}>
                <Button block rounded onPress={ disabled ? null : onPress} style={disabled ? {backgroundColor:'#8CEDBC'} : null} >
-                   <Text style={styles.text}>{text || 'Accept'}</Text>
+                   <Text style={styles.text}>{text || I18n.t('cmp.accept')}</Text>
                </Button>
            </RowColumn>
       )

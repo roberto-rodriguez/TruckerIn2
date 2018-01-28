@@ -42,12 +42,12 @@ import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
     var {connectionStatus} = this.state
 
     var icon = 'user-plus'
-    var text = 'Connect'
+    var text = I18n.t('cmp.connect')
 
     switch(connectionStatus){
       case ConnectionStatus.CONNECTED:
             icon = 'handshake-o'
-            text = 'Connected'
+            text = I18n.t('cmp.connected')
           break;
       // case 'pending':
       //       icon = ''
@@ -55,7 +55,7 @@ import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
       //     break;
       case ConnectionStatus.SENT:
             icon = ''
-            text = 'Solicitud Enviada'
+            text = I18n.t('cmp.reqSent') 
           break;
     }
 

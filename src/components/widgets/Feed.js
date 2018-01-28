@@ -3,7 +3,7 @@ import {Button, Text} from 'native-base'
 import {  StyleSheet, ScrollView,  View, Dimensions } from 'react-native';
 import {Spinner} from 'src/components/'
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-
+import I18n from 'react-native-i18n'
 var debbugFeed = false;
 
 export default class Feed extends Component {
@@ -110,7 +110,7 @@ handleSize = (width, height) => {
 
           { showLoadIndicator && (<Button full transparent style={{marginBottom:40}}>
               <Text style={{ color: global.secondaryColor }}>
-                Loading...
+                {I18n.t('cmp.widgets.loading')}
               </Text>
             </Button>
           )}

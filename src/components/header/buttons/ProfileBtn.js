@@ -9,8 +9,7 @@ import { Button, Thumbnail } from "native-base";
 import styles from '../styles'
 import {Avatar, nav} from 'src/components/'
 import { connect } from "react-redux";
-const profileImg = require("../../../../assets/contacts/yo.png");
-
+ 
 class ProfileBtn extends Component {
 
   render(){

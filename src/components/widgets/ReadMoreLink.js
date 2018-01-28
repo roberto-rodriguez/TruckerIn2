@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import ReactNative from 'react-native';
 const commonColor = require("src/theme/variables/commonColor");
 import theme from 'src/theme/variables/platform'
+import I18n from 'react-native-i18n'
 
  export default class PostingTime extends Component {
 
@@ -20,7 +21,7 @@ import theme from 'src/theme/variables/platform'
 
     return (
       <ReactNative.Text style={textStyle}>
-        Read More...
+        {I18n.t('cmp.widgets.readMore')}
       </ReactNative.Text>
     );
   }
@@ -34,4 +35,3 @@ const styles = ReactNative.StyleSheet.create({
     fontSize: 13
   }
 })
- 
