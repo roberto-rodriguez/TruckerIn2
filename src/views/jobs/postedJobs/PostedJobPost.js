@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
-import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton,  T12, T14, Content, Avatar, nav} from 'src/components/'
+import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T12, T14, Content, Avatar, nav} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
@@ -48,7 +48,7 @@ import I18n from 'react-native-i18n'
               handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'edit'}) }/>
             )}
           </View>
-          <PostingTime/>
+          <PostingTime date={dataRow.createdAt}/>
         </View>
       </View>
 

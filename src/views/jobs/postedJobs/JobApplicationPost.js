@@ -69,7 +69,7 @@ import I18n from 'react-native-i18n'
             <CustomButton text={'CALL'} style={{width:60}}
             handler={() => navigation.dispatch(createJobNavigateAction(dataRow.id, 'edit'))}/>
           </View>
-          <PostingTime/>
+          <PostingTime date={data.createdAt}/>  
         </View>
       </View>
 

@@ -4,11 +4,11 @@ import { StackNavigator, DrawerNavigator } from "react-navigation";
 import { Root } from "native-base";
 
 import { connect } from "react-redux";
-import * as globalActions from "src/reducers/globalActions";
+import * as globalActions from "src/boot/reducers/global.actions";
 
 import * as screens from './screens'
 
-import SideBar from "src/sidebar/Sidebar";
+import SideBar from "src/views/sidebar/Sidebar";
 import MainTabNavigation from './views/MainTabNavigation'
 
 

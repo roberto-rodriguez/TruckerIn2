@@ -1,8 +1,8 @@
 
 
 //import I18n from 'react-native-i18n'
-
-import * as globalActions from 'src/reducers/globalActions'
+import I18n from 'react-native-i18n'
+import * as globalActions from 'src/boot/reducers/global.actions'
 
 export const resetProfileAction = (profileInfo) => ({ type: 'RESET_PROFILE' })
 

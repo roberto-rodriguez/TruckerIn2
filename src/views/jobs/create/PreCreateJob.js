@@ -6,7 +6,7 @@ import Icon from 'react-native-fa-icons';
 import {Row, Header, T18, CustomButton, T13, T14, T16, T15,ListItem, AgentImg } from 'src/components/'
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
-import * as globalActions from "src/reducers/globalActions";
+import * as globalActions from "src/boot/reducers/global.actions";
 import I18n from 'react-native-i18n'
 
 class PreCreateJob extends Component {

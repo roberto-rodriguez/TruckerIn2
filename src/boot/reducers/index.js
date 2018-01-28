@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import globalReducer from "./globalReducer";
+import globalReducer from "./global.reducer";
 import profileReducer from "src/views/profile/reducer/profileReducer";
 import locationReducer from "src/components/views/locationPicker/locationReducer";
 

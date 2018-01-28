@@ -1,6 +1,6 @@
 
-import * as connector from 'src/reducers/connector'
-import * as globalActions from 'src/reducers/globalActions'
+import * as connector from 'src/boot/reducers/connector'
+import * as globalActions from 'src/boot/reducers/global.actions'
 
 export function contactUs(text, callback){
   return function( dispatch, getState ){

@@ -1,8 +1,8 @@
 import moment from 'moment';
 
-//import I18n from 'react-native-i18n'
+import I18n from 'react-native-i18n'
 import data from './list/data'
-import * as globalActions from 'src/reducers/globalActions'
+import * as globalActions from 'src/boot/reducers/global.actions'
 
 export function jobApply(jobId, availability, callback){
   return function( dispatch, getState ){
@@ -78,7 +78,7 @@ export function createJob(job, callback, action){
     if(action != 'create'){
       var label = action === 'edit' ? 'edited' : 'created'
 
-      globalActions.showHeaderNotification('Job has been ' + label + ' successfuly', 500)( dispatch, getState )
+      globalActions.showHeaderNotification(I18n.t('jobs.actions.jobHas') + label + I18n.t('jobs.actions.successfuly'), 500)( dispatch, getState )
     }
   }
 }
@@ -93,7 +93,7 @@ export function saveJob(jobId, callback ){
     var savedJobs = getState().globalReducer.profileInfo.savedJobs || 0
     savedJobs++
     dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
-    globalActions.showHeaderNotification('Job has been saved')( dispatch, getState )
+    globalActions.showHeaderNotification(I18n.t('jobs.actions.saved'))( dispatch, getState )
   }
 }
 
@@ -107,7 +107,7 @@ export function discardJob(jobId, callback ){
     var appliedJobs = getState().globalReducer.profileInfo.appliedJobs || 0
     appliedJobs--
     dispatch( globalActions.setGlobalProfileInfoAction({appliedJobs}) )
-    globalActions.showHeaderNotification('Job has been discarded')( dispatch, getState )
+    globalActions.showHeaderNotification(I18n.t('jobs.actions.discarded'))( dispatch, getState )
   }
 }
 //--- MOCK DATA ------------

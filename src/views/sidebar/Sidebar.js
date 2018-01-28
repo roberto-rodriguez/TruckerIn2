@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { Container, Content, Text, List, Left, Right,   Body, ListItem } from "native-base";
 import { Avatar} from 'src/components'
-import { NavigationActions } from "react-navigation";
-import data from "./data";
+import { NavigationActions } from "react-navigation"; 
 import styles from "./style";
 import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform'

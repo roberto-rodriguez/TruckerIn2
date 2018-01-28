@@ -2,22 +2,24 @@
 
 const es = {
   cmp:{
-    accept: 'Accept',
-    connect: 'Connect',
-    connected: 'Connected',
-    reqSent: 'Request Sent',
+    accept: 'Aceptar',
+    connect: 'Conectar',
+    connected: 'Conectedos',
+    reqSent: 'Solicitud Enviada',
     loc: {
-      title: 'Select Location',
-      searchCity: 'Search Cities',
-      searchStates: 'Search States',
-      anyCity: 'Any City',
-      selectState: 'Select State',
-      selectCity: 'Select City'
+      title: 'Selecciones Locación',
+      searchCity: 'Buscar Ciudades',
+      searchStates: 'Buscar Estados',
+      anyCity: 'Cualquier Ciudad',
+      selectState: 'Seleccione Estado',
+      selectCity: 'Seleccione Ciudad',
+      swipeGuide: 'Deslice para cambiar entre Ciudades y Estados.'
     },
     widgets:{
-      loading: 'Loading...',
-      readMore: 'Read More...',
-      cancel: 'Cancelar'
+      loading: 'Cargando...',
+      readMore: 'Leer Más...',
+      cancel: 'Cancelar',
+      posted: 'Publicado'
     }
   }
 }

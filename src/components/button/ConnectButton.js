@@ -10,8 +10,9 @@ import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform'
 import { connect } from "react-redux";
-import * as contactActions from "src/views/contacts/reducer/contactActions";
+import * as contactActions from "src/views/contacts/contacts.actions";
 import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
+import I18n from 'react-native-i18n'
 
  class ConnectButton extends Component {
 
@@ -55,7 +56,7 @@ import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
       //     break;
       case ConnectionStatus.SENT:
             icon = ''
-            text = I18n.t('cmp.reqSent') 
+            text = I18n.t('cmp.reqSent')
           break;
     }
 

@@ -42,9 +42,7 @@
  export { default as LocationPicker } from 'src/components/views/locationPicker/'
  export { default as TextInputView } from 'src/components/views/TextInputView'
 
-//SideBar
-export { default as SecureDocs } from 'src/views/settings/secureDocs/SecureDocs'
-export { default as About } from 'src/views/settings/About'
-export { default as ContactUs } from 'src/views/settings/ContactUs'
-export { default as Settings } from "src/views/settings/Settings";
-export { default as BlankPage } from "src/views/BlankPage";
+//SideBar 
+export { default as About } from 'src/views/sidebar/About'
+export { default as ContactUs } from 'src/views/sidebar/ContactUs'
+export { default as Settings } from "src/views/sidebar/Settings";

@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
-import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T10, T11, T12,  T14,  nav, Avatar, formatDate} from 'src/components/'
+import {Text,Row,  Button, CustomButton, SimpleButton, T10, PostingTime, T12,  T14,  nav, Avatar, formatDate} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import moment from 'moment';
 import * as jobActions from "src/views/jobs/jobs.actions";
@@ -73,12 +73,7 @@ import I18n from 'react-native-i18n'
               <T12 light shortLine>{job.authorRole}</T12>
             </View>
         </View>
-
-        <View style={postStyle.headerRight} >
-          <T11 light shortLine>{I18n.t('jobs.applied.posted')}</T11>
-          <T11 light shortLine>{formatDate(job.createdAt)}</T11>
-
-        </View>
+        <PostingTime date={job.createdAt}/>
       </View>
 
       <Text><Text strong>{I18n.t('jobs.post.equipment')}</Text>{job.equipment}</Text>

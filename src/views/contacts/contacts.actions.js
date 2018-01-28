@@ -1,8 +1,8 @@
 
 
 //import I18n from 'react-native-i18n'
-
-import * as globalActions from 'src/reducers/globalActions'
+import I18n from 'react-native-i18n'
+import * as globalActions from 'src/boot/reducers/global.actions'
 
 export function searchContacts(page = 0, params, callback, reset){
   return function( dispatch, getState ){
@@ -52,13 +52,13 @@ export function answerContactRequest(contactId, userName, accept, callback){
     if(contactId == 0){
       connections = pendingRequest
       pendingRequest = 0
-       globalActions.showHeaderNotification('All connection request have been accepted')( dispatch, getState )
+       globalActions.showHeaderNotification(I18n.t('contacts.pending.allConAccepted'))( dispatch, getState )
     }else{
       pendingRequest = pendingRequest - 1
 
       if(accept){
         connections = connections + 1
-        globalActions.showHeaderNotification('You and ' + userName + ' are now connected')( dispatch, getState )
+        globalActions.showHeaderNotification(I18n.t('contacts.pending.connected1') + userName + I18n.t('contacts.pending.connected2'))( dispatch, getState )
       }
     }
 
@@ -70,7 +70,7 @@ export function doConnect(contactId, name, callback){
   return function( dispatch, getState ){
     var a = contactId;
     var userId = getState().profileReducer.profileInfo.userId;
-    globalActions.showHeaderNotification('Connection request has been sent to ' + name)( dispatch, getState )
+    globalActions.showHeaderNotification(I18n.t('contacts.pending.requestSent') + name)( dispatch, getState )
     callback && callback()
   }
 }
@@ -145,5 +145,4 @@ const locations = [
   {id:5, name: 'West Palm Beach, FL'}
 ]
 
-const jobStatusOptions= [ {id: 1, name: 'Actively searching'}, {id: 2, name: 'Not searching, but open to opportunities'}, {id:3, name:'Not interested'}]
-const roleOptions= [ {id: 1, name: 'Driver'}, {id: 2, name: 'Broker'}, {id:3, name:'Company'}]
+ const roleOptions= [ {id: 1, name: 'Driver'}, {id: 2, name: 'Broker'}, {id:3, name:'Company'}]

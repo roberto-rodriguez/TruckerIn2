@@ -2,7 +2,7 @@ import auth from "src/views/auth/i18n/en";
 import profile from "src/views/profile/i18n/en";
 import jobs from "src/views/jobs/i18n/en";
 import contacts from "src/views/contacts/i18n/en";
-import settings from "src/views/settings/i18n/en";
+import settings from "src/views/sidebar/i18n/en";
 import cmp from "src/components/i18n/en";
 
 

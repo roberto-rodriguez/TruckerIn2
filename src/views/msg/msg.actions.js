@@ -1,4 +1,4 @@
-import * as globalActions from 'src/reducers/globalActions'
+import * as globalActions from 'src/boot/reducers/global.actions'
 
 export function listConversations(page = 0, callback){
   return function( dispatch, getState ){

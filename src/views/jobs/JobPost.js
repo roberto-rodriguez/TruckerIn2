@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
 import { connect } from "react-redux";
-import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T11, T12, T13, T14, Content, nav, Avatar} from 'src/components/'
+import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T12, T13, T14, Content, nav, Avatar} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import * as roles from 'src/components/c/Role'
 import * as jobActions from "src/views/jobs/jobs.actions";
@@ -46,7 +46,7 @@ import I18n from 'react-native-i18n'
                handler={() => nav(navigation, 'JobApp', {jobId: data.id}) }/>
              }
           </View>
-          <PostingTime/>
+          <PostingTime date={data.createdAt}/>
         </View>
       </View>
 

@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import {  Card } from "native-base";
-import {Text,Row,  CustomButton, PostingTime, SimpleButton, T12, T13, T14,  nav, Avatar} from 'src/components/'
+import {Text,Row,  CustomButton, PostingTime, SimpleButton, T11,T12, T13, T14,  nav, Avatar} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import I18n from 'react-native-i18n'
 export default class SavedJobPost extends Component {
@@ -32,7 +32,7 @@ export default class SavedJobPost extends Component {
             <CustomButton text={I18n.t('jobs.post.apply')} style={{width:60}}
              handler={() => nav(navigation, 'JobApp', {jobId: dataRow.id}) }/>
           </View>
-          <PostingTime/>
+          <PostingTime date={dataRow.createdAt}/> 
         </View>
       </View>
 

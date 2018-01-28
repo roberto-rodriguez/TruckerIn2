@@ -3,29 +3,33 @@
 const es = {
   contacts:{
     title: 'Contactos',
-    myContacts: 'My Contacts',
-    allUsers: 'All Users',
-    msg: 'Messages',
+    myContacts: 'Mis Contactos',
+    allUsers: 'Todos los Usuarios',
+    msg: 'Mensajes',
     headers:{
-      noConn: ', I see you still dont have any connections, these are some people you might know',
-      pending1: ', there are ',
-      pending2: ' people that wants to connect with you.',
-      click2see: '( Click here to see )'
+      noConn: ', Veo que aun no tienes ninguna conección, estas son las personas que tu podrías conocer.',
+      pending1: ', hay ',
+      pending2: ' personas que quieren conectar contigo.',
+      click2see: '( Click aqui para ver )'
     },
     pending: {
-      title: 'Connection Request',
-      acceptAll: 'Accept all'
+      title: 'Solicitudes de Conección',
+      acceptAll: 'Aceptar Todas',
+      allConAccepted: 'Todas las solicitudes de conección han sido aceptadas',
+      connected1: 'Tu y ',
+      connected2: ' ahora estan conectados',
+      requestSent: 'Solicitud de Conección ha sido enviada a '
     },
     search:{
-      title: 'Search Contacts',
-      role: 'Role',
-      equipment: 'Equipment',
-      experience: 'Experience',
-      status: 'Job Status',
-      name: "Name",
-      clear: 'Clear',
-      search: 'Search',
-      results: 'Search Result'
+      title: 'Buscar Contactos',
+      role: 'Rol',
+      equipment: 'Equipo',
+      experience: 'Experiencia',
+      status: 'Estado Laboral',
+      name: "Nombre",
+      clear: 'Limpiar',
+      search: 'Buscar',
+      results: 'Resultados de Busqueda'
     }
   },
 

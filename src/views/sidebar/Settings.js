@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View} from 'react-native';
 import {StackView, YesNoListItem, AgentImg } from 'src/components/'
-import * as globalActions from "src/reducers/globalActions"
+import * as globalActions from "src/boot/reducers/global.actions"
 import { connect } from "react-redux"
 import I18n from 'react-native-i18n'
 

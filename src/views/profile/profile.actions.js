@@ -2,7 +2,7 @@
 
 //import I18n from 'react-native-i18n'
 
-import * as globalActions from 'src/reducers/globalActions'
+import * as globalActions from 'src/boot/reducers/global.actions'
 import * as jobsActions from 'src/views/jobs/jobs.actions'
 import * as roles from 'src/components/c/Role'
 

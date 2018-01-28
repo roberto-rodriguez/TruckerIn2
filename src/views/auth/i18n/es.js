@@ -11,82 +11,82 @@ const es = {
     password: 'Contraseña'
   },
   signup:{
-    iAccept: 'I accept the ',
-    tos: 'Terms of Service',
-    acceptAndFinish: 'Accept and Finish',
-    next: 'Next',
-    sentCodeText1: 'We just sent you an Access Code',
-    sentCodeText2: 'via SMS to the number: ',
+    iAccept: 'Yo acepto los ',
+    tos: 'Términos de Servicios',
+    acceptAndFinish: 'Aceptar y Finalizar',
+    next: 'Siguiente',
+    sentCodeText1: 'Le enviamos un Código de Acceso',
+    sentCodeText2: 'por mensaje de text al #: ',
     titles:{
-      welcome:'Welcome to TruckerIn',
-      personal: 'Personal Information',
-      companyInfo: 'Company Information',
-      contact: 'Contact Information',
-      experience: 'Professional Experience',
-      validatePhone: 'Validate Phone Number',
-      tos: 'Terms of Service',
-      aboutMe: 'About Me',
-      aboutUs: 'About Us'
+      welcome:'Bienvenido a TruckerIn',
+      personal: 'Información Personal',
+      companyInfo: 'Información de la Compañia',
+      contact: 'Información de Contacto',
+      experience: 'Experiencia Profesional',
+      validatePhone: 'Validar Número de Teléfono',
+      tos: 'Terminos de Servicios',
+      aboutMe: 'Sobre Mi',
+      aboutUs: 'Sobre Nosotros'
     },
     titlesError:{
-      validatePhone: 'Invalid Access Code'
+      validatePhone: 'Codigo de Acceso Inválido'
     },
     subTitles:{
-      welcome: 'The fastest growing network of Truckers',
-      validatePhone: 'We just sent you a 4 digits access code via SMS',
-      contact: 'We will never share it without asking you'
+      welcome: 'Red de Camioneros y Empleadores',
+      validatePhone: 'Le enviamos un código de 4 dijitos via SMS',
+      contact: 'Nunca la compartiremos sin consultarle'
     },
     subTitlesError:{
-      completeRed: 'Please complete fields marked in red',
-      validatePhone: 'Make sure you entered the right phone number',
-      usernameTaken: 'This username is already taken',
-      tos: 'Terms of Service must to be accepted'
+      completeRed: 'Complete los campos marcados en rojo',
+      validatePhone: 'Asegurese que entro el teléfono correcto',
+      usernameTaken: 'Este usuario ya esta tomado',
+      tos: 'Los terminos de servicios tienen que ser aceptados'
     },
     bullets:{
-      personal: 'Information',
-      contact: 'Contact',
-      about: 'About',
-      validatePhone: 'Validar Telefono',
+      personal: 'Información',
+      contact: 'Contacto',
+      about: 'Sobre Me',
+      validatePhone: 'Validar Teléfono',
       tos: 'Términos'
     },
     acceptTerms:{
-      enjoy: 'Enjoy',
-      free: 'FREE',
-      forOneYear: ' for one year',
-      afterThat: 'After that, some ',
-      premium: 'premium features can be paid'
+      enjoy: 'Disfrute',
+      free: 'GRATIS',
+      forOneYear: ' por un año',
+      afterThat: 'Despues de ese tiempo, algunas ',
+      premium: 'funcionalidades específicas pueden ser pagadas'
     },
     pic:{
-      setPic: 'Set your profile picture',
-      latter: 'Do it latter'
+      setPic: 'Establecer foto de perfil',
+      latter: 'Hacerlo despues'
     },
     roles:{
-      driver: 'Driver',
+      driver: 'Chofer',
       broker: 'Broker',
-      company: 'Company',
-      canApply: 'Can apply to Jobs',
-      canPost: 'Can post Jobs Applications',
-      selectRole: 'SELECT ROLE'
+      company: 'Compañia',
+      canApply: 'Puede aplicar a trabajos',
+      canPost: 'Puede publicar trabajos',
+      selectRole: 'SELECCIONAR ROL'
     },
     validatePhone:{
-      requestAcess: 'Request New Access Code',
-      support: 'Customer Support',
-      didntReceive: 'Didnt receive Access Code?',
-      enterAccessCode: 'Enter Access Code here'
+      requestAcess: 'Solicitar nuevo código de acceso',
+      support: 'Atención al cliente',
+      didntReceive: '¿No recibió el Código de acceso?',
+      enterAccessCode: 'Entre el código de acceso aquí'
     },
     about: {
-      descBroker: 'Describe in few words your role in the Trucking industry, type of Drivers you use to hire.. etc',
-      descCompany: 'Describe in few words about the company, type of Drivers it use to hire.. etc'
+      descBroker: 'Describa brevemente su rol en la industria de los camiones, tipo de choferes que sueles contratar... etc',
+      descCompany:'Describa brevemente su compañia, tipo de choferes que suele contratar.. etc'
     }
   },
   tos:{
     ...tos,
-    lastUpdated: 'Last updated on February 14th, 2018.'
+    lastUpdated: 'Actualizado por ultima vez en February 14th, 2018.'
   },
   forgotPassword: {
-    title: 'Forgot Password',
-    contactUs: 'Contact Us',
-    text: 'Password recovery functionality will be ready in the next version, but for now you can Contact Us and we will help you.'
+    title: 'Olvido Contraseña',
+    contactUs: 'Contáctenos',
+    text: 'Recuperación de contraseña estara disponible en la próxima versión, pero puede contactarnos y lo ayudaremos a recuperarla ahora.'
   }
 }
 

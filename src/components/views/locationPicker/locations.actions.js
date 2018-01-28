@@ -1,6 +1,7 @@
 
-import * as connector from 'src/reducers/connector'
-import * as globalActions from 'src/reducers/globalActions'
+import I18n from 'react-native-i18n'
+import * as connector from 'src/boot/reducers/connector'
+import * as globalActions from 'src/boot/reducers/global.actions'
 
 export const setCityAction = (cityId, cityName) => ({ type: 'SET_CITY', cityId, cityName })
 export const setStateAction = (stateId, stateName) => ({ type: 'SET_STATE', stateId , stateName})
@@ -16,7 +17,7 @@ export function listCities(text, callback){
           var cities = response.map((name, i) => ({name, id: i + 1}))
              callback && callback(cities)
         }else{
-          alert('No response receivedd')
+          alert('No response received')
         }
       })
   }
@@ -48,6 +49,6 @@ export function clearLocation(){
 
 export function showGuidance(){
   return function( dispatch, getState ){
-      globalActions.showHeaderNotification('You can swipe to change between states and cities.')( dispatch, getState )
+      globalActions.showHeaderNotification(I18n.t('cmp.loc.swipeGuide'))( dispatch, getState )
   }
 }

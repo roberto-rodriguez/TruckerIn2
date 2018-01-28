@@ -2,75 +2,75 @@
 
 const es = {
   profile:{
-    title: 'Profile',
-    edit: 'Edit',
-    message: 'Message',
-    completed: 'Profile Completed: ',
-    seeMore: 'Click here to see more',
+    title: 'Perfil',
+    edit: 'Editar',
+    message: 'Mensaje',
+    completed: 'Perfil Completado: ',
+    seeMore: 'Click aqui para ver más',
     editProfile:{
-      title: 'Update Profile',
-      header: 'Increase your possibilities by keeping your profile updated',
-      view: 'View ',
-      connections: ' Connections'
+      title: 'Editar Perfil',
+      header: 'Aumenta tus posibilidades manteniendo su perfil actualizado',
+      view: 'Ver ',
+      connections: ' Conecciones'
     },
     titles:{
-      editPersonalInfo: 'Edit Personal Information',
-      contact: 'Contact',
-      contactInfo: 'Contact Information',
-      updateInfo: 'Update Information',
-      experience: 'Experience',
-      updateExperience: 'Update Experience',
-      career: 'Career',
-      updateCareer: 'Update Career',
-      connections: 'Connections',
-      about: 'About',
-      aboutMe: 'About Me',
-      aboutUs: 'About Us',
-      postedJobs: 'Posted Jobs',
-      recentJobs: 'Recent Jobs'
+      editPersonalInfo: 'Editar Información Personal',
+      contact: 'Contacto',
+      contactInfo: 'Información de contacto',
+      updateInfo: 'Editar Información',
+      experience: 'Experiencia',
+      updateExperience: 'Editar Experiencia',
+      career: 'Carrera',
+      updateCareer: 'Editar Carrera',
+      connections: 'Conecciones',
+      about: 'Sobre Mi',
+      aboutMe: 'Sobre Mi',
+      aboutUs: 'Sobre Nosotros',
+      postedJobs: 'Trabajos Publicados',
+      recentJobs: 'Empleos Recientes'
     },
     information:{
-      firstName: 'First Name',
-      companyName: 'Company Name',
-      lastName: 'Last Name',
-      email: 'Email',
-      phone: 'Phone',
-      location: 'Location',
-      jobStatus: 'Job Status',
-      hiringStatus: 'Hiring Status',
-      showPersonalInfo: 'Show my Contact Information ?',
-      username: 'Username',
-      password: 'Password',
-      notShowInfo: 'This user prefers to not show his contact information.',
-      clickToMsg: '( Click here to send him a message )'
+      firstName: 'Nombre',
+      companyName: 'Nombre de la Compañia',
+      lastName: 'Apellido',
+      email: 'Correo',
+      phone: 'Teléfono',
+      location: 'Locación',
+      jobStatus: 'Estado Laboral',
+      hiringStatus: 'Contratando ahora?',
+      showPersonalInfo: 'Mostrar mi información personal?',
+      username: 'Usuario',
+      password: 'Contraseña',
+      notShowInfo: 'Este usuario prefiere no mostrar su información personal.',
+      clickToMsg: '( Click aqui para enviarle un mensaje )'
     },
     experience:{
-      experience: 'Experience',
-      equipment: 'Equipment',
-      ownerOperator: 'Owner Operator',
-      hasCDL: 'Has CDL class A?',
-      recentOver: 'Recent Over the Road Experience?',
-      wouldOver: 'Would you take an Over the Road Job?',
-      moreThan: 'More than ',
-      jobStatus: 'Job Status',
-      emptyText: 'Increase your possibilities by completing your experience information'
+      experience: 'Experiencia',
+      equipment: 'Equipo',
+      ownerOperator: 'Operador propietario',
+      hasCDL: 'Tiene licencia clase A?',
+      recentOver: 'Reciente experiencia en la carretera?',
+      wouldOver: 'Tomaria un trabajo en la carretera?',
+      moreThan: 'Más de ',
+      jobStatus: 'Estado Laboral',
+      emptyText: 'Incremente sus posibilidades completando la información sobre su experiencia'
     },
     career:{
-        addExp: 'Add Experience',
-        addLab: 'Add laboral experience',
-        companyName: 'Company Name',
-        when: 'When or how long?',
-        desc: 'Description',
-        emptyIsMe: 'Increase your possibilities by showing to recruters the companies you have been working for.',
-        emptyNoMe: 'Laboral experience not provided.',
-        updateCareerMsg: 'Companies you have been working for in the last 3 years.',
-        recentLabExp: 'Recent laboral experience'
+        addExp: 'Addicionar Experiencia',
+        addLab: 'Addicionar Experiencia Laboral',
+        companyName: 'Nombre de la Compañia',
+        when: 'Cuando o por cuanto tiempo?',
+        desc: 'Descripción',
+        emptyIsMe: 'Incremente sus posibilidades mostrandole a recrutadores las compañias para las que has estado trabajando.',
+        emptyNoMe: 'Experience laboral no provista',
+        updateCareerMsg: 'Compañias para las que has estado trabajando en los últimos 3 años',
+        recentLabExp: 'Reciente experiencia laboral'
     },
     connections:{
-        search: 'Search Connections'
+        search: 'Buscar Conecciones'
     },
     location: {
-      title: 'Location'
+      title: 'Locación'
     }
   }
 }
