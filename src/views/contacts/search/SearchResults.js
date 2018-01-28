@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import { Container } from "native-base";
-
+import I18n from 'react-native-i18n'
 import { ContactListItem, Header, Feed} from 'src/components/'
 import HeaderBtn from 'src/components/header/buttons/HeaderBtn'
 
@@ -26,7 +26,7 @@ class SearchResults extends Component {
       <Container white>
         <View style={{minHeight:'100%'}}>
           <Header back
-           title={'Search Result'}
+           title={I18n.t('contacts.search.results')}
            navigation={navigation}
            right={<HeaderBtn icon='search' handler={this.props.goToSearch}/>}
          />

@@ -44,15 +44,15 @@ class MyContacts extends Component {
   buildHeader(){
       var {pendingRequest,connections, navigation} = this.props
 
-      // if(pendingRequest){
+     if(pendingRequest){
       return (<PendingRequestHeader navigation={navigation}/>)
-      // }else{
-      //   if(!connections){
-          //   return <NoConnectionsHeader/>
-        // }else{
-        //   return null;
-        // }
-      // }
+    }else{
+      if(!connections){
+          return <NoConnectionsHeader/>
+      }else{
+        return null;
+      }
+    }
   }
 }
 

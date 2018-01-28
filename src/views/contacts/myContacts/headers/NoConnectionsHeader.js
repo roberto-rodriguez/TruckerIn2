@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import {  AgentMsg } from "src/components/"; 
-
+import {  AgentMsg } from "src/components/";
+import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 
 
 class NoConnectionsHeader extends Component {
 
   render = () => (
-      <AgentMsg text={'Hey ' +  this.props.name  + ', I see you still dont have any connection, these are some people you might know'}/>
+      <AgentMsg text={'Hey ' +  this.props.name  + I18n.t('contacts.headers.noConn')}/>
     )
 }
 

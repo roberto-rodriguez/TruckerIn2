@@ -6,8 +6,7 @@
 
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import {Row, Column, T14, T12, SimpleButton } from 'src/components/'
-import { Thumbnail } from "native-base";
+import {Row, Column, T14, T12, SimpleButton, Avatar } from 'src/components/'
 
 import theme from 'src/theme/variables/platform';
 import Icon from 'react-native-fa-icons';
@@ -57,7 +56,7 @@ import { connect } from "react-redux";
         <Row h={70}>
           <Column h={70} columns={6} colspan={1} >
             <SimpleButton  onPress={()=> nav(navigation, 'Profile', {userInfo: dataRow} )}>
-               <Thumbnail circle source={ profileImg } />
+               <View><Avatar name={userName} src={profileImg}/></View>
              </SimpleButton>
           </Column>
           <Column h={70} columns={6} colspan={3} start>

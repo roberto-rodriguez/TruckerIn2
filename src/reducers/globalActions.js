@@ -97,8 +97,8 @@ export function apiGetProfileInfo(userId){
     savedJobs: 0,
     appliedJobs: 3,
     postedJobs: 5,
-    connections: 12,
-    pendingRequest: 10,
+    connections: 0,
+    pendingRequest: 0,
     notifications:34
   }
 }

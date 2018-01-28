@@ -83,6 +83,9 @@ const es = {
     title: 'Search',
     name: "Employer's Name",
     clear: 'Clear'
+  },
+  details:{
+    title: 'Job Details'
   }
 
   }

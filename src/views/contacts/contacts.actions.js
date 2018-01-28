@@ -78,7 +78,7 @@ export function doConnect(contactId, name, callback){
 
 
 
-//--- MOCK DATA ------------ 
+//--- MOCK DATA ------------
 
 const filters = [ 'experienceId','name', 'locationId', 'equipmentId', 'roleId', 'jobStatusId' ]
 
@@ -129,7 +129,7 @@ function applyFilter(filter, searchParams, list){
         return list.filter((item) => (item[filter] >= val))
       case 'name':
       debugger;
-        return list.filter((item) => (item[filter].indexOf(val) >= 0))
+        return list.filter((item) => (item[filter] && item[filter].indexOf(val) >= 0))
       default:
         return list.filter((item) => (item[filter] === val))
     }

@@ -15,9 +15,9 @@ const initialState = {
   locationId:null,
   location: null,
   equipmentId:null,
-  equipment: 'Any',
+  equipment: I18n.t('general.any'),
   experienceId: null,
-  experience: 'Any',
+  experience: I18n.t('general.any'),
   author: ''
 }
 

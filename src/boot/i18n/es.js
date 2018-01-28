@@ -2,11 +2,13 @@
 import auth from "src/views/auth/i18n/es";
 import profile from "src/views/profile/i18n/es";
 import jobs from "src/views/jobs/i18n/es";
+import contacts from "src/views/contacts/i18n/es";
 
 const es = {
   ...auth,
   ...profile,
   ...jobs,
+  ...contacts,
   general:{
     error: 'Error inesperado. Por favor intente de nuevo.',
     yes: 'Si',

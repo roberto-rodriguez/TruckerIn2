@@ -56,7 +56,7 @@ class JobDetails extends Component {
 
     return (
       <Container>
-        <Header navigation={navigation} back title='Job Details'/>
+        <Header navigation={navigation} back title={I18n.t('jobs.details.title')}/>
         <Content fullscreen>
          <JobPost data={data} navigation={navigation}/>
          <View style={{backgroundColor: 'white'}}>

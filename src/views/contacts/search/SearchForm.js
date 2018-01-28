@@ -4,24 +4,25 @@ import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
 import { Header, BlockButton, ListItem, Select, InputListItem} from 'src/components/'
 import { connect } from "react-redux";
+import I18n from 'react-native-i18n'
 
 const items = [
-  { icon: 'puzzle-piece',   title: 'Role', prop: 'role'},
-  { icon: 'truck',   title: 'Equipment', prop: 'equipment'},
-  { icon: 'tachometer',   title: 'Experience', prop: 'experience'},
-  { icon: 'hourglass-end',   title: 'Job Status', prop: 'jobStatus'}
+  { icon: 'puzzle-piece',   title: 'role', prop: 'role'},
+  { icon: 'truck',   title: 'equipment', prop: 'equipment'},
+  { icon: 'tachometer',   title: 'experience', prop: 'experience'},
+  { icon: 'hourglass-end',   title: 'status', prop: 'jobStatus'}
 ]
 
 const initialState = {
   location: null,
   equipmentId: null,
-  equipment: 'Any',
+  equipment: null,
   experienceId: null,
-  experience: 'Any',
+  experience: null,
   jobStatusId: null,
-  jobStatus: 'Any',
+  jobStatus: null,
   roleId: null,
-  role: 'Any',
+  role: null,
   name: '',
   showDriverOptions: true
 }
@@ -67,14 +68,14 @@ class SearchForm extends Component {
 
     return (
       <Container>
-        <Header navigation={navigation} back title={'Search Contacts'}/>
+        <Header navigation={navigation} back title={I18n.t('contacts.search.title')}/>
         <Content fullscreen contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
           <View >
             <ListItem
               navigation={navigation}
                key={101} icon={'map-marker'}
-               label={'Where'}
-               value={ (state.location && state.location.locationName ) || 'Anywhere'}
+               label={I18n.t('general.where')}
+               value={ (state.location && state.location.locationName ) || I18n.t('general.anywhere')}
                routeName={'LocationPicker'}
                params={{setVal: this.setVal, data: state.location }}/>
 
@@ -84,22 +85,22 @@ class SearchForm extends Component {
                  key={i}
                  navigation={navigation}
                  icon={icon}
-                 label={title}
+                 label={title ? I18n.t(['contacts', 'search', title]) : I18n.t('general.any')}
                  value={ state[prop]}
                  handler={ () => this.showSelect( prop ) }
                  />) )
 
             }
-            <InputListItem icon='user-o' label="Name" value={state.author} onChangeText={(text) => this.setVal('name', text)}/>
+            <InputListItem icon='user-o' label={I18n.t('contacts.search.name')} value={state.author} onChangeText={(text) => this.setVal('name', text)}/>
 
             <Button onPress={this.clear} full transparent>
                 <Text style={{ color: global.secondaryColor }}>
-                  Clear
+                  {I18n.t('contacts.search.clear')}
                 </Text>
               </Button>
          </View>
 
-          <BlockButton text='Search' onPress={() => this.props.onSearch(this.state)}/>
+          <BlockButton text={I18n.t('contacts.search.search')} onPress={() => this.props.onSearch(this.state)}/>
           <Select
              ref={o => this.roleSelect = o}
              options={ roleOptions}
@@ -127,10 +128,10 @@ class SearchForm extends Component {
 }
 
 const mapStateToProps = ({globalReducer}) => ({
-  equipmentOptions: [{id:0, name:'Any'}, ...globalReducer.config.equipmentOptions] ,
-  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : 'More than ' + exp.name})),
-  jobStatusOptions:  [{id:0, name:'Any'}, ...globalReducer.config.jobStatusOptions],
-  roleOptions:  [{id:0, name:'Any'}, ...globalReducer.config.roleOptions]
+  equipmentOptions: [{id:0, name:  I18n.t('general.any')}, ...globalReducer.config.equipmentOptions] ,
+  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name :  I18n.t('general.moreThan') + exp.name})),
+  jobStatusOptions:  [{id:0, name:  I18n.t('general.any')}, ...globalReducer.config.jobStatusOptions],
+  roleOptions:  [{id:0, name:  I18n.t('general.any')}, ...globalReducer.config.roleOptions]
 });
 
 export default connect(mapStateToProps )(SearchForm);

@@ -28,7 +28,7 @@ class PostedJobApplications extends Component {
 
     return (
       <Container>
-        <Header navigation={navigation} back title={I18n.t('jobs.app.titles')/>
+        <Header navigation={navigation} back title={I18n.t('jobs.app.titles')}/>
         <View style={{minHeight:'100%'}}>
            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
         </View>
