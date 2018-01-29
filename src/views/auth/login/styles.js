@@ -67,17 +67,7 @@ export default {
      borderTopRightRadius: 5,
      borderColor:commonColor.primaryColor,
      borderWidth: 0.3
-   },
-  formErrorText1: {
-    fontSize: Platform.OS === "android" ? 12 : 15,
-    color: commonColor.brandDanger,
-    textAlign: "right"
-  },
-  formErrorText2: {
-    fontSize: Platform.OS === "android" ? 12 : 15,
-    color: "transparent",
-    textAlign: "right"
-  },
+   }, 
   loginBtn: {
     backgroundColor: "#4E69A2",
     borderRadius: 6,
@@ -87,25 +77,5 @@ export default {
   //  marginTop: 15,
     marginBottom: 7
   },
-  forgotPasswordText: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: commonColor.lightTextColor
-  },
-  footerView: {
-    flex: 1,
-    height: deviceHeight / 5
-  },
-  createAccountBtn: {
-    alignSelf: "center",
-    borderRadius: 0,
-    bottom: 0,
-    borderColor: commonColor.lightTextColor,
-    position: "absolute"
-  },
-  createAccountBtnTxt: {
-    color: commonColor.lightTextColor,
-    fontWeight: "bold",
-    fontSize: 14
-  }
+  loginBtnText:{ lineHeight: 16, fontWeight: "bold" }
 };

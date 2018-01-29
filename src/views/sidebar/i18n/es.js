@@ -7,9 +7,11 @@ const es = {
     receiveNotif: 'Recibir Notificaciones',
     showContactInfo: 'Mostrar Información de Contacto',
     sidebar:{
+      createJob: 'Crear un Nuevo Trabajo',
       viewProfile: "Ver mi Perfil",
-      myJobApps: "Mis Aplicaciones Laborales",
+      myJobApps:   "Mis Aplicaciones Laborales",
       mySavedJobs: "Mis Trabajos Salvados",
+      myPostedJobs:"Mis Trabajos Publicados",
       about: "Sobre TruckerIn",
       contactUs: "Contáctenos",
       settings: "Configuraciones",

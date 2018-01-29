@@ -108,7 +108,7 @@ class Login extends Component {
             style={styles.loginBtn}
             onPress={ this.login }
           >
-            <Text style={{ lineHeight: 16, fontWeight: "bold" }}>
+            <Text style={styles.loginBtnText}>
               { I18n.t('login.login') }
             </Text>
           </Button>
@@ -118,7 +118,7 @@ class Login extends Component {
               style={styles.loginBtn}
               onPress={() => navigation.navigate( 'Register' )}
             >
-              <Text style={{ lineHeight: 16, fontWeight: "bold" }}>
+              <Text style={styles.loginBtnText}>
                 { I18n.t('login.createAccount') }
               </Text>
             </Button>

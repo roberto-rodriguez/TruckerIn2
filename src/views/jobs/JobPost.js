@@ -40,7 +40,7 @@ import I18n from 'react-native-i18n'
         </View>
 
         <View style={postStyle.headerRight} >
-          <View style={{flexDirection: "row",justifyContent:'flex-end'}} >
+          <View style={styles.applyView} >
             {roleId === roles.DRIVER &&
               <CustomButton text={I18n.t('jobs.post.apply')} style={{width:60}}
                handler={() => nav(navigation, 'JobApp', {jobId: data.id}) }/>
@@ -75,16 +75,13 @@ import I18n from 'react-native-i18n'
 
   }
 
-        // <CustomButton white text={'SUGERIR A UN AMIGO'}
-        //  style={[styles.button, {width:135}]}
-        //  handler={() => {}}/>
-
   const styles = StyleSheet.create({
       thumbnail: {
         height: 50,
         width: 50
       },
-      button: {width:70, marginRight:10}
+      button: {width:70, marginRight:10},
+      applyView: {flexDirection: "row",justifyContent:'flex-end'}
     })
 
     const mapStateToProps = ({globalReducer}) => ({

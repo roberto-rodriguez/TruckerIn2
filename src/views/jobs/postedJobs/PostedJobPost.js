@@ -34,7 +34,7 @@ import I18n from 'react-native-i18n'
               <Avatar name={dataRow.userName}  size={60} src={dataRow.profileImg} square/>
             </View>
             </SimpleButton>
-            <View note style={{ flexDirection: "column", marginLeft: 10}}>
+            <View note style={styles.details}>
               <T14 strong shortLine style={{color:'black'}}> {dataRow.userName} </T14>
               <T12 light shortLine>{dataRow.location} </T12>
               <T12 light shortLine>{dataRow.authorRole}</T12>
@@ -42,9 +42,9 @@ import I18n from 'react-native-i18n'
         </View>
 
         <View style={postStyle.headerRight} >
-          <View style={{flexDirection: "row",justifyContent:'flex-end'}} >
+          <View style={styles.editView} >
             {  isMe && (
-              <CustomButton text={'EDIT'} style={{width:60}}
+              <CustomButton text={I18n.t('jobs.posted.edit')} style={{width:60}}
               handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'edit'}) }/>
             )}
           </View>
@@ -56,7 +56,7 @@ import I18n from 'react-native-i18n'
       <Text><Text strong>{I18n.t('jobs.post.exp')}</Text>{dataRow.experience}</Text>
       <Text><Text strong>{I18n.t('jobs.post.compensation')}</Text>{dataRow.compensation}</Text>
 
-    <View style={{flexDirection: 'row', marginTop: 10, justifyContent:'space-between' }}>
+    <View style={styles.detailsView}>
         {isMe && (
             <CustomButton text={dataRow.apps + I18n.t('jobs.posted.app')} style={{height:32, width:100}}
             handler={() => nav(navigation, 'PostedJobApplications', {jobId: dataRow.id})}/>
@@ -91,7 +91,10 @@ import I18n from 'react-native-i18n'
         height: 50,
         width: 50
       },
-      button: {width:70}
+      button: {width:70},
+      detailsView: {flexDirection: 'row', marginTop: 10, justifyContent:'space-between' },
+      details: { flexDirection: "column", marginLeft: 10},
+      editView: {flexDirection: "row",justifyContent:'flex-end'}
     })
 
     const mapStateToProps = ({ globalReducer}, ownProps) =>  ({

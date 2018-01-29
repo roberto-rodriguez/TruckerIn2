@@ -54,7 +54,7 @@ const en = {
     answerToEmployer: 'Answer to Employer',
     appSubmittedOn: 'Application submitted on ',
     notSeen: "Application not seen yet.",
-    answer: 'ANSWER' 
+    answer: 'ANSWER'
   },
   pre:{
     wantToCreate: 'Want to create a Job?',
@@ -76,7 +76,8 @@ const en = {
   posted:{
     title: 'Posted Jobs',
     app: ' Applications',
-    myTitle: 'My Posted Jobs'
+    myTitle: 'My Posted Jobs',
+    edit: 'EDIT'
   },
   search:{
     title: 'Search',

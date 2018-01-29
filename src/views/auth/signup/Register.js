@@ -107,7 +107,7 @@ class Register extends Component {
         <Content fullscreen>
           <View style={styles.logoContainerView}>
             <SimpleButton onPress={() => this.nextBack(false)} style={styles.backArrow}><View>
-              <Icon name={'long-arrow-left'} style={{color:'white', fontSize: 26}}/>
+              <Icon name={'long-arrow-left'} style={styles.arrowLeft}/>
             </View></SimpleButton>
             <AgentImg size={85}/>
             <T16 style={{color:'white'}}>{I18n.t( ['signup', (!validForm && titlesError[flowPage] ? 'titlesError' : 'titles'), titles[flowPage] ] ) }</T16>
@@ -118,7 +118,7 @@ class Register extends Component {
             }
           </View>
 
-          <View style={{marginTop:15, borderBottomWidth: 0.2, borderBottomColor: commonColor.secondaryColor}}>
+          <View style={styles.subHeader}>
             {flowPage ?
               ( <StepIndicator
                     customStyles={styles.stepIndicator}
@@ -135,7 +135,7 @@ class Register extends Component {
           }
           {
             showHeaderNotification && (
-              <View style={{backgroundColor: '#d5f4e6', borderWidth: 0.3, borderColor: commonColor.primaryColor}}>
+              <View style={styles.headerNotification}>
                  <RowColumn h={60}>
                    <T14 style={{color:commonColor.primaryColor}}>{I18n.t('signup.sentCodeText1')}</T14>
                    <T14 style={{color:commonColor.primaryColor}}>{I18n.t('signup.sentCodeText2') + this.state.data.phone}</T14>

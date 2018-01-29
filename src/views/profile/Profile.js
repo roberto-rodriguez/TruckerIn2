@@ -116,7 +116,7 @@ componentDidMount(){
 
           <Row h={70}/>
           <Row h={40}>
-            <H3 style={{ width:'100%',textAlign:'center' }}>{name}</H3>
+            <H3 style={styles.name}>{name}</H3>
           </Row>
           <Row  h={60}>
             <Column  h={60} columns={5}>

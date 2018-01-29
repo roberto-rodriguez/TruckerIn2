@@ -29,8 +29,7 @@ class CreateJob extends Component {
         action:'create',
         title:'',
         data:{
-          locationId:null,
-          location: I18n.t('general.anywhere'),
+          location: null,
           equipmentId: null,
           equipment: I18n.t('general.any'),
           experienceId: null,
@@ -92,7 +91,7 @@ showSelect(prop) {
 }
 
 
-setVal(prop, val, valId) {
+setVal = (prop, val, valId) => {
   if(!val)return;
 
   this.setState((prevState) => {
@@ -135,9 +134,9 @@ onAcceptCallback = (jobId) => {
               key={101}
               icon={'map-marker'}
               label={I18n.t('general.where')}
-              value={ state.location}
+              value={ (state.location && state.location.locationName) }
               routeName={'LocationPicker'}
-              params={{setVal: (prop, val, valId) => this.setVal(prop, val, valId)}}/>
+              params={{setVal: this.setVal, data: state.location}}/>
 
           {
               items.map(({icon, title, prop, isSelect}, i) =>

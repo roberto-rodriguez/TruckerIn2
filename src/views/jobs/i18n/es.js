@@ -76,7 +76,8 @@ const es = {
   posted:{
     title: 'Trabajos Publicados',
     app: ' Aplicaciones',
-    myTitle: 'Mis Trabajos Publicados'
+    myTitle: 'Mis Trabajos Publicados',
+    edit: 'EDITAR'
   },
   search:{
     title: 'Buscar',

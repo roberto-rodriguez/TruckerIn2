@@ -102,5 +102,6 @@ export default {
   topBarButton:{
     marginTop:13,
     borderWidth:0
-  }
+  },
+  name: { width:'100%',textAlign:'center' },
 };

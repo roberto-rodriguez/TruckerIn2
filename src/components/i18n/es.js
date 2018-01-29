@@ -7,7 +7,7 @@ const es = {
     connected: 'Conectedos',
     reqSent: 'Solicitud Enviada',
     loc: {
-      title: 'Selecciones Locación',
+      title: 'Seleccione Locación',
       searchCity: 'Buscar Ciudades',
       searchStates: 'Buscar Estados',
       anyCity: 'Cualquier Ciudad',

@@ -2,20 +2,14 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { Container, Content, Text, List, Left, Right,   Body, ListItem } from "native-base";
 import { Avatar} from 'src/components'
-import { NavigationActions } from "react-navigation"; 
+import { NavigationActions } from "react-navigation";
 import styles from "./style";
 import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform'
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
 
-const menuItems = [
-  // {
-  //   link: "SecureDocs",
-  //   icon: "key",
-  //   text: "My Secure Documents",
-  //   bg: theme.primaryColor
-  // },
+const truckerItems = [
   {
     link: "AppliedJobs",
     icon: "address-card-o",
@@ -27,7 +21,32 @@ const menuItems = [
     icon: "briefcase",
     text: "mySavedJobs",
     bg: 'teal'
+  }
+]
+
+const employerItems = [
+  {
+    link: "PreCreateJob",
+    icon: "edit",
+    text: "createJob",
+    bg: 'steelblue'
   },
+  {
+    link: "PostedJobs",
+    icon: "tags",
+    text: "myPostedJobs",
+    bg: 'teal'
+  }
+]
+
+const menuItems = [
+  // {
+  //   link: "SecureDocs",
+  //   icon: "key",
+  //   text: "My Secure Documents",
+  //   bg: theme.primaryColor
+  // },
+
   // {
   //   link: "Home",
   //   icon: "truck",
@@ -75,8 +94,12 @@ class SideBar extends Component {
   static propTypes = {
     closeDrawer: React.PropTypes.func
   };
+
   render() {
-    const {navigation, fullName, profileImg} = this.props
+    const {navigation, fullName, profileImg, isDriver} = this.props
+
+    var items = isDriver ? truckerItems : employerItems
+    items = items.concat( menuItems )
 
     return (
       <Container >
@@ -106,7 +129,7 @@ class SideBar extends Component {
           <View style={styles.menuHeadView}>
 
             <List
-              dataArray={menuItems}
+              dataArray={items}
               renderRow={menuItemRow =>
                 <ListItem
                   button
@@ -164,7 +187,8 @@ function mapStateToProps({globalReducer}) {
 	return {
     lang: globalReducer.config.lang,
     fullName: globalReducer.profileInfo.firstName + ' ' + globalReducer.profileInfo.lastName,
-    profileImg:  globalReducer.profileInfo.profileImg
+    profileImg:  globalReducer.profileInfo.profileImg,
+    isDriver: globalReducer.profileInfo.roleId === 1
   }
 }
 

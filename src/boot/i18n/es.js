@@ -19,8 +19,20 @@ const es = {
     edit: 'Editar',
     add: 'Adicionar',
     typeHere: 'Escriba aqui...',
-    moreThan: 'Mas que '
+    moreThan: 'Mas que ',
+    atLeast: 'Al menos ',
+    any: 'Cualquiera',
+    anywhere: 'Dondequiera',
+    where: 'Donde',
+    tabs:{
+      jobs: 'Trabajos',
+      contacts: 'Contactos'
+    }
+  },
+  notifications:{
+    title: 'Notificaciones'
   }
+
 }
 
 export default es

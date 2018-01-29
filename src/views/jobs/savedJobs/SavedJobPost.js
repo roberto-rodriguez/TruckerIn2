@@ -20,7 +20,7 @@ export default class SavedJobPost extends Component {
                <Avatar name={dataRow.userName}  size={60} src={dataRow.profileImg} square/>
             </View>
             </SimpleButton>
-            <View note style={{ flexDirection: "column", marginLeft: 10}}>
+            <View note style={styles.detailsView}>
               <T14 strong shortLine style={{color:'black'}}> {dataRow.userName} </T14>
               <T12 light shortLine>{dataRow.location} </T12>
               <T12 light shortLine>{dataRow.authorRole}</T12>
@@ -28,11 +28,11 @@ export default class SavedJobPost extends Component {
         </View>
 
         <View style={postStyle.headerRight} >
-          <View style={{flexDirection: "row",justifyContent:'flex-end'}} >
+          <View style={styles.applyView} >
             <CustomButton text={I18n.t('jobs.post.apply')} style={{width:60}}
              handler={() => nav(navigation, 'JobApp', {jobId: dataRow.id}) }/>
           </View>
-          <PostingTime date={dataRow.createdAt}/> 
+          <PostingTime date={dataRow.createdAt}/>
         </View>
       </View>
 
@@ -62,5 +62,7 @@ export default class SavedJobPost extends Component {
         height: 50,
         width: 50
       },
-      button: {width:70, marginRight:10}
+      button: {width:70, marginRight:10},
+      detailsView: {flexDirection: "column", marginLeft: 10},
+      applyView: {flexDirection: "row",justifyContent:'flex-end'}
     })
