@@ -2,6 +2,7 @@
 //import I18n from 'react-native-i18n'
 import I18n from 'react-native-i18n'
 import * as Storage from './storage.actions'
+import { NavigationActions } from "react-navigation";
 
 export const setLoadingAction = (isLoading) => ({ type: 'IS_LOADING', isLoading })
 export const loadConfigAction = (config) => ({ type: 'LOAD_CONFIG', config })
@@ -10,10 +11,72 @@ export const setGlobalProfileExperienceAction = (profileExperience) => ({ type: 
 export const showHeaderNotificationAction = (headerNotification) => ({ type: 'SHOW_HEADER_NOTIFICATION', headerNotification })
 export const updateNotifications = (notification, value ) => ({ type: 'UPDATE_NOTIFICATIONS', notification, value })
 export const setLangAction = (lang) => ({ type: 'SET_LANG', lang })
+export const resetAction = NavigationActions.reset({index: 0, actions: [NavigationActions.navigate({ routeName: "Login" })]});
+
+//Check if there is Token in the local storage, if so, it tries to login with it
+export function setup(callback){
+  return function( dispatch, getState ){
+
+    Storage.retrieveToken().then(data => {
+
+      if(data && data.token && data.token !== '0'){
+        doLogin(data, callback)( dispatch, getState )
+      }else{
+        callback(false)
+      }
+
+     })
+  }
+}
+
+export function doLogin(obj, callback){
+  return function( dispatch, getState ){
+    //In the getConfig CallBack
+    var profileInfo = apiGetProfileInfo(1)
+
+    var loginSuccess = profileInfo && profileInfo.id
+
+    callback(loginSuccess)
+
+    if(loginSuccess){
+        profileInfo.token && Storage.storeToken( profileInfo.token )
+
+        dispatch( setGlobalProfileInfoAction(profileInfo) )
+
+        //In the get profileInfo CallBack
+        loadConfig(dispatch)
+
+        var profileExperience = apiGetProfileExperience(1)
+        dispatch( setGlobalProfileExperienceAction(profileExperience) )
+    }
+
+  }
+}
+
+export function logOut(){
+  return function( dispatch, getState ){
+     Storage.storeToken( '0' )
+  }
+}
+
+
+//TODO Deprecated, is now 'doLogin'
+export function getSession(){
+  return function( dispatch, getState ){
+    //In the getConfig CallBack
+    var profileInfo = apiGetProfileInfo(1)
+    dispatch( setGlobalProfileInfoAction(profileInfo) )
+
+    //In the get profileInfo CallBack
+    loadConfig(dispatch)
+
+    var profileExperience = apiGetProfileExperience(1)
+    dispatch( setGlobalProfileExperienceAction(profileExperience) )
+  }
+}
 
 export function setupLang(){
   return function( dispatch, getState ){
-
     Storage.retrieveLocalStorageInfo().then(data => {
          var lang = getState().globalReducer.config.lang
 
@@ -25,9 +88,10 @@ export function setupLang(){
   }
 }
 
+
+
 export function setLang(lang){
   return function( dispatch, getState ){
-    debugger;
      I18n.locale = lang
      dispatch( setLangAction(lang) )
      Storage.storeLang( lang )
@@ -45,19 +109,7 @@ export function loadConfig(dispatch){
   dispatch( loadConfigAction(config) )
 }
 
-export function getSession(){
-  return function( dispatch, getState ){
-    //In the getConfig CallBack
-    var profileInfo = apiGetProfileInfo(1)
-    dispatch( setGlobalProfileInfoAction(profileInfo) )
 
-    //In the get profileInfo CallBack
-    loadConfig(dispatch)
-
-    var profileExperience = apiGetProfileExperience(1)
-    dispatch( setGlobalProfileExperienceAction(profileExperience) )
-  }
-}
 
 export function showHeaderNotification(msg, startDelay){
   return function( dispatch, getState ){
@@ -69,32 +121,32 @@ export function showHeaderNotification(msg, startDelay){
 }
 
 
-
 //--- MOCK DATA ------------
 export function apiGetProfileInfo(userId){
   return {
     id:1,  //TODO  change id for userId
     userId:1,
+    token: 'xyz',
     completion: 100,
     phone: '786-454-0209',
     email: 'titorobe@yahoo.com',
-    roleId: 2,
+    roleId: 1,
     role: 'Driver',
     location: {
-      stateId: 'CA',
+      stateId: 'FL',
       cityId: 3,
-      stateName: 'California',
-      cityName: 'Miami',
-      locationName: 'Miami, CA'
+      stateName: 'Florida',
+      cityName: 'Orlando',
+      locationName: 'Orlando, FL'
     },
-    firstName:'Phuong',
-    lastName:'Tran',
+    firstName:'Julio',
+    lastName:'Cesar',
     jobStatusId: 1,
     jobStatus: 'Actively Searching',
     about: 'Join millions of people in millions of communities across millions of #tags. See something you love? Reblog it to your Tumblr and start a conversation. Or just lurk, if you’re feeling shy. No big deal.',
   //  profileImg:'http://res.cloudinary.com/truckerin/image/upload/v1511722092/yo_o1q3tq.png',
     showPersonalInfo: 1,
-    savedJobs: 0,
+    savedJobs: 5,
     appliedJobs: 3,
     postedJobs: 5,
     connections: 0,

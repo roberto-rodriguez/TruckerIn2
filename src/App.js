@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import {View, ActivityIndicator} from 'react-native'
-import { StackNavigator, DrawerNavigator } from "react-navigation";
-import { Root } from "native-base";
+import {View, Image, ActivityIndicator} from 'react-native'
+import { StackNavigator, DrawerNavigator } from "react-navigation"
+import { Root, Container } from "native-base";
 
 import { connect } from "react-redux";
 import * as globalActions from "src/boot/reducers/global.actions";
-
+const logo = require("../assets/truckerin.jpg");
+import styles from "src/views/auth/login/styles";
 import * as screens from './screens'
 
 import SideBar from "src/views/sidebar/Sidebar";
@@ -34,31 +35,61 @@ const App = StackNavigator(
   },
   {
     index: 0,
-//    initialRouteName: "Drawer",
-     initialRouteName: "Login",
-//   initialRouteName: "LocationPicker",
+    initialRouteName: "Login",
+    headerMode: "none"
+  }
+);
+
+const AppAlreadyLogged = StackNavigator(
+  {
+    ...screenViews,
+     Drawer: { screen: Drawer }
+  },
+  {
+    index: 0,
+    initialRouteName: "Drawer",
     headerMode: "none"
   }
 );
 
 
 class RootApp extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+          checkedLogin: false,
+          isAlreadyLoggedIn: null
+        }
+   }
 
  componentDidMount() {
      this.props.setupLang()
+     this.props.setup( (isAlreadyLoggedIn) => this.setState({checkedLogin: true, isAlreadyLoggedIn}))
   }
 
  render(){
+   var {checkedLogin, isAlreadyLoggedIn} = this.state
+
+   if(!this.state.checkedLogin){
+     return (
+       <Container white>
+         <View style={styles.logoContainerView}>
+           <Image source={logo} style={styles.imageShadow} />
+       </View>
+       <ActivityIndicator size="large" color={"#EA0000"}/>
+      </Container>
+     )
+
+   }
+
    return (
     <Root>
-     <App />
-     {this.props.isLoading && <ActivityIndicator size="large" color={"#EA0000"} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}/>}
-   </Root>
+      {isAlreadyLoggedIn ? <AppAlreadyLogged /> : <App/>}
+    </Root>
  )
  }
 }
 
   const mapStateToProps = state => ({
-    isLoading: state.globalReducer.isLoading
   });
   export default connect(mapStateToProps, globalActions)(RootApp);

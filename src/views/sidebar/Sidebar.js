@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Container, Content, Text, List, Left, Right,   Body, ListItem } from "native-base";
 import { Avatar} from 'src/components'
 import { NavigationActions } from "react-navigation";
+import * as globalActions from "src/boot/reducers/global.actions";
 import styles from "./style";
 import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform'
@@ -85,11 +86,6 @@ const menuItems = [
   }
 ];
 
-const resetAction = NavigationActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: "Login" })]
-});
-
 class SideBar extends Component {
   static propTypes = {
     closeDrawer: React.PropTypes.func
@@ -161,7 +157,10 @@ class SideBar extends Component {
               noBorder
               style={styles.item}
               onPress={() => {
-                navigation.dispatch(resetAction);
+                navigation.dispatch( globalActions.resetAction );
+
+                debugger;
+                this.props.logOut()
               }}
             >
               <View
@@ -192,4 +191,4 @@ function mapStateToProps({globalReducer}) {
   }
 }
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps, globalActions)(SideBar);

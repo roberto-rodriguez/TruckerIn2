@@ -3,6 +3,7 @@
 //import I18n from 'react-native-i18n'
 import I18n from 'react-native-i18n'
 import * as globalActions from 'src/boot/reducers/global.actions'
+import * as Storage from 'src/boot/reducers/storage.actions'
 
 export const resetProfileAction = (profileInfo) => ({ type: 'RESET_PROFILE' })
 
@@ -10,12 +11,13 @@ export function login( username, password, callback ){
   return function( dispatch, getState ){
 
     //if(username && password){
-    globalActions.loadConfig(dispatch)
-    globalActions.getSession()( dispatch, getState )
+    globalActions.doLogin({username, password}, callback)( dispatch, getState )
+  //  globalActions.loadConfig(dispatch)
+
     //}
 
 
-    setTimeout(() => callback(true), 1000)
+  //  setTimeout(() => callback(true), 1000)
   }
 }
 
@@ -59,6 +61,8 @@ export function register(data, callback){
    dispatch( globalActions.setGlobalProfileExperienceAction( data ) )
 
    callback(resultCode === 1, resultMessage)
+
+   Storage.storeToken( 'register_token' ) //TODO get token from register response
   }
 }
 

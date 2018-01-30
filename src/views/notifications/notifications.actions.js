@@ -25,7 +25,7 @@ listNotificationsAPI = (convId, page, userId, userToId) => (
     createdAt: 1516229372464,
     userName: 'Pedro Rodriguez',
     seen: false,
-    isNew:true,
+    isNew:true,  //TODO this will not be needed, we will just keep the number of unseen notifications in the user
     entityId: 3,
     route: 'Chat',
     params:'{ "convId": 3, "name": "Pedro Rodriguez" }'
