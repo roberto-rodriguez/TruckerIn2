@@ -10,7 +10,8 @@ const es = {
       title: 'Seleccione Locación',
       searchCity: 'Buscar Ciudades',
       searchStates: 'Buscar Estados',
-      anyCity: 'Cualquier Ciudad',
+      anyCity: 'Todas las Ciudades',
+      allStates: 'Todos los Estados',
       selectState: 'Seleccione Estado',
       selectCity: 'Seleccione Ciudad',
       swipeGuide: 'Deslice para cambiar entre Ciudades y Estados.'

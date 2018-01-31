@@ -1,5 +1,4 @@
-export default usStates = [
-
+export default usStates = [ 
 {"name":"Alabama","id":"AL"},
 {"name":"Alaska","id":"AK"},
 {"name":"Arizona","id":"AZ"},

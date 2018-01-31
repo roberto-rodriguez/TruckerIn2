@@ -21,11 +21,11 @@ export function login( username, password, callback ){
   }
 }
 
-export function loadConfig(){
-  return function( dispatch, getState ){
-    globalActions.loadConfig(dispatch)
-  }
-}
+// export function loadConfig(){
+//   return function( dispatch, getState ){
+//     globalActions.loadConfig(dispatch)
+//   }
+// }
 
 export function sendAccessCode(phone, callback ){
   return function( dispatch, getState ){

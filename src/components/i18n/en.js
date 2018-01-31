@@ -10,7 +10,8 @@ const en = {
       title: 'Select Location',
       searchCity: 'Search Cities',
       searchStates: 'Search States',
-      anyCity: 'Any City',
+      anyCity: 'All Cities',
+      allStates: 'All States',
       selectState: 'Select State',
       selectCity: 'Select City',
       swipeGuide: 'You can swipe to change between states and cities.'

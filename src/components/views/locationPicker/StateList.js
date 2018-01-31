@@ -78,6 +78,7 @@ class StateList extends Component {
               feedBuilder={this.itemBuilder}
               navigation={navigation}
               reset={this.state.reset} >
+                {this.allStatesItem()}
             </Feed>)
           }
         </View>
@@ -85,7 +86,17 @@ class StateList extends Component {
 
     );
   }
+
+  allStatesItem = () => (<StateItem
+    key={-1}
+    navigation={this.props.navigation}
+    label={ I18n.t('cmp.loc.allStates')}
+    value={'US'}
+    handler={this.props.onSelectState} 
+  />)
 }
+
+
 
 const mapStateToProps = ({locationReducer}, ownProps) => ({
   usStates: locationReducer.usStates

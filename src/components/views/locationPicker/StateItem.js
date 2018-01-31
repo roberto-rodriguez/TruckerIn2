@@ -20,7 +20,7 @@ class StateItem extends Component {
      return nextProps.shouldUpdate || this.props.selected !== nextProps.selected
   }
 
- onSelect = () => { 
+ onSelect = () => {
    var {value, label} = this.props
 
    this.props.selectState(value, label)
@@ -40,7 +40,7 @@ class StateItem extends Component {
        <View  style={style}>
          <Row h={60}  style={{borderBottomWidth:0.3, borderBottomColor: global.secondaryColor}}>
            <Column start h={60} >
-             <T15 strong={selected} >{label}</T15>
+             <T15 strong={selected}  red={value === 'US'}>{label}</T15>
            </Column>
          </Row>
        </View>

@@ -40,7 +40,7 @@ class CityItem extends Component {
        <View  style={style}>
          <Row h={60}  style={{borderBottomWidth:0.3, borderBottomColor: global.secondaryColor}}>
            <Column start h={60} >
-             <T15 strong={selected} >{label}</T15>
+             <T15 strong={selected} red={value === 1}>{label}</T15>
            </Column>
          </Row>
        </View>

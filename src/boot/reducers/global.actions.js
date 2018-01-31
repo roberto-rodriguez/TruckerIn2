@@ -1,6 +1,7 @@
 
 //import I18n from 'react-native-i18n'
 import I18n from 'react-native-i18n'
+import * as Connector from './connector'
 import * as Storage from './storage.actions'
 import { NavigationActions } from "react-navigation";
 
@@ -44,7 +45,7 @@ export function doLogin(obj, callback){
         dispatch( setGlobalProfileInfoAction(profileInfo) )
 
         //In the get profileInfo CallBack
-        loadConfig(dispatch)
+    //    loadConfig(dispatch)
 
         var profileExperience = apiGetProfileExperience(1)
         dispatch( setGlobalProfileExperienceAction(profileExperience) )
@@ -68,7 +69,7 @@ export function getSession(){
     dispatch( setGlobalProfileInfoAction(profileInfo) )
 
     //In the get profileInfo CallBack
-    loadConfig(dispatch)
+  //  loadConfig(dispatch)
 
     var profileExperience = apiGetProfileExperience(1)
     dispatch( setGlobalProfileExperienceAction(profileExperience) )
@@ -84,6 +85,8 @@ export function setupLang(){
             I18n.locale = data.lang
             dispatch( setLangAction(data.lang) )
          }
+
+         Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) ))
      })
   }
 }
@@ -104,10 +107,12 @@ export function setLoading(isLoading){
   }
 }
 
-export function loadConfig(dispatch){
-  var config = apiLoadConfig()
-  dispatch( loadConfigAction(config) )
-}
+// export function loadConfig(dispatch){
+// //  var config = apiLoadConfig()
+//   Connector.doGET = ('config/get/', dispatch, getState, callback)
+//
+//   dispatch( loadConfigAction(config) )
+// }
 
 
 
@@ -172,7 +177,7 @@ export function apiGetProfileExperience(userId){
 
 function apiLoadConfig(){
   return {
-    equipmentOptions: [  {id:1, name:'Animal Carrier'}, {id:2, name:'Dump Truck'}, {id:3, name:'Hauler'}, {id:4, name:'Tanker'}, {id:5, name:'Tractor'} ],
+    equipmentOptions: [  {id:1, name:'Dump Truck'}, {id:4, name:'Tanker'}, {id:5, name:'Tractor'} , {id:5, name:'Flat Bed'} ],
     experienceOptions: [ {id:2, name:'6 Months'}, {id:3, name:'1 year'}, {id:4, name:'2 year'}, {id:5, name:'3 year'}, {id:6, name:'5 year'} ],
     jobStatusOptions: [ {id: 1, name: 'Actively searching'}, {id: 2, name: 'Not searching, but open to opportunities'}, {id:3, name:'Not interested'}],
     roleOptions: [ {id: 1, name: 'Driver'}, {id: 2, name: 'Broker'}, {id:3, name:'Company'}],

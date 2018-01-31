@@ -27,9 +27,9 @@ const doFetch = (url, dispatch, getState, callback, data) => {
 
 
 //  var HOST = 'https://mobile.girocheck.net:8999'
-  var HOST = 'http://69.42.101.181:8095'
+  var HOST = 'http://69.42.101.181:8095/tin/'
 
-  fetch(HOST + '/ADServer/alodiga/mobile/' + url, config)
+  fetch(HOST + url, config)
   .then((response) => (response.json()))
   .then((response) => {
       // dispatch( setLoading(false) )

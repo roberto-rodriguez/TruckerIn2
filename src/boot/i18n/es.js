@@ -19,7 +19,7 @@ const es = {
     edit: 'Editar',
     add: 'Adicionar',
     typeHere: 'Escriba aqui...',
-    moreThan: 'Mas que ',
+    moreThan: 'Mas de ',
     atLeast: 'Al menos ',
     any: 'Cualquiera',
     anywhere: 'Dondequiera',

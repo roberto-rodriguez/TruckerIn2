@@ -44,6 +44,8 @@ class CityList extends Component {
 
  listCities = (stateId) => {
    debugger;
+    if(this.state.loading)return;
+
    this.setState({
      loading: true,
      list: [],
@@ -129,8 +131,7 @@ class CityList extends Component {
     key={-1}
     navigation={this.props.navigation}
     label={ I18n.t('cmp.loc.anyCity')}
-    value={ 0 }
-    style={{color:'red'}}
+    value={ 1 }
     handler={this.props.onSelectCity}
   />)
 }

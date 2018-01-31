@@ -83,7 +83,7 @@ class Register extends Component {
   }
 
   componentDidMount(){
-      this.props.loadConfig()
+    //  this.props.loadConfig()
   }
 
   setVal = (prop, val, valId) => this.setState((prevState) => {

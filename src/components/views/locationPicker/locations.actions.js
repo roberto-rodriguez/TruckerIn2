@@ -10,12 +10,11 @@ export const clearLocationAction = () => ({ type: 'CLEAR_LOCATION'})
 
 
 
-export function listCities(text, callback){
+export function listCities(state, callback){
   return function( dispatch, getState ){
-      connector.doGET('listCities?state=HUE-22', dispatch, getState, function( response ){
-        if(response){
-          var cities = response.map((name, i) => ({name, id: i + 1}))
-             callback && callback(cities)
+      connector.doPOST('/city/list', dispatch, getState, {params:{state}}, function( response ){
+        if(response){ 
+             callback(response)
         }else{
           alert('No response received')
         }
