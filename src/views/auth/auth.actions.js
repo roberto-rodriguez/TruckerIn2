@@ -30,10 +30,9 @@ export function login( username, password, callback ){
 
 export function sendAccessCode(phone, callback ){
   return function( dispatch, getState ){
-    //TODO, validate if htat phone belongs to an existent user, if not create one and send the id back, to be stored in the globalReducer, that will help in case of contactUs in page 4
-    globalActions.showHeaderNotification('notif')( dispatch, getState )
-    callback('1234')
-   }
+
+    Connector.doPOST('/user/accessCode', dispatch, getState, {phone}, callback)
+}
 }
 
 // export function validateAccessCode(accessCode, callback){
@@ -42,12 +41,12 @@ export function sendAccessCode(phone, callback ){
 //   }
 // }
 
-export function validateUsername(username, callback){
-  return function( dispatch, getState ){
-    var result = username !== 'a'
-    callback(result, 'usernameTaken', result ? null : 'username')
-  }
-}
+// export function validateUsername(username, callback){
+//   return function( dispatch, getState ){
+//     var result = username !== 'a'
+//     callback(result, 'usernameTaken', result ? null : 'username')
+//   }
+// }
 
 export function register(data, callback){
   return function( dispatch, getState ){

@@ -34,11 +34,11 @@ const doFetch = (url, dispatch, getState, callback, data) => {
   .then((response) => {
       // dispatch( setLoading(false) )
 
-      // if(response.status && response.status !== '100'){
-      //    ToastAndroid.showWithGravity(response.statusMessage, ToastAndroid.LONG, ToastAndroid.CENTER);
-      // }else{
+      if(response.status){
+         alert(response.statusMessage)  //TODO
+      }else{
           callback && callback( response.data || response );
-      // }
+      }
      }).catch((err) => {
        alert(err)
        // dispatch( setLoading(false) )

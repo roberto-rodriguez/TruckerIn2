@@ -15,8 +15,7 @@ const en = {
     tos: 'Terms of Service',
     acceptAndFinish: 'Accept and Finish',
     next: 'Next',
-    sentCodeText1: 'We just sent you an Access Code',
-    sentCodeText2: 'via SMS to the number: ',
+    sentCodeText: 'We just sent you an Access Code via SMS to the number ', 
     titles:{
       welcome:'Welcome to TruckerIn',
       personal: 'Personal Information',
@@ -26,12 +25,14 @@ const en = {
       validatePhone: 'Validate Phone Number',
       tos: 'Terms of Service',
       aboutMe: 'About Me',
-      aboutUs: 'About Us'
+      aboutUs: 'About Us',
+      loading: 'You are all set !'
     },
     subTitles:{
       welcome: 'The fastest growing network of Truckers',
       validatePhone: 'We just sent you a 4 digits access code via SMS',
-      contact: 'We will never share it without asking you'
+      contact: 'We will never share it without asking you',
+      loading: 'Loading...'
     },
     subTitlesError:{
       completeRed: 'Please complete fields marked in red',
@@ -50,8 +51,7 @@ const en = {
       enjoy: 'Enjoy',
       free: 'FREE',
       forOneYear: ' for one year',
-      afterThat: 'After that, some ',
-      premium: 'premium features can be paid'
+      afterThat: 'After that, some premium features can be paid'
     },
     pic:{
       setPic: 'Set your profile picture',
@@ -69,7 +69,8 @@ const en = {
       requestAcess: 'Request New Access Code',
       support: 'Contact Us',
       didntReceive: 'Didnt receive Access Code?',
-      enterAccessCode: 'Enter Access Code here'
+      enterAccessCode: 'Enter Access Code here',
+      hint1: 'Make sure to enter the 4 digits we sent you by text message to the number:'
     },
     about: {
       descBroker: 'Describe in few words your role in the Trucking industry, type of Drivers you use to hire.. etc',

@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
 
 const items = [
-  { icon: 'envelope-o',   title: 'email', prop: 'email'},
-  { icon: 'phone',   title: 'phone', prop: 'phone'}
+  { icon: 'envelope-o',   title: 'email', prop: 'email', keyboardType: 'email-address'},
+  { icon: 'phone',   title: 'phone', prop: 'phone', keyboardType: 'phone-pad'}
 ]
 
 const yesNoItems = [
@@ -26,7 +26,7 @@ class Contact extends Component {
   }
 
   setVal = (prop, val, valId) => {
-    debugger;
+
     this.setState((prevState) => {
          prevState[prop] = val
 
@@ -45,7 +45,7 @@ class Contact extends Component {
     return (
           <View >
           {
-           items.map( ({icon, title, prop}, i) => (
+           items.map( ({icon, title, prop, keyboardType}, i) => (
            <InputListItem
               key={i}
               icon={icon}
@@ -53,6 +53,8 @@ class Contact extends Component {
               value={ data[prop] }
               invalid={!data[prop] && invalidFields.indexOf(prop) >= 0}
               onChangeText={ text => this.setVal(prop, text)}
+              invalid={ invalidFields.indexOf(prop) >= 0}
+              keyboardType={keyboardType}
               />) )
          }
          <ListItem
@@ -64,7 +66,6 @@ class Contact extends Component {
            red={!data.location && invalidFields.indexOf('location') >= 0}
            routeName={'LocationPicker'}
            params={{setVal: this.setVal, data: data.location, showGuidance: true}}/>
-
 
            {
             yesNoItems.map( ({icon, title, prop}, i) => (

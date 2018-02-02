@@ -36,11 +36,11 @@ class ValidatePhone extends Component {
 
  t = (key) => I18n.t(['signup', 'validatePhone', key])
 
- resendAccessCode = () => this.props.requestAccessCode()
+ resendAccessCode = () => this.props.requestAccessCode(true)
 
   render() {
     var t = this.t
-    var { navigation, validForm, accessCode} = this.props
+    var { navigation, validForm, accessCode, phone} = this.props
     var error = !validForm
     var {code, didntReceiveAccessCode} = this.state
 
@@ -83,7 +83,8 @@ class ValidatePhone extends Component {
               (error || didntReceiveAccessCode) ? (
                 <View>
                   <RowColumn h={65}>
-                    <T14 light>{'Asegurese de entrar los 4 dijitos que le enviamos por mensaje de texto, si no lo recibio puede tomar una de estas opciones'}</T14>
+                    <T14 light>{t('hint1')}</T14>
+                  <T14 strong>{ phone }</T14>
                   </RowColumn>
                   <RowColumn h={20}/>
                   {
@@ -103,7 +104,7 @@ class ValidatePhone extends Component {
                 :
                 (
                   <RowColumn h={100}>
-                     <LinkButton text={'Didnt receive the Access Code?'} onPress={() => this.setState({didntReceiveAccessCode: true})}/>
+                     <LinkButton text={t('didntReceive')} onPress={() => this.setState({didntReceiveAccessCode: true})}/>
                   </RowColumn>
                 )
             }
@@ -162,14 +163,6 @@ class ValidatePhone extends Component {
   }
 
 }
-/*
-<RowColumn h={70}>
-    <TextInput underlineColorAndroid='transparent'
-      style={[styles.accessCode, errorStyle]}
-      defaultValue={data['accessCode']}
-      onChangeText={(text) => setVal('accessCode', text)} />
-</RowColumn>
 
-*/
 
 export default connect(mapStateToProps, authActions)(ValidatePhone);

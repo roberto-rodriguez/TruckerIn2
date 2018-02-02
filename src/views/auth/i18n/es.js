@@ -15,8 +15,7 @@ const es = {
     tos: 'Términos de Servicios',
     acceptAndFinish: 'Aceptar y Finalizar',
     next: 'Siguiente',
-    sentCodeText1: 'Le enviamos un Código de Acceso',
-    sentCodeText2: 'por mensaje de texto al #: ',
+    sentCodeText: 'Le enviamos un Código de Acceso por mensaje de texto al ',
     titles:{
       welcome:'Bienvenido a TruckerIn',
       personal: 'Información Personal',
@@ -26,12 +25,14 @@ const es = {
       validatePhone: 'Validar Número de Teléfono',
       tos: 'Términos de Servicios',
       aboutMe: 'Sobre Mi',
-      aboutUs: 'Sobre Nosotros'
+      aboutUs: 'Sobre Nosotros',
+      loading: 'Todo Listo !'
     },
     subTitles:{
       welcome: 'Red de Camioneros y Empleadores',
       validatePhone: 'Le enviamos un código de 4 dijitos via SMS',
-      contact: 'Nunca la compartiremos sin consultarle'
+      contact: 'Nunca la compartiremos sin consultarle',
+      loading: 'Entrando...'
     },
     subTitlesError:{
       completeRed: 'Complete los campos marcados en rojo',
@@ -50,8 +51,7 @@ const es = {
       enjoy: 'Disfrute',
       free: 'GRATIS',
       forOneYear: ' por un año',
-      afterThat: 'Despues de ese tiempo, algunas ',
-      premium: 'funcionalidades específicas pueden ser pagadas.'
+      afterThat: 'Despues de ese tiempo, algunas funcionalidades específicas podrían ser pagadas.'
     },
     pic:{
       setPic: 'Establecer foto de perfil',
@@ -66,10 +66,11 @@ const es = {
       selectRole: 'SELECCIONAR ROL'
     },
     validatePhone:{
-      requestAcess: 'Solicitar nuevo código de acceso',
+      requestAcess: 'Solicitar nuevo Código de Acceso',
       support: 'Contáctenos',
-      didntReceive: '¿No recibió el Código de acceso?',
-      enterAccessCode: 'Entre el código de acceso aquí'
+      didntReceive: '¿No recibió el Código de Acceso?',
+      enterAccessCode: 'Entre el Código de Acceso aquí',
+      hint1: 'Asegurese de entrar los 4 díjitos que le enviamos por mensaje de texto al número:'
     },
     about: {
       descBroker: 'Describa brevemente su rol en la industria de los camiones, tipo de choferes que sueles contratar... etc',

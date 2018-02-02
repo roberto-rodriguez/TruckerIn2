@@ -14,7 +14,7 @@ const es = {
       allStates: 'Todos los Estados',
       selectState: 'Seleccione Estado',
       selectCity: 'Seleccione Ciudad',
-      swipeGuide: 'Deslice para cambiar entre Ciudades y Estados.'
+      swipeGuide: 'Puede deslizar para cambiar entre Ciudades y Estados.'
     },
     widgets:{
       loading: 'Cargando...',

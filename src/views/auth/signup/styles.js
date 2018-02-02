@@ -120,4 +120,6 @@ export default {
   arrowLeft: {color:'white', fontSize: 26},
   subHeader: {marginTop:15, borderBottomWidth: 0.2, borderBottomColor: commonColor.secondaryColor},
   headerNotification: {backgroundColor: '#d5f4e6', borderWidth: 0.3, borderColor: commonColor.primaryColor},
+  headerError: {backgroundColor: '#e60000', borderWidth: 0.3, borderColor: commonColor.primaryColor},
+
 };

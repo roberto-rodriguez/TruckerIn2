@@ -38,7 +38,7 @@ const en = {
       location: 'Location',
       jobStatus: 'Job Status',
       hiringStatus: 'Hiring Status',
-      showPersonalInfo: 'Show my Contact Information ?',
+      showPersonalInfo: 'Show in my profile?',
       username: 'Username',
       password: 'Password',
       notShowInfo: 'This user prefers to not show his contact information.',

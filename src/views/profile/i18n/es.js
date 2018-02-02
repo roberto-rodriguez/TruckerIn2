@@ -38,7 +38,7 @@ const es = {
       location: 'Locación',
       jobStatus: 'Estado Laboral',
       hiringStatus: 'Contratando ahora?',
-      showPersonalInfo: 'Mostrar mi información personal?',
+      showPersonalInfo: 'Mostrar en mi perfil?',
       username: 'Usuario',
       password: 'Contraseña',
       notShowInfo: 'Este usuario prefiere no mostrar su información personal.',

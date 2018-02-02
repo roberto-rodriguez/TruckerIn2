@@ -47,7 +47,8 @@ const initialState = {
   //
   // },
   view: {
-    headerNotification: null
+    headerNotification: null,
+    headerError: null
   }
 };
 
@@ -64,6 +65,8 @@ export default function(state: any = initialState, action: Function) {
       return { ...state, profileExperience: {...state.profileExperience , ...action.profileExperience} };
     case 'SHOW_HEADER_NOTIFICATION':
       return { ...state, view: {...state.view, headerNotification: action.headerNotification} };
+    case 'SHOW_HEADER_ERROR':
+      return { ...state, view: {...state.view, headerError: action.headerError} };
     case 'UPDATE_NOTIFICATIONS':
       return { ...state, notifications: {...state.notifications, [action.notification]: action.value}};
     case 'SET_LANG':

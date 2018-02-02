@@ -42,8 +42,7 @@ class CityList extends Component {
    }
  }
 
- listCities = (stateId) => {
-   debugger;
+ listCities = (stateId) => { 
     if(this.state.loading)return;
 
    this.setState({

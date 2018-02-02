@@ -1,17 +1,42 @@
 
+import * as roles from 'src/components/c/Role'
+
 export function validate(page, data){
+
+    var role = data.roleId
+
+    var fields = null
     var invalidFields = []
+
    switch(page){
-      // case 1: invalidFields = validatePage(data, [ 'firstName', 'lastName', 'username', 'password'])
-      //    break:
-      case 2: //invalidFields =  validatePage(data, [ 'email', 'phone',  'showPersonalInfo'])
-              if(!data['location']){
-            //    invalidFields.push('location')
-              }
-      //    break:
-      // case 3: invalidFields =  validatePage(data, [ 'experience', 'jobStatus', 'equipment', 'ownerOperator', 'overRoadExp', 'willTakeOverRoad'])
-      //    break:
+      case 1:
+           fields =  ['firstName', 'password']
+
+           if(role !== roles.COMPANY){
+             fields.push('lastName')
+           }
+           break;
+      case 2:
+            fields =  [ 'email', 'phone', 'showPersonalInfo']
+
+            if(!data['location']){
+             invalidFields.push('location')
+            }
+         break;
+      case 3:
+            fields =  ['jobStatus']
+
+            if(role === roles.DRIVER){
+              fields = fields.concat([ 'experienceId', 'equipmentId', 'ownerOperator', 'overRoadExp', 'willTakeOverRoad'])
+            }
+         break;
    }
+
+    if(fields){
+          invalidFields =  invalidFields.concat( validatePage(data, fields) )
+    }
+
+
    return invalidFields
 }
 
