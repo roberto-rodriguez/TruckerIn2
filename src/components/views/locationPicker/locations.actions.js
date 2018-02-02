@@ -1,6 +1,6 @@
 
 import I18n from 'react-native-i18n'
-import * as connector from 'src/boot/reducers/connector'
+import * as Connector from 'src/boot/reducers/connector'
 import * as globalActions from 'src/boot/reducers/global.actions'
 
 export const setCityAction = (cityId, cityName) => ({ type: 'SET_CITY', cityId, cityName })
@@ -12,8 +12,8 @@ export const clearLocationAction = () => ({ type: 'CLEAR_LOCATION'})
 
 export function listCities(state, callback){
   return function( dispatch, getState ){
-      connector.doPOST('/city/list', dispatch, getState, {params:{state}}, function( response ){
-        if(response){ 
+      Connector.doPOST('/city/list', dispatch, getState, {params:{state}}, function( response ){
+        if(response){
              callback(response)
         }else{
           alert('No response received')

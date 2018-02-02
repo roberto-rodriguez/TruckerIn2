@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native';
 import initials from 'initials';
 
 // from https://flatuicolors.com/
-const defaultColors = ['#ff3366', "#0074D9", 'blue', '#629aa9', "#9acd32", "#fc6c85", 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', "crimson", 'teal', 'yellow', 'darkblue', 'steelblue', 'blueviolet', '#f40612'];
+const defaultColors = ['#ff3366', "#0074D9", 'blue', '#629aa9', "#9acd32", "#fc6c85", 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', "crimson", 'teal', 'orange', 'darkblue', 'steelblue', 'blueviolet', '#f40612'];
 
 function sumChars(str) {
   let sum = 0;
@@ -74,7 +74,7 @@ class Avatar extends Component {
       } else {
         // pick a deterministic color from the list
         let i = sumChars(name) % colors.length;
-        background = colors[i];
+        background =  colors[i];
       }
 
       innerStyle.backgroundColor = background;

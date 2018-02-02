@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {  View, StyleSheet } from "react-native";
 import {  Container } from "native-base";
-import {StackView, Header, Feed, nav, CustomButton} from 'src/components/'
+import {  Header, Feed, nav, CustomButton} from 'src/components/'
 import CareerItem from './CareerItem';
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";

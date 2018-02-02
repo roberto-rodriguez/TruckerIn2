@@ -3,6 +3,7 @@
 //import I18n from 'react-native-i18n'
 import I18n from 'react-native-i18n'
 import * as globalActions from 'src/boot/reducers/global.actions'
+import * as Connector from 'src/boot/reducers/connector'
 import * as Storage from 'src/boot/reducers/storage.actions'
 
 export const resetProfileAction = (profileInfo) => ({ type: 'RESET_PROFILE' })
@@ -51,18 +52,30 @@ export function register(data, callback){
    //Call register API
    var resultCode = 1  //Everything OK
    var resultMessage = 'SUCCESS'
-   var id = 1;
 
-   data.id = id;
-   data.userId = id;
-   data.completion = 100;
+   data.completion = 100.0
+   
+   Connector.doPOST('/user/save', dispatch, getState, data, function( response ){
+     if(response){
+       var id = 1;
 
-   dispatch( globalActions.setGlobalProfileInfoAction( data ) )
-   dispatch( globalActions.setGlobalProfileExperienceAction( data ) )
+       data.id = id;
+       data.userId = id;
+          dispatch( globalActions.setGlobalProfileInfoAction( data ) )
+          dispatch( globalActions.setGlobalProfileExperienceAction( data ) )
 
-   callback(resultCode === 1, resultMessage)
+             // Storage.storeToken( 'register_token' ) //TODO get token from register response
+           callback(true, resultMessage)
+     }else{
+       alert('No response received')
+     }
+   })
 
-   Storage.storeToken( 'register_token' ) //TODO get token from register response
+
+
+
+
+
   }
 }
 

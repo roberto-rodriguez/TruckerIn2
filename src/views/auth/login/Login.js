@@ -151,6 +151,7 @@ class BaseTextInput extends Component {
            style={[styles.loginField, { color: (showError ? 'red' :  commonColor.contentTextColor)}]}
            placeholder={ name === "username" ? I18n.t('login.username') : I18n.t('login.password')}
            secureTextEntry={ name === "password" ? true : false}
+           keyboardType="numeric"
            onChangeText={onChangeText}
          />
        </Item>
