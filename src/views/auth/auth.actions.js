@@ -34,11 +34,11 @@ export function sendAccessCode(phone, callback ){
    }
 }
 
-export function validateAccessCode(accessCode, callback){
-  return function( dispatch, getState ){
-    callback(accessCode === '1111', 'validatePhone')
-  }
-}
+// export function validateAccessCode(accessCode, callback){
+//   return function( dispatch, getState ){
+//     callback(accessCode === '1111', 'validatePhone')
+//   }
+// }
 
 export function validateUsername(username, callback){
   return function( dispatch, getState ){
@@ -54,7 +54,7 @@ export function register(data, callback){
    var resultMessage = 'SUCCESS'
 
    data.completion = 100.0
-   
+
    Connector.doPOST('/user/save', dispatch, getState, data, function( response ){
      if(response){
        var id = 1;

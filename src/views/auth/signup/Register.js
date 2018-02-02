@@ -23,7 +23,6 @@ import StepIndicator from 'react-native-step-indicator';
 const commonColor = require("src/theme/variables/commonColor");
 
 var titles = ['welcome','personal','contact','experience','validatePhone', 'tos']
-const titlesError = [null, null     ,null     ,null        ,'validatePhone', null ]
 const subTitles=['welcome',null     ,'contact',null        ,'validatePhone', null ]
 const subTitlesError = [null, null  ,null     ,null        ,'validatePhone', 'tos']
 
@@ -34,7 +33,7 @@ class Register extends Component {
     super(props);
     this.state = {
       view:{
-        flowPage: 0,
+        flowPage: 3,
         accessCode: null,
         invalidFields: [],
         validForm: true,
@@ -93,9 +92,10 @@ class Register extends Component {
          if(prop === 'phone' && prevState.view.sentAccessCode){ //If already sent the access code, but change the phone number, send it again
            prevState.view.sentAccessCode = false
          }
-
          return prevState
       })
+
+
 
   render() {
     const {navigation, showHeaderNotification} = this.props
@@ -110,7 +110,7 @@ class Register extends Component {
               <Icon name={'long-arrow-left'} style={styles.arrowLeft}/>
             </View></SimpleButton>
             <AgentImg size={85}/>
-            <T16 style={{color:'white'}}>{I18n.t( ['signup', (!validForm && titlesError[flowPage] ? 'titlesError' : 'titles'), titles[flowPage] ] ) }</T16>
+            <T16 style={{color:'white'}}>{I18n.t( ['signup', 'titles', titles[flowPage] ] ) }</T16>
             {validForm ?
               subTitles[flowPage] && <T14 style={{color:'white'}}>{I18n.t( ['signup', 'subTitles', subTitles[flowPage] ] )}</T14>
               :
@@ -168,7 +168,7 @@ class Register extends Component {
           )
         }
 
-        {flowPage > 0 && (<BlockButton text={flowPage === 5 ? I18n.t('signup.acceptAndFinish') : I18n.t('signup.next')} onPress={() => this.nextBack(true)}/>)}
+       <BlockButton show={flowPage != 0 && flowPage != 4}  text={flowPage === 5 ? I18n.t('signup.acceptAndFinish') : I18n.t('signup.next')} onPress={() => this.nextBack(true)}/>
 
       </Container>
     );
@@ -205,10 +205,10 @@ class Register extends Component {
              sentAccessCode = true
         }
         break;
-      case 4:
-          if(next){
-            return this.validateAccessCode()
-          }
+      // case 4:
+      //     if(next){
+      //      return this.validateAccessCode()
+      //     }
       case 5:
         validForm = view.acceptTerms
 
@@ -249,7 +249,18 @@ class Register extends Component {
       case 3: return (data.roleId === roles.DRIVER ? <Experience data={data} setVal={this.setVal} invalidFields={view.invalidFields}/>
                         : <About data={data} setVal={this.setVal} navigation={navigation}/>
                       )
-      case 4: return <ValidatePhone data={data} setVal={this.setVal} valid={validForm}  navigation={navigation}/>
+      case 4: return <ValidatePhone
+          number={4}
+          accessCode={'1111'}
+          data={data}
+          setVal={this.setVal}
+          valid={validForm}
+          navigation={navigation}
+          success={() => this.nextBack(true)}
+
+          validateAccessCode={this.validateAccessCode}
+          validForm={validForm}
+        />
       case 5: return <AcceptTerms data={data} setVal={this.setVal}/>
     }
   }
@@ -289,7 +300,21 @@ selectRole = ( role, roleKey ) => {
 
 
 
-  validateAccessCode = () => this.props.validateAccessCode(this.state.data.accessCode, this.validationCallback)
+  validateAccessCode = (accessCode) => {
+    var result =  accessCode === '1111'
+
+    this.setState(prevState => {
+       prevState.view = {
+         ...prevState.view,
+         validForm: result,
+         flowPage: prevState.view.flowPage + (result ? 1 : 0),
+         errorMsg: I18n.t('signup.subTitlesError.validatePhone')
+       }
+       return prevState
+     })
+  }
+
+
 
   validateUsername = () => this.props.validateUsername(this.state.data.username, this.validationCallback)
 

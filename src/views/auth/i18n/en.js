@@ -27,10 +27,7 @@ const en = {
       tos: 'Terms of Service',
       aboutMe: 'About Me',
       aboutUs: 'About Us'
-    },
-    titlesError:{
-      validatePhone: 'Invalid Access Code'
-    },
+    }, 
     subTitles:{
       welcome: 'The fastest growing network of Truckers',
       validatePhone: 'We just sent you a 4 digits access code via SMS',
@@ -38,7 +35,7 @@ const en = {
     },
     subTitlesError:{
       completeRed: 'Please complete fields marked in red',
-      validatePhone: 'Make sure you entered the right phone number',
+      validatePhone: 'Invalid Access Code',
       usernameTaken: 'This username is already taken',
       tos: 'Terms of Service must to be accepted'
     },

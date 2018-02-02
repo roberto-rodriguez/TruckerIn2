@@ -28,9 +28,6 @@ const es = {
       aboutMe: 'Sobre Mi',
       aboutUs: 'Sobre Nosotros'
     },
-    titlesError:{
-      validatePhone: 'Codigo de Acceso Inválido'
-    },
     subTitles:{
       welcome: 'Red de Camioneros y Empleadores',
       validatePhone: 'Le enviamos un código de 4 dijitos via SMS',
@@ -38,7 +35,7 @@ const es = {
     },
     subTitlesError:{
       completeRed: 'Complete los campos marcados en rojo',
-      validatePhone: 'Asegurese que entro el teléfono correcto',
+      validatePhone: 'Código de Acceso no Válido',
       usernameTaken: 'Este usuario ya esta tomado',
       tos: 'Los terminos de servicios tienen que ser aceptados'
     },
