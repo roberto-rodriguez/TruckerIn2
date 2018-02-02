@@ -31,6 +31,8 @@ export function login( username, password, callback ){
 export function sendAccessCode(phone, callback ){
   return function( dispatch, getState ){
     //TODO, validate if htat phone belongs to an existent user, if not create one and send the id back, to be stored in the globalReducer, that will help in case of contactUs in page 4
+    globalActions.showHeaderNotification('notif')( dispatch, getState )
+    callback('1234')
    }
 }
 

@@ -11,9 +11,9 @@ import theme from 'src/theme/variables/platform'
     var { style, onPress, text} = this.props;
 
     return (
-      <TouchableHighlight>
+      <TouchableHighlight onPress={onPress}>
         <View>
-          <T15 green style={[styles.editText, style]} onPress={onPress}>{text}</T15>
+          <T15 green style={[styles.editText, style]} >{text}</T15>
         </View>
       </TouchableHighlight>
     );

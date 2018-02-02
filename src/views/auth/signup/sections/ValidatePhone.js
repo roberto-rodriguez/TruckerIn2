@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, TextInput,Text} from 'react-native';
-import { SimpleListItem, RowColumn, Column, Row, T14, T15, mapStateToProps} from 'src/components/'
+import { SimpleListItem, RowColumn, Column, Row, T13, T14, T15, mapStateToProps, LinkButton} from 'src/components/'
 import { connect } from "react-redux";
 import styles from "../styles";
 import I18n from 'react-native-i18n'
@@ -20,9 +20,10 @@ class ValidatePhone extends Component {
 
     this.state = {
       error: false,
-      code: new Array(props.number).fill(''),
+      code:props.accessCode.split(''), // new Array(props.number).fill(''),
       edit: 0,
-      accessCode: props.accessCode
+      didntReceiveAccessCode: false
+    //  accessCode: props.accessCode
     };
 
     this.textInputsRefs = [];
@@ -35,15 +36,16 @@ class ValidatePhone extends Component {
 
  t = (key) => I18n.t(['signup', 'validatePhone', key])
 
- resendAccessCode = () => this.props.sendAccessCode(this.props.data.phone)
+ resendAccessCode = () => this.props.requestAccessCode()
 
   render() {
     var t = this.t
-    var {number,data, valid, setVal, navigation, validForm} = this.props
+    var { navigation, validForm, accessCode} = this.props
     var error = !validForm
+    var {code, didntReceiveAccessCode} = this.state
 
     pins = [];
-    for (let index = 0; index < number; index++) {
+    for (let index = 0; index < 4; index++) {
       const id = index;
       pins.push(
         <TextInput
@@ -51,12 +53,13 @@ class ValidatePhone extends Component {
           ref={ref => (this.textInputsRefs[id] = ref)}
           onChangeText={text => this.handleEdit(text, id)}
           onFocus={() => this.isFocus(id)}
-          value={this.state.code[id] ? this.state.code[id].toString() : ''}
+          defaultValue={accessCode[id] ? accessCode[id].toString() : ''}
+          value={code[id] ? code[id].toString() : ''}
           style={codePinStyles.pin}
           returnKeyType={'done'}
           autoCapitalize={'sentences'}
           autoCorrect={false}
-          autoFocus={id === 0 && this.props.autoFocusFirst}
+          autoFocus={accessCode.length < 4 && id === accessCode.length}
           keyboardType="numeric"
         />
       );
@@ -77,7 +80,7 @@ class ValidatePhone extends Component {
             </View>
 
             {
-              error && (
+              (error || didntReceiveAccessCode) ? (
                 <View>
                   <RowColumn h={65}>
                     <T14 light>{'Asegurese de entrar los 4 dijitos que le enviamos por mensaje de texto, si no lo recibio puede tomar una de estas opciones'}</T14>
@@ -97,6 +100,12 @@ class ValidatePhone extends Component {
                    }
                 </View>
                 )
+                :
+                (
+                  <RowColumn h={100}>
+                     <LinkButton text={'Didnt receive the Access Code?'} onPress={() => this.setState({didntReceiveAccessCode: true})}/>
+                  </RowColumn>
+                )
             }
          </View>
     )
@@ -105,7 +114,7 @@ class ValidatePhone extends Component {
 
   clean() {
     this.setState({
-      code: new Array(this.props.number).fill(''),
+      code: new Array(4).fill(''),
       edit: 0
     });
     this.focus(0);
@@ -116,9 +125,10 @@ class ValidatePhone extends Component {
   }
 
   isFocus(id) {
-    let newCode = this.state.code.slice();
+   let newCode = this.state.code.slice();
 
-    for (let i = 0; i < newCode.length; i++) if (i >= id) newCode[i] = '';
+  //  for (let i = 0; i < newCode.length; i++) if (i >= id) newCode[i] = '';
+    newCode[id] = '';
 
     this.setState({
       code: newCode,
@@ -128,37 +138,27 @@ class ValidatePhone extends Component {
 
   handleEdit(number, id) {
     let newCode = this.state.code.slice();
+
     newCode[id] = number;
 
-    // User filling the last pin ?
-    if (id === this.props.number - 1) {
-
-
-      // But it's different than code
-      // if (this.state.accessCode !== newCode.join('')) {
-      //   this.setState({
-      //     error: true,
-      //     code: new Array(this.props.number).fill(''),
-      //     edit: 0
-      //   });
-      //   this.focus(0);
-      //   return;
-      // }
-
-      this.props.validateAccessCode( newCode.join('') );
-
-      return;
-    }
-
-    this.focus(this.state.edit + 1);
+    this.focus(this.state.edit + ((number && this.state.edit < 3) ? 1 : 0 ));
 
     this.setState(prevState => {
       return {
         error: false,
         code: newCode,
-        edit: prevState.edit + 1
+        edit: prevState.edit + ((number && prevState.edit < 3) ? 1 : 0 )
       };
     });
+
+    var newCodeStr = newCode.join('')
+
+    this.props.setVal('accessCode', newCodeStr)
+
+      // User filling the last pin ?
+      if (id === 3) {
+        this.props.validateAccessCode( newCodeStr );
+      }
   }
 
 }

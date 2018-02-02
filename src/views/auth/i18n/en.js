@@ -27,7 +27,7 @@ const en = {
       tos: 'Terms of Service',
       aboutMe: 'About Me',
       aboutUs: 'About Us'
-    }, 
+    },
     subTitles:{
       welcome: 'The fastest growing network of Truckers',
       validatePhone: 'We just sent you a 4 digits access code via SMS',
@@ -67,7 +67,7 @@ const en = {
     },
     validatePhone:{
       requestAcess: 'Request New Access Code',
-      support: 'Customer Support',
+      support: 'Contact Us',
       didntReceive: 'Didnt receive Access Code?',
       enterAccessCode: 'Enter Access Code here'
     },

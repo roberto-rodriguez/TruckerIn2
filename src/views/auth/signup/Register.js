@@ -33,14 +33,15 @@ class Register extends Component {
     super(props);
     this.state = {
       view:{
-        flowPage: 3,
-        accessCode: null,
+        flowPage: 0,
         invalidFields: [],
         validForm: true,
         bullets: bulletsKeys.map(key =>  I18n.t( ['signup', 'bullets', key ] )),
         acceptTerms: false,
         errorMsg: null,
-        sentAccessCode: false
+        sentAccessCode: false,
+        realAccessCode: null,
+        validatedAccessCode: false
       },
       data:{
         roleId: 1,  // 1-Driver, 2-Broker, 3-Company
@@ -75,8 +76,7 @@ class Register extends Component {
         ownerOperator: null,
         overRoadExp: null,
         willTakeOverRoad: null,
-
-        accessCode: null
+        accessCode: ''
       }
     };
   }
@@ -92,6 +92,10 @@ class Register extends Component {
          if(prop === 'phone' && prevState.view.sentAccessCode){ //If already sent the access code, but change the phone number, send it again
            prevState.view.sentAccessCode = false
          }
+
+         if(prop === 'accessCode'){
+            prevState.view.validatedAccessCode = false
+         }
          return prevState
       })
 
@@ -99,7 +103,7 @@ class Register extends Component {
 
   render() {
     const {navigation, showHeaderNotification} = this.props
-    var {role, flowPage, validForm, errorMsg, bullets} = this.state.view
+    var {role, flowPage, validForm, errorMsg, bullets, validatedAccessCode} = this.state.view
 
     return (
       <Container style={styles.background}>
@@ -168,7 +172,7 @@ class Register extends Component {
           )
         }
 
-       <BlockButton show={flowPage != 0 && flowPage != 4}  text={flowPage === 5 ? I18n.t('signup.acceptAndFinish') : I18n.t('signup.next')} onPress={() => this.nextBack(true)}/>
+       <BlockButton show={flowPage != 0 && (flowPage != 4 || (flowPage === 4 && validatedAccessCode) ) }  text={flowPage === 5 ? I18n.t('signup.acceptAndFinish') : I18n.t('signup.next')} onPress={() => this.nextBack(true)}/>
 
       </Container>
     );
@@ -184,7 +188,7 @@ class Register extends Component {
     }
 
     var serverErrorMsg = null
-    var sentAccessCode = null
+  //  var sentAccessCode = null
 
     switch(flowPage){
       case 0:
@@ -201,8 +205,9 @@ class Register extends Component {
       case 2:
       debugger;
         if(next && validForm && !view.sentAccessCode){
-             this.props.sendAccessCode( data.phone )
-             sentAccessCode = true
+             // this.props.sendAccessCode( data.phone )
+             // sentAccessCode = true
+             this.requestAccessCode();
         }
         break;
       // case 4:
@@ -210,9 +215,11 @@ class Register extends Component {
       //      return this.validateAccessCode()
       //     }
       case 5:
-        validForm = view.acceptTerms
 
-        if(next && validForm){
+        if(next ){
+          validForm = view.acceptTerms
+          
+        if( validForm){
             this.props.register( data, (result, resultMessage) => {
               if(result){
                 this.props.navigation.navigate("Drawer");
@@ -222,6 +229,7 @@ class Register extends Component {
               }
             })
         }
+      }
     }
 
      this.setState(prevState => {
@@ -229,7 +237,7 @@ class Register extends Component {
            ...prevState.view,
            invalidFields,
            validForm,
-           sentAccessCode: (sentAccessCode || prevState.sentAccessCode),
+        //   sentAccessCode: (sentAccessCode || prevState.sentAccessCode),
            errorMsg: serverErrorMsg ||  I18n.t( ['signup', 'subTitlesError', (subTitlesError[flowPage] || 'completeRed')] ),
            flowPage: prevState.view.flowPage + (next ? (validForm ? 1 : 0) : -1)
          }
@@ -250,14 +258,10 @@ class Register extends Component {
                         : <About data={data} setVal={this.setVal} navigation={navigation}/>
                       )
       case 4: return <ValidatePhone
-          number={4}
-          accessCode={'1111'}
-          data={data}
+          accessCode={data['accessCode']}
           setVal={this.setVal}
-          valid={validForm}
           navigation={navigation}
-          success={() => this.nextBack(true)}
-
+          requestAccessCode={this.requestAccessCode}
           validateAccessCode={this.validateAccessCode}
           validForm={validForm}
         />
@@ -298,17 +302,26 @@ selectRole = ( role, roleKey ) => {
      })
    }
 
+   requestAccessCode = () => this.props.sendAccessCode( this.state.data.phone, (newAccessCode) => this.setState({
+     ...this.state,
+     view:{
+       ...this.state.view,
+       sentAccessCode: true,
+       realAccessCode: newAccessCode
+     }
+     }))
 
 
   validateAccessCode = (accessCode) => {
-    var result =  accessCode === '1111'
+    var result =  accessCode === this.state.view.realAccessCode
 
     this.setState(prevState => {
        prevState.view = {
          ...prevState.view,
          validForm: result,
          flowPage: prevState.view.flowPage + (result ? 1 : 0),
-         errorMsg: I18n.t('signup.subTitlesError.validatePhone')
+         errorMsg: I18n.t('signup.subTitlesError.validatePhone'),
+         validatedAccessCode: result
        }
        return prevState
      })

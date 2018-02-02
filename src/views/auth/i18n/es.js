@@ -16,7 +16,7 @@ const es = {
     acceptAndFinish: 'Aceptar y Finalizar',
     next: 'Siguiente',
     sentCodeText1: 'Le enviamos un Código de Acceso',
-    sentCodeText2: 'por mensaje de text al #: ',
+    sentCodeText2: 'por mensaje de texto al #: ',
     titles:{
       welcome:'Bienvenido a TruckerIn',
       personal: 'Información Personal',
@@ -24,7 +24,7 @@ const es = {
       contact: 'Información de Contacto',
       experience: 'Experiencia Profesional',
       validatePhone: 'Validar Número de Teléfono',
-      tos: 'Terminos de Servicios',
+      tos: 'Términos de Servicios',
       aboutMe: 'Sobre Mi',
       aboutUs: 'Sobre Nosotros'
     },
@@ -51,7 +51,7 @@ const es = {
       free: 'GRATIS',
       forOneYear: ' por un año',
       afterThat: 'Despues de ese tiempo, algunas ',
-      premium: 'funcionalidades específicas pueden ser pagadas'
+      premium: 'funcionalidades específicas pueden ser pagadas.'
     },
     pic:{
       setPic: 'Establecer foto de perfil',
@@ -67,7 +67,7 @@ const es = {
     },
     validatePhone:{
       requestAcess: 'Solicitar nuevo código de acceso',
-      support: 'Atención al cliente',
+      support: 'Contáctenos',
       didntReceive: '¿No recibió el Código de acceso?',
       enterAccessCode: 'Entre el código de acceso aquí'
     },
