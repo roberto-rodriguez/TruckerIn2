@@ -60,6 +60,7 @@ class ValidatePhone extends Component {
           autoCapitalize={'sentences'}
           autoCorrect={false}
           autoFocus={accessCode.length < 4 && id === accessCode.length}
+          underlineColorAndroid='transparent'
           keyboardType="numeric"
         />
       );

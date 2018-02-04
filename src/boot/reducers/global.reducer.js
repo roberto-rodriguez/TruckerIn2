@@ -14,10 +14,8 @@ const initialState = {
     releId:0,
     role:'',
     location: null,
-    jobStatusId: 1,
-    jobStatus: '',
     profileImg:'',
-    //-------------
+
     savedJobs: 0,
     appliedJobs: 0,
     postedJobs: 0,
@@ -31,9 +29,9 @@ const initialState = {
     equipment: '',
     experienceId: 0,
     experience: '',
-    ownerOperator:0,
-    overRoadExp: 0,
-    willTakeOverRoad: 0
+    ownerOperator:0, 
+    jobStatusId: 1,
+    jobStatus: '',
   },
   config:{
     lang: I18n.currentLocale() &&  I18n.currentLocale().split('-')[0],

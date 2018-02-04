@@ -6,14 +6,12 @@ import I18n from 'react-native-i18n'
 
 const items = [
   {prop: 'experience',  icon: 'tachometer', title: 'experience'},
-  {prop: 'jobStatus',  icon: 'hourglass-end', title:'jobStatus'},
-  {prop: 'equipment',  icon: 'truck',title: 'equipment'}
+  {prop: 'equipment',  icon: 'truck',title: 'equipment'},
+  {prop: 'jobStatus',  icon: 'hourglass-end', title:'jobStatus'} 
 ]
 
 const yesNoItems = [
-  {prop: 'ownerOperator',  icon: 'street-view', title:'ownerOperator'},
-  {prop: 'overRoadExp',  icon:'road', title:'recentOver'},
-  {prop: 'willTakeOverRoad',  icon: 'hand-stop-o', title:'wouldOver'}
+  {prop: 'ownerOperator',  icon: 'street-view', title:'ownerOperator'}
 ]
 
 

@@ -11,7 +11,6 @@ export function storeLang(lang) {
 }
 
 export function storeToken(token) {
-  debugger;
   var result = AsyncStorage.multiSet([
       [tokenKey, token]
   ])

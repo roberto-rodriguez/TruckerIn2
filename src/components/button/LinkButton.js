@@ -11,7 +11,7 @@ import theme from 'src/theme/variables/platform'
     var { style, onPress, text} = this.props;
 
     return (
-      <TouchableHighlight onPress={onPress}>
+      <TouchableHighlight onPress={onPress}  underlineColorAndroid='transparent'>
         <View>
           <T15 green style={[styles.editText, style]} >{text}</T15>
         </View>

@@ -72,9 +72,7 @@ class Register extends Component {
         equipmentId: null,
         jobStatus: null,
         jobStatusId: null,
-        ownerOperator: null,
-        overRoadExp: null,
-        willTakeOverRoad: null,
+        ownerOperator: null, 
         accessCode: ''
       }
     };

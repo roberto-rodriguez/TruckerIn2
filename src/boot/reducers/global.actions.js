@@ -34,27 +34,27 @@ export function setup(callback){
 
 export function doLogin(obj, callback){
   return function( dispatch, getState ){
-    //In the getConfig CallBack
-    var profileInfo = apiGetProfileInfo(1)
 
-    var loginSuccess = profileInfo && profileInfo.id
+      Connector.doPOST('user/login', dispatch, getState, obj, (profileInfo) => {
 
-    callback(loginSuccess)
+        var userId = profileInfo && profileInfo.id
 
-    if(loginSuccess){
-        profileInfo.token && Storage.storeToken( profileInfo.token )
+        callback(userId)
 
-        dispatch( setGlobalProfileInfoAction(profileInfo) )
+        if(userId){
+            profileInfo.token && Storage.storeToken( profileInfo.token )
 
-        //In the get profileInfo CallBack
-    //    loadConfig(dispatch)
+            dispatch( setGlobalProfileInfoAction(profileInfo) )
 
-        var profileExperience = apiGetProfileExperience(1)
-        dispatch( setGlobalProfileExperienceAction(profileExperience) )
-    }
-
+            setTimeout( () => Connector.doGET('experience/load/' + userId, dispatch, getState,  (profileExperience) => {
+                debugger;
+                dispatch( setGlobalProfileExperienceAction(profileExperience) )
+              }), 3000);
+        }
+      })
   }
 }
+
 
 export function logOut(){
   return function( dispatch, getState ){
@@ -64,19 +64,19 @@ export function logOut(){
 
 
 //TODO Deprecated, is now 'doLogin'
-export function getSession(){
-  return function( dispatch, getState ){
-    //In the getConfig CallBack
-    var profileInfo = apiGetProfileInfo(1)
-    dispatch( setGlobalProfileInfoAction(profileInfo) )
-
-    //In the get profileInfo CallBack
-  //  loadConfig(dispatch)
-
-    var profileExperience = apiGetProfileExperience(1)
-    dispatch( setGlobalProfileExperienceAction(profileExperience) )
-  }
-}
+// export function getSession(){
+//   return function( dispatch, getState ){
+//     //In the getConfig CallBack
+//     var profileInfo = apiGetProfileInfo(1)
+//     dispatch( setGlobalProfileInfoAction(profileInfo) )
+//
+//     //In the get profileInfo CallBack
+//   //  loadConfig(dispatch)
+//
+//     var profileExperience = apiGetProfileExperience(1)
+//     dispatch( setGlobalProfileExperienceAction(profileExperience) )
+//   }
+// }
 
 export function setupLang(){
   return function( dispatch, getState ){

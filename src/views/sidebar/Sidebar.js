@@ -158,8 +158,6 @@ class SideBar extends Component {
               style={styles.item}
               onPress={() => {
                 navigation.dispatch( globalActions.resetAction );
-
-                debugger;
                 this.props.logOut()
               }}
             >
