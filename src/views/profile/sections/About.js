@@ -47,7 +47,7 @@ class About extends Component {
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
   var isMe = ownProps.isMe;
   var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
-    debugger;
+ 
   return {
     isMe,
     about: profileInfo.about,

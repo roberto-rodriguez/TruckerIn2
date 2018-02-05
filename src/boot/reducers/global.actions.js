@@ -10,8 +10,7 @@ export const loadConfigAction = (config) => ({ type: 'LOAD_CONFIG', config })
 export const setGlobalProfileInfoAction = (profileInfo) => ({ type: 'SET_GLOBAL_PROFILE_INFO', profileInfo })
 export const setGlobalProfileExperienceAction = (profileExperience) => ({ type: 'SET_GLOBAL_PROFILE_EXPERIENCE', profileExperience })
 export const showHeaderNotificationAction = (headerNotification) => ({ type: 'SHOW_HEADER_NOTIFICATION', headerNotification })
-export const showHeaderErrorAction = (headerNotification) => ({ type: 'SHOW_HEADER_ERROR', headerNotification })
-
+ 
 export const updateNotifications = (notification, value ) => ({ type: 'UPDATE_NOTIFICATIONS', notification, value })
 export const setLangAction = (lang) => ({ type: 'SET_LANG', lang })
 export const resetAction = NavigationActions.reset({index: 0, actions: [NavigationActions.navigate({ routeName: "Login" })]});
@@ -123,15 +122,6 @@ export function showHeaderNotification(msg, startDelay){
       setTimeout( () => {
         dispatch( showHeaderNotificationAction(msg) )
         setTimeout( () => dispatch( showHeaderNotificationAction(null) ), 3000)
-      }, startDelay || 1)
-  }
-}
-
-export function showHeaderError(msg, startDelay){
-  return function( dispatch, getState ){
-      setTimeout( () => {
-        dispatch( showHeaderErrorAction(msg) )
-        setTimeout( () => dispatch( showHeaderErrorAction(null) ), 3000)
       }, startDelay || 1)
   }
 }

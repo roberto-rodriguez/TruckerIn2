@@ -1,4 +1,6 @@
 
+export const showHeaderErrorAction = (headerError) => ({ type: 'SHOW_HEADER_ERROR', headerError })
+
 export const doPOST = (url, dispatch, getState, data, callback) => {
    doFetch(url, dispatch, getState, callback, data)
 }
@@ -40,7 +42,8 @@ const doFetch = (url, dispatch, getState, callback, data) => {
           callback && callback( response.data || response );
       }
      }).catch((err) => {
-       alert(err)
+       dispatch( showHeaderErrorAction('Unexpected Error') )
+      // alert(err)
        // dispatch( setLoading(false) )
        // ToastAndroid.showWithGravity(I18n.t( 'general.error' ), ToastAndroid.LONG, ToastAndroid.CENTER);
      });

@@ -34,7 +34,7 @@ export default class Setup extends Component {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Provider store={this.state.store}>
-          <App />
+          <App /> 
         </Provider>
       </StyleProvider>
     );

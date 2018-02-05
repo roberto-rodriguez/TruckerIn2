@@ -16,36 +16,16 @@ export function login( email, password, callback ){
 
     //}
 
-
-  //  setTimeout(() => callback(true), 1000)
   }
 }
 
-// export function loadConfig(){
-//   return function( dispatch, getState ){
-//     globalActions.loadConfig(dispatch)
-//   }
-// }
 
 export function sendAccessCode(phone, callback ){
   return function( dispatch, getState ){
-
     Connector.doPOST('user/accessCode', dispatch, getState, {phone}, callback)
 }
 }
 
-// export function validateAccessCode(accessCode, callback){
-//   return function( dispatch, getState ){
-//     callback(accessCode === '1111', 'validatePhone')
-//   }
-// }
-
-// export function validateUsername(username, callback){
-//   return function( dispatch, getState ){
-//     var result = username !== 'a'
-//     callback(result, 'usernameTaken', result ? null : 'username')
-//   }
-// }
 
 export function register(data, callback){
   return function( dispatch, getState ){
@@ -69,12 +49,7 @@ export function register(data, callback){
      }else{
        alert('No response received')
      }
-   })
-
-
-
-
-
+   }) 
 
   }
 }

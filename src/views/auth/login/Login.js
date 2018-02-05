@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Image, StatusBar, Platform, ActivityIndicator} from "react-native";
 import { Container, Content, Text, Item, Input, Button, View } from "native-base";
-import { T16, Column, Row, SimpleButton, mapStateToProps} from 'src/components'
+import { T16, Column, Row, SimpleButton} from 'src/components'
 import I18n from 'react-native-i18n'
 import styles from "./styles";
 import Video from 'react-native-video'
@@ -21,8 +21,14 @@ class Login extends Component {
       username: "",
       password: "",
       showError: false,
-      logging: false
+      loading: false
     };
+  }
+
+  componentWillReceiveProps(newProps){
+    if(newProps.headerError){
+      this.setState({loading: false})
+    }
   }
 
   setVal = (prop, val) => {
@@ -36,10 +42,10 @@ class Login extends Component {
   login = () => {
     var _this = this
 
-    if(this.state.logging)return;
+    if(this.state.loading)return;
 
     this.setState(prevState => {
-      prevState.logging = true
+      prevState.loading = true
       return prevState
     })
 
@@ -49,7 +55,7 @@ class Login extends Component {
        } else {
            _this.setState(prevState => {
              prevState.showError = true
-             prevState.logging = false
+             prevState.loading = false
              return prevState
            })
       }
@@ -72,7 +78,7 @@ class Login extends Component {
           <Image source={logo} style={styles.imageShadow} />
 
           {
-           this.state.logging ?
+           this.state.loading ?
             <ActivityIndicator size="large" color={"#EA0000"}/>
             :   <T16 light>{ I18n.t('login.slogan') }</T16>
           }
@@ -150,7 +156,7 @@ class BaseTextInput extends Component {
            placeholderTextColor={ showError ? 'red' : commonColor.primaryColor}
            style={[styles.loginField, { color: (showError ? 'red' :  commonColor.contentTextColor)}]}
            placeholder={ name === "username" ? I18n.t('login.username') : I18n.t('login.password')}
-           secureTextEntry={ name === "password" ? true : false} 
+           secureTextEntry={ name === "password" ? true : false}
            onChangeText={onChangeText}
          />
        </Item>
@@ -158,6 +164,10 @@ class BaseTextInput extends Component {
    )
  }
 }
+
+const mapStateToProps = ({globalReducer}, ownProps) => ({
+  headerError: globalReducer.view.headerError
+})
 
 
  export default connect(mapStateToProps, authActions)(Login);

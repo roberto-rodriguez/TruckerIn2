@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {View, Image, ActivityIndicator} from 'react-native'
+import {T16,T14, AgentMsg, nav} from 'src/components/'
 import { StackNavigator, DrawerNavigator } from "react-navigation"
 import { Root, Container } from "native-base";
 
@@ -82,8 +83,13 @@ class RootApp extends Component {
 
    }
 
+   // <AgentMsg error h={70}>
+   //   <T16 >{'Oops! Something went wrong!'}</T16>
+   //   <T14 >{'Click here to report the problem'}</T14>
+   // </AgentMsg>
+
    return (
-    <Root>
+    <Root> 
       {isAlreadyLoggedIn ? <AppAlreadyLogged /> : <App/>}
     </Root>
  )

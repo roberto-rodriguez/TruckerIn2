@@ -8,14 +8,20 @@ import theme from 'src/theme/variables/platform';
 
 export default class AgentMsg  extends Component {
   render() {
-    var {onPress, h, text} = this.props
+    var {onPress, h, text, error} = this.props
 
     h = h || 90
 
-    var child = text ? (<T14>{text}</T14>) : this.props.children 
+    var child = text ? (<T14>{text}</T14>) : this.props.children
+
+    var errorStyle = {}
+    if(error){
+    //  errorStyle.backgroundColor = '#ff6666'
+    }
+
 
       return (
-        <TouchableHighlight onPress={onPress}  underlayColor={'transparent'} style={styles.header}>
+        <TouchableHighlight onPress={onPress}  underlayColor={'transparent'} style={[styles.header, errorStyle]}>
           <View>
             <Row h={h}>
               <Column h={h} columns={4} colspan={1} >
