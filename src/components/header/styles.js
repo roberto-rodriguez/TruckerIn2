@@ -12,7 +12,7 @@ export default StyleSheet.create({
   rightBtn: {
     alignSelf: "center",
     marginLeft:14,
-    marginRight:8 
+    marginRight:8
   },
   leftBtn: {
     alignSelf: "center",

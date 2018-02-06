@@ -11,7 +11,7 @@ const initialState = {
     email: '',
     firstName: '',
     lastName:'',
-    releId:0,
+    roleId:0,
     role:'',
     location: null,
     profileImg:'',
@@ -29,9 +29,10 @@ const initialState = {
     equipment: '',
     experienceId: 0,
     experience: '',
-    ownerOperator:0, 
+    ownerOperator:0,
     jobStatusId: 1,
     jobStatus: '',
+    about:''
   },
   config:{
     lang: I18n.currentLocale() &&  I18n.currentLocale().split('-')[0],
@@ -39,7 +40,7 @@ const initialState = {
     experienceOptions: [],
     jobStatusOptions: [],
     roleOptions: [],
-    hiringStatus: []
+    hiringStatusOptions: []
   },
   // notifications:{
   //

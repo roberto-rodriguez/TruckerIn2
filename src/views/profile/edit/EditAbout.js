@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View } from 'react-native';
 import {StackView, LongInputListItem, RowColumn, T15, AgentMsg} from 'src/components/'
 import { connect } from "react-redux";
-import * as profileActions from "src/views/profile/profile.actions";
+import * as authActions from "src/views/auth/auth.actions";
 import I18n from 'react-native-i18n'
 import * as roles from 'src/components/c/Role'
 
@@ -23,8 +23,7 @@ class EditAbout extends Component {
  }
 
  onAccept = () => {
-   this.props.saveAbout(this.state);
-   this.props.navigation.goBack();
+   this.props.register(this.state, () =>  this.props.navigation.goBack())
  }
 
  setVal(prop, val ) {
@@ -53,15 +52,9 @@ class EditAbout extends Component {
   }
 }
 
-const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
-  var isMe = ownProps.isMe;
-  var profileInfo = globalReducer.profileInfo
+const mapStateToProps = ({globalReducer}) => ({ 
+  about: globalReducer.profileExperience.about,
+  roleId:globalReducer.profileInfo.roleId
+})
 
-  return {
-    isMe,
-    about: profileInfo.about,
-    roleId: profileInfo.roleId
-  }
-}
-
-export default connect(mapStateToProps, profileActions)(EditAbout);
+export default connect(mapStateToProps, authActions)(EditAbout);

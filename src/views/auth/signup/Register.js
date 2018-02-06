@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { StatusBar, Platform, TouchableHighlight, View } from "react-native";
-import { Container, Content, Text, CheckBox } from "native-base";
+import { Container, Content, Text,  Spinner } from "native-base";
 import Icon from 'react-native-fa-icons';
-import {BlockButton, AgentImg, T16, T15, T14, T13, Spinner, Row, Column, RowColumn, SimpleButton, LinkButton, nav} from 'src/components/'
+import {BlockButton, AgentImg, T16, T15, T14, T13,  Row, Column, RowColumn, SimpleButton, LinkButton, nav} from 'src/components/'
 import styles from "./styles";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
@@ -72,7 +72,7 @@ class Register extends Component {
         equipmentId: null,
         jobStatus: null,
         jobStatusId: null,
-        ownerOperator: null, 
+        ownerOperator: null,
         accessCode: ''
       }
     };
@@ -133,7 +133,7 @@ class Register extends Component {
           }
         </View>
 
-          {  (loading || flowPage > 5) ? (<Spinner/> ) :  this.buildFlowSection()}
+          {  (loading || flowPage > 5) ? (<Spinner color={commonColor.secondaryColor} /> ) :  this.buildFlowSection()}
 
         </Content>
 

@@ -13,7 +13,7 @@ import Icon from 'react-native-fa-icons';
  export default class LongInputListItem extends Component {
 
   render() {
-    var {icon, label, value, navigation, onChangeText} = this.props;
+    var {icon, label, value, navigation, invalid, onChangeText} = this.props;
 
     return (
        <View>
@@ -22,7 +22,7 @@ import Icon from 'react-native-fa-icons';
              <Icon name={icon} style={styles.icon}/>
            </Column>
            <Column h={200}  columns={7} colspan={6} style={{alignItems:'flex-start', justifyContent:'flex-start'}}>
-             <T12 light>{label}</T12>
+             <T12 light red={invalid}>{label}</T12>
              <TextInput
                underlineColorAndroid='transparent'
                multiline={true}

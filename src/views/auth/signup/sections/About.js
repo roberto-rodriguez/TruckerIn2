@@ -58,7 +58,7 @@ import * as roles from 'src/components/c/Role'
                key={100}
                navigation={navigation}
                icon={'hourglass-end'}
-               label={I18n.t('profile.information.hiringStatus') }
+               label={I18n.t('profile.experience.hiringStatus') }
                value={ data[ 'jobStatus' ]}
                handler={ () => this.showSelect( ) }
                />

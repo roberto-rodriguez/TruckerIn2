@@ -1,15 +1,16 @@
 
 
 //import I18n from 'react-native-i18n'
-
+import * as Connector from 'src/boot/reducers/connector'
 import * as globalActions from 'src/boot/reducers/global.actions'
 import * as jobsActions from 'src/views/jobs/jobs.actions'
 import * as roles from 'src/components/c/Role'
+import * as auxFunctions from './profile.actionsAuxFunctions'
 
 export const resetProfileAction = (profileInfo) => ({ type: 'RESET_PROFILE' })
 export const saveProfileInfoAction = (profileInfo) => ({ type: 'SAVE_PROFILE_INFO', profileInfo })
 export const saveProfileExperienceAction = (profileExperience) => ({ type: 'SAVE_PROFILE_EXPERIENCE', profileExperience })
-export const saveProfileCareerAction = (profileCareer) => ({ type: 'SAVE_PROFILE_CAREER', profileCareer })
+
 export const saveProfileCareerItemAction = (profileCareerItem) => ({ type: 'SAVE_PROFILE_CAREER_ITEM', profileCareerItem })
 export const deleteProfileCareerItemAction = (id) => ({ type: 'DELETE_PROFILE_CAREER_ITEM', id })
 export const saveProfileConnections = (list) => ({ type: 'SAVE_PROFILE_CONNECTIONS', list})
@@ -22,45 +23,80 @@ export function loadProfile(userId){
 
     dispatch( resetProfileAction() )
 
-    var profileInfo = getState().globalReducer.profileInfo
+    var myProfile = getState().globalReducer.profileInfo
 
-    if(userId != profileInfo.id){
-      profileInfo = apiGetProfileInfo(userId);
-      dispatch( saveProfileInfoAction(profileInfo));
+    if(userId != myProfile.id){
 
-      if(profileInfo.roleId === roles.DRIVER){
-        var profileExperience = globalActions.apiGetProfileExperience(userId);
-        dispatch( saveProfileExperienceAction(profileExperience) )
-      }
+        Connector.doGET('user/load/' + userId, dispatch, getState, (profileInfo) => {
+
+            auxFunctions.completeProfileInfo( profileInfo, getState )
+
+            dispatch( saveProfileInfoAction(profileInfo));
+
+              Connector.doGET('experience/load/' + userId, dispatch, getState, (profileExperience) => {
+
+                auxFunctions.completeProfileExperience(profileInfo.roleId, profileExperience, getState )
+                dispatch( saveProfileExperienceAction(profileExperience) )
+                auxFunctions.completeLoadProfile(userId, profileInfo.roleId, dispatch, getState)
+              })
+        })
+    }else{
+
+      auxFunctions.completeLoadProfile(userId, getState().globalReducer.profileInfo.roleId, dispatch, getState)
     }
 
 
-  if(profileInfo.roleId === roles.DRIVER){
-      var profileCareer = apiGetCareer(userId)
-
-      if(profileCareer.careerHistory){
-        profileCareer.careerHistory = profileCareer.careerHistory.reduce((acc, careerItem) => {
-                                         acc[careerItem.id] = careerItem;
-                                         return acc;
-                                       }, {});
-      }else{
-        profileCareer.careerHistory = {}
-      }
-
-      dispatch( saveProfileCareerAction(profileCareer) )
 
 
-      loadProfileConnections(userId)(dispatch, getState)
 
-  }else{
 
-     jobsActions.loadJobs(0, {userId, posted: true, limit: 3}, ( list ) => {
-       dispatch( saveProfilePostedJobs(list) )
-     })( dispatch, getState )
-  }
+  // if(profileInfo.roleId === roles.DRIVER){
+  // }else{
+  //
+  //    jobsActions.loadJobs(0, {userId, posted: true, limit: 3}, ( list ) => {
+  //      dispatch( saveProfilePostedJobs(list) )
+  //    })( dispatch, getState )
+  // }
 
   }
 }
+
+export function saveProfileCareerItem(profileCareerItem, callback){
+  return function( dispatch, getState ){
+    debugger;
+    var userId = getState().globalReducer.profileInfo.id
+    profileCareerItem.userId = userId
+
+    Connector.doPOST('/career/save', dispatch, getState, profileCareerItem, function( careerId ){
+      if(careerId){
+        if(!profileCareerItem.id){
+          profileCareerItem.id = careerId;
+        }
+
+         dispatch( saveProfileCareerItemAction(profileCareerItem) )
+
+         callback()
+      }
+    })
+  }
+}
+
+export function loadProfileCareer(isMe, page = 0, callback ){
+  return function( dispatch, getState ){
+
+    var userId = isMe ? getState().globalReducer.profileInfo.id : getState().profileReducer.profileInfo.userId
+
+    Connector.doPOST('career/list', dispatch, getState, {page, limit: 10, params:{'usuario.id': userId}},  callback) 
+  }
+}
+
+// DEPRECATED
+// export function saveAbout(aboutObj){
+//   return function( dispatch, getState ){
+//
+//      dispatch( globalActions.setGlobalProfileInfoAction(aboutObj) )
+//    }
+// }
 
 export function resetProfileInfo( ){
   return function( dispatch, getState ){
@@ -69,30 +105,22 @@ export function resetProfileInfo( ){
 }
 
 
-export function saveProfileInfo(profileInfo){
-  return ( dispatch, getState ) => dispatch( globalActions.setGlobalProfileInfoAction(profileInfo) )
-}
+// export function saveProfileInfo(profileInfo){
+//   return ( dispatch, getState ) => dispatch( globalActions.setGlobalProfileInfoAction(profileInfo) )
+// }
+//
+//
+// export function saveProfileExperience(profileExperience){
+//   return function( dispatch, getState ){
+//         //  dispatch( saveProfileExperienceAction(profileExperience) )
+//
+//       //    dispatch( globalActions.setSessionAction({profileExperienceCompletion: profileExperience.completion}))
+//           dispatch( globalActions.setGlobalProfileExperienceAction(profileExperience) )
+//   }
+// }
 
 
-export function saveProfileExperience(profileExperience){
-  return function( dispatch, getState ){
-        //  dispatch( saveProfileExperienceAction(profileExperience) )
 
-      //    dispatch( globalActions.setSessionAction({profileExperienceCompletion: profileExperience.completion}))
-          dispatch( globalActions.setGlobalProfileExperienceAction(profileExperience) )
-  }
-}
-
-
-export function saveProfileCareerItem(profileCareerItem){
-  return function( dispatch, getState ){
-    if(!profileCareerItem.id){
-      profileCareerItem.id = Object.keys(getState().profileReducer.profileCareer.careerHistory).length + 1;
-    }
-
-     dispatch( saveProfileCareerItemAction(profileCareerItem) )
-  }
-}
 
 export function loadProfileConnections(userId, page = 0, nameFilter, callback, reset){
   return function( dispatch, getState ){
@@ -127,17 +155,7 @@ export function loadProfilePostedJobs(userId, page = 0, callback ){
   }
 }
 
-export function loadProfileCareer(isMe, page = 0, callback ){
-  return function( dispatch, getState ){
 
-    var userId = isMe ? getState().globalReducer.profileInfo.id : getState().profileReducer.profileInfo.userId
-
-    var profileCareer = apiGetCareer(userId, page)
-
- //This will be called just from ProfileCareerList
-      callback(profileCareer && profileCareer.careerHistory)
-  }
-}
 
 
 export function deleteProfileCareerItem(id){
@@ -155,12 +173,7 @@ export function changeProfilePricture(id){
   }
 }
 
-export function saveAbout(aboutObj){
-  return function( dispatch, getState ){
-        debugger;
-     dispatch( globalActions.setGlobalProfileInfoAction(aboutObj) )
-   }
-}
+
 
 
 //--- MOCK DATA ------------

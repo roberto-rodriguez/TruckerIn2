@@ -36,8 +36,6 @@ const es = {
       email: 'Correo',
       phone: 'Teléfono',
       location: 'Locación',
-      jobStatus: 'Estado Laboral',
-      hiringStatus: 'Contratando ahora?',
       showPersonalInfo: 'Mostrar en mi perfil?',
       username: 'Usuario',
       password: 'Contraseña',
@@ -53,15 +51,16 @@ const es = {
       wouldOver: 'Tomaria un trabajo en la carretera?',
       moreThan: 'Más de ',
       jobStatus: 'Estado Laboral',
+      hiringStatus: 'Contratando ahora?',
       emptyText: 'Incremente sus posibilidades completando la información sobre su experiencia'
     },
     career:{
-        addExp: 'Addicionar Experiencia',
-        addLab: 'Addicionar Experiencia Laboral',
+        addExp: 'Adicionar Experiencia',
+        addLab: 'Adicionar Experiencia Laboral',
         companyName: 'Nombre de la Compañia',
         when: 'Cuando o por cuanto tiempo?',
         desc: 'Descripción',
-        emptyIsMe: 'Incremente sus posibilidades mostrandole a recrutadores las compañias para las que has estado trabajando.',
+        emptyIsMe: 'Incremente sus posibilidades mostrandole a recrutadores las compañias para las que has trabajado.',
         emptyNoMe: 'Experience laboral no provista',
         updateCareerMsg: 'Compañias para las que has estado trabajando en los últimos 3 años',
         recentLabExp: 'Reciente experiencia laboral'

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {View, Image, ActivityIndicator} from 'react-native'
-import {T16,T14, AgentMsg, nav} from 'src/components/'
+
 import { StackNavigator, DrawerNavigator } from "react-navigation"
 import { Root, Container } from "native-base";
 
@@ -89,13 +89,12 @@ class RootApp extends Component {
    // </AgentMsg>
 
    return (
-    <Root> 
+    <Root>
       {isAlreadyLoggedIn ? <AppAlreadyLogged /> : <App/>}
     </Root>
  )
  }
 }
 
-  const mapStateToProps = state => ({
-  });
-  export default connect(mapStateToProps, globalActions)(RootApp);
+
+  export default connect(null, globalActions)(RootApp);

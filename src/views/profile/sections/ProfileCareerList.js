@@ -9,10 +9,22 @@ import I18n from 'react-native-i18n'
 
 class ProfileCareerList extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      reset: true
+    }
+
+  }
+
     loadItems = (page, callback) => {
       var isMe = this.props.navigation.state.params && this.props.navigation.state.params.isMe
 
       this.props.loadProfileCareer(isMe, page, callback)
+
+      if(this.state.reset){
+        this.setState({reset: false})
+      }
     }
 
     itemBuilder = (item, navigation, i, shouldUpdate) => (
@@ -24,6 +36,8 @@ class ProfileCareerList extends Component {
                     shouldUpdate={shouldUpdate}
                   />)
 
+    onAdd = () => this.setState({reset: true})
+
   render() {
     var { navigation} = this.props
     var isMe = this.props.navigation.state.params && this.props.navigation.state.params.isMe
@@ -34,12 +48,13 @@ class ProfileCareerList extends Component {
           <Header back
            title={I18n.t('profile.titles.recentJobs')}
            navigation={navigation}
-           right={ <CustomButton text={I18n.t('general.add')} handler={() => nav(navigation, 'EditProfileAddExperience')} style={styles.topBarButton}/>}
+           right={ <CustomButton text={I18n.t('general.add')} handler={() => nav(navigation, 'EditProfileAddExperience', {callback: this.onAdd})} style={styles.topBarButton}/>}
          />
           <Feed
            feedLoader={this.loadItems}
            feedBuilder={this.itemBuilder}
            navigation={navigation}
+           reset={this.state.reset}
          />
         </View>
       </Container>

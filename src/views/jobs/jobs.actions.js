@@ -2,6 +2,7 @@ import moment from 'moment';
 
 import I18n from 'react-native-i18n'
 import data from './list/data'
+import * as Connector from 'src/boot/reducers/connector'
 import * as globalActions from 'src/boot/reducers/global.actions'
 
 export function jobApply(jobId, availability, callback){
@@ -120,7 +121,7 @@ function apiLoadJobs(userId, page = 0, searchParams){
 
   var list = data.concat(data)
 
-  var listWithId = list.map((item, i) => ({...item, id: page * 10 + i, userId: page * 10 + i}))
+  var listWithId = list.map((item, i) => ({...item, id: page * 10 + i}))  //, userId: page * 10 + i
 
   var filters = ['saved', 'experienceId','author', 'locationId', 'equipmentId', 'applied', 'posted']
 

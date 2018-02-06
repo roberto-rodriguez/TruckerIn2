@@ -42,16 +42,16 @@ class About extends Component {
         )
     }
 
-}
+} 
 
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
   var isMe = ownProps.isMe;
-  var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
- 
+  var reducer = isMe ? globalReducer : profileReducer
+
   return {
     isMe,
-    about: profileInfo.about,
-    roleId: profileInfo.roleId
+    about: reducer.profileExperience.about,
+    roleId:reducer.profileInfo.roleId
   }
 }
 

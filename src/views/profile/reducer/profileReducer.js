@@ -11,12 +11,10 @@ const initialState = {
     email: '',
     firstName: '',
     lastName:'',
-    releId:0,
+    roleId:0,
     role:'',
     locationId:0,
     location: '',
-    jobStatusId: 1,
-    jobStatus: '', 
     showPersonalInfo:1,
     about: null
   },
@@ -27,16 +25,11 @@ const initialState = {
     experienceId: 0,
     experience: '',
     ownerOperator:0,
-    cdl: 0,
-    overRoadExp: 0,
-    willTakeOverRoad: 0,
-    carAccident: 0,
-    dui:0
+    about: '',
+    jobStatusId: 1,
+    jobStatus: ''
   },
-  profileCareer:{
-    completion: 0,
-    careerHistory:{}
-  },
+  profileCareer:{},
   connections:[],
   postedJobs:[]
 };
@@ -61,12 +54,10 @@ export default function(state: any = initialState, action: Function) {
     case "SAVE_PROFILE_CAREER_ITEM":
         return { ...state,
                 profileCareer: {
-                        completion: 100,
-                        careerHistory: {
-                          ...state.profileCareer.careerHistory,
-                          [action.profileCareerItem.id]: action.profileCareerItem
-                        }
-                }};
+                  ...state.profileCareer,
+                  [action.profileCareerItem.id]: action.profileCareerItem
+                 }
+                };
     case "DELETE_PROFILE_CAREER_ITEM":
       var careerHistory = state.profileCareer.careerHistory
       delete careerHistory[action.id]

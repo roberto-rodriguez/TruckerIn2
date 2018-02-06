@@ -25,7 +25,7 @@ var driverSections = [
   {name: 'profileInfo', icon: 'phone-square', title: 'contact' },
   {name: 'profileExperience', icon: 'truck', title: 'experience' },
   {name: 'profileCareer', icon: 'graduation-cap', title: 'career' },
-  {name: 'connections', icon: 'group', title: 'connections', showSubText: true},
+  {name: 'connections', icon: 'group', title: 'connections', showSubText: true, badge: 'connectionsCount'},
   {name: 'aboutMe', icon: 'user-secret', title: 'aboutMe' },
   {name: 'aboutUs', icon: 'bank', title: 'aboutUs' },
   {name: 'postedJobs', icon: 'truck', title: 'postedJobs', showSubText: true}
@@ -80,7 +80,13 @@ componentDidMount(){
       <TouchableOpacity transparent key={i} style={styles.optionBtn} onPress={() => _this.setState({selectedSection: data.name})}>
         <Icon name={data.icon} style={[styles.headerIcon, _this.buildStyle(selectedSection ? selectedSection === data.name : i === 0)]}/>
       <Text style={[styles.optionText, _this.buildStyle(selectedSection ? selectedSection === data.name : i === 0)]}>{I18n.t(['profile', 'titles', data.title])}</Text>
-        {(isMe || data.showSubText ) && <Text style={styles.extraSmallText}>{this.buildSubText(data.name, isMe)}</Text>}
+    {data.badge &&
+      (<View style={styles.IconBadge}>
+        <Text  style={[styles.IconBadgeText, {fontSize: (this.props[data.badge] > 9 ? 10 : 12), paddingTop:  (this.props[data.badge] > 9 ? 2 : 0)}]}>
+         {this.props[data.badge]}
+        </Text>
+      </View>)
+    }
       </TouchableOpacity>)
     })
 
@@ -124,8 +130,7 @@ componentDidMount(){
             </Column>
             <Column h={60} columns={5} colspan={3}>
               <T13 light>{role}</T13>
-              <Text style={styles.pendingPostText}>{location}</Text>
-            <Text style={styles.extraSmallText}>{isMe ? I18n.t('profile.completed') + profileCompleted + '%' : ''} </Text>
+              <Text style={styles.pendingPostText}>{location}</Text> 
             </Column>
             <Column h={40} columns={5} style={{marginTop:15}}>
               {!isMe && <ConnectButton status={''} name={name} contactId={id}/>}
@@ -200,7 +205,7 @@ componentDidMount(){
       location: profileInfo.location && profileInfo.location.locationName,
       profileInfoCompletion: profileInfo.completion || 0,
       profileExperienceCompletion:  (isMe ? globalReducer.profileExperience.completion : profileReducer.profileExperience.completion) || 0,
-      connectionsCount: profileInfo.connectionsCount,
+      connectionsCount: profileInfo.connections,
       postedJobs: profileInfo.postedJobs,
       lang: globalReducer.config.lang
     }

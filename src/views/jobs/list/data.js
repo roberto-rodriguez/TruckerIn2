@@ -7,7 +7,7 @@ const sauravImg = require("../../../../assets/contacts/saurav.png");
 const data = [
   {
     id: 1,
-    userName: "Kumar Pratik",
+    userName: "Jorge Luis",
     userId: 2,
     authorRole: 'Broker',
     location:'Atlanta, GA',

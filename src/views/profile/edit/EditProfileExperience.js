@@ -4,7 +4,7 @@ import { Container, Content, Button } from "native-base";
 import Icon from 'react-native-fa-icons';
 import {StackView, T11, T12, T13, Column, TransparentButton, ListItem, Select, YesNoListItem} from 'src/components/'
 import { connect } from "react-redux";
-import * as profileActions from "src/views/profile/profile.actions";
+import * as authActions from "src/views/auth/auth.actions";
 import I18n from 'react-native-i18n'
 
 const items = [
@@ -13,9 +13,7 @@ const items = [
 ]
 
 const yesNoItems = [
-  {prop: 'ownerOperator',  icon: 'street-view', title:'ownerOperator'},
-  {prop: 'overRoadExp',  icon:'road', title:'recentOver'},
-  {prop: 'willTakeOverRoad',  icon: 'hand-stop-o', title:'wouldOver'}
+  {prop: 'ownerOperator',  icon: 'street-view', title:'ownerOperator'}
 ]
 
 class EditProfileExperience extends Component {
@@ -61,24 +59,38 @@ class EditProfileExperience extends Component {
 
    this.state.completion = completion
 
-   this.props.saveProfileExperience(this.state);
+  // this.props.saveProfileExperience(this.state);
+
+   this.props.register(this.state, () =>  this.props.navigation.goBack())
+
    this.props.navigation.goBack();
  }
 
+ t = (key) => I18n.t(['profile', 'experience',  key])
+
   render() {
-    const {navigation, equipmentOptions, experienceOptions} = this.props
-    var state = this.state;
+    const {navigation, equipmentOptions, experienceOptions, statusOptions, isDriver} = this.props
+    var {t, state} = this
 
     return (
        <StackView navigation={navigation} title={I18n.t('profile.titles.updateExperience')}  onAccept={this.onAccept}>
           <View >
+            <ListItem
+               key={100}
+               navigation={navigation}
+               icon={'hourglass-end'}
+               label={ t( isDriver ? 'jobStatus' : 'hiringStatus') }
+               value={ state[ 'jobStatus' ]}
+               handler={ () => this.showSelect( 'status' ) }
+               />
+
              {
               items.map( ({icon, title, prop}, i) => (
               <ListItem
                  key={i}
                  navigation={navigation}
                  icon={icon}
-                 label={I18n.t(['profile','experience' , title])}
+                 label={ t( title )}
                  value={ state[prop] }
                  handler={ () => this.showSelect( prop ) }
                  />) )
@@ -89,7 +101,7 @@ class EditProfileExperience extends Component {
                <YesNoListItem
                   key={i}
                   icon={icon}
-                  label={I18n.t(['profile','experience' , title])}
+                  label={ t( title )}
                   value={ state[prop] }
                   handler={ (val) => this.setVal( prop, val ) }
                   />) )
@@ -104,7 +116,11 @@ class EditProfileExperience extends Component {
                 options={ experienceOptions}
                 onPress={(i) => this.setVal('experience', experienceOptions[i].name, experienceOptions[i].id)}
               />
-
+              <Select
+                 ref={o => this.statusSelect = o}
+                 options={statusOptions}
+                 onPress={(i) => this.setVal( 'jobStatus', statusOptions[i].name, statusOptions[i].id)}
+               />
          </View>
 
         </StackView>
@@ -112,11 +128,19 @@ class EditProfileExperience extends Component {
   }
 }
 
-const mapStateToProps = ({globalReducer}) => ({
-  profileExperience: globalReducer.profileExperience,
-  equipmentOptions: globalReducer.config.equipmentOptions ,
-  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('profile.experience.moreThan') + exp.name})),
-  lang: globalReducer.config.lang
-})
+const mapStateToProps = ({globalReducer}) => {
+  var isDriver = globalReducer.profileInfo.roleId === 1
+  var {jobStatusOptions, hiringStatusOptions} = globalReducer.config
 
-export default connect(mapStateToProps, profileActions)(EditProfileExperience);
+  return {
+    isDriver,
+    statusOptions: isDriver ? jobStatusOptions : hiringStatusOptions,
+    profileExperience: globalReducer.profileExperience,
+    equipmentOptions: globalReducer.config.equipmentOptions ,
+    experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('profile.experience.moreThan') + exp.name})),
+    lang: globalReducer.config.lang
+  }
+}
+
+
+export default connect(mapStateToProps, authActions)(EditProfileExperience);

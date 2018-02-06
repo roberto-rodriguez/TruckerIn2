@@ -35,9 +35,7 @@ const en = {
       lastName: 'Last Name',
       email: 'Email',
       phone: 'Phone',
-      location: 'Location',
-      jobStatus: 'Job Status',
-      hiringStatus: 'Hiring Status',
+      location: 'Location', 
       showPersonalInfo: 'Show in my profile?',
       username: 'Username',
       password: 'Password',
@@ -53,6 +51,7 @@ const en = {
       wouldOver: 'Would you take an Over the Road Job?',
       moreThan: 'More than ',
       jobStatus: 'Job Status',
+      hiringStatus: 'Hiring Status',
       emptyText: 'Increase your possibilities by completing your experience information'
     },
     career:{

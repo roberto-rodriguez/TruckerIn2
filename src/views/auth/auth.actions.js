@@ -29,27 +29,28 @@ export function sendAccessCode(phone, callback ){
 
 export function register(data, callback){
   return function( dispatch, getState ){
-   //Call register API
+   var userId = getState().globalReducer.profileInfo.id
    var resultCode = 1  //Everything OK
    var resultMessage = 'SUCCESS'
 
-   data.completion = 100.0
+    if(userId){
+      data.id = userId
+    } 
 
    Connector.doPOST('/user/save', dispatch, getState, data, function( response ){
      if(response){
-       var id = 1;
-
-       data.id = id;
-       data.userId = id;
           dispatch( globalActions.setGlobalProfileInfoAction( data ) )
           dispatch( globalActions.setGlobalProfileExperienceAction( data ) )
 
+          //if(!userId){
              // Storage.storeToken( 'register_token' ) //TODO get token from register response
+        //  }
+
            callback(true, resultMessage)
      }else{
        alert('No response received')
      }
-   }) 
+   })
 
   }
 }

@@ -13,7 +13,7 @@ class Information extends Component {
   t = (key) => I18n.t(['profile', 'information',  key])
 
   render() {
-    var {profileInfo, isMe, isDriver} = this.props
+    var {profileInfo, isMe } = this.props
     var t = this.t
 
     return (
@@ -56,15 +56,7 @@ class Information extends Component {
              :
              this.buildEmptyCmp()
            }
-           <Row h={50}  spaceBetween>
-             <Column start columns={2} h={50} >
-               <Icon name={"hourglass-end"} style={style.smallIcon}/>
-             <T13 strong>{t(isDriver ? 'jobStatus' : 'hiringStatus') + ':'}</T13>
-             </Column>
-               <Column end  columns={2} h={50}  >
-               <T13>{profileInfo.jobStatus}</T13>
-             </Column>
-           </Row>
+
            {
              isMe &&
              <Row h={50}  spaceBetween>
@@ -102,12 +94,8 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
-  var isMe = ownProps.isMe;
-  var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
-  return {
-    profileInfo,
-    isDriver: globalReducer.profileInfo.roleId === 1
-  }
+  var profileInfo = ownProps.isMe ? globalReducer.profileInfo : profileReducer.profileInfo
+  return { profileInfo }
 }
 
   export default connect(mapStateToProps)(Information);

@@ -104,4 +104,24 @@ export default {
     borderWidth:0
   },
   name: { width:'100%',textAlign:'center' },
+  IconBadge: {
+    position:'absolute',
+    top:0,
+    right:5,
+    minWidth:18,
+    height:18,
+    borderRadius:9,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: commonColor.secondaryColor,
+    padding:0,
+    margin:0
+  },
+  IconBadgeText:{
+    color:'white',
+    height:16,
+    padding:0,
+    borderRadius:15,
+    marginBottom:5
+  }
 };

@@ -10,7 +10,7 @@ export const loadConfigAction = (config) => ({ type: 'LOAD_CONFIG', config })
 export const setGlobalProfileInfoAction = (profileInfo) => ({ type: 'SET_GLOBAL_PROFILE_INFO', profileInfo })
 export const setGlobalProfileExperienceAction = (profileExperience) => ({ type: 'SET_GLOBAL_PROFILE_EXPERIENCE', profileExperience })
 export const showHeaderNotificationAction = (headerNotification) => ({ type: 'SHOW_HEADER_NOTIFICATION', headerNotification })
- 
+
 export const updateNotifications = (notification, value ) => ({ type: 'UPDATE_NOTIFICATIONS', notification, value })
 export const setLangAction = (lang) => ({ type: 'SET_LANG', lang })
 export const resetAction = NavigationActions.reset({index: 0, actions: [NavigationActions.navigate({ routeName: "Login" })]});
@@ -32,10 +32,11 @@ export function setup(callback){
 }
 
 export function doLogin(obj, callback){
+
   return function( dispatch, getState ){
 
       Connector.doPOST('user/login', dispatch, getState, obj, (profileInfo) => {
-
+ 
         var userId = profileInfo && profileInfo.id
 
         callback(userId)
@@ -43,10 +44,14 @@ export function doLogin(obj, callback){
         if(userId){
             profileInfo.token && Storage.storeToken( profileInfo.token )
 
+          //  Connector.completeProfileInfo( profileInfo, getState )
+
             dispatch( setGlobalProfileInfoAction(profileInfo) )
 
             setTimeout( () => Connector.doGET('experience/load/' + userId, dispatch, getState,  (profileExperience) => {
-                debugger;
+
+              //  Connector.completeProfileExperience(profileInfo.roleId, profileExperience, getState)
+
                 dispatch( setGlobalProfileExperienceAction(profileExperience) )
               }), 3000);
         }
@@ -60,22 +65,6 @@ export function logOut(){
      Storage.storeToken( '0' )
   }
 }
-
-
-//TODO Deprecated, is now 'doLogin'
-// export function getSession(){
-//   return function( dispatch, getState ){
-//     //In the getConfig CallBack
-//     var profileInfo = apiGetProfileInfo(1)
-//     dispatch( setGlobalProfileInfoAction(profileInfo) )
-//
-//     //In the get profileInfo CallBack
-//   //  loadConfig(dispatch)
-//
-//     var profileExperience = apiGetProfileExperience(1)
-//     dispatch( setGlobalProfileExperienceAction(profileExperience) )
-//   }
-// }
 
 export function setupLang(){
   return function( dispatch, getState ){

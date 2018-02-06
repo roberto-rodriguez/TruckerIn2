@@ -1,12 +1,30 @@
 import React, { Component } from "react";
-import { Container, Content } from "native-base";
+import { Container, Content, Spinner } from "native-base";
 import { Header, BlockButton} from 'src/components/'
 import theme from 'src/theme/variables/platform'
 
 class StackView extends Component {
 
+  constructor(props) {
+      super(props)
+
+      this.state = {
+        accepted: false
+     }
+ }
+
+ onAccept = () => {
+   if(this.state.accepted)return;
+
+   this.setState({accepted: true})
+
+   if(this.props.onAccept()){
+     setTimeout(() =>  this.setState({accepted: false}), 2000)
+   }
+ }
+
   render() {
-    const {navigation, title, buttonText, onAccept, headerBtn } = this.props;
+    const {navigation, title, buttonText, headerBtn } = this.props;
 
     return (
       <Container white>
@@ -14,7 +32,7 @@ class StackView extends Component {
         <Content fullscreen >
           {this.props.children}
         </Content>
-        {onAccept && <BlockButton text={buttonText}  onPress={onAccept}/>}
+        {this.props.onAccept && (this.state.accepted ? <Spinner color={theme.secondaryColor} /> : <BlockButton text={buttonText}  onPress={this.onAccept}/>) }
       </Container>
     );
   }

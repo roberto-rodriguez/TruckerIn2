@@ -8,17 +8,28 @@ import * as profileActions from "src/views/profile/profile.actions";
 
 class CareerItem extends Component {
 
-  edit = () =>  this.props.isMe && nav(this.props.navigation, 'EditProfileAddExperience', {item: this.props.careerItem})
+  constructor(props){
+    super(props)
+
+    this.state = { ...props.careerItem }
+  }
+
+  edit = () => {
+    this.props.isMe && nav(this.props.navigation, 'EditProfileAddExperience', {item: this.props.careerItem, callback: this.onEdit})
+  }
+
+  onEdit = (item) => this.setState(item)
+
 
   render() {
-    var {id, company, date, desc} = this.props.careerItem
+    var {id, company, fecha, description} = this.state
 
     return (
       <TouchableOpacity style={styles.item} onPress={this.edit}>
         <View>
           <T13 strong>{company}</T13>
-          <T12 light>{date}</T12>
-          <T12>{desc}</T12>
+          <T12 light>{fecha}</T12>
+          <T12>{description}</T12>
         </View>
       </TouchableOpacity>
     )

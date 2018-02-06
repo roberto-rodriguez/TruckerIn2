@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Container, Button } from "native-base";
-import {BlockButton, AgentMsg,Row,Column, T14, nav} from 'src/components/'
+import {BlockButton, AgentMsg,Row,Column, T12, T13, T14, nav} from 'src/components/'
 import { connect } from "react-redux";
 import CareerItem from './CareerItem'
 import theme from 'src/theme/variables/platform'
@@ -11,6 +11,8 @@ import I18n from 'react-native-i18n'
 
 
 class Career extends Component {
+
+  edit = (item) =>  this.props.isMe && nav(this.props.navigation, 'EditProfileAddExperience', {item})
 
   render() {
     var {careerHistory, isMe, navigation} = this.props
@@ -24,32 +26,48 @@ class Career extends Component {
        <BlockButton show={isMe} text={I18n.t('profile.career.addLab')}  onPress={() => nav(navigation, 'EditProfileAddExperience')}/>
 
        {( careerHistory && careerHistory.length > 0) ?
-         this.buildCareerList(isMe) : this.buildEmptyCmp()
+           this.props.careerHistory.slice(0, 2).map((item, i) =>
+
+           <TouchableOpacity style={styles.item} onPress={() => this.edit(item)} key={i}>
+             <View>
+               <T13 strong>{item.company}</T13>
+               <T12 light>{item.fecha}</T12>
+               <T12>{item.description}</T12>
+             </View>
+           </TouchableOpacity> )
+         :
+         this.buildEmptyCmp()
+       }
+
+       { careerHistory && careerHistory.length > 2 &&
+         (
+           <Button full transparent onPress={() => nav(navigation, 'ProfileCareerList', { isMe })}>
+             <Text style={{ color: theme.secondaryColor }}>
+               {I18n.t('profile.seeMore')}
+             </Text>
+           </Button>
+         )
        }
 
       </Container>
     );
   }
 
-  buildCareerList( ){
-    var {navigation, isMe} = this.props
+  // buildCareerList( ){
+  //   var {navigation, isMe} = this.props
+  //
+  //   return (
+  //     <View>
+  //       {this.props.careerHistory.map((careerItem, i) =>
+  //         <CareerItem
+  //           key={i} careerItem={careerItem}
+  //           isMe={isMe}
+  //           navigation={navigation}
+  //         />)}
 
-    return (
-      <View>
-        {this.props.careerHistory.slice(0,2).map((careerItem, i) =>
-          <CareerItem
-            key={i} careerItem={careerItem}
-            isMe={isMe}
-            navigation={navigation}
-          />)}
-          <Button full transparent onPress={() => nav(navigation, 'ProfileCareerList', { isMe })}>
-            <Text style={{ color: theme.secondaryColor }}>
-              {I18n.t('profile.seeMore')}
-            </Text>
-          </Button>
-      </View>
-    )
-  }
+  //     </View>
+  //   )
+  // }
 
   buildEmptyCmp(){
     var isMe = this.props.isMe
@@ -74,8 +92,19 @@ class Career extends Component {
   }
 }
 
+const styles = StyleSheet.create({
+  item: {
+    alignItems: 'flex-start',
+    borderWidth:0.2,
+    borderColor:'grey',
+    padding:10,
+    borderRadius:5,
+    margin:8
+  }
+})
+
   const mapStateToProps = ({profileReducer}) => ({
-      careerHistory: Object.values(profileReducer.profileCareer.careerHistory)
+      careerHistory: Object.values(profileReducer.profileCareer)
     })
 
   export default connect(mapStateToProps)( Career);
