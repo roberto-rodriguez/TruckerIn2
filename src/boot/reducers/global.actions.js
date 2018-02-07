@@ -22,11 +22,14 @@ export function setup(callback){
     Storage.retrieveToken().then(data => {
 
       if(data && data.token && data.token !== '0'){
-        doLogin(data, callback)( dispatch, getState )
+        doLogin(data, (data) => {
+          callback(data)
+          setTimeout(() => Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) )), 2000 )
+        })( dispatch, getState )
       }else{
         callback(false)
+        Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) )) 
       }
-
      })
   }
 }
@@ -36,7 +39,7 @@ export function doLogin(obj, callback){
   return function( dispatch, getState ){
 
       Connector.doPOST('user/login', dispatch, getState, obj, (profileInfo) => {
- 
+
         var userId = profileInfo && profileInfo.id
 
         callback(userId)
@@ -75,8 +78,6 @@ export function setupLang(){
             I18n.locale = data.lang
             dispatch( setLangAction(data.lang) )
          }
-
-         Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) ))
      })
   }
 }

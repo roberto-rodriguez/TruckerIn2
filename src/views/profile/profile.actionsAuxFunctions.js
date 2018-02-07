@@ -8,34 +8,18 @@ export const saveProfileCareerAction = (profileCareer) => ({ type: 'SAVE_PROFILE
 export function completeLoadProfile(userId, roleId, dispatch, getState){
   debugger;
   if( roleId === roles.DRIVER){
-      Connector.doPOST('career/list', dispatch, getState, {limit: 3, params:{'usuario.id': userId}}, (careerHistory) => {
-        if(careerHistory){
-           careerHistory = careerHistory.reduce((acc, careerItem) => {
-                                     acc[careerItem.id] = careerItem;
-                                     return acc;
-                                   }, {});
-        }else{
-          careerHistory = {}
-        }
+    setTimeout(() => Connector.doPOST('career/list', dispatch, getState, {limit: 3, params:{'usuario.id': userId}}, (careerHistory) => {
+      if(careerHistory){
+         careerHistory = careerHistory.reduce((acc, careerItem) => {
+                                   acc[careerItem.id] = careerItem;
+                                   return acc;
+                                 }, {});
+      }else{
+        careerHistory = {}
+      }
 
-        dispatch( saveProfileCareerAction(careerHistory) )
-      })
-//     var profileCareer = apiGetCareer(userId)
-//
-//     if(profileCareer.careerHistory){
-//       profileCareer.careerHistory = profileCareer.careerHistory.reduce((acc, careerItem) => {
-//                                        acc[careerItem.id] = careerItem;
-//                                        return acc;
-//                                      }, {});
-//     }else{
-//       profileCareer.careerHistory = {}
-//     }
-//
-//     dispatch( saveProfileCareerAction(profileCareer) )
-//
-//
-//     loadProfileConnections(userId)(dispatch, getState)
-//
+      dispatch( saveProfileCareerAction(careerHistory) )
+    }), 1000) 
   }
 }
 

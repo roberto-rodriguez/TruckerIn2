@@ -66,7 +66,9 @@ const es = {
         recentLabExp: 'Reciente experiencia laboral'
     },
     connections:{
-        search: 'Buscar Conecciones'
+        search: 'Buscar Conecciones',
+        noConnections: 'Este usuario aun no tiene ninguna conección, podrias ser tu el primero en conectar con él.',
+        isMeNoConnections: ' amplía tu red conectando con otros usuarios.'
     },
     location: {
       title: 'Locación'

@@ -10,8 +10,9 @@ class CareerItem extends Component {
 
   constructor(props){
     super(props)
+    var data = props.careerItem || {...props}
 
-    this.state = { ...props.careerItem }
+    this.state = data
   }
 
   edit = () => {

@@ -13,7 +13,7 @@ export const saveProfileExperienceAction = (profileExperience) => ({ type: 'SAVE
 
 export const saveProfileCareerItemAction = (profileCareerItem) => ({ type: 'SAVE_PROFILE_CAREER_ITEM', profileCareerItem })
 export const deleteProfileCareerItemAction = (id) => ({ type: 'DELETE_PROFILE_CAREER_ITEM', id })
-export const saveProfileConnections = (list) => ({ type: 'SAVE_PROFILE_CONNECTIONS', list})
+// export const saveProfileConnections = (list) => ({ type: 'SAVE_PROFILE_CONNECTIONS', list})
 export const saveProfilePostedJobs = (list) => ({ type: 'SAVE_PROFILE_POSTED_JOBS', list})
 
 
@@ -86,7 +86,7 @@ export function loadProfileCareer(isMe, page = 0, callback ){
 
     var userId = isMe ? getState().globalReducer.profileInfo.id : getState().profileReducer.profileInfo.userId
 
-    Connector.doPOST('career/list', dispatch, getState, {page, limit: 10, params:{'usuario.id': userId}},  callback) 
+    Connector.doPOST('career/list', dispatch, getState, {page, limit: 10, params:{'usuario.id': userId}},  callback)
   }
 }
 
@@ -122,18 +122,10 @@ export function resetProfileInfo( ){
 
 
 
-export function loadProfileConnections(userId, page = 0, nameFilter, callback, reset){
+export function loadProfileConnections(params, callback, reset){
   return function( dispatch, getState ){
 
-    userId = userId || getState().profileReducer.profileInfo.userId
-
-    var connections = apiGetProfileConnections( userId, page, nameFilter)
-
-    if(callback){
-      callback(connections, reset)   //This is from the feed
-    }else{
-       dispatch( saveProfileConnections(connections))
-    }
+    Connector.doPOST('contact/list', dispatch, getState, params,  (connections) => callback(connections, reset))
 
   }
 }

@@ -35,7 +35,7 @@ const en = {
       lastName: 'Last Name',
       email: 'Email',
       phone: 'Phone',
-      location: 'Location', 
+      location: 'Location',
       showPersonalInfo: 'Show in my profile?',
       username: 'Username',
       password: 'Password',
@@ -66,7 +66,9 @@ const en = {
         recentLabExp: 'Recent laboral experience'
     },
     connections:{
-        search: 'Search Connections'
+        search: 'Search Connections',
+        noConnections: 'This user still doesnt have any connections, you can be the first in connectiong him.',
+        isMeNoConnections: ' expand your network by connecting with other users.'
     },
     location: {
       title: 'Location'

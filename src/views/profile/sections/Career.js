@@ -26,7 +26,7 @@ class Career extends Component {
        <BlockButton show={isMe} text={I18n.t('profile.career.addLab')}  onPress={() => nav(navigation, 'EditProfileAddExperience')}/>
 
        {( careerHistory && careerHistory.length > 0) ?
-           this.props.careerHistory.slice(0, 2).map((item, i) =>
+           this.props.careerHistory.reverse().slice(0, 2).map((item, i) =>
 
            <TouchableOpacity style={styles.item} onPress={() => this.edit(item)} key={i}>
              <View>

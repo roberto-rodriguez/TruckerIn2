@@ -30,7 +30,7 @@ const initialState = {
     jobStatus: ''
   },
   profileCareer:{},
-  connections:[],
+//  connections:[],
   postedJobs:[]
 };
 export default function(state: any = initialState, action: Function) {
@@ -48,8 +48,8 @@ export default function(state: any = initialState, action: Function) {
     case "SAVE_PROFILE_CAREER":
         return { ...state, profileCareer: action.profileCareer };
 
-    case "SAVE_PROFILE_CONNECTIONS":
-        return { ...state, connections: action.list};
+    // case "SAVE_PROFILE_CONNECTIONS":
+    //     return { ...state, connections: action.list};
 
     case "SAVE_PROFILE_CAREER_ITEM":
         return { ...state,
