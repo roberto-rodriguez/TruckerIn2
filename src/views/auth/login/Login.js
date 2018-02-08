@@ -25,6 +25,7 @@ class Login extends Component {
     };
   }
 
+
   componentWillReceiveProps(newProps){
     if(newProps.headerError){
       this.setState({loading: false})
@@ -72,7 +73,9 @@ class Login extends Component {
       <Container style={styles.backgroundContainer}>
         <StatusBar backgroundColor={ Platform.OS === "android" ? "#4E69A2" : "transparent" } barStyle="light-content" />
 
+
         <Content fullscreen>
+ 
         <View style={styles.logoContainerView}>
 
           <Image source={logo} style={styles.imageShadow} />
@@ -86,6 +89,7 @@ class Login extends Component {
         </View>
 
         <View style={styles.formContainerView}>
+
         <Video
           source={require("../../../../assets/video_login.mp4")}
            rate={1.0}

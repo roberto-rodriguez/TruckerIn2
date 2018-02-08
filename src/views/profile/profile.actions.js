@@ -7,10 +7,9 @@ import * as jobsActions from 'src/views/jobs/jobs.actions'
 import * as roles from 'src/components/c/Role'
 import * as auxFunctions from './profile.actionsAuxFunctions'
 
-export const resetProfileAction = (profileInfo) => ({ type: 'RESET_PROFILE' })
+
 export const saveProfileInfoAction = (profileInfo) => ({ type: 'SAVE_PROFILE_INFO', profileInfo })
 export const saveProfileExperienceAction = (profileExperience) => ({ type: 'SAVE_PROFILE_EXPERIENCE', profileExperience })
-
 export const saveProfileCareerItemAction = (profileCareerItem) => ({ type: 'SAVE_PROFILE_CAREER_ITEM', profileCareerItem })
 export const deleteProfileCareerItemAction = (id) => ({ type: 'DELETE_PROFILE_CAREER_ITEM', id })
 // export const saveProfileConnections = (list) => ({ type: 'SAVE_PROFILE_CONNECTIONS', list})
@@ -21,7 +20,7 @@ export const saveProfilePostedJobs = (list) => ({ type: 'SAVE_PROFILE_POSTED_JOB
 export function loadProfile(userId){
   return function( dispatch, getState ){
 
-    dispatch( resetProfileAction() )
+    dispatch( globalActions.resetProfileAction() )
 
     var myProfile = getState().globalReducer.profileInfo
 
@@ -100,7 +99,7 @@ export function loadProfileCareer(isMe, page = 0, callback ){
 
 export function resetProfileInfo( ){
   return function( dispatch, getState ){
-      dispatch( resetProfileAction() )
+      dispatch( globalActions.resetProfileAction() )
   }
 }
 

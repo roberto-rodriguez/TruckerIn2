@@ -2,7 +2,6 @@ import I18n from 'react-native-i18n'
 
 
 const initialState = {
-  isLoading: false,
   profileInfo:{
     id:0,
     userId:0,
@@ -47,15 +46,16 @@ const initialState = {
   // },
   view: {
     headerNotification: null,
-    headerError: null
+    headerError: null,
+    headerTimestamp: null
   }
 };
 
 export default function(state: any = initialState, action: Function) {
 
   switch (action.type) {
-    case "IS_LOADING":
-      return { ...state, isLoading: action.isLoading };
+    case "RESET_GLOBAL":
+        return {...initialState, config: state.config};
     case "LOAD_CONFIG":
       return { ...state, config: {...state.config, ...action.config} };
     case 'SET_GLOBAL_PROFILE_INFO':
@@ -65,7 +65,7 @@ export default function(state: any = initialState, action: Function) {
     case 'SHOW_HEADER_NOTIFICATION':
       return { ...state, view: {...state.view, headerNotification: action.headerNotification} };
     case 'SHOW_HEADER_ERROR':
-      return { ...state, view: {...state.view, headerError: action.headerError} };
+      return { ...state, view: {...state.view, headerError: action.headerError, headerTimestamp: (new Date()).getMilliseconds()} }; //headerTimestamp is to make hte page refresh even if is the same error
     case 'UPDATE_NOTIFICATIONS':
       return { ...state, notifications: {...state.notifications, [action.notification]: action.value}};
     case 'SET_LANG':

@@ -27,6 +27,11 @@ const en = {
     tabs:{
       jobs: 'Jobs',
       contacts: 'Contacts'
+    },
+    error:{ 
+      contactUs: 'Unexpected Error. Please Contact Us to help you fix the problem.',
+      timeout: 'Unable to connect to internet, please try again later.',
+      problem: 'Opss.. there was a problem'
     }
   },
   notifications:{

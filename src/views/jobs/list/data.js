@@ -25,9 +25,9 @@ const data = [
   },
   {
     id: 2,
-    userName: "Atul Ranjan",
-    userId: 3,
-    authorRole: 'Broker',
+    userName: "Pedro Rodriguez",
+    userId: 8,
+    authorRole: 'Driver',
     location:'Miami, FL',
     locationId: 2,
     createdAt: 1516228373464,

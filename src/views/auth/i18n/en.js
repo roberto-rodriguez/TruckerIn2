@@ -15,7 +15,7 @@ const en = {
     tos: 'Terms of Service',
     acceptAndFinish: 'Accept and Finish',
     next: 'Next',
-    sentCodeText: 'We just sent you an Access Code via SMS to the number ', 
+    sentCodeText: 'We just sent you an Access Code via SMS to the number ',
     titles:{
       welcome:'Welcome to TruckerIn',
       personal: 'Personal Information',
@@ -25,7 +25,7 @@ const en = {
       validatePhone: 'Validate Phone Number',
       tos: 'Terms of Service',
       aboutMe: 'About Me',
-      aboutUs: 'About Us',
+      aboutUs: 'About the Company',
       loading: 'You are all set !'
     },
     subTitles:{

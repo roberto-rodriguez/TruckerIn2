@@ -5,8 +5,10 @@ import {Spinner} from 'src/components/'
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import I18n from 'react-native-i18n'
 var debbugFeed = false;
+import { connect } from "react-redux";
 
-export default class Feed extends Component {
+
+ class Feed extends Component {
 
   constructor(props){
     super(props)
@@ -20,6 +22,12 @@ export default class Feed extends Component {
       showLoadIndicator: true
     }
 
+  }
+
+  componentWillReceiveProps(newProps){
+    if(newProps.headerError){
+      this.setState({starting: false, loading: false, showLoadIndicator: false})
+    }
   }
 
 
@@ -119,3 +127,8 @@ handleSize = (width, height) => {
 
   }
 }
+
+
+const mapStateToProps = ({ globalReducer}) => ({headerError: globalReducer.view.headerError})
+
+  export default connect(mapStateToProps)(Feed);

@@ -11,26 +11,30 @@ class ProfileConnectionList extends Component {
   constructor(props) {
       super(props);
       this.state = {
+        request: {},
         nameFilter:'',
-        reset:false
+        reset: false
         }
       }
 
       componentDidMount(){
-        var nameFilter = this.props.navigation.state.params.nameFilter
+        var params = this.props.navigation.state.params
+
+        var request =  {
+          limit: 20,
+          params
+        }
 
         this.setState((prevState) => ({
-          reset: true,
-          nameFilter
+          // reset: true,
+          request
         }))
       }
 
-    onSearchChangeText = (text) => {
-      this.setState((prevState) => ({
-        ...prevState,
-        nameFilter: text
-      }))
-    }
+      onSearchChangeText = (text) => this.setState(prevState => {
+         prevState.request.params['receiver.firstName@or@receiver.lastName'] = text
+         return prevState
+      })
 
      searchHandler = () => {
        this.setState((prevState) => ({
@@ -40,14 +44,14 @@ class ProfileConnectionList extends Component {
      }
 
     loadItems = (page, callback) => {
-      var {reset, nameFilter} = this.state
-      this.props.loadProfileConnections(null, page, nameFilter, callback, reset)
+      var {reset, request} = this.state
+
+      request.page = page
+
+      this.props.loadProfileConnections(request, callback, reset)
 
       if(reset){
-        this.setState((prevState) => ({
-          ...prevState,
-          reset: false
-        }))
+        this.setState({reset: false})
       }
     }
 
@@ -59,7 +63,7 @@ class ProfileConnectionList extends Component {
                   />)
 
   render() {
-    var {isMe, navigation} = this.props
+    var { navigation} = this.props
 
     return (
       <Container white>
@@ -71,8 +75,8 @@ class ProfileConnectionList extends Component {
            onSearchChangeText={this.onSearchChangeText}
            searchDefaultValue={this.state.nameFilter}
          />
-          <Feed reset={this.state.reset} feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}>
-          </Feed>
+          <Feed reset={this.state.reset} feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
+
         </View>
       </Container>
 
@@ -80,5 +84,6 @@ class ProfileConnectionList extends Component {
     );
   }
 }
+
 
   export default connect(null, profileActions)(ProfileConnectionList);

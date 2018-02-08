@@ -4,8 +4,11 @@ import I18n from 'react-native-i18n'
 import * as Connector from './connector'
 import * as Storage from './storage.actions'
 import { NavigationActions } from "react-navigation";
+import { Toast } from 'native-base';
 
-export const setLoadingAction = (isLoading) => ({ type: 'IS_LOADING', isLoading })
+export const resetGlobalAction = () => ({ type: 'RESET_GLOBAL' })
+export const resetProfileAction = () => ({ type: 'RESET_PROFILE' })
+
 export const loadConfigAction = (config) => ({ type: 'LOAD_CONFIG', config })
 export const setGlobalProfileInfoAction = (profileInfo) => ({ type: 'SET_GLOBAL_PROFILE_INFO', profileInfo })
 export const setGlobalProfileExperienceAction = (profileExperience) => ({ type: 'SET_GLOBAL_PROFILE_EXPERIENCE', profileExperience })
@@ -28,7 +31,7 @@ export function setup(callback){
         })( dispatch, getState )
       }else{
         callback(false)
-        Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) )) 
+        Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) ))
       }
      })
   }
@@ -39,7 +42,7 @@ export function doLogin(obj, callback){
   return function( dispatch, getState ){
 
       Connector.doPOST('user/login', dispatch, getState, obj, (profileInfo) => {
-
+debugger;
         var userId = profileInfo && profileInfo.id
 
         callback(userId)
@@ -66,6 +69,8 @@ export function doLogin(obj, callback){
 export function logOut(){
   return function( dispatch, getState ){
      Storage.storeToken( '0' )
+     dispatch( resetGlobalAction() )
+     dispatch( resetProfileAction() )
   }
 }
 
@@ -92,11 +97,6 @@ export function setLang(lang){
   }
 }
 
-export function setLoading(isLoading){
-  return function( dispatch, getState ){
-          dispatch( setLoadingAction(isLoading) )
-  }
-}
 
 // export function loadConfig(dispatch){
 // //  var config = apiLoadConfig()
@@ -107,12 +107,14 @@ export function setLoading(isLoading){
 
 
 
-export function showHeaderNotification(msg, startDelay){
+export function showHeaderNotification(text, startDelay){
   return function( dispatch, getState ){
-      setTimeout( () => {
-        dispatch( showHeaderNotificationAction(msg) )
-        setTimeout( () => dispatch( showHeaderNotificationAction(null) ), 3000)
-      }, startDelay || 1)
+    setTimeout( () => Toast.show({ text, position: 'top', duration: 4000, type: 'success' }) , startDelay || 1)
+
+      // setTimeout( () => {
+      //   dispatch( showHeaderNotificationAction(msg) )
+      //   setTimeout( () => dispatch( showHeaderNotificationAction(null) ), 3000)
+      // }, startDelay || 1)
   }
 }
 

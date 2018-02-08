@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-fa-icons';
 import TabNavigator from 'react-native-tab-navigator';
 import Contacts from 'src/views/contacts/Contacts'
@@ -13,41 +13,41 @@ import Jobs from "src/views/jobs/Jobs";
 import theme from "src/theme/variables/platform";
 import I18n from 'react-native-i18n'
 
+
+
 export default class MainTabNavigation extends Component {
   state= {
     selectedTab: 'jobs'
   };
 
 
+
   render() {
     var navigation = this.props.navigation;
 
     return (
-      <TabNavigator style={styles.container} tabBarStyle={{backgroundColor:theme.toolbarBottomBg, height: 45}}>
-      <TabNavigator.Item
-          selected={this.state.selectedTab === 'jobs'}
-          title={I18n.t('general.tabs.jobs')}
-          titleStyle={{color:'white'}}
-          selectedTitleStyle={styles.selectedText}
-          renderIcon={() => <Icon name={"truck"}  style={styles.icon}/>}
-          renderSelectedIcon={() => <Icon name={"truck"}  style={styles.icon}/>}
-          onPress={() => this.setState({selectedTab: 'jobs'})}>
-          <Jobs  navigation={navigation}/>
-      </TabNavigator.Item>
-      <TabNavigator.Item
-        selected={this.state.selectedTab === 'contacts'}
-        title={I18n.t('general.tabs.contacts')}
-        titleStyle={{color:'white'}}
-        selectedTitleStyle={styles.selectedText}
-        renderIcon={() => <Icon name={"handshake-o"}  style={styles.icon}/>}
-        renderSelectedIcon={() => <Icon name={"handshake-o"}  style={styles.icon}/>}
-        onPress={() => this.setState({selectedTab: 'contacts'})}>
-        <Contacts navigation={navigation}/>
-      </TabNavigator.Item>
-
-
-
-      </TabNavigator>
+        <TabNavigator style={styles.container} tabBarStyle={{backgroundColor:theme.toolbarBottomBg, height: 45}}>
+          <TabNavigator.Item
+              selected={this.state.selectedTab === 'jobs'}
+              title={I18n.t('general.tabs.jobs')}
+              titleStyle={{color:'white'}}
+              selectedTitleStyle={styles.selectedText}
+              renderIcon={() => <Icon name={"truck"}  style={styles.icon}/>}
+              renderSelectedIcon={() => <Icon name={"truck"}  style={styles.icon}/>}
+              onPress={() => this.setState({selectedTab: 'jobs'})}>
+              <Jobs  navigation={navigation}/>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'contacts'}
+            title={I18n.t('general.tabs.contacts')}
+            titleStyle={{color:'white'}}
+            selectedTitleStyle={styles.selectedText}
+            renderIcon={() => <Icon name={"handshake-o"}  style={styles.icon}/>}
+            renderSelectedIcon={() => <Icon name={"handshake-o"}  style={styles.icon}/>}
+            onPress={() => this.setState({selectedTab: 'contacts'})}>
+            <Contacts navigation={navigation}/>
+          </TabNavigator.Item>
+        </TabNavigator>
     );
   }
 }

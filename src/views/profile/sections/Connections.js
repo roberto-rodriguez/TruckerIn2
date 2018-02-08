@@ -35,6 +35,12 @@ class Connections extends Component {
      })
    }
 
+ componentWillReceiveProps(newProps){
+   if(newProps.headerError){
+     this.setState({loading: false})
+   }
+ }
+
  onSearchChangeText = (text) => this.setState(prevState => {
     prevState.request.params['receiver.firstName@or@receiver.lastName'] = text
     return prevState
@@ -89,7 +95,7 @@ class Connections extends Component {
 
          {
            (list && list.length > 5) && (
-             <Button full transparent onPress={() => nav(navigation, 'ProfileConnectionList', this.state)}>
+             <Button full transparent onPress={() => nav(navigation, 'ProfileConnectionList', this.state.request.params)}>
                <Text style={{ color: theme.secondaryColor }}>
                  {I18n.t('profile.seeMore')}
                </Text>
@@ -116,7 +122,8 @@ const mapStateToProps = ({ globalReducer, profileReducer}, ownProps) => {
 
   return {
     userId: profileInfo.id,
-    name: profileInfo.firstName
+    name: profileInfo.firstName,
+    headerError: globalReducer.view.headerError
   }
 }
 

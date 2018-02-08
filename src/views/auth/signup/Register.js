@@ -9,6 +9,8 @@ import { connect } from "react-redux";
 import * as authActions from "src/views/auth/auth.actions";
 import * as validator from './validator'
 import * as roles from 'src/components/c/Role'
+
+
 import Information from 'src/views/auth/signup/sections/Information'
 import Contact from 'src/views/auth/signup/sections/Contact'
 import Experience from 'src/views/auth/signup/sections/Experience'
@@ -78,6 +80,17 @@ class Register extends Component {
     };
   }
 
+  componentWillReceiveProps(newProps){
+    if(newProps.headerError){
+      this.setState(prevState => {
+        prevState.view.loading= false
+        return prevState
+      })
+    }
+  }
+
+
+
   setVal = (prop, val, valId) => this.setState((prevState) => {
          prevState.data[prop] = val
          if(valId){ prevState.data[prop + 'Id'] = valId }
@@ -104,6 +117,7 @@ class Register extends Component {
 
         <Content fullscreen>
           <View style={styles.logoContainerView}>
+
             <SimpleButton onPress={() => this.nextBack(false)} style={styles.backArrow}><View>
               <Icon name={'long-arrow-left'} style={styles.arrowLeft}/>
             </View></SimpleButton>
@@ -114,6 +128,7 @@ class Register extends Component {
               :
               <T14 red>{errorMsg}</T14>
             }
+
           </View>
 
           <View style={styles.subHeader}>
@@ -330,7 +345,9 @@ selectRole = ( role, roleKey ) => {
 
 function mapStateToProps({globalReducer}) {
 	return {
-    lang: globalReducer.config.lang
+    lang: globalReducer.config.lang, 
+    headerError: globalReducer.view.headerError,
+    headerTimestamp: globalReducer.view.headerTimestamp
   }
 }
 

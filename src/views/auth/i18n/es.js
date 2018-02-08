@@ -25,7 +25,7 @@ const es = {
       validatePhone: 'Validar Número de Teléfono',
       tos: 'Términos de Servicios',
       aboutMe: 'Sobre Mi',
-      aboutUs: 'Sobre Nosotros',
+      aboutUs: 'Sobre la Compañia',
       loading: 'Todo Listo !'
     },
     subTitles:{

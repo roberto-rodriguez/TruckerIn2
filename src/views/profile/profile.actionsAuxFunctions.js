@@ -6,7 +6,7 @@ import * as roles from 'src/components/c/Role'
 export const saveProfileCareerAction = (profileCareer) => ({ type: 'SAVE_PROFILE_CAREER', profileCareer })
 
 export function completeLoadProfile(userId, roleId, dispatch, getState){
-  debugger;
+ 
   if( roleId === roles.DRIVER){
     setTimeout(() => Connector.doPOST('career/list', dispatch, getState, {limit: 3, params:{'usuario.id': userId}}, (careerHistory) => {
       if(careerHistory){
@@ -19,7 +19,7 @@ export function completeLoadProfile(userId, roleId, dispatch, getState){
       }
 
       dispatch( saveProfileCareerAction(careerHistory) )
-    }), 1000) 
+    }), 1000)
   }
 }
 
@@ -40,7 +40,7 @@ export function completeProfileExperience(roleId, profileExperience, getState) {
     var config = getState().globalReducer.config[prop + 'Options']
 
     if(roleId != 1){
-      config = getState().globalReducer.configs['hiringStatusOptions']
+      config = getState().globalReducer.config['hiringStatusOptions']
     }
 
     if(config){

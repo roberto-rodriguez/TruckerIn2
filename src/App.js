@@ -1,3 +1,5 @@
+
+
 import React, { Component } from "react";
 import {View, Image, ActivityIndicator} from 'react-native'
 
@@ -59,42 +61,45 @@ class RootApp extends Component {
         super(props)
         this.state = {
           checkedLogin: false,
-          isAlreadyLoggedIn: null
+          isAlreadyLoggedIn: null,
+          isAlreadySetup: false
         }
    }
 
  componentDidMount() {
      this.props.setupLang()
-     this.props.setup( (isAlreadyLoggedIn) => this.setState({checkedLogin: true, isAlreadyLoggedIn}))
+     this.props.setup( (isAlreadyLoggedIn) => this.setState({checkedLogin: true, isAlreadyLoggedIn, isAlreadySetup: true}))
   }
+
+  componentWillReceiveProps(newProps){
+    if(!this.state.isAlreadySetup && newProps.headerError){
+      this.setState({checkedLogin: true, isAlreadyLoggedIn: false, isAlreadySetup: true})
+    }
+  } 
 
  render(){
    var {checkedLogin, isAlreadyLoggedIn} = this.state
 
-   if(!this.state.checkedLogin){
-     return (
-       <Container white>
-         <View style={styles.logoContainerView}>
-           <Image source={logo} style={styles.imageShadow} />
-       </View>
-       <ActivityIndicator size="large" color={"#EA0000"}/>
-      </Container>
-     )
-
-   }
-
-   // <AgentMsg error h={70}>
-   //   <T16 >{'Oops! Something went wrong!'}</T16>
-   //   <T14 >{'Click here to report the problem'}</T14>
-   // </AgentMsg>
 
    return (
     <Root>
-      {isAlreadyLoggedIn ? <AppAlreadyLogged /> : <App/>}
+      {!this.state.checkedLogin ? (
+        <Container white>
+          <View style={styles.logoContainerView}>
+            <Image source={logo} style={styles.imageShadow} />
+        </View>
+        <ActivityIndicator size="large" color={"#EA0000"}/>
+       </Container>
+      )
+      :
+      ( isAlreadyLoggedIn ? <AppAlreadyLogged /> : <App/> )
+     }
     </Root>
  )
  }
 }
 
+const mapStateToProps = ({globalReducer}, ownProps, ownState) => ({ headerError: globalReducer.view.headerError })
 
-  export default connect(null, globalActions)(RootApp);
+
+export default connect(mapStateToProps, globalActions)(RootApp);

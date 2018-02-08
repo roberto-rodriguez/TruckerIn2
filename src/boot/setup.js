@@ -12,14 +12,12 @@ import CustomI18N from './i18n/'
 export default class Setup extends Component {
   state: {
     store: Object,
-    isLoading: boolean,
-    isReady: boolean
+    //isReady: boolean
   };
   constructor() {
     super();
-    this.state = {
-      isLoading: false,
-      store: configureStore(() => this.setState({ isLoading: false }))
+    this.state = { 
+      store: configureStore(() => {})
     };
   }
 
@@ -34,7 +32,7 @@ export default class Setup extends Component {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Provider store={this.state.store}>
-          <App /> 
+          <App />
         </Provider>
       </StyleProvider>
     );

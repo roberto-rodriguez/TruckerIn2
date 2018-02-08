@@ -6,8 +6,6 @@ import * as globalActions from 'src/boot/reducers/global.actions'
 import * as Connector from 'src/boot/reducers/connector'
 import * as Storage from 'src/boot/reducers/storage.actions'
 
-export const resetProfileAction = (profileInfo) => ({ type: 'RESET_PROFILE' })
-
 export function login( email, password, callback ){
   return function( dispatch, getState ){
     //if(username && password){
@@ -35,7 +33,11 @@ export function register(data, callback){
 
     if(userId){
       data.id = userId
-    } 
+    }
+
+    if(!data.lastName){
+      data.lastName = ''
+    }
 
    Connector.doPOST('/user/save', dispatch, getState, data, function( response ){
      if(response){

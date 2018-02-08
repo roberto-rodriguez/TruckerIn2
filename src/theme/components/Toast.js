@@ -11,24 +11,30 @@ export default (variables = variable) => {
       backgroundColor: variables.brandWarning
     },
     ".success": {
-      backgroundColor: variables.brandSuccess
+      backgroundColor: '#e6ffe6',
+      borderColor: platform.primaryColor,
+      borderWidth: 0.3,
+      "NativeBase.Text": {
+        color: '#0B3A42',
+        flex: 1
+      },
     },
-    backgroundColor: "rgba(255,255,255,0.2)",
+  //  backgroundColor: "black",
     borderRadius: 0,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 5,
-    paddingTop: 0,
-    marginTop: -5,
+    padding: 10,
+    //marginTop: -5,
     minHeight: 30,
     "NativeBase.Text": {
-      color: "#c30000",
+      color: "white",
       flex: 1
     },
     "NativeBase.Button": {
-      backgroundColor: "transparent",
-      height: 30,
+    //  backgroundColor: "transparent",
+      height: 0,
+      width:0,
       elevation: 0,
       "NativeBase.Text": {
         fontSize: 14

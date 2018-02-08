@@ -130,7 +130,7 @@ componentDidMount(){
             </Column>
             <Column h={60} columns={5} colspan={3}>
               <T13 light>{role}</T13>
-              <Text style={styles.pendingPostText}>{location}</Text> 
+              <Text style={styles.pendingPostText}>{location}</Text>
             </Column>
             <Column h={40} columns={5} style={{marginTop:15}}>
               {!isMe && <ConnectButton status={''} name={name} contactId={id}/>}
@@ -192,7 +192,7 @@ componentDidMount(){
     var session = globalReducer.profileInfo
     var userInfo = ownProps.navigation.state.params && ownProps.navigation.state.params.userInfo || session
 
-    var isMe = userInfo.id === session.id;
+    var isMe = (userInfo.userId || userInfo.id) === session.id;
     var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
 
     return {

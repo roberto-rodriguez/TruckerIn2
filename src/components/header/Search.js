@@ -26,7 +26,7 @@ export default class Search extends Component {
         placeholder={title}
         onChangeText={(text) => onChangeText(text)}
         style={styles.input}
-        value={searchDefaultValue}
+        defaultValue={searchDefaultValue}
       />
     </Item>)
   }
