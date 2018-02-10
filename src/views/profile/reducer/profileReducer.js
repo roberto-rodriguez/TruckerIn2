@@ -12,15 +12,15 @@ export default function(state: any = initialState, action: Function) {
     case "SAVE_PROFILE_INFO":
         var newProfileInfo = {...(user.profileInfo || {}), ...action.profileInfo}
 
-        return { ...state, [userId]: {...user, profileInfo: newProfileInfo } };
+        return { ...state, [userId]: {...user, profileInfo: newProfileInfo } }
 
     case "SAVE_PROFILE_EXPERIENCE":
         var newExperience= {...(user.profileExperience || {}), ...action.profileExperience}
 
-       return { ...state, [userId]: {...user, profileExperience: newExperience } };
+       return { ...state, [userId]: {...user, profileExperience: newExperience } }
 
     case "SAVE_PROFILE_CAREER":
-        return { ...state, [userId]: {...user, profileCareer: action.profileCareer } };
+        return { ...state, [userId]: {...user, profileCareer: action.profileCareer } }
 
     case "SAVE_PROFILE_CAREER_ITEM":
 
@@ -33,7 +33,7 @@ export default function(state: any = initialState, action: Function) {
       var profileCareer = user.profileCareer || {}
       delete profileCareer[action.id]
 
-      return { ...state, [userId]: {...user, profileCareer: { ...profileCareer }  } };
+      return { ...state, [userId]: {...user, profileCareer: { ...profileCareer }  } } 
 
 
     // case "SAVE_PROFILE_POSTED_JOBS":

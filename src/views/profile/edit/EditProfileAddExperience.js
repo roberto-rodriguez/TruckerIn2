@@ -67,7 +67,7 @@ class EditProfileAddExperience extends Component {
   onDelete = () => {
     if(this.state.data.id){
       var userId = this.props.navigation.state.params && this.props.navigation.state.params.userId
-      this.props.deleteProfileCareerItem( userId,  this.state.id )
+      this.props.deleteProfileCareerItem( userId, this.state.data.id)
       this.props.navigation.goBack();
     }
   }

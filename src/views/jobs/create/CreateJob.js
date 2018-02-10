@@ -26,6 +26,7 @@ class CreateJob extends Component {
       super(props)
 
       this.state = {
+        loading: false,
         action:'create',
         title:'',
         data:{
@@ -85,6 +86,13 @@ class CreateJob extends Component {
   }
  }
 
+ componentWillReceiveProps(newProps){
+   if(newProps.headerError){
+     this.setState({ loading: false })
+   }
+ }
+
+
 
 showSelect(prop) {
   this[prop + 'Select'].show();
@@ -105,11 +113,16 @@ setVal = (prop, val, valId) => {
   })
 }
 
-onAccept = () => this.props.createJob(this.state.data, this.onAcceptCallback, this.state.action)
+onAccept = () => {
+  this.setState({loading: true})
+
+   this.props.createJob(this.state.data, this.onAcceptCallback, this.state.action)
+}
 
 
 onAcceptCallback = (jobId) => {
-  debugger;
+this.setState({loading: false})
+
   var navigation = this.props.navigation
   var callback = (navigation.state && navigation.state.params && navigation.state.params.callback)
 
@@ -147,7 +160,7 @@ onAcceptCallback = (jobId) => {
                   label={I18n.t(['jobs','post', title])}
                   value={ state[prop]}
                   params={!isSelect && {
-                    title: I18n.t(['jobs', 'applied', title]),
+                    title: I18n.t(['jobs', 'post', title]),
                     text: state[prop],
                     callback: (text)=> _this.setVal(prop, text)
                   }}
@@ -156,7 +169,7 @@ onAcceptCallback = (jobId) => {
             }
          </View>
 
-         <BlockButton onPress={() => this.onAccept()}/>
+         <BlockButton loading={this.state.loading} onPress={() => this.onAccept()}/>
             <Select
               ref={o => this.equipmentSelect = o}
               options={equipmentOptions}
@@ -179,6 +192,8 @@ const styles = StyleSheet.create({
     })
 
     const mapStateToProps = ({globalReducer}) => ({
+      headerError: globalReducer.view.headerError,
+      headerTimestamp: globalReducer.view.headerTimestamp,
       equipmentOptions: [{id:0, name: I18n.t('general.any')}, ...globalReducer.config.equipmentOptions] ,
       experienceOptions:[{id:0, name: I18n.t('general.any')}, ...globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('general.moreThan')  + exp.name})) ]
     });

@@ -3,12 +3,18 @@
 import * as Connector from 'src/boot/reducers/connector'
 import * as roles from 'src/components/c/Role'
 
-export const saveProfileCareerAction = (profileCareer) => ({ type: 'SAVE_PROFILE_CAREER', profileCareer })
+export const saveProfileCareerAction = (userId,profileCareer) => ({ type: 'SAVE_PROFILE_CAREER', userId, profileCareer })
 
 export function completeLoadProfile(userId, roleId, dispatch, getState){
 
   if( roleId === roles.DRIVER){
-    setTimeout(() => Connector.doPOST('career/list', dispatch, getState, {limit: 3, params:{'usuario.id': userId}}, (careerHistory) => {
+
+    if( getState().profileReducer[roleId] && getState().profileReducer[roleId].profileCareer){
+      //If is already loaded, dont need to get it from server
+      return;
+    }
+
+    setTimeout(() => Connector.doPOST('career/list', dispatch, getState, {limit: 4, params:{'usuario.id': userId}}, (careerHistory) => {
       if(careerHistory){
          careerHistory = careerHistory.reduce((acc, careerItem) => {
                                    acc[careerItem.id] = careerItem;

@@ -12,7 +12,7 @@ const agentImg = require("../../../assets/contacts/agent.jpg");
 
 export default class AgentImg  extends Component {
   render() {
-    var {text, red, size} = this.props
+    var {text, red, size, text2} = this.props
 
       var w = 120, h = 120, borderRadius=60
       if(size){
@@ -25,6 +25,7 @@ export default class AgentImg  extends Component {
           <View style={styles.container}>
             <Thumbnail source={agentImg} style={styles.thumbnail} width={w} height={h} borderRadius={borderRadius}/>
             {text && <T15 green red={red} style={styles.text}>{text}</T15>}
+            {text2 && <T15 green red={red} style={styles.text}>{text2}</T15>}
           </View>
       );
   }
@@ -34,12 +35,12 @@ const styles = StyleSheet.create({
     container:{
       alignItems: "center",
       justifyContent: "center",
-      paddingHorizontal:30
+      paddingHorizontal:30,
+      marginBottom:10
     },
     thumbnail: {
       borderWidth:0.2,
       borderColor:theme.secondaryColor,
       margin: 20
-    },
-    text: {marginBottom:10}
+    }
     })

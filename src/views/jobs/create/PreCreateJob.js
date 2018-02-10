@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { StyleSheet,Image,View , Text } from 'react-native';
 import { Container, Content, Button,Thumbnail} from "native-base";
 import Icon from 'react-native-fa-icons';
-import {Row, Header, T18, CustomButton, T13, T14, T16, T15,ListItem, AgentImg } from 'src/components/'
+import {Row, Header, T18, CustomButton, T13, T14, T15, T16,ListItem, AgentImg, RowColumn } from 'src/components/'
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
 import * as globalActions from "src/boot/reducers/global.actions";
@@ -35,7 +35,7 @@ onCreate = (jobId) => {
       <Container>
         <Header navigation={navigation} back title={I18n.t('jobs.create')}/>
 
-        {this.state.created ? this.postCreate(navigation) : this.preCreate(navigation)}
+       {this.state.created ? this.postCreate(navigation) : this.preCreate(navigation)}
 
       </Container>
     );
@@ -72,7 +72,7 @@ onCreate = (jobId) => {
 
 postCreate = (navigation) => (
   <Content fullscreen contentContainerStyle={styles.container}>
-    <AgentImg text={I18n.t('jobs.pre.success')}/>
+    <AgentImg text={I18n.t('jobs.pre.jobCreated')} text2={I18n.t('jobs.pre.success')}/>
 
     <T14 green  style={{margin:10}}>{I18n.t('jobs.pre.followUpDesc')}</T14>
 

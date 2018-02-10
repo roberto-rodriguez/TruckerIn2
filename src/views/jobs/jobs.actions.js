@@ -72,16 +72,24 @@ export function loadJobDetails(jobId, callback){
 export function createJob(job, callback, action){
   return function( dispatch, getState ){
 
-    //TODO save Job
-    var jobId = 1;
-    callback && callback( jobId )
+    var userId = getState().globalReducer.profileInfo.id
 
-    if(action != 'create'){
-      var label = action === 'edit' ? 'edited' : 'created'
+    job.authorId = userId;
 
-      globalActions.showHeaderNotification(I18n.t('jobs.actions.jobHas') + label + I18n.t('jobs.actions.successfuly'), 500)( dispatch, getState )
-    }
-  }
+    Connector.doPOST('/job/save', dispatch, getState, job, function( jobId ){
+      if(jobId){
+        job.id = jobId
+
+        if(action != 'create'){
+          var label = action === 'edit' ? 'edited' : 'created'
+
+          globalActions.showHeaderNotification(I18n.t('jobs.actions.jobHas') + label + I18n.t('jobs.actions.successfuly'), 500)( dispatch, getState )
+         }
+
+        callback( job )
+      }
+    })
+}
 }
 
 

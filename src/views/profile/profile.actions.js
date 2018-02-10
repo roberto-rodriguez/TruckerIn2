@@ -20,8 +20,6 @@ export const deleteProfileCareerItemAction = (userId, id) => ({ type: 'DELETE_PR
 export function loadProfile(userId){
   return function( dispatch, getState ){
 
-  //  dispatch( globalActions.resetProfileAction() )
-
     var myProfile = getState().globalReducer.profileInfo
 
     if(userId != myProfile.id){
