@@ -9,7 +9,7 @@ import I18n from 'react-native-i18n'
 
 class PostedJobsList extends Component {
 
-  loadItems = (page, callback) => this.props.loadJobs(page,  {userId: this.props.id, posted: true}, callback)
+  loadItems = (page, callback) => this.props.listJobs(page,  {userId: this.props.id, posted: true}, callback)
 
   itemBuilder = (data, navigation, i, shouldUpdate) => ( <PostedJobPost navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate}/>)
 

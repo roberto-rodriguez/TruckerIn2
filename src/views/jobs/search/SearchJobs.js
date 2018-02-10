@@ -12,12 +12,11 @@ const items = [
 ]
 
 const initialState = {
-  locationId:null,
   location: null,
   equipmentId:null,
-  equipment: I18n.t('general.any'),
+  equipment: null,
   experienceId: null,
-  experience: I18n.t('general.any'),
+  experience: null,
   author: ''
 }
 

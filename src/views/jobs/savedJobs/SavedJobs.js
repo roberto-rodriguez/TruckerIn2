@@ -11,7 +11,7 @@ class SavedJobs extends Component {
 
   itemBuilder = (data, navigation, i , shouldUpdate) => (<SavedJobPost navigation={navigation}  key={i} data={data}/> )
 
-  loadItems = (page, callback) =>   this.props.loadJobs(page, {saved: true}, callback)
+  loadItems = (page, callback) =>   this.props.listJobs(page, {saved: true}, callback)
 
 
   render() {

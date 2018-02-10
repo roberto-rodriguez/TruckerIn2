@@ -33,9 +33,10 @@ import I18n from 'react-native-i18n'
             </View>
             </SimpleButton>
             <View note style={{ flexDirection: "column", marginLeft: 10}}>
-              <T14 strong shortLine style={{color:'black'}}> {data.userName} </T14>
-              <T12 light shortLine>{data.location} </T12>
+              <T14 strong shortLine style={{color:'black', width: '85%'}}> {data.userName} </T14>
               <T12 light shortLine>{data.authorRole}</T12>
+              <T12 light shortLine>{data.locationName} </T12>
+
             </View>
         </View>
 
@@ -55,7 +56,7 @@ import I18n from 'react-native-i18n'
       <Text><Text strong>{I18n.t('jobs.post.compensation')}</Text>{data.compensation}</Text>
 
 
-      <Content text={data.desc} style={{marginTop: 10}}/>
+      <Content text={data.description} style={{marginTop: 10}}/>
       {
         applyBar && (
           <Row h={30} style={{marginTop: 10}}>

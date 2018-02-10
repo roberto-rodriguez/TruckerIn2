@@ -16,7 +16,7 @@ class PostedJobs extends Component {
     <PostedJobPost navigation={navigation}  key={i} data={data}/>
   )
 
-  loadItems = (page, callback) => this.props.loadJobs(page, {posted: true}, callback)
+  loadItems = (page, callback) => this.props.listJobs(page, {posted: true}, callback)
 
 
   render() {

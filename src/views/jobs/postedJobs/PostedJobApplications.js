@@ -19,7 +19,7 @@ class PostedJobApplications extends Component {
 
   loadItems = (page, callback) => {
 
-    this.props.loadJobs(page, {posted: true}, callback)
+    this.props.listJobs(page, {posted: true}, callback)
   }
 
 

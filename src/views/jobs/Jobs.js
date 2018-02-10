@@ -20,24 +20,24 @@ import I18n from 'react-native-i18n'
        super(props)
 
        this.state = {
-         searchParams:{},
+         params:null,
          reset:false
        }
   }
 
-  onSearch = (searchParams) => {
-    debugger;
+  onSearch = (params) => {
     this.setState((prevState) => ({
       ...prevState,
-      searchParams,
+      params,
       reset:true
     }))
   }
 
 
 loadItems = (page, callback) => {
-  var reset = this.state.reset;
-  this.props.loadJobs(page, this.state.searchParams, callback, reset)
+  var {reset, params} = this.state
+
+  this.props.listJobs(page, params, callback, reset)
 
   if(reset){
     this.setState( {reset: false })
@@ -52,7 +52,7 @@ loadItems = (page, callback) => {
         <MainHeader navigation={navigation}
           title={I18n.t('jobs.title')}
           right={<HeaderBtn icon='search'
-                  handler={() => nav(navigation, 'SearchJobs', {searchParams: this.state.searchParams, callback: this.onSearch})}
+                  handler={() => nav(navigation, 'SearchJobs', {searchParams: this.state.params, callback: this.onSearch})}
                   style={{padding:10}}/>}
          />
 
@@ -60,10 +60,10 @@ loadItems = (page, callback) => {
            reset={this.state.reset}
            feedLoader={this.loadItems}
            feedBuilder={(data, navigation, i, shouldUpdate) => (<JobPost applyBar navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate} />)}
-           emptyElement={(<AgentImg text={I18n.t('jobs.headers.emptyText')}/>)}
+           emptyElement={(<AgentImg text={I18n.t('jobs.headers.emptyText')} style={{marginTop: 40}}/>)}
            navigation={navigation}>
 
-           <JobListHeader navigation={navigation}/>
+           {!this.state.params && (<JobListHeader navigation={navigation}/>)}
          </Feed >
 
          {

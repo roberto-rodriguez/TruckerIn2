@@ -5,6 +5,46 @@ import data from './list/data'
 import * as Connector from 'src/boot/reducers/connector'
 import * as globalActions from 'src/boot/reducers/global.actions'
 
+
+export function listJobs(page = 0, requestParams, callback, reset){
+  return function( dispatch, getState ){
+
+    var params = {}
+
+    if(requestParams){
+      if(requestParams.equipmentId){
+        params.equipmentId = requestParams.equipmentId
+      }
+
+      if(requestParams.experienceId){
+         params.experienceId = requestParams.experienceId
+      }
+
+      if(requestParams.author){
+        params['author.firstName@or@author.lastName'] = requestParams.author
+      }
+
+      if(requestParams.location){
+        if(requestParams.location.stateId && requestParams.location.stateId !== 'US'){
+          params.stateId = requestParams.location.stateId
+
+          if( requestParams.location.cityId){
+            params.cityId = requestParams.location.cityId
+          }
+        }
+
+      }
+    }
+
+   var request = {
+     limit: 10,
+     params,
+     page
+   }
+   Connector.doPOST('job/list', dispatch, getState, request,  (jobs) => callback(jobs, reset))
+  }
+}
+
 export function jobApply(jobId, availability, callback){
   return function( dispatch, getState ){
     var userId =  getState().globalReducer.profileInfo.id
@@ -18,15 +58,6 @@ export function jobApply(jobId, availability, callback){
   }
 }
 
-export function loadJobs(page = 0, searchParams, callback, reset){
-  return function( dispatch, getState ){
-    var userId = searchParams.userId ||  getState().globalReducer.profileInfo.id
-
-    var jobs =  apiLoadJobs(userId, page, searchParams)
-
-    callback && callback(jobs, reset)
-  }
-}
 
 export function answerJobApp(job, answer, callback){
   return function( dispatch, getState ){

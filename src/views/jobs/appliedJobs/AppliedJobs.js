@@ -29,7 +29,7 @@ class AppliedJobs extends Component {
   )
 
   loadItems = (page, callback) => {
-    this.props.loadJobs(page, {applied: true}, callback)
+    this.props.listJobs(page, {applied: true}, callback)
   }
 
 
