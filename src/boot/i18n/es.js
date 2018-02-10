@@ -14,6 +14,7 @@ const es = {
   ...settings,
   ...cmp,
   general:{
+    hi: 'Hola ',
     error: 'Error inesperado. Por favor intente de nuevo.',
     yes: 'Si',
     edit: 'Editar',
@@ -28,7 +29,7 @@ const es = {
       jobs: 'Trabajos',
       contacts: 'Contactos'
     },
-    error:{ 
+    error:{
       contactUs: 'Error Inesperado. Por favor contáctenos para ayudarte a resolver el problema.',
       timeout: 'No tiene Connección a Internet, intente más tarde.',
       problem: 'Opss.. hubo un problema'

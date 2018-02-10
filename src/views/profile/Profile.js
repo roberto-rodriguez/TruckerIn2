@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, View, TouchableOpacity,ScrollView, Dimensions } from "react-native";
-import { Container, Content, Text, Thumbnail, H1, H2, H3 } from "native-base";
+import { Container, Content, Text, Thumbnail, H1, H2, H3, Spinner } from "native-base";
 import {Header,Row, Column, TransparentButton,ConnectButton, Button, T13, T11, nav, Avatar } from 'src/components/'
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
@@ -20,6 +20,7 @@ import About from './sections/About'
 import PostedJobs from './sections/PostedJobs'
 
 const coverImg = require("../../../assets/cover.png");
+const commonColor = require("src/theme/variables/commonColor");
 
 var driverSections = [
   {name: 'profileInfo', icon: 'phone-square', title: 'contact' },
@@ -43,7 +44,7 @@ class Profile extends Component {
 componentDidMount(){
   var _this = this;
 
-  setTimeout(() => _this.props.loadProfile( this.props.id), 200)
+  setTimeout(() => _this.props.loadProfile(this.props.userId || this.props.id), 200)
 }
 
   render() {
@@ -58,13 +59,10 @@ componentDidMount(){
         roleId,
         profileImg,
         location,
-        profileInfoCompletion,
-        profileExperienceCompletion,
         connectionsCount,
         navigation
       } = this.props
 
-      var profileCompleted = (profileInfoCompletion + profileExperienceCompletion)/2
 
     var profileOptions = driverSections.filter((data, i) => {
         switch(roleId){
@@ -137,11 +135,10 @@ componentDidMount(){
             </Column>
           </Row>
 
-          <View style={styles.optionsContainerView}>
-            {
-              profileOptions
-            }
-          </View>
+          {
+          (profileOptions && profileOptions.length > 0) ? (<View style={styles.optionsContainerView}>{profileOptions}</View>) :  (<Spinner color={commonColor.secondaryColor} />)
+          }
+
 
           {this.buildSection(selectedSection, isMe, navigation, id)}
 
@@ -154,13 +151,13 @@ componentDidMount(){
 
   buildSection(selectedSection, isMe, navigation, id){
     switch(selectedSection){
-      case 'profileInfo': return (<Information isMe={isMe} navigation={navigation}/>)
-      case 'profileExperience': return (<Experience isMe={isMe} navigation={navigation}/>)
-      case 'profileCareer': return (<Career isMe={isMe} navigation={navigation}/>)
-      case 'connections': return (<Connections isMe={isMe} navigation={navigation}/>)
-      case 'postedJobs': return (<PostedJobs isMe={isMe} navigation={navigation} id={id}/>)
+      case 'profileInfo': return (<Information isMe={isMe} id={id} navigation={navigation}/>)
+      case 'profileExperience': return (<Experience isMe={isMe} id={id} navigation={navigation}/>)
+      case 'profileCareer': return (<Career isMe={isMe} id={id} navigation={navigation}/>)
+      case 'connections': return (<Connections isMe={isMe} id={id} navigation={navigation}/>)
+      case 'postedJobs': return (<PostedJobs isMe={isMe} id={id} navigation={navigation} id={id}/>)
       case 'aboutMe':
-      case 'aboutUs': return (<About isMe={isMe} navigation={navigation}/>)
+      case 'aboutUs': return (<About isMe={isMe} id={id} navigation={navigation}/>)
     }
   }
 
@@ -192,21 +189,22 @@ componentDidMount(){
     var session = globalReducer.profileInfo
     var userInfo = ownProps.navigation.state.params && ownProps.navigation.state.params.userInfo || session
 
-    var isMe = (userInfo.userId || userInfo.id) === session.id;
-    var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
+    var id = userInfo.userId || userInfo.id
+    var isMe = id === session.id;
+    var profileInfo = isMe ? globalReducer.profileInfo : (profileReducer[ id ] || {} ).profileInfo
+
+    profileInfo = profileInfo || {}
 
     return {
       isMe,
-      id: userInfo.userId || userInfo.id, //userId is when is comming from other page, like Job
+      id,
       name: isMe ? session.firstName + ' ' + session.lastName : userInfo.userName,
-      role: profileInfo.role,
-      roleId: profileInfo.roleId,
+      role: userInfo.role || profileInfo.role,
+      roleId: userInfo.roleId || profileInfo.roleId,
       profileImg:  isMe ? session.profileImg : userInfo.profileImg,
-      location: profileInfo.location && profileInfo.location.locationName,
-      profileInfoCompletion: profileInfo.completion || 0,
-      profileExperienceCompletion:  (isMe ? globalReducer.profileExperience.completion : profileReducer.profileExperience.completion) || 0,
+      location: userInfo.locationName || (profileInfo.location && profileInfo.location.locationName),
       connectionsCount: profileInfo.connections,
-      postedJobs: profileInfo.postedJobs,
+  //    postedJobs: profileInfo.postedJobs,
       lang: globalReducer.config.lang
     }
 

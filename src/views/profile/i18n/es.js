@@ -9,7 +9,8 @@ const es = {
     seeMore: 'Click aqui para ver más',
     editProfile:{
       title: 'Editar Perfil',
-      header: 'Aumenta tus posibilidades manteniendo su perfil actualizado',
+      header1: 'Aumenta tus posibilidades',
+      header2: 'manteniendo su perfil actualizado',
       view: 'Ver ',
       connections: ' Conecciones'
     },

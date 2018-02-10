@@ -12,10 +12,10 @@ import I18n from 'react-native-i18n'
 
 class Career extends Component {
 
-  edit = (item) =>  this.props.isMe && nav(this.props.navigation, 'EditProfileAddExperience', {item})
+  edit = (item) =>  this.props.isMe && nav(this.props.navigation, 'EditProfileAddExperience', {item, userId: this.props.id})
 
   render() {
-    var {careerHistory, isMe, navigation} = this.props
+    var {careerHistory, isMe, navigation, id} = this.props
     return (
        <Container>
        <Row>
@@ -41,7 +41,7 @@ class Career extends Component {
 
        { careerHistory && careerHistory.length > 2 &&
          (
-           <Button full transparent onPress={() => nav(navigation, 'ProfileCareerList', { isMe })}>
+           <Button full transparent onPress={() => nav(navigation, 'ProfileCareerList', { id })}>
              <Text style={{ color: theme.secondaryColor }}>
                {I18n.t('profile.seeMore')}
              </Text>
@@ -103,8 +103,14 @@ const styles = StyleSheet.create({
   }
 })
 
-  const mapStateToProps = ({profileReducer}) => ({
-      careerHistory: Object.values(profileReducer.profileCareer)
-    })
+  const mapStateToProps = ({profileReducer}, ownProps) => {
+      var {id} = ownProps
+      var userInfo = profileReducer[id] || {}
+      var profileCareer = userInfo.profileCareer || {}
+      return {
+        id,
+        careerHistory: Object.values( profileCareer )
+      }
+    }
 
   export default connect(mapStateToProps)( Career);

@@ -94,7 +94,11 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
-  var profileInfo = ownProps.isMe ? globalReducer.profileInfo : profileReducer.profileInfo
+  var {id, isMe} = ownProps
+  var profileInfo = isMe ? globalReducer.profileInfo : (profileReducer[id] || {}).profileInfo
+
+  profileInfo = profileInfo || {}
+  
   return { profileInfo }
 }
 

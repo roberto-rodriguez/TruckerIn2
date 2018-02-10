@@ -42,7 +42,7 @@ export function doLogin(obj, callback){
   return function( dispatch, getState ){
 
       Connector.doPOST('user/login', dispatch, getState, obj, (profileInfo) => {
-debugger;
+
         var userId = profileInfo && profileInfo.id
 
         callback(userId)
@@ -69,8 +69,7 @@ debugger;
 export function logOut(){
   return function( dispatch, getState ){
      Storage.storeToken( '0' )
-     dispatch( resetGlobalAction() )
-     dispatch( resetProfileAction() )
+     dispatch( resetGlobalAction() ) 
   }
 }
 
@@ -88,7 +87,6 @@ export function setupLang(){
 }
 
 
-
 export function setLang(lang){
   return function( dispatch, getState ){
      I18n.locale = lang
@@ -97,24 +95,9 @@ export function setLang(lang){
   }
 }
 
-
-// export function loadConfig(dispatch){
-// //  var config = apiLoadConfig()
-//   Connector.doGET = ('config/get/', dispatch, getState, callback)
-//
-//   dispatch( loadConfigAction(config) )
-// }
-
-
-
 export function showHeaderNotification(text, startDelay){
   return function( dispatch, getState ){
     setTimeout( () => Toast.show({ text, position: 'top', duration: 4000, type: 'success' }) , startDelay || 1)
-
-      // setTimeout( () => {
-      //   dispatch( showHeaderNotificationAction(msg) )
-      //   setTimeout( () => dispatch( showHeaderNotificationAction(null) ), 3000)
-      // }, startDelay || 1)
   }
 }
 

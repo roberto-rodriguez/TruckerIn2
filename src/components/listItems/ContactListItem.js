@@ -22,7 +22,7 @@ import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
   render() {
     var {navigation} = this.props
     var userInfo
-    var {id, userName, location, role, profileImg} = userInfo = this.props.data;
+    var {id, userName, locationName, role, profileImg} = userInfo = this.props.data;
 
     return (
       <ListItem button thumbnail style={{backgroundColor:'white'}}>
@@ -41,7 +41,7 @@ import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
                 { userName }
               </T14>
               <T12 light shortLine>
-                { location}
+                { locationName}
               </T12>
               <T12 light shortLine>
                 {role}

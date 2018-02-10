@@ -68,8 +68,9 @@ export function answerContactRequest(contactId, userName, accept, callback){
 
 export function doConnect(contactId, name, callback){
   return function( dispatch, getState ){
-    var a = contactId;
-    var userId = getState().profileReducer.profileInfo.userId;
+    //TODO
+    //var a = contactId;
+  //  var userId = getState().profileReducer.profileInfo.userId;
     globalActions.showHeaderNotification(I18n.t('contacts.pending.requestSent') + name)( dispatch, getState )
     callback && callback()
   }

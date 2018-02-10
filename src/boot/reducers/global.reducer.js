@@ -14,7 +14,6 @@ const initialState = {
     role:'',
     location: null,
     profileImg:'',
-
     savedJobs: 0,
     appliedJobs: 0,
     postedJobs: 0,

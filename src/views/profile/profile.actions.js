@@ -8,61 +8,52 @@ import * as roles from 'src/components/c/Role'
 import * as auxFunctions from './profile.actionsAuxFunctions'
 
 
-export const saveProfileInfoAction = (profileInfo) => ({ type: 'SAVE_PROFILE_INFO', profileInfo })
-export const saveProfileExperienceAction = (profileExperience) => ({ type: 'SAVE_PROFILE_EXPERIENCE', profileExperience })
-export const saveProfileCareerItemAction = (profileCareerItem) => ({ type: 'SAVE_PROFILE_CAREER_ITEM', profileCareerItem })
-export const deleteProfileCareerItemAction = (id) => ({ type: 'DELETE_PROFILE_CAREER_ITEM', id })
+export const saveProfileInfoAction = (userId, profileInfo) => ({ type: 'SAVE_PROFILE_INFO', userId, profileInfo })
+export const saveProfileExperienceAction = (userId, profileExperience) => ({ type: 'SAVE_PROFILE_EXPERIENCE', userId, profileExperience })
+export const saveProfileCareerItemAction = (userId, profileCareerItem) => ({ type: 'SAVE_PROFILE_CAREER_ITEM',userId, profileCareerItem })
+export const deleteProfileCareerItemAction = (userId, id) => ({ type: 'DELETE_PROFILE_CAREER_ITEM', userId, id })
 // export const saveProfileConnections = (list) => ({ type: 'SAVE_PROFILE_CONNECTIONS', list})
-export const saveProfilePostedJobs = (list) => ({ type: 'SAVE_PROFILE_POSTED_JOBS', list})
+//export const saveProfilePostedJobs = (list) => ({ type: 'SAVE_PROFILE_POSTED_JOBS', list})
 
 
 
 export function loadProfile(userId){
   return function( dispatch, getState ){
 
-    dispatch( globalActions.resetProfileAction() )
+  //  dispatch( globalActions.resetProfileAction() )
 
     var myProfile = getState().globalReducer.profileInfo
 
     if(userId != myProfile.id){
 
+      if(getState().profileReducer[userId]){
+            return;  //This means this user is already in the profileReducer (Not need to lookup in the server)
+          }
+
         Connector.doGET('user/load/' + userId, dispatch, getState, (profileInfo) => {
 
             auxFunctions.completeProfileInfo( profileInfo, getState )
 
-            dispatch( saveProfileInfoAction(profileInfo));
+            dispatch( saveProfileInfoAction(userId, profileInfo));
 
               Connector.doGET('experience/load/' + userId, dispatch, getState, (profileExperience) => {
 
                 auxFunctions.completeProfileExperience(profileInfo.roleId, profileExperience, getState )
-                dispatch( saveProfileExperienceAction(profileExperience) )
+                dispatch( saveProfileExperienceAction(userId, profileExperience) )
                 auxFunctions.completeLoadProfile(userId, profileInfo.roleId, dispatch, getState)
               })
         })
     }else{
-
       auxFunctions.completeLoadProfile(userId, getState().globalReducer.profileInfo.roleId, dispatch, getState)
     }
 
-
-
-
-
-
-  // if(profileInfo.roleId === roles.DRIVER){
-  // }else{
-  //
-  //    jobsActions.loadJobs(0, {userId, posted: true, limit: 3}, ( list ) => {
-  //      dispatch( saveProfilePostedJobs(list) )
-  //    })( dispatch, getState )
-  // }
 
   }
 }
 
 export function saveProfileCareerItem(profileCareerItem, callback){
   return function( dispatch, getState ){
-    debugger;
+
     var userId = getState().globalReducer.profileInfo.id
     profileCareerItem.userId = userId
 
@@ -72,7 +63,7 @@ export function saveProfileCareerItem(profileCareerItem, callback){
           profileCareerItem.id = careerId;
         }
 
-         dispatch( saveProfileCareerItemAction(profileCareerItem) )
+         dispatch( saveProfileCareerItemAction(userId, profileCareerItem) )
 
          callback()
       }
@@ -80,43 +71,24 @@ export function saveProfileCareerItem(profileCareerItem, callback){
   }
 }
 
-export function loadProfileCareer(isMe, page = 0, callback ){
-  return function( dispatch, getState ){
 
-    var userId = isMe ? getState().globalReducer.profileInfo.id : getState().profileReducer.profileInfo.userId
+export function loadProfileCareer(userId, page = 0, callback ){
+  return function( dispatch, getState ){
 
     Connector.doPOST('career/list', dispatch, getState, {page, limit: 10, params:{'usuario.id': userId}},  callback)
   }
 }
 
-// DEPRECATED
-// export function saveAbout(aboutObj){
-//   return function( dispatch, getState ){
-//
-//      dispatch( globalActions.setGlobalProfileInfoAction(aboutObj) )
-//    }
-// }
 
-export function resetProfileInfo( ){
+export function deleteProfileCareerItem(userId, id){
   return function( dispatch, getState ){
-      dispatch( globalActions.resetProfileAction() )
+    //TODO Server side
+    Connector.doGET('career/delete/' + id, dispatch, getState, () => dispatch( deleteProfileCareerItemAction(userId, id) ))
+
+
   }
 }
 
-
-// export function saveProfileInfo(profileInfo){
-//   return ( dispatch, getState ) => dispatch( globalActions.setGlobalProfileInfoAction(profileInfo) )
-// }
-//
-//
-// export function saveProfileExperience(profileExperience){
-//   return function( dispatch, getState ){
-//         //  dispatch( saveProfileExperienceAction(profileExperience) )
-//
-//       //    dispatch( globalActions.setSessionAction({profileExperienceCompletion: profileExperience.completion}))
-//           dispatch( globalActions.setGlobalProfileExperienceAction(profileExperience) )
-//   }
-// }
 
 
 
@@ -145,16 +117,6 @@ export function loadProfilePostedJobs(userId, page = 0, callback ){
 
   }
 }
-
-
-
-
-export function deleteProfileCareerItem(id){
-  return function( dispatch, getState ){
-     dispatch( deleteProfileCareerItemAction(id) )
-  }
-}
-
 
 
 

@@ -10,8 +10,7 @@
  export { default as Profile } from 'src/views/profile/Profile'
  export { default as EditProfile } from 'src/views/profile/edit/EditProfile'
  export { default as EditProfileInformation } from 'src/views/profile/edit/EditProfileInformation'
- export { default as EditProfileExperience } from 'src/views/profile/edit/EditProfileExperience'
- export { default as EditProfileCareer } from 'src/views/profile/edit/EditProfileCareer'
+ export { default as EditProfileExperience } from 'src/views/profile/edit/EditProfileExperience' 
  export { default as EditProfileAddExperience } from 'src/views/profile/edit/EditProfileAddExperience'
  export { default as EditAbout } from 'src/views/profile/edit/EditAbout'
  export { default as ProfileConnectionList } from 'src/views/profile/sections/ProfileConnectionList'
@@ -42,7 +41,7 @@
  export { default as LocationPicker } from 'src/components/views/locationPicker/'
  export { default as TextInputView } from 'src/components/views/TextInputView'
 
-//SideBar 
+//SideBar
 export { default as About } from 'src/views/sidebar/About'
 export { default as ContactUs } from 'src/views/sidebar/ContactUs'
 export { default as Settings } from "src/views/sidebar/Settings";

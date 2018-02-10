@@ -10,23 +10,23 @@ import I18n from 'react-native-i18n'
 class ProfileCareerList extends Component {
 
     loadItems = (page, callback) => {
-      var isMe = this.props.navigation.state.params && this.props.navigation.state.params.isMe
+      var id = this.props.navigation.state.params.id  || this.props.id
 
-      this.props.loadProfileCareer(isMe, page, callback)
+      this.props.loadProfileCareer(id, page, callback)
     }
 
     itemBuilder = (item, navigation, i, shouldUpdate) => (
                <CareerItem
                     key={i}
                     careerItem={item}
-                    isMe={this.props.navigation.state.params && this.props.navigation.state.params.isMe}
+                    userId={(this.props.navigation.state.params && this.props.navigation.state.params.id || this.props.id)}
+                    isMe={(this.props.navigation.state.params && this.props.navigation.state.params.isMe || true)}
                     navigation={navigation}
                     shouldUpdate={shouldUpdate}
                   />)
 
   render() {
     var { navigation} = this.props
-    var isMe = this.props.navigation.state.params && this.props.navigation.state.params.isMe
 
     return (
       <Container white>
@@ -52,5 +52,9 @@ const styles = StyleSheet.create({
     borderWidth:0
   }
 })
+
+const mapStateToProps = ({globalReducer}) => ({
+    id: globalReducer.profileInfo.id
+  })
 
   export default connect(null, profileActions)(ProfileCareerList);

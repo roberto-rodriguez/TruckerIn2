@@ -9,7 +9,8 @@ const en = {
     seeMore: 'Click here to see more',
     editProfile:{
       title: 'Update Profile',
-      header: 'Increase your possibilities by keeping your profile updated',
+      header1: 'Increase your possibilities',
+      header2: 'by keeping your profile updated',
       view: 'View ',
       connections: ' Connections'
     },

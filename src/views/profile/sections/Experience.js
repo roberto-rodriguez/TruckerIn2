@@ -82,11 +82,11 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
-  var isMe = ownProps.isMe;
-  var profileExperience = isMe ? globalReducer.profileExperience : profileReducer.profileExperience
-  var profileInfo = isMe ? globalReducer.profileInfo : profileReducer.profileInfo
+  var {id, isMe} = ownProps
+  var profileExperience = isMe ? globalReducer.profileExperience : profileReducer[id].profileExperience
+  var profileInfo = isMe ? globalReducer.profileInfo : profileReducer[id].profileInfo
 
-  var configs = parseConfig(['jobStatus', 'experience', 'equipment'],  profileInfo, profileExperience, globalReducer.config)
+  //var configs = parseConfig(['jobStatus', 'experience', 'equipment'],  profileInfo, profileExperience, globalReducer.config)
 
   return {
           profileExperience,

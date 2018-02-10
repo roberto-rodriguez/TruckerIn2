@@ -6,7 +6,7 @@ import * as roles from 'src/components/c/Role'
 export const saveProfileCareerAction = (profileCareer) => ({ type: 'SAVE_PROFILE_CAREER', profileCareer })
 
 export function completeLoadProfile(userId, roleId, dispatch, getState){
- 
+
   if( roleId === roles.DRIVER){
     setTimeout(() => Connector.doPOST('career/list', dispatch, getState, {limit: 3, params:{'usuario.id': userId}}, (careerHistory) => {
       if(careerHistory){
@@ -18,7 +18,7 @@ export function completeLoadProfile(userId, roleId, dispatch, getState){
         careerHistory = {}
       }
 
-      dispatch( saveProfileCareerAction(careerHistory) )
+      dispatch( saveProfileCareerAction(userId, careerHistory) )
     }), 1000)
   }
 }

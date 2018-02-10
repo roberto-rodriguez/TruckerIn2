@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View , Text } from 'react-native';
 import { Container, Content } from "native-base";
 import Icon from 'react-native-fa-icons';
-import { Header, ListItem, AgentImg} from 'src/components/'
+import { Header, SimpleListItem, AgentImg, T14, RowColumn} from 'src/components/'
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
 
@@ -17,7 +17,7 @@ const commonItems = [
 const additionalItems = [
   [   //DRIVER
     { icon: 'truck',   title: 'experience', route:'EditProfileExperience', prop: 'profileExperience', redable:true},
-    { icon: 'graduation-cap',   title: 'career', route:'EditProfileCareer', prop: 'profileCareer'}
+    { icon: 'graduation-cap',   title: 'career', route:'ProfileCareerList', prop: 'profileCareer'}
   ],
   [   // BROKER
     { icon: 'user-secret', title:'aboutMe', route:'EditAbout', prop: 'about', sendParamAbout: true}
@@ -26,29 +26,33 @@ const additionalItems = [
     { icon: 'bank', title:'aboutUs', route:'EditAbout', prop: 'about',sendParamAbout: true}
   ]
 ]
-
+//I18n.t('profile.editProfile.header')
 
 class EditProfile extends Component {
 
   render() {
-    var {navigation, profileInfoCompletion, profileExperienceCompletion, roleId, about} = this.props
+    var {navigation, name, roleId, about} = this.props
 
     return (
       <Container>
         <Header navigation={navigation} back title={I18n.t('profile.editProfile.title')}/>
         <Content fullscreen >
-        <AgentImg text={I18n.t('profile.editProfile.header')}/>
 
+           <AgentImg text={I18n.t('general.hi') + name}/>
+           <RowColumn h={80}>
+             <T14 green>{I18n.t('profile.editProfile.header1')}</T14>
+           <T14 green>{I18n.t('profile.editProfile.header2')}</T14>
+           </RowColumn>
 
           <View >
              {
               commonItems.concat( additionalItems[roleId - 1] ).map( ({icon, title, prop, route, redable, param, sendParamAbout}, i) => (
-              <ListItem
+              <SimpleListItem
+                 borderTop={i === 0}
                  key={i}
                  navigation={navigation}
                  icon={icon}
-                 label={redable && this.getSubText(i, prop)}
-                 value={I18n.t(['profile', 'titles', title])}
+                 label={I18n.t(['profile', 'titles', title])}
                  routeName= {route}
                  params= { sendParamAbout ? {about} : {} }
                  red= {redable && this.props[prop + 'Completion'] < 100}
@@ -61,22 +65,13 @@ class EditProfile extends Component {
     );
   }
 
-  getSubText(i, prop){
-    var props = this.props
-    var percent =  props[prop + 'Completion']
-    return 'Completed: ' +  percent + '%'
-  }
 }
 
 
   const mapStateToProps = ({profileReducer, globalReducer}) => ({
+    name: globalReducer.profileInfo.firstName,
     roleId: globalReducer.profileInfo.roleId,
     about: globalReducer.profileInfo.about,
-    location: profileReducer.profileInfo.location,
-    locationId: profileReducer.profileInfo.locationId,
-    profileInfoCompletion: globalReducer.profileInfo.completion,
-    profileExperienceCompletion: globalReducer.profileExperience.completion,
-    connectionsCount: profileReducer.connectionsCount,
     lang: globalReducer.config.lang
   })
 
