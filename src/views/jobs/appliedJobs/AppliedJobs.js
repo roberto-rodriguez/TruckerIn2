@@ -12,24 +12,12 @@ import AppliedJobPost from './AppliedJobPost'
 
 class AppliedJobs extends Component {
 
-  constructor(props){
-    super(props)
-    this.state = {
-      mounted: false
-    }
-
-  }
-
-  componentDidMount(props){
-    this.setState({mounted: true})
-  }
-
   itemBuilder = (data, navigation, i , shouldUpdate) => (
     <AppliedJobPost navigation={navigation}  key={i} data={data}/>
   )
 
   loadItems = (page, callback) => {
-    this.props.listJobs(page, {applied: true}, callback)
+    this.props.listApps(page, {'applicant.id': this.props.userId}, callback)
   }
 
 
@@ -39,17 +27,13 @@ class AppliedJobs extends Component {
     return (
       <Container>
         <Header navigation={navigation} back title={I18n.t('jobs.applied.title')} />
-        <View style={{minHeight:'100%'}}>
-          {
-            this.state.mounted &&
-            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
-          }
-        </View>
+        <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
       </Container>
     );
   }
 
 }
 
+ const mapStateToProps = ({globalReducer}) => ({ userId: globalReducer.profileInfo.id })
 
-export default connect(null, jobActions)(AppliedJobs);
+export default connect(mapStateToProps, jobActions)(AppliedJobs);

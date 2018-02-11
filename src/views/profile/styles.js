@@ -107,7 +107,7 @@ export default {
   IconBadge: {
     position:'absolute',
     top:0,
-    right:5,
+    right:'20%',
     minWidth:18,
     height:18,
     borderRadius:9,

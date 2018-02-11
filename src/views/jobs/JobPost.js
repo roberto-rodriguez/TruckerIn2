@@ -33,7 +33,7 @@ import I18n from 'react-native-i18n'
             </View>
             </SimpleButton>
             <View note style={{ flexDirection: "column", marginLeft: 10}}>
-              <T14 strong shortLine style={{color:'black', width: '85%'}}> {data.userName} </T14>
+              <T14 strong shortLine style={{color:'black', width: 150}}> {data.userName} </T14>
               <T12 light shortLine>{data.authorRole}</T12>
               <T12 light shortLine>{data.locationName} </T12>
 

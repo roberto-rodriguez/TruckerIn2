@@ -37,7 +37,7 @@ import I18n from 'react-native-i18n'
 loadItems = (page, callback) => {
   var {reset, params} = this.state
 
-  this.props.listJobs(page, params, callback, reset)
+  this.props.searchJobs(page, params, callback, reset)
 
   if(reset){
     this.setState( {reset: false })
@@ -48,7 +48,7 @@ loadItems = (page, callback) => {
     const {navigation, roleId}  = this.props
 
    return (
-     <View style={{minHeight:'100%' }}>
+     <View style={{minHeight:'100%', paddingBottom: 50}}>
         <MainHeader navigation={navigation}
           title={I18n.t('jobs.title')}
           right={<HeaderBtn icon='search'

@@ -18,8 +18,7 @@ class PostedJobApplications extends Component {
   )
 
   loadItems = (page, callback) => {
-
-    this.props.listJobs(page, {posted: true}, callback)
+    this.props.listApps(page, {'job.id': this.props.navigation.state.params.jobId}, callback)
   }
 
 
@@ -35,7 +34,8 @@ class PostedJobApplications extends Component {
       </Container>
     );
   }
-
 }
 
-export default connect(null, jobActions)(PostedJobApplications);
+const mapStateToProps = ({globalReducer}) => ({ userId: globalReducer.profileInfo.id })
+
+export default connect(mapStateToProps, jobActions)(PostedJobApplications);

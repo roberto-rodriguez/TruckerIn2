@@ -6,55 +6,77 @@ import * as Connector from 'src/boot/reducers/connector'
 import * as globalActions from 'src/boot/reducers/global.actions'
 
 
-export function listJobs(page = 0, requestParams, callback, reset){
-  return function( dispatch, getState ){
+export function searchJobs(page = 0, requestParams, callback, reset){
+    return function( dispatch, getState ){
 
-    var params = {}
+      var params = {}
 
-    if(requestParams){
-      if(requestParams.equipmentId){
-        params.equipmentId = requestParams.equipmentId
-      }
-
-      if(requestParams.experienceId){
-         params.experienceId = requestParams.experienceId
-      }
-
-      if(requestParams.author){
-        params['author.firstName@or@author.lastName'] = requestParams.author
-      }
-
-      if(requestParams.location){
-        if(requestParams.location.stateId && requestParams.location.stateId !== 'US'){
-          params.stateId = requestParams.location.stateId
-
-          if( requestParams.location.cityId){
-            params.cityId = requestParams.location.cityId
-          }
+      if(requestParams){
+        if(requestParams.equipmentId){
+          params.equipmentId = requestParams.equipmentId
         }
 
-      }
-    }
+        if(requestParams.experienceId){
+           params.experienceId = requestParams.experienceId
+        }
 
-   var request = {
-     limit: 10,
-     params,
-     page
-   }
+        if(requestParams.author){
+          params['author.firstName@or@author.lastName'] = requestParams.author
+        }
+
+        if(requestParams.location){
+          if(requestParams.location.stateId && requestParams.location.stateId !== 'US'){
+            params.stateId = requestParams.location.stateId
+
+            if( requestParams.location.cityId){
+              params.cityId = requestParams.location.cityId
+            }
+          }
+
+        }
+      }
+
+      listJobs(page, params, callback, reset)( dispatch, getState )
+    }
+}
+
+export function listJobs(page = 0, params, callback, reset){
+  return function( dispatch, getState ){
+
+   var request = { limit: 10, params,  page }
+
    Connector.doPOST('job/list', dispatch, getState, request,  (jobs) => callback(jobs, reset))
   }
 }
 
-export function jobApply(jobId, availability, callback){
+
+export function listSavedJobs(page = 0, params, callback, reset){
+  return function( dispatch, getState ){
+
+   var request = { limit: 10, params,  page }
+
+   Connector.doPOST('savedJob/list', dispatch, getState, request,  (jobs) => callback(jobs, reset))
+  }
+}
+
+export function listApps(page = 0, params, callback, reset, limit){
+  return function( dispatch, getState ){
+
+   var request = { limit: 10, params, page }
+
+   Connector.doPOST('app/list', dispatch, getState, request,  (apps) => callback(apps, reset))
+  }
+}
+
+export function jobApply(jobId,  callback){
   return function( dispatch, getState ){
     var userId =  getState().globalReducer.profileInfo.id
 
-    console.log('Applying for Job: ' + jobId);
+    Connector.doPOST('/app/save', dispatch, getState, {userId, jobId},
+      () => callback(true),
+      (errorMsg) => callback(false, errorMsg)  //callback Error
+    )
 
-    var success = true
-    var resultMsg = 'Success'
-
-    callback && callback(success, resultMsg)
   }
 }
 
@@ -126,14 +148,18 @@ export function createJob(job, callback, action){
 
 export function saveJob(jobId, callback ){
   return function( dispatch, getState ){
-    //TODO call api
-    var jobId = 1;
-    callback && callback( )
+      var userId = getState().globalReducer.profileInfo.id
 
-    var savedJobs = getState().globalReducer.profileInfo.savedJobs || 0
-    savedJobs++
-    dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
-    globalActions.showHeaderNotification(I18n.t('jobs.actions.saved'))( dispatch, getState )
+    Connector.doPOST('/savedJob/save', dispatch, getState, {userId, jobId},
+      () => {
+          var savedJobs = getState().globalReducer.profileInfo.savedJobs || 0
+          savedJobs++
+          dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
+          globalActions.showHeaderNotification(I18n.t('jobs.actions.saved'))( dispatch, getState )
+         callback(true)
+      }
+    )
+
   }
 }
 

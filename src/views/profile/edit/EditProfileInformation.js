@@ -26,25 +26,14 @@ class EditProfileInformation extends Component {
  }
 
  componentDidMount(){
+   debugger;
    var newState = this.props.profileInfo || {}
    newState.hidePrivacityOption = this.props.navigation.state.params && this.props.navigation.state.params.hidePrivacityOption
    this.setState( newState );
  }
 
- onAccept = () => {
-   var info = this.state;
-   var completion = 0;
-   if(info.firstName)completion += 16.6;
-   if(info.lastName)completion += 16.6;
-   if(info.email)completion += 16.6;
-   if(info.phone)completion += 16.6;
-   if(info.locationId)completion += 16.6;
-   if(info.jobStatusId)completion += 16.6;
+ onAccept = () =>  this.props.register(this.state, () =>  this.props.navigation.goBack())
 
-   info.completion = completion < 99 ? completion : 100;
-
-   this.props.register(info, () =>  this.props.navigation.goBack())
- }
 
  setVal = (prop, val, valId) => {
    this.setState((prevState) => {
@@ -59,7 +48,7 @@ class EditProfileInformation extends Component {
  }
 
   render() {
-
+   debugger;
     const {navigation } = this.props
     var state = this.state;
 

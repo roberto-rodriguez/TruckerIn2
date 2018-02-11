@@ -16,22 +16,29 @@ class PostedJobs extends Component {
     <PostedJobPost navigation={navigation}  key={i} data={data}/>
   )
 
-  loadItems = (page, callback) => this.props.listJobs(page, {posted: true}, callback)
+  loadItems = (page, callback) => {
+    var userId = (this.props.navigation.state.params && this.props.navigation.state.params.userId) || this.props.userId
+    var params =  {'author.id': userId}
+    this.props.listJobs(page, params, callback)
+  }
 
 
   render() {
     const navigation = this.props.navigation;
 
+    var paramsUserId = this.props.navigation.state.params && this.props.navigation.state.params.userId
+
     return (
       <Container>
-        <Header navigation={navigation} back title={I18n.t('jobs.posted.myTitle')} />
-        <View style={{minHeight:'100%'}}>
+        <Header navigation={navigation} back title={I18n.t(['jobs', 'posted', paramsUserId ? 'title' : 'myTitle'])} />
            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
-        </View>
+   
       </Container>
     );
   }
 
 }
 
-export default connect(null, jobActions)(PostedJobs);
+const mapStateToProps = ({globalReducer}) => ({ userId: globalReducer.profileInfo.id })
+
+export default connect(mapStateToProps, jobActions)(PostedJobs);

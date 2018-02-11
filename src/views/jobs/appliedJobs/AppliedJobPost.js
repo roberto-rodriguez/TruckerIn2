@@ -69,7 +69,7 @@ import I18n from 'react-native-i18n'
             </SimpleButton>
             <View note style={{ flexDirection: "column", marginLeft: 10}}>
               <T14 strong shortLine style={{color:'black'}}> {job.userName} </T14>
-              <T12 light shortLine>{job.location} </T12>
+            <T12 light shortLine>{job.locationName} </T12>
               <T12 light shortLine>{job.authorRole}</T12>
             </View>
         </View>
@@ -161,6 +161,6 @@ import I18n from 'react-native-i18n'
           marginTop:15,
           paddingTop:10,
         }
-    })
+    })  
 
     export default connect(null, jobActions)(AppliedJobPost);

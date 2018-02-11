@@ -67,7 +67,6 @@ class ProfileConnectionList extends Component {
 
     return (
       <Container white>
-        <View style={{minHeight:'100%'}}>
           <Header back
            title={I18n.t('profile.connections.search') }
            navigation={navigation}
@@ -76,8 +75,7 @@ class ProfileConnectionList extends Component {
            searchDefaultValue={this.state.nameFilter}
          />
           <Feed reset={this.state.reset} feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
-
-        </View>
+ 
       </Container>
 
 

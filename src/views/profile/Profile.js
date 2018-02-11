@@ -29,7 +29,7 @@ var driverSections = [
   {name: 'connections', icon: 'group', title: 'connections', showSubText: true, badge: 'connectionsCount'},
   {name: 'aboutMe', icon: 'user-secret', title: 'aboutMe' },
   {name: 'aboutUs', icon: 'bank', title: 'aboutUs' },
-  {name: 'postedJobs', icon: 'truck', title: 'postedJobs', showSubText: true}
+  {name: 'postedJobs', icon: 'truck', title: 'postedJobs', showSubText: true, badge: 'postedJobs'}
 ]
 
 
@@ -204,7 +204,7 @@ componentDidMount(){
       profileImg:  isMe ? session.profileImg : userInfo.profileImg,
       location: userInfo.locationName || (profileInfo.location && profileInfo.location.locationName),
       connectionsCount: profileInfo.connections,
-  //    postedJobs: profileInfo.postedJobs,
+      postedJobs: profileInfo.postedJobs || 0,
       lang: globalReducer.config.lang
     }
 

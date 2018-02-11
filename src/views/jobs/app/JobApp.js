@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from 'react-native';
 import { Container, Content, Button} from "native-base";
-import { Column,Row, Header, BlockButton,  T12, T13,T14, AgentImg, ListItem } from 'src/components/'
+import { RowColumn, Column,Row, Header, BlockButton, T11, T12, T13,T14, AgentImg, ListItem, SimpleListItem } from 'src/components/'
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
 import * as jobActions from "src/views/jobs/jobs.actions";
@@ -14,43 +14,35 @@ class JobApp extends Component {
       super(props)
 
       this.state = {
+        loading: false,
         submitted: false,
         appSuccess: null,
-        resultMsg: '',
-        availability: null
+        resultMsg: ''
       }
 }
 
   jobApply = () => {
    var jobId = this.props.navigation.state.params.jobId
    var _this = this
-   var availability = this.state.availability
 
-   this.props.jobApply(jobId, availability, (success, resultMsg) => {
+   this.setState({loading: true})
+
+   this.props.jobApply(jobId,  (success, resultMsg) => {
      _this.setState((prevState) => {
        prevState['appSuccess'] = success;
        prevState['resultMsg'] = resultMsg;
        prevState['submitted'] = true;
+       prevState['loading'] = false;
        return prevState;
      })
    })
   }
 
-  onavailabilityComplete = (availability) => {
-       this.setState((prevState) => {
-         return {
-           ...prevState,
-           availability
-         }
-       })
-  }
 
   render() {
-    const {navigation, profileInfoCompletion, profileExperienceCompletion} = this.props;
+    const {navigation } = this.props;
 
-    var {submitted, appSuccess, resultMsg, availability} = this.state;
-
-    var disableButton = (profileInfoCompletion < 100 || profileExperienceCompletion < 100)
+    var {submitted, appSuccess, resultMsg, loading} = this.state;
 
     return (
       <Container white>
@@ -58,71 +50,56 @@ class JobApp extends Component {
         <Content fullscreen contentContainerStyle={styles.container}>
 
          {submitted ? this.postApplyView(navigation, appSuccess, resultMsg)
-           : this.preApplyView(navigation, disableButton, profileInfoCompletion, profileExperienceCompletion)}
+           : this.preApplyView(navigation )}
 
         </Content>
         {
-          submitted ? <BlockButton text={I18n.t('jobs.app.goBack')} onPress={()=> navigation.goBack()}/>
-                    : <BlockButton text={I18n.t('jobs.app.apply')} disabled={disableButton} onPress={this.jobApply}/>
+          submitted ? <BlockButton loading={loading} text={I18n.t('jobs.app.goBack')} onPress={()=> navigation.goBack()}/>
+                    : <BlockButton loading={loading} text={I18n.t('jobs.app.apply')} onPress={this.jobApply}/>
         }
       </Container>
     );
   }
 
-  preApplyView = (navigation, disableButton, profileInfoCompletion, profileExperienceCompletion) => (
+  preApplyView = (navigation) => (
     <View>
-    <AgentImg text={I18n.t('jobs.app.infoWillBeShared')}/>
+      <AgentImg text={I18n.t('jobs.app.infoWillBeShared1')} text2={I18n.t('jobs.app.infoWillBeShared2')}/>
 
-    {disableButton &&
-      (
-        <Row h={20}><Column h={20}>
-          <T12 red>{I18n.t('jobs.app.itemsInRed')}</T12>
-        </Column></Row>
-      )
-    }
-
-      <ListItem
-        red={profileInfoCompletion < 100}
+      <SimpleListItem
         icon={'user-circle-o'}
         navigation={navigation}
+        borderTop
         routeName={'EditProfileInformation'}
         params={{hidePrivacityOption: true}}
-        label={'Completted ' + profileInfoCompletion + '%'}
-        value={I18n.t('jobs.app.personalInfo')}
+        label={I18n.t('jobs.app.personalInfo')}
       />
 
-      <ListItem
-        red={profileExperienceCompletion < 100}
+      <SimpleListItem
         icon={'truck'}
         navigation={navigation}
         routeName={'EditProfileExperience'}
-        label={I18n.t('jobs.app.completted') + profileExperienceCompletion + '%'}
-        value={I18n.t('profile.titles.experience')}
+        label={I18n.t('profile.titles.experience')}
       />
 
-      <ListItem
+      <SimpleListItem
         icon={'graduation-cap'}
         navigation={navigation}
         routeName={'ProfileCareerList'}
         params={{isMe: true}}
-        value={I18n.t('jobs.app.career')}
+        label={I18n.t('jobs.app.career')}
       />
 
-      <ListItem
-        icon={'rocket'}
-        navigation={navigation}
-        routeName={'TextInputView'}
-        params={{title: I18n.t('jobs.app.availability'), text: this.state.availability, callback: this.onavailabilityComplete}}
-        label={I18n.t('jobs.app.whenCanStart')}
-        value={I18n.t('jobs.app.availability')}
-        red={this.state.availability == null}
-      />
+    <RowColumn>
+      <T11 grey >{ I18n.t('jobs.app.disclosure')}</T11>
+    </RowColumn>
+
     </View>
   )
 
   postApplyView = (navigation, appSuccess, resultMsg) => (
     <View>
-      <AgentImg text={appSuccess ? I18n.t('jobs.app.appSuccess') : I18n.t('jobs.app.appFailed')}/>
+      <AgentImg red={!appSuccess} text={appSuccess ? I18n.t('jobs.app.appSent') : I18n.t('jobs.app.appFailed')}
+        text2={appSuccess ? I18n.t('general.successfuly') : ' '}/>
 
       {
         appSuccess ?
@@ -137,7 +114,9 @@ class JobApp extends Component {
               value={I18n.t('jobs.app.viewJobApps')}
             />
          </View>)
-        :  <T14 red style={{margin:10}}>{resultMsg}</T14>
+        :  (<RowColumn>
+              <T14 red style={{margin:10}}>{resultMsg}</T14>
+            </RowColumn>)
       }
     </View>
   )
@@ -153,8 +132,6 @@ const styles = StyleSheet.create({
     })
 
     const mapStateToProps = ({  globalReducer}) => ({
-      profileInfoCompletion: globalReducer.profileInfo.completion,
-      profileExperienceCompletion: globalReducer.profileExperience.completion
     })
 
     export default connect(mapStateToProps, jobActions)(JobApp);

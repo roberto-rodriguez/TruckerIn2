@@ -25,13 +25,14 @@ const es = {
     any: 'Cualquiera',
     anywhere: 'Dondequiera',
     where: 'Donde',
+    successfuly: 'satisfactoriamente',
     tabs:{
       jobs: 'Trabajos',
       contacts: 'Contactos'
     },
     error:{
       contactUs: 'Error Inesperado. Por favor contáctenos para ayudarte a resolver el problema.',
-      timeout: 'No tiene Connección a Internet, intente más tarde.',
+      timeout: 'Asegurese de estar conectado a internet e intente de nuevo.',
       problem: 'Opss.. hubo un problema'
     }
   },

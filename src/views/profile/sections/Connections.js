@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Button, Container, Text, Spinner } from "native-base";
 import {ContactListItem, nav, AgentMsg} from 'src/components/'
 import { connect } from "react-redux";
@@ -22,7 +22,7 @@ class Connections extends Component {
 
    componentDidMount(){
      var request =  {
-       limit: 6,
+       limit: 10,
        params: {'sender.id': this.props.userId}
      }
 
@@ -77,7 +77,7 @@ class Connections extends Component {
 
 
     return (
-       <Container>
+        <View>
 
         <Search title={I18n.t('profile.connections.search')}
           onChangeText={this.onSearchChangeText}
@@ -85,7 +85,7 @@ class Connections extends Component {
         searchDefaultValue={searchDefaultValue}/>
 
 
-         {list && list.slice(0,5).map( (user, i) => (
+         {list && list.map( (user, i) => (
            <ContactListItem
                key={i}
                data={user}
@@ -94,7 +94,7 @@ class Connections extends Component {
          }
 
          {
-           (list && list.length > 5) && (
+           (list && list.length > 6 ) && (
              <Button full transparent onPress={() => nav(navigation, 'ProfileConnectionList', this.state.request.params)}>
                <Text style={{ color: theme.secondaryColor }}>
                  {I18n.t('profile.seeMore')}
@@ -102,7 +102,7 @@ class Connections extends Component {
              </Button>
            )
          }
-       </Container>
+       </View>
 
     );
   }

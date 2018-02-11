@@ -11,7 +11,7 @@ class SavedJobs extends Component {
 
   itemBuilder = (data, navigation, i , shouldUpdate) => (<SavedJobPost navigation={navigation}  key={i} data={data}/> )
 
-  loadItems = (page, callback) =>   this.props.listJobs(page, {saved: true}, callback)
+  loadItems = (page, callback) =>   this.props.listSavedJobs(page, {'user.id': this.props.userId}, callback)
 
 
   render() {
@@ -20,12 +20,12 @@ class SavedJobs extends Component {
     return (
       <Container>
         <Header navigation={navigation} back title={I18n.t('jobs.saved.title')} />
-        <View style={{minHeight:'100%'}}>
-           <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/>
-        </View>
+           <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}/> 
       </Container>
     );
   }
 }
 
-export default connect(null, jobActions)(SavedJobs);
+const mapStateToProps = ({globalReducer}) => ({ userId: globalReducer.profileInfo.id })
+
+export default connect(mapStateToProps, jobActions)(SavedJobs);

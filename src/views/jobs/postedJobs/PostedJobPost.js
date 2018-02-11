@@ -36,7 +36,7 @@ import I18n from 'react-native-i18n'
             </SimpleButton>
             <View note style={styles.details}>
               <T14 strong shortLine style={{color:'black'}}> {dataRow.userName} </T14>
-              <T12 light shortLine>{dataRow.location} </T12>
+            <T12 light shortLine>{dataRow.locationName} </T12>
               <T12 light shortLine>{dataRow.authorRole}</T12>
             </View>
         </View>
@@ -58,7 +58,7 @@ import I18n from 'react-native-i18n'
 
     <View style={styles.detailsView}>
         {isMe && (
-            <CustomButton text={dataRow.apps + I18n.t('jobs.posted.app')} style={{height:32, width:100}}
+            <CustomButton text={(dataRow.apps || '0') + I18n.t('jobs.posted.app')} style={{height:32, width:100}}
             handler={() => nav(navigation, 'PostedJobApplications', {jobId: dataRow.id})}/>
           )
         }

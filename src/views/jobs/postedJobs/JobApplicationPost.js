@@ -59,7 +59,7 @@ import I18n from 'react-native-i18n'
             </SimpleButton>
             <View note style={{ flexDirection: "column", marginLeft: 10}}>
               <T14 strong shortLine style={{color:'black'}}> {dataRow.userName} </T14>
-              <T12 light shortLine>{dataRow.location} </T12>
+              <T12 light shortLine>{dataRow.locationName} </T12>
               <T12 light shortLine>{dataRow.authorRole}</T12>
             </View>
         </View>
@@ -67,28 +67,28 @@ import I18n from 'react-native-i18n'
         <View style={postStyle.headerRight} >
           <View style={{flexDirection: "row",justifyContent:'flex-end'}} >
             <CustomButton text={'CALL'} style={{width:60}}
-            handler={() => navigation.dispatch(createJobNavigateAction(dataRow.id, 'edit'))}/>
+            handler={() => alert('Calling ' + dataRow.applicantPhone)}/>
           </View>
-          <PostingTime date={data.createdAt}/>  
+          <PostingTime date={dataRow.appTime} text={I18n.t('jobs.app.applied')}/>
         </View>
       </View>
 
       <Text><Text strong>{I18n.t('jobs.post.ex')} </Text>{dataRow.experience}</Text>
       <Text><Text strong>{I18n.t('jobs.post.equipment')} </Text>{dataRow.equipment}</Text>
-    <Text><Text strong>{I18n.t('jobs.app.availability')} </Text>{dataRow.availability}</Text>
 
 
       <View style={{flexDirection: 'row', marginTop: 10, justifyContent:'space-between'}}>
-          <CustomButton text={I18n.t('jobs.app.sendMsg')} style={{height:32, width:100}}
-          handler={ this.sendMessage }/>
 
-        <CustomButton white text={I18n.t('jobs.post.profile')}
+          <CustomButton  text={I18n.t('jobs.post.profile')} style={{height:32, width:100}}
             style={styles.button}
             handler={() => nav(navigation, 'Profile', {userInfo: dataRow})}/>
 
+          <CustomButton white text={I18n.t('jobs.app.sendMsg')}
+            handler={ this.sendMessage }/>
+
           <CustomButton white text={I18n.t('jobs.post.details')}
-          style={styles.button}
-          handler={() => navigation.navigate('JobDetails')}/>
+            style={styles.button}
+            handler={() => navigation.navigate('JobDetails')}/>
 
          <CustomButton white text={I18n.t('jobs.post.reject')}
            style={styles.button}

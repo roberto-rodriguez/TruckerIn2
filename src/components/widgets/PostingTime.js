@@ -15,14 +15,14 @@ const commonColor = require("src/theme/variables/commonColor");
  export default class PostingTime extends Component {
 
   render() {
-    var {style, date} = this.props;
+    var {style, date, text} = this.props;
 
 
     return (
       <View >
         <View note style={[{flexDirection: "row" }, style]}>
           <Icon name='globe' style={styles.globeIcon} />
-        <T11 light shortLine>{I18n.t('cmp.widgets.posted')}</T11>
+        <T11 light shortLine>{text || I18n.t('cmp.widgets.posted')}</T11>
         </View>
         <T11 light shortLine>{formatDate(date)}</T11>
       </View>

@@ -25,13 +25,14 @@ const en = {
     any: 'Any',
     anywhere: 'Anywhere',
     where: 'Where',
+    successfuly: 'successfuly',
     tabs:{
       jobs: 'Jobs',
       contacts: 'Contacts'
     },
     error:{
       contactUs: 'Unexpected Error. Please Contact Us to help you fix the problem.',
-      timeout: 'Unable to connect to internet, please try again later.',
+      timeout: 'Make sure you are connected to internet and try again.',
       problem: 'Opss.. there was a problem'
     }
   },

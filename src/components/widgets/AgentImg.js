@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     container:{
       alignItems: "center",
       justifyContent: "center",
-      paddingHorizontal:30,
+      paddingHorizontal:10,
       marginBottom:10
     },
     thumbnail: {
