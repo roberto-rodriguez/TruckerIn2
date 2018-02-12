@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
-import {Text,Row,  Button, CustomButton, SimpleButton, T10, PostingTime, T12,  T14,  nav, Avatar, formatDate} from 'src/components/'
+import {Text,Row,  SendMsg, CustomButton, SimpleButton, T10, PostingTime, T12,  T14,  nav, Avatar, formatDate} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import moment from 'moment';
 import * as jobActions from "src/views/jobs/jobs.actions";
@@ -14,6 +14,7 @@ import I18n from 'react-native-i18n'
    constructor(props){
      super(props)
      this.state = {
+       data: props.data
      }
    }
 
@@ -24,32 +25,33 @@ import I18n from 'react-native-i18n'
       return nextProps.shouldUpdate
    }
 
-   componentWillMount ( ){
-     this.setState(this.props.data)
-   }
+   onSendMessage = (description) => {
+     var _this = this
 
-  answer = () => nav(this.props.navigation, 'TextInputView', {title:I18n.t('jobs.applied.answerToEmployer'), text:'', callback: this.onAnswer})
+     if(!description)return;
+
+     var action = {
+       fromEmployer: false,
+       description,
+       appId: this.props.data.id
+     }
+
+
+     this.props.sendMsgJobApp(action, ( id ) => {
+
+       action.createdAt = (new Date()).getTime()
+
+       _this.setState(prevState => {
+         prevState.data.appActions = [...(prevState.data.appActions || []), action]
+         return prevState
+       })
+     })
+   }
 
   onDiscard = () => this.setState({...this.state, discarded: true})
 
-  onAnswer = (answer) => {
-    var job = this.props.data;
-    this.props.answerJobApp(job , answer, (newAction) => {
-
-       this.setState((prevState) => {
-         var appActions = prevState.appActions || []
-         appActions.push(newAction)
-
-         return {
-           ...prevState,
-           appActions
-         }
-       })
-    })
-  }
-
   render() {
-    var  job = this.state// this.props.data;
+    var job = this.state.data;
     const navigation = this.props.navigation;
 
     if(job.discarded)return null;
@@ -100,35 +102,31 @@ import I18n from 'react-native-i18n'
     }
 
     buildActions = () => {
-      var job = this.state
-
+      var job = this.state.data
+      if(!job.appActions)return;
       var appActions = job.appActions || [];
       var actionsCmp = []
 
 
         actionsCmp = appActions.map((action, i) => (
-          <T12 key={job.id + '-' + action.id}
+          <T12 key={action.id + '-' + action.createdAt}
            light
-           red={action.request &&  i ===  appActions.length - 1}
-           green={action.answer}>
+           green={action.fromEmployer}>
             <T12
              strong
              light
-             red={action.request &&  i ===  appActions.length - 1}
-             green={action.answer}>
-             { action.createdAt ? formatDate(action.createdAt, 'MMM Do') + ': ' : ''} </T12>
-           { action.description }
+             green={action.fromEmployer}>
+             {action.createdAt ? (formatDate(action.createdAt, 'MMM Do') + ': ') : '' } </T12>
+             {action.description}
 
              <T10 light>
-              {action.createdAt ? ('   (' + formatDate(action.createdAt, 'LT') + ')') : ''}
+                {action.createdAt ? ('   (' + formatDate(action.createdAt, 'h:mm a') + ')') : ''}
              </T10>
           </T12>))
 
-          if(appActions[appActions.length -1].request){
+          if(appActions[appActions.length -1].fromEmployer){
             actionsCmp.push(
-              <CustomButton white text={I18n.t('jobs.applied.answer')}  key={'button-' + job.id}
-                 style={[styles.button, {marginTop: 5}]}
-                 handler={this.answer}/>
+              <SendMsg onSendMessage={this.onSendMessage} placeholder={I18n.t('jobs.applied.answerToEmployer')}/>
              )
           }
       return actionsCmp

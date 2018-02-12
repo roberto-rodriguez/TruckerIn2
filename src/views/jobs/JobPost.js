@@ -59,7 +59,7 @@ import I18n from 'react-native-i18n'
       <Content text={data.description} style={{marginTop: 10}}/>
       {
         applyBar && (
-          <Row h={30} style={{marginTop: 10}}>
+          <Row h={30} spaceBetween style={{marginTop: 10}}>
 
             <CustomButton white text={I18n.t('jobs.post.details')}
              style={styles.button}

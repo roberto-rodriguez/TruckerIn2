@@ -63,21 +63,25 @@ const doFetch = (url, dispatch, getState, callback, data, errorCallback) => {
           callback && callback( response.data || response );
       }
      }).catch((err) => {
-       timeout && clearTimeout(timeout);
 
-       if(!wasServerTimeout){
-         onError(dispatch, I18n.t('general.error.contactUs') )
-       }
+       alert(err)
+       // timeout && clearTimeout(timeout);
+       //
+       // if(!wasServerTimeout){
+       //   onError(dispatch, err, 5000 )
+       //      // onError(dispatch, I18n.t('general.error.contactUs') )
+       //
+       // }
 
      });
 }
 
-const onError = (dispatch, text) => {
+const onError = (dispatch, text, delay) => {
   Toast.show({
       text,
-      position: 'top', duration: 4000, type: 'danger'
+      position: 'top', duration: (delay || 4000), type: 'danger'
     })
 
-    dispatch( showHeaderErrorAction( text ) )
+    dispatch( showHeaderErrorAction( text) )
     setTimeout( () => dispatch( showHeaderErrorAction(null) ), 1000)
 }

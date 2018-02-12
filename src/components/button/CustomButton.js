@@ -46,7 +46,7 @@ import theme from 'src/theme/variables/platform'
   var iconElement = icon ? ( <Icon name={icon} style={[styles.icon, textColor, textStyle]}/> ) : null;
 
     return (
-      <TouchableHighlight  underlayColor={ global.secondaryColor }  style={[styles.button, buttonSize, buttonColor, customStyle, style]}  onPress={handler}>
+      <TouchableHighlight  underlayColor={ 'transparent' }  style={[styles.button, buttonSize, buttonColor, customStyle, style]}  onPress={handler}>
         <View style={{alignItems:'center'}}>
          {iconElement}
          {textElement}

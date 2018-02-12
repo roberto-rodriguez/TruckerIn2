@@ -17,40 +17,36 @@ const tabs = [
 class JobDetails extends Component {
   constructor(props) {
       super(props);
+
+       var data = this.props.navigation.state
+               && this.props.navigation.state.params
+               && this.props.navigation.state.params.data
+
       this.state = {
         selectedTab: 0,
-        data: {}
+        data
       }
     }
 
   componentDidMount(){
-    var _this = this;
-    var params = (this.props.navigation
-                   && this.props.navigation.state
-                   && this.props.navigation.state.params)
-
-    var data = params.data
-
-   if(params && data){
-     this.setState(prevState => ({
-       ...prevState,
-       data
-     }))
+    if(!this.state.data.id)return;
+    var _this = this
 
      setTimeout(() => {
-       this.props.loadJobDetails(data.id, (details) => {
+       this.props.loadJobDetails(this.state.data.id, (details) => {
          _this.setState(prevState => {
-           prevState.data = details
+           prevState.data = {
+             ...prevState.data,
+             ...details
+           }
+
            return prevState
          })
        })
      }, 100)
    }
 
-  }
-
   render() {
-    debugger;
     const navigation = this.props.navigation;
     var {selectedTab, data} = this.state;
 
@@ -59,8 +55,8 @@ class JobDetails extends Component {
         <Header navigation={navigation} back title={I18n.t('jobs.details.title')}/>
         <Content fullscreen>
          <JobPost data={data} navigation={navigation}/>
-         <View style={{backgroundColor: 'white'}}>
-           <Row style={{height:50}}>
+        <View  >
+           <Row style={{height:41, borderBottomWidth: 0.5, borderBottomColor:'grey'}}>
             {tabs.map(({title}, i) => (
               <Column columns={3} key={i}>
                 <TransparentButton
@@ -70,7 +66,7 @@ class JobDetails extends Component {
               </Column>
             )) }
            </Row>
-           <BulletsView list={ [data[tabs[selectedTab].prop ] ] }/>
+           {data && (<BulletsView list={ [data[tabs[selectedTab].prop ] ] }/>)}
          </View>
         </Content>
       </Container>

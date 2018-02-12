@@ -130,7 +130,7 @@ export function loadJob(jobId, callback){
 
 export function loadJobDetails(jobId, callback){
   return function( dispatch, getState ){
-    callback && callback( apiLoadJob() )
+    Connector.doGET('job/load/' + jobId, dispatch, getState, (job) => callback( job ))
   }
 }
 
@@ -168,7 +168,7 @@ export function saveJob(jobId, callback ){
           savedJobs++
           dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
           globalActions.showHeaderNotification(I18n.t('jobs.actions.saved'))( dispatch, getState )
-         callback(true)
+
       }
     )
 
@@ -186,6 +186,23 @@ export function discardJob(jobId, callback ){
     appliedJobs--
     dispatch( globalActions.setGlobalProfileInfoAction({appliedJobs}) )
     globalActions.showHeaderNotification(I18n.t('jobs.actions.discarded'))( dispatch, getState )
+  }
+}
+
+export function deleteSavedJob(jobId, callback ){
+  return function( dispatch, getState ){
+    var userId = getState().globalReducer.profileInfo.id
+
+    Connector.doGET('savedJob/deleteSavedJob/' + userId + '/' + jobId, dispatch, getState, () => {
+      globalActions.showHeaderNotification(I18n.t('jobs.actions.discarded'))( dispatch, getState )
+      var savedJobs = getState().globalReducer.profileInfo.savedJobs || 0
+      savedJobs && savedJobs--
+      dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
+      callback()
+    } )
+
+
+
   }
 }
 //--- MOCK DATA ------------

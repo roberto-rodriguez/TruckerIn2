@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import { View, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
+import { View, StyleSheet  } from 'react-native';
 import { Card } from "native-base";
 import {Text,Row,Column,  Button, CustomButton, PostingTime, SimpleButton, T10, T12, T14, Content, Avatar, nav, formatDate, SendMsg} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
@@ -18,25 +18,20 @@ import Icon from 'react-native-fa-icons';
 
       this.state = {
         deleted: false,
-        data: props.data,
-        msg: ''
+        data: props.data
       }
 }
 
  delete = () => this.setState({deleted: true})
 
- //sendMessage = () => nav(navigation, 'TextInputView', {title: I18n.t('jobs.app.msgToApplicant'), callback:this.onSendMessage})
-
- onSendMessage = () => {
+ onSendMessage = (description) => {
    var _this = this
 
-   var msg = this.state.msg
-
-   if(!msg)return;
+   if(!description)return;
 
    var action = {
      fromEmployer: true,
-     description: this.state.msg,
+     description,
      appId: this.props.data.id
    }
 
@@ -47,7 +42,6 @@ import Icon from 'react-native-fa-icons';
 
      _this.setState(prevState => {
        prevState.data.appActions = [...(prevState.data.appActions || []), action]
-       prevState.msg = ''
        return prevState
      })
    })
@@ -111,9 +105,7 @@ import Icon from 'react-native-fa-icons';
             </View> )
       }
 
-      <SendMsg
-        onChangeText={(msg) => this.setState({msg})}
-         onSendMessage={this.onSendMessage}/>
+      <SendMsg onSendMessage={this.onSendMessage}/>
     </Card>
 
 
@@ -122,19 +114,18 @@ import Icon from 'react-native-fa-icons';
     }
 
 
-    buildActions = () => {
+    buildActions = () => { 
       var job = this.state.data
+      if(!job.appActions)return;
 
       var appActions = job.appActions || [];
       var actionsCmp = appActions.map((action, i) => (
-          <T12 key={job.id + '-' + action.id}
+          <T12 key={action.createdAt}
            light
-           red={action.request &&  i ===  appActions.length - 1}
-           green={action.anfromEmployerswer}>
+           green={action.fromEmployer}>
             <T12
              strong
              light
-             red={action.request &&  i ===  appActions.length - 1}
              green={action.fromEmployer}>
              { formatDate(action.createdAt, 'MMM Do')} </T12>
              {': ' + action.description}
@@ -160,19 +151,7 @@ import Icon from 'react-native-fa-icons';
         borderTopWidth:0.2,
         marginTop:15,
         paddingTop:10,
-      },
-      // input:{
-      //   width: '100%'
-      // },
-      // sendButton:{
-      //   width:'100%', height: '100%', borderTopRightRadius: 10, borderBottomRightRadius: 10
-      // },
-      // sendButtonWrap: {
-      //   backgroundColor: theme.secondaryColor, borderTopRightRadius: 10, borderBottomRightRadius: 10
-      // },
-      // sendIconWrap:{alignItems:'center', marginTop: 10},
-      // messageText: {borderWidth: 0.5, borderColor: theme.secondaryColor, borderTopLeftRadius: 10, borderBottomLeftRadius: 10},
-      // msgWrap: {flexDirection: 'row', marginTop: 10}
+      }
     })
 
     const mapStateToProps = ({  globalReducer}) => {

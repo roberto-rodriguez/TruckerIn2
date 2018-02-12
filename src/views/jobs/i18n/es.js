@@ -54,7 +54,7 @@ const es = {
   },
   applied:{
     title: 'Trabajos Aplicados' ,
-    answerToEmployer: 'Responder al Employer',
+    answerToEmployer: 'Responder al empleador',
     appSubmittedOn: 'Aplicación enviada el ',
     notSeen: "Esta aplicación no ha sido vista todavía.",
     seen: 'La aplicación fue vista.',

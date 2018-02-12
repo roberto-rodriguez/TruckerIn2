@@ -10,22 +10,38 @@ import I18n from 'react-native-i18n'
 
   class SendMsg  extends Component {
 
+      constructor(props) {
+          super(props)
+
+          this.state = {
+            msg: ''
+          }
+    }
+
+    onChangeText = (msg) => this.setState({msg})
+
+    onSendMessage = () => {
+      this.props.onSendMessage( this.state.msg)
+      this.setState({msg: ''})
+    }
+
   render() {
-    var { onChangeText, onSendMessage} = this.props
-debugger;
+    var {fullName, profileImg, placeholder} = this.props
+
       return (
         <View style={styles.msgWrap}>
           <Column columns={7} colspan={1} >
-            <Avatar name={this.props.fullName} src={this.props.profileImg} size={40} />
+            <Avatar name={fullName} src={profileImg} size={40} />
           </Column>
           <Column columns={7} colspan={5} style={styles.messageText}>
             <TextInput underlineColorAndroid='transparent' style={styles.input}
-              onChangeText={onChangeText} 
-              placeholder={I18n.t('general.sendMsg') }
+              onChangeText={this.onChangeText}
+              value={this.state.msg}
+              placeholder={placeholder || I18n.t('general.sendMsg') }
              />
           </Column>
           <Column columns={7} colspan={1} style={styles.sendButtonWrap}>
-            <TouchableHighlight  underlayColor={'transparent'} style={styles.sendButton} onPress={onSendMessage} >
+            <TouchableHighlight  underlayColor={'transparent'} style={styles.sendButton} onPress={this.onSendMessage} >
                 <View style={styles.sendIconWrap}>
                   <Icon name={'send'} style={{color:'white'}}/>
                 </View>
