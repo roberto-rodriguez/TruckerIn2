@@ -1,5 +1,5 @@
 import moment from 'moment';
-
+import { formatDate} from 'src/components/'
 import I18n from 'react-native-i18n'
 import data from './list/data'
 import * as Connector from 'src/boot/reducers/connector'
@@ -62,9 +62,29 @@ export function listSavedJobs(page = 0, params, callback, reset){
 export function listApps(page = 0, params, callback, reset, limit){
   return function( dispatch, getState ){
 
-   var request = { limit: 10, params, page }
+   var request = { limit: 5, params, page }
 
-   Connector.doPOST('app/list', dispatch, getState, request,  (apps) => callback(apps, reset))
+   Connector.doPOST('app/list', dispatch, getState, request,  (apps) => {
+
+       if(params['applicant.id']){
+       apps && apps.forEach( (app, i) => {
+         var seenAction = {
+           id: i,
+           createdAt: app.seenTime,
+           description:  I18n.t(['jobs', 'applied', app.seenTime ? 'seen' : 'notSeen'])
+         }
+
+         if(!app.appActions){
+            app.appActions = [seenAction]
+         }else{
+            app.appActions = [seenAction, ...app.appActions]
+         }
+       })
+    }
+
+     callback(apps, reset)
+   })
+
   }
 }
 
@@ -95,18 +115,10 @@ export function answerJobApp(job, answer, callback){
   }
 }
 
-export function sendMsgJobApp(appId, msg, callback){
+export function sendMsgJobApp(appAction, callback){
   return function( dispatch, getState ){
 
-    var action = {
-      id: 100,
-      date:  moment( ).format('YYYYMMDDTHH:mm:ss'),
-      text: msg,
-      request:true,
-      relevant:true
-    }
-
-    callback && callback(action)
+    Connector.doPOST('/appAction/save', dispatch, getState, appAction, callback)
   }
 }
 

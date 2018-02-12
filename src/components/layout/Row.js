@@ -16,7 +16,7 @@ import {View, StyleSheet} from 'react-native';
  if(spaceBetween)customStyle.justifyContent = "space-between"
 
  if(fullWidth){
-   heightStyle.marginHorizontal = 0
+   customStyle.marginHorizontal = 0
  }
 
     return (

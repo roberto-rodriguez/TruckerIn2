@@ -22,6 +22,7 @@ export { default as AgentMsg } from './widgets/AgentMsg'
 export { default as Separator } from './widgets/Separator'
 export { default as Avatar } from './widgets/Avatar'
 export { default as Pin } from './widgets/pin/Pin'
+export { default as SendMsg } from './widgets/SendMsg'
 
 //Buttons
 export { default as ConnectButton } from './button/ConnectButton'

@@ -105,9 +105,7 @@ import I18n from 'react-native-i18n'
       var appActions = job.appActions || [];
       var actionsCmp = []
 
-      if(appActions.length === 0){
-        actionsCmp.push(<T12 key={job.id} light>{I18n.t('jobs.applied.notSeen')}</T12>)
-      }else{
+
         actionsCmp = appActions.map((action, i) => (
           <T12 key={job.id + '-' + action.id}
            light
@@ -118,11 +116,11 @@ import I18n from 'react-native-i18n'
              light
              red={action.request &&  i ===  appActions.length - 1}
              green={action.answer}>
-             { formatDate(action.createdAt, 'MMM Do')} </T12>
-             {': ' + action.text}
+             { action.createdAt ? formatDate(action.createdAt, 'MMM Do') + ': ' : ''} </T12>
+           { action.description }
 
              <T10 light>
-              {'   (' + formatDate(action.createdAt, 'LT') + ')'}
+              {action.createdAt ? ('   (' + formatDate(action.createdAt, 'LT') + ')') : ''}
              </T10>
           </T12>))
 
@@ -133,8 +131,6 @@ import I18n from 'react-native-i18n'
                  handler={this.answer}/>
              )
           }
-      }
-
       return actionsCmp
     }
 
@@ -161,6 +157,6 @@ import I18n from 'react-native-i18n'
           marginTop:15,
           paddingTop:10,
         }
-    })  
+    })
 
     export default connect(null, jobActions)(AppliedJobPost);

@@ -24,10 +24,12 @@ const en = {
       copy: 'COPY',
       apply: 'APPLY',
       save: 'SAVE',
+      completeProfile: 'VIEW COMPLETE PROFILE',
+      jobDetails: 'JOB DETAILS',
       desc: 'Description',
       req: 'Requirements',
       resp: 'Responsabilities',
-      benefits: 'Benefits'
+      benefits: 'Benefits' 
     },
     app:{
       title: 'Job Application',
@@ -55,6 +57,7 @@ const en = {
     answerToEmployer: 'Answer to Employer',
     appSubmittedOn: 'Application submitted on ',
     notSeen: "Application not seen yet.",
+    seen: 'The application was seen.',
     answer: 'ANSWER'
   },
   pre:{

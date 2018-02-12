@@ -17,11 +17,12 @@ export default (variables = variable) => {
     borderColor: variables.cardBorderColor,
     flexWrap: "wrap",
     backgroundColor: variables.cardDefaultBg,
-  //  shadowColor: "#000",
-  //  shadowOffset: { width: 0, height: 2 },
-  //  shadowOpacity: 0.1,
-  //  shadowRadius: 1.5,
-    elevation: 3
+    
+   shadowColor: "#000",
+   shadowOffset: { width: 0, height: 2 },
+   shadowOpacity: 0.1,
+   shadowRadius: 1.5,
+    elevation: 5
   };
 
   return cardTheme;

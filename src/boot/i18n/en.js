@@ -26,6 +26,7 @@ const en = {
     anywhere: 'Anywhere',
     where: 'Where',
     successfuly: 'successfuly',
+    sendMsg: 'Send a message...',
     tabs:{
       jobs: 'Jobs',
       contacts: 'Contacts'

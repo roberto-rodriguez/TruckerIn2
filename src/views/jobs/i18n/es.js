@@ -27,7 +27,9 @@ const es = {
       desc: 'Descripción',
       req: 'Requirimientos',
       resp: 'Responsabilidades',
-      benefits: 'Beneficios'
+      benefits: 'Beneficios',
+      completeProfile: 'VER PERFIL COMPLETO',
+      jobDetails: 'DETALLES'
     },
     app:{
       title: 'Aplicación de Trabajo',
@@ -54,7 +56,8 @@ const es = {
     title: 'Trabajos Aplicados' ,
     answerToEmployer: 'Responder al Employer',
     appSubmittedOn: 'Aplicación enviada el ',
-    notSeen: "Aplicación no vista todavía.",
+    notSeen: "Esta aplicación no ha sido vista todavía.",
+    seen: 'La aplicación fue vista.',
     answer: 'RESPONDER'
   },
   pre:{

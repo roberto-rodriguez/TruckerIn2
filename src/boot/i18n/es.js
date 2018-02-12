@@ -26,6 +26,7 @@ const es = {
     anywhere: 'Dondequiera',
     where: 'Donde',
     successfuly: 'satisfactoriamente',
+    sendMsg: 'Envie un mensaje...',
     tabs:{
       jobs: 'Trabajos',
       contacts: 'Contactos'
