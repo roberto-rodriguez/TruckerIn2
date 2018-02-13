@@ -12,13 +12,10 @@ import AppliedJobPost from './AppliedJobPost'
 
 class AppliedJobs extends Component {
 
-  itemBuilder = (data, navigation, i , shouldUpdate) => (
-    <AppliedJobPost navigation={navigation}  key={i} data={data}/>
-  )
+  itemBuilder = (data, navigation, i , shouldUpdate) => (<AppliedJobPost navigation={navigation}  key={data.createdAt} data={data}/>)
 
-  loadItems = (page, callback) => {
-    this.props.listApps(page, {'applicant.id': this.props.userId}, callback)
-  }
+  loadItems = (page, callback) => this.props.listApps(page, {'applicant.id': this.props.userId}, callback)
+  
 
 
   render() {

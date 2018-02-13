@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, StatusBar, Platform, ActivityIndicator} from "react-native";
+import { Image, StatusBar, Platform, ActivityIndicator, KeyboardAvoidingView} from "react-native";
 import { Container, Content, Text, Item, Input, Button, View } from "native-base";
 import { T16, Column, Row, SimpleButton} from 'src/components'
 import I18n from 'react-native-i18n'
@@ -75,7 +75,7 @@ class Login extends Component {
 
 
         <Content fullscreen>
- 
+
         <View style={styles.logoContainerView}>
 
           <Image source={logo} style={styles.imageShadow} />
@@ -101,6 +101,7 @@ class Login extends Component {
            style={styles.backgroundVideo} />
           <View style={styles.formView}>
 
+
           <BaseTextInput
            name="username"
            showError={showError}
@@ -122,7 +123,7 @@ class Login extends Component {
               { I18n.t('login.login') }
             </Text>
           </Button>
-
+  
             <Button
               block
               style={styles.loginBtn}

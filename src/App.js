@@ -75,7 +75,7 @@ class RootApp extends Component {
     if(!this.state.isAlreadySetup && newProps.headerError){
       this.setState({checkedLogin: true, isAlreadyLoggedIn: false, isAlreadySetup: true})
     }
-  } 
+  }
 
  render(){
    var {checkedLogin, isAlreadyLoggedIn} = this.state

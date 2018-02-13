@@ -107,13 +107,13 @@ export default {
   IconBadge: {
     position:'absolute',
     top:0,
-    right:'20%',
+    right:'10%',
     minWidth:18,
     height:18,
     borderRadius:9,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: commonColor.secondaryColor,
+    backgroundColor: 'red',
     padding:0,
     margin:0
   },

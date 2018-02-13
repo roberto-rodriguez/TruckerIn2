@@ -1,4 +1,4 @@
-// é, á, í, ó, ú, ñ
+//  á, é, í, ó, ú, ñ
 
 const es = {
   jobs:{
@@ -96,7 +96,9 @@ const es = {
     jobHas: 'Trabajo ha sido ',
     successfuly: ' satisfactoriamente',
     saved: 'Trabajo a sido guardado',
-    discarded: 'Trabajo ha sido descartado'
+    discarded: 'Trabajo ha sido descartado',
+    rejected: 'Esta aplicacion ha sido rechazada.',
+    deleted: 'Este empleo ha sido eliminado. Todos los aplicantes serán notificados.'
   }
 
   }

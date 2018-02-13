@@ -29,7 +29,7 @@ const en = {
       desc: 'Description',
       req: 'Requirements',
       resp: 'Responsabilities',
-      benefits: 'Benefits' 
+      benefits: 'Benefits'
     },
     app:{
       title: 'Job Application',
@@ -96,7 +96,9 @@ const en = {
     jobHas: 'Job has been ',
     successfuly: ' successfuly',
     saved: 'Job has been saved',
-    discarded: 'Job has been discarded'
+    discarded: 'Job has been discarded',
+    rejected: 'This application has been rejected',
+    deleted: 'This Job has been deleted. All applicants will be notified about it.'
   }
 
   }

@@ -31,7 +31,7 @@ const doFetch = (url, dispatch, getState, callback, data, errorCallback) => {
 
     onError(dispatch, I18n.t('general.error.timeout') )
 
-  } , 5000)
+  } , 8000)
 
 
 //  var HOST = 'https://mobile.girocheck.net:8999'

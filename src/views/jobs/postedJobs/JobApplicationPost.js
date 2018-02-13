@@ -10,6 +10,7 @@ import * as jobActions from "src/views/jobs/jobs.actions";
 import I18n from 'react-native-i18n'
 import theme from 'src/theme/variables/platform';
 import Icon from 'react-native-fa-icons';
+import call from 'react-native-phone-call'
 
  class JobApplicationPost extends Component {
 
@@ -17,12 +18,14 @@ import Icon from 'react-native-fa-icons';
       super(props)
 
       this.state = {
-        deleted: false,
+        rejected: false,
         data: props.data
       }
 }
 
- delete = () => this.setState({deleted: true})
+
+ onReject = () => this.props.rejectApp(this.state.data.id, () => this.setState({rejected: true}))
+
 
  onSendMessage = (description) => {
    var _this = this
@@ -51,7 +54,7 @@ import Icon from 'react-native-fa-icons';
     var dataRow = this.state.data;
     const navigation = this.props.navigation;
 
-    if(this.state.deleted)return null;
+    if(this.state.rejected)return null;
 
     return (
       <View>
@@ -73,7 +76,7 @@ import Icon from 'react-native-fa-icons';
         <View style={postStyle.headerRight} >
           <View style={{flexDirection: "row",justifyContent:'flex-end'}} >
             <CustomButton text={'CALL'} style={{width:60}}
-            handler={() => alert('Calling ' + dataRow.applicantPhone)}/>
+            handler={() =>  call({ number: dataRow.applicantPhone})}/>
           </View>
           <PostingTime date={dataRow.appTime} text={I18n.t('jobs.app.applied')}/>
         </View>
@@ -91,11 +94,11 @@ import Icon from 'react-native-fa-icons';
 
         <CustomButton white text={I18n.t('jobs.post.jobDetails')}
           style={[styles.button, { width:100}]}
-          handler={() => navigation.navigate('JobDetails')}/>
+          handler={() => nav(navigation, 'JobDetails', {data: {...dataRow, id: dataRow.jobId}} ) }/>
 
          <CustomButton white text={I18n.t('jobs.post.reject')}
            style={styles.button}
-           handler={() => {}}/>
+           handler={this.onReject}/>
       </View>
 
       {
@@ -105,7 +108,7 @@ import Icon from 'react-native-fa-icons';
             </View> )
       }
 
-      <SendMsg onSendMessage={this.onSendMessage}/>
+      { !dataRow.discarded && (<SendMsg onSendMessage={this.onSendMessage} />)}
     </Card>
 
 
@@ -114,7 +117,7 @@ import Icon from 'react-native-fa-icons';
     }
 
 
-    buildActions = () => { 
+    buildActions = () => {
       var job = this.state.data
       if(!job.appActions)return;
 

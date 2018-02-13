@@ -9,11 +9,14 @@ import * as jobActions from "src/views/jobs/jobs.actions";
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
 
+
+
  class AppliedJobPost extends Component {
 
    constructor(props){
      super(props)
      this.state = {
+       discarded: false,
        data: props.data
      }
    }
@@ -48,13 +51,13 @@ import I18n from 'react-native-i18n'
      })
    }
 
-  onDiscard = () => this.setState({...this.state, discarded: true})
+  onDiscard = () => this.props.discardApp(this.state.data.id, () => this.setState({discarded: true}))
 
   render() {
     var job = this.state.data;
     const navigation = this.props.navigation;
 
-    if(job.discarded)return null;
+    if(this.state.discarded)return null;
 
     return (
 
@@ -86,10 +89,10 @@ import I18n from 'react-native-i18n'
 
           <CustomButton white text={I18n.t('jobs.post.details')}
           style={styles.button}
-          handler={() => nav(navigation, 'JobDetails', {data: job}) }/>
+          handler={() => nav(navigation, 'JobDetails', {data: {...job, id: job.jobId}}) }/>
 
         <CustomButton white small icon={'trash'}
-           handler={() => this.props.discardJob(job.id, this.onDiscard)}/>
+           handler={this.onDiscard}/>
 
       </Row>
 
@@ -123,9 +126,9 @@ import I18n from 'react-native-i18n'
              </T10>
           </T12>))
 
-          if(appActions[appActions.length -1].fromEmployer){
+          if(!job.rejected && !job.deleted && appActions[appActions.length -1].fromEmployer){
             actionsCmp.push(
-              <SendMsg onSendMessage={this.onSendMessage} placeholder={I18n.t('jobs.applied.answerToEmployer')}/>
+              <SendMsg onSendMessage={this.onSendMessage} key={999} placeholder={I18n.t('jobs.applied.answerToEmployer')}/>
              )
           }
       return actionsCmp

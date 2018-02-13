@@ -92,14 +92,15 @@ class StateList extends Component {
     navigation={this.props.navigation}
     label={ I18n.t('cmp.loc.allStates')}
     value={'US'}
-    handler={this.props.onSelectState} 
+    handler={this.props.onSelectState}
   />)
 }
 
 
 
 const mapStateToProps = ({locationReducer}, ownProps) => ({
-  usStates: locationReducer.usStates
+  usStates: locationReducer.usStates,
+  timestamp: locationReducer.timestamp
 })
 
   export default connect(mapStateToProps)(StateList);

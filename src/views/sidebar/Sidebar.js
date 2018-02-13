@@ -16,12 +16,6 @@ const truckerItems = [
     icon: "address-card-o",
     text: "myJobApps",
     bg: 'steelblue'
-  },
-  {
-    link: "SavedJobs",
-    icon: "briefcase",
-    text: "mySavedJobs",
-    bg: 'teal'
   }
 ]
 
@@ -66,6 +60,12 @@ const menuItems = [
   //   text: "Invite from contact list",
   //   bg: "#ffb66c"
   // },
+  {
+    link: "SavedJobs",
+    icon: "briefcase",
+    text: "mySavedJobs",
+    bg: 'teal'
+  },
   {
     link: "About",
     icon: "university",

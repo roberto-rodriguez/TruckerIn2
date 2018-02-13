@@ -6,6 +6,7 @@ import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T12, T14, Co
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
+import * as jobActions from "src/views/jobs/jobs.actions";
 
  class PostedJobPosts extends Component {
 
@@ -13,14 +14,25 @@ import I18n from 'react-native-i18n'
       super(props)
 
       this.state = {
-        deleted: false
+        deleted: false,
+        data: props.data
       }
 }
 
- delete = () => this.setState({deleted: true})
+onEdit = ( data ) => {
+  var newData = {
+    ...data, 
+    id: this.state.data.id,
+    locationName: ( data.location && data.location.locationName ) || this.state.data.locationName
+  }
+   this.setState({data: newData})
+}
+
+ delete = () => this.props.deleteJob(this.props.data.id, () => this.setState({deleted: true}))
 
   render() {
-    var dataRow = this.props.data;
+    var dataRow = this.state.data;
+
     const {navigation, isMe} = this.props
 
     if(this.state.deleted)return null;
@@ -45,7 +57,7 @@ import I18n from 'react-native-i18n'
           <View style={styles.editView} >
             {  isMe && (
               <CustomButton text={I18n.t('jobs.posted.edit')} style={{width:60}}
-              handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'edit'}) }/>
+              handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'edit', data: dataRow, callback: this.onEdit}) }/>
             )}
           </View>
           <PostingTime date={dataRow.createdAt}/>
@@ -70,7 +82,7 @@ import I18n from 'react-native-i18n'
           {isMe && (
             <CustomButton white text={I18n.t('jobs.post.copy')}
               style={styles.button}
-              handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'copy'}) }/>
+              handler={() => nav(navigation, 'CreateJob', {jobId: dataRow.id, action: 'copy', data: dataRow}) }/>
             )
           }
 
@@ -101,4 +113,4 @@ import I18n from 'react-native-i18n'
        isMe: ownProps.data && ownProps.data.userId === globalReducer.profileInfo.id
     })
 
-    export default connect(mapStateToProps)(PostedJobPosts);
+    export default connect(mapStateToProps, jobActions)(PostedJobPosts);

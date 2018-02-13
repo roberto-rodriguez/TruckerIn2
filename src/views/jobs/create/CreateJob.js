@@ -52,7 +52,7 @@ class CreateJob extends Component {
                   && props.navigation.state.params)
 
   if(params){
-    var {action, jobId} = params
+    var {action, jobId, data} = params
 
     var title;
     switch(action){
@@ -67,11 +67,12 @@ class CreateJob extends Component {
     this.setState((prevState) => {
       prevState['action'] = action;
       prevState['title'] = title;
+      prevState['data'] = data;
       return prevState;
     })
 
   if(jobId){
-    setTimeout(() =>  _this.props.loadJob(jobId, (job) => _this.setState((prevState) =>
+    setTimeout(() =>  _this.props.loadJobDetails(jobId, (job) => _this.setState((prevState) =>
        {
           if(action === 'copy'){
              job.id = null
@@ -81,7 +82,7 @@ class CreateJob extends Component {
 
          return prevState
        }
-    )), 200)
+    )), 300)
   }
   }
  }
@@ -126,7 +127,10 @@ this.setState({loading: false})
   var navigation = this.props.navigation
   var callback = (navigation.state && navigation.state.params && navigation.state.params.callback)
 
-  callback && callback(jobId)
+  var job = this.state.data
+  job.id = jobId
+   
+  callback && callback( job )
   navigation.goBack();
 }
 
@@ -134,8 +138,7 @@ this.setState({loading: false})
   render() {
     const {navigation, equipmentOptions, experienceOptions} = this.props;
     var _this = this,
-    state = this.state.data;
-
+    state = this.state.data || {};
 
     return (
       <Container>

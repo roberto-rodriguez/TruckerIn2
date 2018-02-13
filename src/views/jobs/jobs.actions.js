@@ -122,12 +122,6 @@ export function sendMsgJobApp(appAction, callback){
   }
 }
 
-export function loadJob(jobId, callback){
-  return function( dispatch, getState ){
-    callback && callback( apiLoadJob( jobId ) )
-  }
-}
-
 export function loadJobDetails(jobId, callback){
   return function( dispatch, getState ){
     Connector.doGET('job/load/' + jobId, dispatch, getState, (job) => callback( job ))
@@ -140,6 +134,7 @@ export function createJob(job, callback, action){
     var userId = getState().globalReducer.profileInfo.id
 
     job.authorId = userId;
+    var isUpdating = job.id
 
     Connector.doPOST('/job/save', dispatch, getState, job, function( jobId ){
       if(jobId){
@@ -149,6 +144,12 @@ export function createJob(job, callback, action){
           var label = action === 'edit' ? 'edited' : 'created'
 
           globalActions.showHeaderNotification(I18n.t('jobs.actions.jobHas') + label + I18n.t('jobs.actions.successfuly'), 500)( dispatch, getState )
+         }
+
+         if(!isUpdating){
+           var postedJobs = getState().globalReducer.profileInfo.postedJobs || 0
+           postedJobs++
+           dispatch( globalActions.setGlobalProfileInfoAction({postedJobs}) )
          }
 
         callback( job )
@@ -175,27 +176,33 @@ export function saveJob(jobId, callback ){
   }
 }
 
-//TODO
-export function discardJob(appId, callback ){
+//To use for the applicant
+export function discardApp(appId, callback ){
   return function( dispatch, getState ){
 
-    Connector.doPOST('/app/save', dispatch, getState, {id: appId, appId: true},
+    Connector.doPOST('/app/save', dispatch, getState, {id: appId, discarded: true},
       () => {
-          var savedJobs = getState().globalReducer.profileInfo.savedJobs || 0
-          savedJobs++
-          dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
-          globalActions.showHeaderNotification(I18n.t('jobs.actions.saved'))( dispatch, getState )
-
+          var appliedJobs = getState().globalReducer.profileInfo.appliedJobs || 0
+          appliedJobs--
+          dispatch( globalActions.setGlobalProfileInfoAction({appliedJobs}) )
+          globalActions.showHeaderNotification(I18n.t('jobs.actions.discarded'))( dispatch, getState )
+          callback()
       }
     )
-    //TODO call api
-    var jobId = 1;
-    callback && callback( )
+  }
+}
 
-    var appliedJobs = getState().globalReducer.profileInfo.appliedJobs || 0
-    appliedJobs--
-    dispatch( globalActions.setGlobalProfileInfoAction({appliedJobs}) )
-    globalActions.showHeaderNotification(I18n.t('jobs.actions.discarded'))( dispatch, getState )
+
+//To use for the employer
+export function rejectApp(appId, callback ){
+  return function( dispatch, getState ){
+
+    Connector.doPOST('/app/save', dispatch, getState, {id: appId, rejected: true},
+      () => {
+          globalActions.showHeaderNotification(I18n.t('jobs.actions.rejected'))( dispatch, getState )
+          callback()
+      }
+    )
   }
 }
 
@@ -210,10 +217,22 @@ export function deleteSavedJob(jobId, callback ){
       dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
       callback()
     } )
-
-
-
   }
+}
+
+export function deleteJob(id, callback, action){
+  return function( dispatch, getState ){
+
+
+    Connector.doPOST('/job/save', dispatch, getState, {id, deleted: true}, () => {
+
+        var postedJobs = getState().globalReducer.profileInfo.postedJobs || 0
+        postedJobs--
+        dispatch( globalActions.setGlobalProfileInfoAction({postedJobs}) )
+        globalActions.showHeaderNotification(I18n.t('jobs.actions.deleted'))( dispatch, getState )
+        callback()
+    })
+}
 }
 //--- MOCK DATA ------------
 //jobs = []

@@ -106,8 +106,8 @@ componentWillUnmount() {
 const mapStateToProps = ({locationReducer}, ownProps) => ({
   stateId: locationReducer.stateId,
   cityId: locationReducer.cityId,
-  stateName: locationReducer.stateName,
-  cityName: locationReducer.cityName
+  stateName: locationReducer.state || locationReducer.stateName,
+  cityName: locationReducer.city || locationReducer.cityName
   })
 
 export default connect(mapStateToProps, locationsActions )(LocationPicker);

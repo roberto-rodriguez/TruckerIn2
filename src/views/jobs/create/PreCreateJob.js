@@ -20,11 +20,11 @@ class PreCreateJob extends Component {
       }
 }
 
-onCreate = (jobId) => {
+onCreate = (job) => {
   debugger;
   this.setState({
     created: true,
-    jobId
+    jobId: (job && job.id)
   })
 }
 
