@@ -175,9 +175,19 @@ export function saveJob(jobId, callback ){
   }
 }
 
-
-export function discardJob(jobId, callback ){
+//TODO
+export function discardJob(appId, callback ){
   return function( dispatch, getState ){
+
+    Connector.doPOST('/app/save', dispatch, getState, {id: appId, appId: true},
+      () => {
+          var savedJobs = getState().globalReducer.profileInfo.savedJobs || 0
+          savedJobs++
+          dispatch( globalActions.setGlobalProfileInfoAction({savedJobs}) )
+          globalActions.showHeaderNotification(I18n.t('jobs.actions.saved'))( dispatch, getState )
+
+      }
+    )
     //TODO call api
     var jobId = 1;
     callback && callback( )

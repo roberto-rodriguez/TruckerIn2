@@ -11,7 +11,7 @@ import * as roles from 'src/components/c/Role'
 class JobListHeader extends Component {
   render(){
      const {navigation, profileInfo}  = this.props
-     var {roleId, postedJobs, savedJobs} = profileInfo
+     var {roleId, postedJobs, savedJobs, appliedJobs} = profileInfo
 
        if(roleId === roles.DRIVER){
          return (<Row h={50} style={{borderBottomWidth:0.3, borderBottomColor: theme.secondaryColor}}>
@@ -20,7 +20,7 @@ class JobListHeader extends Component {
              handler={() => nav(navigation, 'SavedJobs')}/>
            </Column>
            <Column h={50} columns={2}>
-             <TransparentButton color text={'2' + ' ' + I18n.t('jobs.applied.title') } style={{paddingTop:4}}
+             <TransparentButton color text={appliedJobs + ' ' + I18n.t('jobs.applied.title') } style={{paddingTop:4}}
              handler={() => nav(navigation, 'AppliedJobs')}/>
            </Column>
          </Row>)

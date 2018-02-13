@@ -82,14 +82,13 @@ import I18n from 'react-native-i18n'
       <Text><Text strong>{I18n.t('jobs.post.exp')}</Text>{job.experience}</Text>
       <Text><Text strong>{I18n.t('jobs.post.compensation')}</Text>{job.compensation}</Text>
 
-      <Row h={30} style={{marginTop: 10}}>
+    <Row h={30} spaceBetween style={{marginTop: 10}}>
 
           <CustomButton white text={I18n.t('jobs.post.details')}
           style={styles.button}
           handler={() => nav(navigation, 'JobDetails', {data: job}) }/>
 
-         <CustomButton white text={I18n.t('jobs.post.discard')}
-           style={styles.button}
+        <CustomButton white small icon={'trash'}
            handler={() => this.props.discardJob(job.id, this.onDiscard)}/>
 
       </Row>
