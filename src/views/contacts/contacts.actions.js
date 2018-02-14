@@ -1,6 +1,5 @@
 
-
-//import I18n from 'react-native-i18n'
+import * as Connector from 'src/boot/reducers/connector'
 import I18n from 'react-native-i18n'
 import * as globalActions from 'src/boot/reducers/global.actions'
 
@@ -77,7 +76,14 @@ export function doConnect(contactId, name, callback){
 }
 
 
+export function listNonRelatedUsers(page = 0, callback ){
+  return function( dispatch, getState ){
+    var userId =  getState().globalReducer.profileInfo.id
+   var request = { limit: 10, userId,  page }
 
+   Connector.doPOST('user/listNonRelatedUsers', dispatch, getState, request,  (users) => callback(users))
+  }
+}
 
 //--- MOCK DATA ------------
 

@@ -37,8 +37,14 @@ const initialState = {
     equipmentOptions: [],
     experienceOptions: [],
     jobStatusOptions: [],
+    hiringStatusOptions: [],
     roleOptions: [],
-    hiringStatusOptions: []
+
+    equipmentOptionsObj: {},
+    experienceOptionsObj: {},
+    jobStatusOptionObj: {},
+    hiringStatusOptionsObj: {},
+    roleOptionsObj: {},
   },
   // notifications:{
   //
@@ -56,7 +62,14 @@ export default function(state: any = initialState, action: Function) {
     case "RESET_GLOBAL":
         return {...initialState, config: state.config};
     case "LOAD_CONFIG":
-      return { ...state, config: {...state.config, ...action.config} };
+        var config = {...action.config}
+ 
+        Object.keys(config).forEach(optionsKey => {config[optionsKey + 'Obj'] = config[optionsKey].reduce((acc, elem) => {acc[elem.id] = elem.name
+                                       return acc;
+                                     }, {})
+									 })
+
+      return { ...state, config: {...state.config, ...config} };
     case 'SET_GLOBAL_PROFILE_INFO':
       return { ...state, profileInfo: {...state.profileInfo, ...action.profileInfo }};
     case 'SET_GLOBAL_PROFILE_EXPERIENCE':

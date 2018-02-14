@@ -1,22 +1,25 @@
 
-import I18n from 'react-native-i18n'
-import { Toast } from 'native-base';
 export const showHeaderErrorAction = (headerError) => ({ type: 'SHOW_HEADER_ERROR', headerError })
 
-export const doPOST = (url, dispatch, getState, data, callback, errorCallback) => {
-   data.lang = I18n.locale
-   doFetch(url, dispatch, getState, callback, data, errorCallback)
+export const doPOST = (url, dispatch, getState, data, callback) => {
+   doFetch(url, dispatch, getState, callback, data)
 }
 
 export const doGET = (url, dispatch, getState, callback) => {
    doFetch(url, dispatch, getState, callback)
 }
 
-const doFetch = (url, dispatch, getState, callback, data, errorCallback) => {
+const doFetch = (url, dispatch, getState, callback, data) => {
+  // var state = getState(),
+  // token = state.clientInfo && state.clientInfo.token,
+  // lang = state.lang;
+
   var config = {
     method: data ? 'POST': 'GET',
     headers: new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      // 'LANG': lang,
+      // 'TOKEN': token
     })
   }
 
@@ -24,64 +27,24 @@ const doFetch = (url, dispatch, getState, callback, data, errorCallback) => {
     config['body'] = JSON.stringify(data)
   }
 
-  var wasServerTimeout = false;
-
-  var timeout = setTimeout(() => {
-    wasServerTimeout = true;
-
-    onError(dispatch, I18n.t('general.error.timeout') )
-
-  } , 8000)
-
 
 //  var HOST = 'https://mobile.girocheck.net:8999'
   var HOST = 'http://69.42.101.181:8095/tin/'
 
-  var time = (new Date()).getTime();
-
   fetch(HOST + url, config)
+  .then((response) => (response.json()))
   .then((response) => {
-    console.log('Answer time: ' + ((new Date()).getTime() - time))
-    timeout && clearTimeout(timeout);
+      // dispatch( setLoading(false) )
 
-    if(!wasServerTimeout){
-        return response.json()
-    }
-  })
-  .then((response) => {
-      timeout && clearTimeout(timeout);
-
-      if(response && response.status){
-        if(!wasServerTimeout){
-          if(errorCallback){
-            errorCallback(response.statusMessage)
-          }else{
-              onError(dispatch, response.statusMessage )
-          }
-        }
+      if(response.status){
+         alert(response.statusMessage)  //TODO
       }else{
           callback && callback( response.data || response );
       }
      }).catch((err) => {
-
-       alert(err)
-       // timeout && clearTimeout(timeout);
-       //
-       // if(!wasServerTimeout){
-       //   onError(dispatch, err, 5000 )
-       //      // onError(dispatch, I18n.t('general.error.contactUs') )
-       //
-       // }
-
+       dispatch( showHeaderErrorAction('Unexpected Error') )
+      // alert(err)
+       // dispatch( setLoading(false) )
+       // ToastAndroid.showWithGravity(I18n.t( 'general.error' ), ToastAndroid.LONG, ToastAndroid.CENTER);
      });
-}
-
-const onError = (dispatch, text, delay) => {
-  Toast.show({
-      text,
-      position: 'top', duration: (delay || 4000), type: 'danger'
-    })
-
-    dispatch( showHeaderErrorAction( text) )
-    setTimeout( () => dispatch( showHeaderErrorAction(null) ), 1000)
 }

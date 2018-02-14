@@ -9,8 +9,9 @@ import { TouchableHighlight, View, StyleSheet } from 'react-native';
 import { T14,T12,  SimpleButton, ConnectButton, Avatar, nav } from 'src/components/'
 import { Container, Left, Right, Body, Icon,  ListItem } from "native-base";
 import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
+import { connect } from "react-redux";
 
- export default class ContactListItem extends Component {
+  class ContactListItem extends Component {
 
  shouldComponentUpdate(nextProps, nextState){
    if(nextProps.shouldUpdate === undefined || nextProps.shouldUpdate == null){
@@ -22,7 +23,9 @@ import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
   render() {
     var {navigation} = this.props
     var userInfo
-    var {id, userName, locationName, role, profileImg} = userInfo = this.props.data;
+    var {id, userName, locationName, role, profileImg, roleId} = userInfo = this.props.data;
+
+    var parsedRole = (roleId && this.props.roleOptionsObj) ? this.props.roleOptionsObj[ roleId ] : role
 
     return (
       <ListItem button thumbnail style={{backgroundColor:'white'}}>
@@ -44,7 +47,7 @@ import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
                 { locationName}
               </T12>
               <T12 light shortLine>
-                {role}
+                {parsedRole}
               </T12>
             </View>
             </SimpleButton>
@@ -89,3 +92,9 @@ const styles = StyleSheet.create({
       padding:0
     }
   })
+
+  const mapStateToProps = ({globalReducer}) => ({
+    roleOptionsObj: globalReducer.config.roleOptionsObj
+  });
+
+   export default connect(mapStateToProps)(ContactListItem);

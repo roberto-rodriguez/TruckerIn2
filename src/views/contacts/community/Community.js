@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { View } from "react-native";
-import { Container } from "native-base";
+import { View } from "react-native"; 
 import {  Feed, ContactListItem } from "src/components/";
 
-import { connect } from "react-redux"; 
+import { connect } from "react-redux";
 import * as contactActions from "src/views/contacts/contacts.actions";
 
 class Community extends Component {
@@ -12,17 +11,13 @@ class Community extends Component {
     <ContactListItem navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate}/>
   )
 
-  loadItems = (page, callback) => this.props.searchContacts(page, null, callback, null)
+  loadItems = (page, callback) => this.props.listNonRelatedUsers(page, callback)
 
 
   render = () => (
-      <Container white>
-        <View style={{minHeight:'100%'}}>
-          {
-            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={this.props.navigation}/>
-          }
-        </View>
-      </Container>
+      <View style={{minHeight:'100%', paddingBottom: 50}}>
+         <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={this.props.navigation}/>
+      </View>
     )
 }
 

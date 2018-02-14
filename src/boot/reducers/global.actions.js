@@ -69,7 +69,7 @@ export function doLogin(obj, callback){
 export function logOut(){
   return function( dispatch, getState ){
      Storage.storeToken( '0' )
-     dispatch( resetGlobalAction() ) 
+     dispatch( resetGlobalAction() )
   }
 }
 

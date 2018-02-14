@@ -17,7 +17,7 @@ import I18n from 'react-native-i18n'
 
 export default class MainTabNavigation extends Component {
   state= {
-    selectedTab: 'jobs'
+    selectedTab: 'contacts'
   };
 
 
