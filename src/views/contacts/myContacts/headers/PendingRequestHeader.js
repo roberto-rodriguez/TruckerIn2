@@ -8,12 +8,12 @@ import * as contactActions from "src/views/contacts/contacts.actions";
 class PendingRequestHeader extends Component {
 
   render() {
-    const {navigation, pendingRequest, name} = this.props
+    const {navigation, pendingRequest, name, onPendingRequestCallback} = this.props
 
     if(!pendingRequest)return null;
 
     return (
-      <AgentMsg onPress={()=> nav(navigation, 'PendingRequestList')}  >
+      <AgentMsg onPress={()=> nav(navigation, 'PendingRequestList', {onPendingRequestCallback})}  >
         <View>
           <T14 green>{'Hey ' + name +  I18n.t('contacts.headers.pending1')}<T14 strong red>{pendingRequest}</T14>{I18n.t('contacts.headers.pending2')}</T14>
         <T11 green>{I18n.t('contacts.headers.click2see')}</T11>

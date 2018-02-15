@@ -20,17 +20,21 @@ import { connect } from "react-redux";
     return nextProps.shouldUpdate
  }
 
+ profile = () => {
+   debugger;
+    nav(this.props.navigation, "Profile", { userInfo: this.props.data })
+ }
+
   render() {
     var {navigation} = this.props
-    var userInfo
-    var {id, userName, locationName, role, profileImg, roleId} = userInfo = this.props.data;
+    var {id, userName, locationName, role, profileImg, roleId, status} = userInfo = this.props.data;
 
     var parsedRole = (roleId && this.props.roleOptionsObj) ? this.props.roleOptionsObj[ roleId ] : role
 
     return (
       <ListItem button thumbnail style={{backgroundColor:'white'}}>
         <Left>
-         <SimpleButton  onPress={()=> nav(navigation, "Profile", { userInfo }) }>
+         <SimpleButton  onPress={this.profile}>
             <View>
               <Avatar name={userName} src={profileImg}/>
             </View>
@@ -38,7 +42,7 @@ import { connect } from "react-redux";
         </Left>
 
          <Body >
-          <SimpleButton onPress={()=> nav(navigation, "Profile", { userInfo }) }>
+          <SimpleButton onPress={this.profile}>
             <View>
               <T14>
                 { userName }
@@ -54,31 +58,31 @@ import { connect } from "react-redux";
           </Body>
 
           <Right >
-            {this.buildRightButton()}
+            <ConnectButton data={userInfo} navigation={this.props.navigation}/>
           </Right>
 
       </ListItem>
     );
   }
 
-  buildRightButton = () => {
-    var {navigation, data} = this.props
-
-    if(data.connectionStatus === ConnectionStatus.CONNECTED){
-      return (<TouchableHighlight underlayColor={'transparent'}  onPress={()=> nav(navigation, "Chat", { id: data.id, name: data.userName })}  style={{padding:20}}>
-                <View>
-                  <Icon
-                    active
-                    name="chatbubbles"
-                    style={{color: 'grey' }}
-                  />
-                </View>
-              </TouchableHighlight>)
-    }else{
-       return (<ConnectButton contactId={data.id} name={data.userName} connectionStatus={data.connectionStatus}/>)
-    }
-
-  }
+  // buildRightButton = () => {
+  //   var {navigation, data} = this.props
+  //
+  //   if(data.connectionStatus === ConnectionStatus.CONNECTED){
+  //     return (<TouchableHighlight underlayColor={'transparent'}  onPress={()=> nav(navigation, "Chat", { id: data.id, name: data.userName })}  style={{padding:20}}>
+  //               <View>
+  //                 <Icon
+  //                   active
+  //                   name="chatbubbles"
+  //                   style={{color: 'grey' }}
+  //                 />
+  //               </View>
+  //             </TouchableHighlight>)
+  //   }else{
+  //      return (<ConnectButton contactId={data.id} name={data.userName} connectionStatus={data.status}/>)
+  //   }
+  //
+  // }
 }
 
 

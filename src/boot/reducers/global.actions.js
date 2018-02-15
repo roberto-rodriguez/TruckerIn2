@@ -54,7 +54,7 @@ export function doLogin(obj, callback){
 
             dispatch( setGlobalProfileInfoAction(profileInfo) )
 
-            setTimeout( () => Connector.doGET('experience/load/' + userId, dispatch, getState,  (profileExperience) => {
+            setTimeout( () => Connector.doGET('experience/load/' + userId + '/' + userId, dispatch, getState,  (profileExperience) => {
 
               //  Connector.completeProfileExperience(profileInfo.roleId, profileExperience, getState)
 

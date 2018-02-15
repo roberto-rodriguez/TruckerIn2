@@ -1,7 +1,54 @@
 
 import * as Connector from 'src/boot/reducers/connector'
 import I18n from 'react-native-i18n'
+import * as ConnectionStatus from 'src/components/c/ConnectionStatus'
 import * as globalActions from 'src/boot/reducers/global.actions'
+
+export function listMyContacts(page, callback){
+  return function( dispatch, getState ){
+    var userId = getState().globalReducer.profileInfo.id
+    var request = {page, limit: 10, params: {'sender.id': userId}}
+    Connector.doPOST('userRelation/list', dispatch, getState, request,  (contacts) => callback(contacts))
+  }
+}
+
+export function updateUserRelation(receiver, action, callback){
+  return function( dispatch, getState ){
+    var sender = getState().globalReducer.profileInfo.id
+
+    Connector.doPOST('userRelation/update', dispatch, getState, {sender, receiver, action},  (response) => {
+
+      globalActions.showHeaderNotification( response )( dispatch, getState )
+
+      var pendingRequest = getState().globalReducer.profileInfo.pendingRequest || 0
+      var connections = getState().globalReducer.profileInfo.connections || 0
+
+      switch(action){
+        case 'accept':
+              connections++
+              //Intentionally dont break here
+       case 'decline':
+              pendingRequest--
+       case 'acceptAll':
+            connections += pendingRequest;
+            pendingRequest = 0;
+      }
+
+     dispatch( globalActions.setGlobalProfileInfoAction({pendingRequest, connections}) )
+     callback(response)
+    })
+
+  }
+}
+
+export function listPendingRequest(page, callback){
+  return function( dispatch, getState ){
+    var userId = getState().globalReducer.profileInfo.id
+    var request = {page, limit: 10, params: {'receiver.id': userId, status: ConnectionStatus.SENT}}
+    Connector.doPOST('userRelation/list', dispatch, getState, request,  (contacts) => callback(contacts))
+  }
+}
+
 
 export function searchContacts(page = 0, params, callback, reset){
   return function( dispatch, getState ){
@@ -65,15 +112,6 @@ export function answerContactRequest(contactId, userName, accept, callback){
   }
 }
 
-export function doConnect(contactId, name, callback){
-  return function( dispatch, getState ){
-    //TODO
-    //var a = contactId;
-  //  var userId = getState().profileReducer.profileInfo.userId;
-    globalActions.showHeaderNotification(I18n.t('contacts.pending.requestSent') + name)( dispatch, getState )
-    callback && callback()
-  }
-}
 
 
 export function listNonRelatedUsers(page = 0, callback ){

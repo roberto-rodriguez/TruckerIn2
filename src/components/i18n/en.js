@@ -6,6 +6,7 @@ const en = {
     connect: 'Connect',
     connected: 'Connected',
     reqSent: 'Request Sent',
+    msg: 'Message',
     loc: {
       title: 'Select Location',
       searchCity: 'Search Cities',

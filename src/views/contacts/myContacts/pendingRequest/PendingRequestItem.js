@@ -30,22 +30,13 @@ import { connect } from "react-redux";
     return nextProps.shouldUpdate
  }
 
- answerRequest = (accept) => {
-   var _this = this
-   var {id, userName, location, role, profileImg} = this.props.data;
+ answerRequest = (action) => this.props.updateUserRelation(this.props.data.id, action, () => this.setState({deleted: true}) )
 
-   this.props.answerContactRequest(id, userName, accept, () => {
-     _this.setState(prevState => {
-       prevState['deleted'] = true
-       return prevState
-     })
-   })
- }
-
+ 
   render() {
     var {navigation} = this.props
     var dataRow;
-    var { userName, location, role, profileImg} = dataRow = this.props.data;
+    var { userName, locationName, roleId, profileImg} = dataRow = this.props.data;
 
     if(this.state.deleted){
       return null
@@ -66,16 +57,16 @@ import { connect } from "react-redux";
                   { userName }
                 </T14>
                 <T12 light shortLine>
-                  { location}
+                  { locationName}
                 </T12>
                 <T12 light shortLine>
-                  {role}
+                  { this.props.roleOptionsObj[ roleId ] || ''}
                 </T12>
               </View>
             </SimpleButton>
           </Column>
           <Column h={70} columns={6} colspan={1}>
-            <SimpleButton  onPress={()=>this.answerRequest(true)}
+            <SimpleButton  onPress={()=>this.answerRequest('accept')}
                style={styles.button}>
                 <View>
                   <Icon name='check' style={styles.icon}/>
@@ -83,7 +74,7 @@ import { connect } from "react-redux";
              </SimpleButton>
           </Column>
           <Column h={70} columns={6} colspan={1}>
-            <SimpleButton  onPress={()=>this.answerRequest(false)}
+            <SimpleButton  onPress={()=>this.answerRequest('decline')}
                style={[styles.button, {borderColor:'red'}]}>
                 <View>
                   <Icon name='times' style={[styles.icon, {color: 'red'}]}/>
@@ -119,4 +110,9 @@ const styles = StyleSheet.create({
    }
   })
 
-    export default connect(null, contactActions)(PendingRequestItem);
+
+    const mapStateToProps = ({globalReducer}) => ({
+      roleOptionsObj: globalReducer.config.roleOptionsObj
+    });
+
+    export default connect(mapStateToProps, contactActions)(PendingRequestItem);

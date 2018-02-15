@@ -56,6 +56,7 @@ componentDidMount(){
         id,
         name,
         role,
+        status,  //Connection status
         roleId,
         profileImg,
         location,
@@ -131,7 +132,7 @@ componentDidMount(){
               <Text style={styles.pendingPostText}>{location}</Text>
             </Column>
             <Column h={40} columns={5} style={{marginTop:15}}>
-              {!isMe && <ConnectButton status={''} name={name} contactId={id}/>}
+              {!isMe && <ConnectButton data={{id, status}} profile/>}
             </Column>
           </Row>
 
@@ -195,17 +196,21 @@ componentDidMount(){
 
     profileInfo = profileInfo || {}
 
+    var roleId = userInfo.roleId || profileInfo.roleId
+    var role = globalReducer.config.roleOptionsObj[ roleId ] || ''
+
     return {
       isMe,
       id,
       name: isMe ? session.firstName + ' ' + session.lastName : userInfo.userName,
-      role: userInfo.role || profileInfo.role,
-      roleId: userInfo.roleId || profileInfo.roleId,
+      role,
+      roleId,
       profileImg:  isMe ? session.profileImg : userInfo.profileImg,
       location: userInfo.locationName || (profileInfo.location && profileInfo.location.locationName),
       connectionsCount: profileInfo.connections,
       postedJobs: profileInfo.postedJobs || 0,
-      lang: globalReducer.config.lang
+      lang: globalReducer.config.lang,
+      status: profileInfo.status
     }
 
   }

@@ -11,7 +11,7 @@ import * as contactActions from "src/views/contacts/contacts.actions";
 
 class PendingRequestList extends Component {
 
-    loadItems = (page, callback) => this.props.loadPendingRequest(page, callback)
+    loadItems = (page, callback) => this.props.listPendingRequest(page, callback)
 
     itemBuilder = (user, navigation, i, shouldUpdate) => (<PendingRequestItem
                     key={i}
@@ -20,7 +20,21 @@ class PendingRequestList extends Component {
                     shouldUpdate={shouldUpdate}
                   />)
 
-  acceptAll = () => this.props.answerContactRequest(0, null, true, () => this.props.navigation.goBack())
+  acceptAll = () => this.props.updateUserRelation(null, 'acceptAll', this.onGoBack)
+
+  // acceptAll = () => this.props.answerContactRequest(0, null, true, () => {
+  //       var onPendingRequestCallback = props.navigation.state.params && props.navigation.state.params.onPendingRequestCallback
+  //       onPendingRequestCallback && onPendingRequestCallback()
+  //       props.navigation.goBack()
+  // }  )
+
+  onGoBack = () => {
+    var {props} = this
+    debugger;
+    var onPendingRequestCallback = props.navigation.state.params && props.navigation.state.params.onPendingRequestCallback
+    onPendingRequestCallback && onPendingRequestCallback()
+    props.navigation.goBack()
+  }
 
   render() {
     var {isMe, navigation, pendingRequest} = this.props
@@ -31,6 +45,7 @@ class PendingRequestList extends Component {
           <Header back
            title={I18n.t('contacts.pending.title')}
            navigation={navigation}
+           onBack={this.onGoBack}
          />
            <Feed feedLoader={this.loadItems} feedBuilder={this.itemBuilder} navigation={navigation}>
               <Row h={60} style={{borderBottomColor: theme.secondaryColor, borderBottomWidth: 1}}>

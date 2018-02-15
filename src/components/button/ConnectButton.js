@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import {nav}  from 'src/components/'
 import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform'
 import { connect } from "react-redux";
@@ -18,42 +19,50 @@ import I18n from 'react-native-i18n'
 
    constructor(props){
      super(props)
-     this.state = {
-       connectionStatus: null
+     this.state = props.data || {}
+   }
+
+   componentWillReceiveProps(nextProps){
+     this.setState(nextProps.data)
+   }
+
+     onPress = () => {
+         var {id, userName, status} = this.state
+         var { profile} = this.props;
+
+         switch(status){
+           case ConnectionStatus.CONNECTED:
+              if(!profile){
+                 nav(this.props.navigation, 'Chat', {id, name: userName})
+              }
+               break;
+           case ConnectionStatus.SENT:
+               break;
+           default:
+           this.props.updateUserRelation(id, 'send', () => this.setState({status: ConnectionStatus.SENT}) )
+         }
      }
-   }
 
-   componentWillMount(){
-     this.setState({connectionStatus: this.props.connectionStatus})
-   }
 
-  doConnect = () => {
-    if(!this.state.connectionStatus){ //If there no status, then is connect
-      var {contactId, name} = this.props;
 
-      this.props.doConnect(contactId, name, () => {
-        this.setState({connectionStatus: ConnectionStatus.SENT})
-      })
-    }
-  }
 
-//TODO replace status by connectionStatus
   render() {
-    var {style} = this.props;
-    var {connectionStatus} = this.state
+    var {style, profile} = this.props;
+    var {status} = this.state
 
     var icon = 'user-plus'
     var text = I18n.t('cmp.connect')
 
-    switch(connectionStatus){
+    switch(status){
       case ConnectionStatus.CONNECTED:
-            icon = 'handshake-o'
-            text = I18n.t('cmp.connected')
+            if(profile){
+              icon = 'handshake-o'
+              text = I18n.t('cmp.connected')
+            }else{
+              icon = 'envelope'
+              text = I18n.t('cmp.msg')
+            }
           break;
-      // case 'pending':
-      //       icon = ''
-      //       text = 'Solicitud Pendiente'
-      //     break;
       case ConnectionStatus.SENT:
             icon = ''
             text = I18n.t('cmp.reqSent')
@@ -61,7 +70,7 @@ import I18n from 'react-native-i18n'
     }
 
     return (
-      <TouchableHighlight underlayColor={'transparent'} style={[styles.button, styles.border, style]}  onPress={this.doConnect}>
+      <TouchableHighlight underlayColor={'transparent'} style={[styles.button, styles.border, style]}  onPress={this.onPress}>
         <View style={styles.wrapper}>
           <Text style={styles.text}>{text}</Text>
           <Icon name={icon} style={styles.icon}/>

@@ -21,20 +21,21 @@ export function loadProfile(userId){
   return function( dispatch, getState ){
 
     var myProfile = getState().globalReducer.profileInfo
-
-    if(userId != myProfile.id){
+    var myUserId = myProfile.id
+debugger;
+    if(userId != myUserId){
 
       if(getState().profileReducer[userId]){
             return;  //This means this user is already in the profileReducer (Not need to lookup in the server)
           }
 
-        Connector.doGET('user/load/' + userId, dispatch, getState, (profileInfo) => {
+        Connector.doGET('user/load/' + myUserId + '/' + userId, dispatch, getState, (profileInfo) => {
 
             auxFunctions.completeProfileInfo( profileInfo, getState )
 
             dispatch( saveProfileInfoAction(userId, profileInfo));
 
-              Connector.doGET('experience/load/' + userId, dispatch, getState, (profileExperience) => {
+              Connector.doGET('experience/load/' + myUserId + '/' + userId, dispatch, getState, (profileExperience) => {
 
                 auxFunctions.completeProfileExperience(profileInfo.roleId, profileExperience, getState )
                 dispatch( saveProfileExperienceAction(userId, profileExperience) )
@@ -93,9 +94,7 @@ export function deleteProfileCareerItem(userId, id){
 
 export function loadProfileConnections(params, callback, reset){
   return function( dispatch, getState ){
-
-    Connector.doPOST('contact/list', dispatch, getState, params,  (connections) => callback(connections, reset))
-
+    Connector.doPOST('userRelation/list', dispatch, getState, params,  (connections) => callback(connections, reset))
   }
 }
 

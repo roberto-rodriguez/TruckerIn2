@@ -6,6 +6,7 @@ const es = {
     connect: 'Conectar',
     connected: 'Conectedos',
     reqSent: 'Solicitud Enviada',
+    msg: 'Mensaje',
     loc: {
       title: 'Seleccione Locación',
       searchCity: 'Buscar Ciudades',

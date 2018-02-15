@@ -14,22 +14,36 @@ import * as contactActions from "src/views/contacts/contacts.actions";
 
 class MyContacts extends Component {
 
+     constructor(props){
+       super(props)
+       this.state = {
+         reset: false
+       }
+     }
+
   itemBuilder = (data, navigation, i , shouldUpdate) => (
-    <ContactListItem navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate} connectionStatus={1}/>
+    <ContactListItem navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate}/>
   )
 
-  loadItems = (page, callback) => this.props.searchContacts(page, {userId: this.props.userId}, callback, null)
+  loadItems = (page, callback) => {
+    this.props.listMyContacts(page, callback)
+
+    if(this.state.reset){
+      this.setState({reset: false})
+    }
+  }
 
   render() {
     const {navigation} = this.props
 
     return (
       <Container white>
-        <View style={{minHeight:'100%'}}>
+        <View style={{minHeight:'100%', paddingBottom: 50}}>
           {
             <Feed feedLoader={this.loadItems}
               feedBuilder={this.itemBuilder}
-              navigation={navigation} >
+              navigation={navigation}
+              reset={this.state.reset} >
 
               {this.buildHeader()}
 
@@ -41,11 +55,13 @@ class MyContacts extends Component {
     );
   }
 
+  onPendingRequestCallback = () => setTimeout(() => this.setState({reset: true}), 300)
+
   buildHeader(){
       var {pendingRequest,connections, navigation} = this.props
 
-     if(pendingRequest){
-      return (<PendingRequestHeader navigation={navigation}/>)
+     if(pendingRequest > 0){
+      return (<PendingRequestHeader navigation={navigation} onPendingRequestCallback={this.onPendingRequestCallback}/>)
     }else{
       if(!connections){
           return <NoConnectionsHeader/>
