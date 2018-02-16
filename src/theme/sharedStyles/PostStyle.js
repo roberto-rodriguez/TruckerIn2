@@ -5,10 +5,17 @@ const commonColor = require("src/theme/variables/commonColor");
 const availableWidth = Dimensions.get("window").width - 32;
 
 export default StyleSheet.create({
+    headline:{
+      paddingBottom: 5,
+      marginBottom: 5,
+      borderBottomColor: commonColor.secondaryColor,
+      borderBottomWidth: 0.3
+    },
     container:{
       marginLeft:5,
       marginRight:5,
-      padding:15
+      padding:15,
+      paddingTop:5
     },
     header:{
       marginBottom:15,

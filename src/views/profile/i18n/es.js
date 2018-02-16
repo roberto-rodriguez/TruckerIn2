@@ -53,6 +53,7 @@ const es = {
       moreThan: 'Más de ',
       jobStatus: 'Estado Laboral',
       hiringStatus: 'Contratando ahora?',
+      distance: 'Distancia Preferida',
       emptyText: 'Incremente sus posibilidades completando la información sobre su experiencia'
     },
     career:{

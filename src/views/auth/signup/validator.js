@@ -27,7 +27,7 @@ export function validate(page, data){
    //          fields =  ['jobStatus']
    //
    //          if(role === roles.DRIVER){
-   //            fields = fields.concat([ 'experienceId', 'equipmentId', 'ownerOperator'])
+   //            fields = fields.concat([ 'experienceId', 'equipmentId', 'ownerOperator', 'distance'])
    //          }
    //       break;
    // }

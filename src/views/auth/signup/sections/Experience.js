@@ -6,8 +6,9 @@ import I18n from 'react-native-i18n'
 
 const items = [
   {prop: 'experience',  icon: 'tachometer', title: 'experience'},
-  {prop: 'equipment',  icon: 'truck',title: 'equipment'},
-  {prop: 'jobStatus',  icon: 'hourglass-end', title:'jobStatus'} 
+  {prop: 'equipment',  icon: 'truck', title: 'equipment'},
+  {prop: 'distance',  icon: 'location-arrow', title: 'distance'},
+  {prop: 'jobStatus',  icon: 'hourglass-end', title:'jobStatus'}
 ]
 
 const yesNoItems = [
@@ -45,7 +46,7 @@ class Experience extends Component {
 
 
   render() {
-    const {navigation, equipmentOptions, experienceOptions, jobStatusOptions, invalidFields} = this.props
+    const {navigation, equipmentOptions, experienceOptions, jobStatusOptions, invalidFields, distanceOptions} = this.props
     var data = this.state;
 
     return (
@@ -89,6 +90,11 @@ class Experience extends Component {
               options={jobStatusOptions}
               onPress={(i) => this.setVal('jobStatus', jobStatusOptions[i].name, jobStatusOptions[i].id)}
             />
+          <Select
+             ref={o => this.distanceSelect = o}
+             options={distanceOptions}
+             onPress={(i) => this.setVal('distance', distanceOptions[i].name, distanceOptions[i].id)}
+           />
          </View>
 
     );
@@ -96,9 +102,10 @@ class Experience extends Component {
 }
 
 const mapStateToProps = ({globalReducer}) => ({
-  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('general.moreThan') + exp.name})),
+  experienceOptions: globalReducer.config.experienceOptions,
   equipmentOptions: globalReducer.config.equipmentOptions,
   jobStatusOptions: globalReducer.config.jobStatusOptions,
+  distanceOptions: globalReducer.config.distanceOptions,
   lang: globalReducer.config.lang
 })
 

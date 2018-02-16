@@ -39,12 +39,14 @@ const initialState = {
     jobStatusOptions: [],
     hiringStatusOptions: [],
     roleOptions: [],
+    distanceOptions: [],
 
     equipmentOptionsObj: {},
     experienceOptionsObj: {},
     jobStatusOptionObj: {},
     hiringStatusOptionsObj: {},
     roleOptionsObj: {},
+    distanceOptionsObj: {}
   },
   // notifications:{
   //
@@ -63,7 +65,7 @@ export default function(state: any = initialState, action: Function) {
         return {...initialState, config: state.config};
     case "LOAD_CONFIG":
         var config = {...action.config}
- 
+
         Object.keys(config).forEach(optionsKey => {config[optionsKey + 'Obj'] = config[optionsKey].reduce((acc, elem) => {acc[elem.id] = elem.name
                                        return acc;
                                      }, {})

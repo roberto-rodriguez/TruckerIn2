@@ -9,7 +9,8 @@ import I18n from 'react-native-i18n'
 
 const items = [
   {prop: 'experience',  icon: 'tachometer',   title: 'experience'},
-  {prop: 'equipment',  icon: 'truck',   title: 'equipment'}
+  {prop: 'equipment',  icon: 'truck',   title: 'equipment'},
+  {prop: 'distance',  icon: 'location-arrow', title: 'distance'}
 ]
 
 const yesNoItems = [
@@ -69,7 +70,7 @@ class EditProfileExperience extends Component {
  t = (key) => I18n.t(['profile', 'experience',  key])
 
   render() {
-    const {navigation, equipmentOptions, experienceOptions, statusOptions, isDriver} = this.props
+    const {navigation, equipmentOptions, experienceOptions, statusOptions, distanceOptions, isDriver} = this.props
     var {t, state} = this
 
     return (
@@ -121,6 +122,11 @@ class EditProfileExperience extends Component {
                  options={statusOptions}
                  onPress={(i) => this.setVal( 'jobStatus', statusOptions[i].name, statusOptions[i].id)}
                />
+             <Select
+                ref={o => this.distanceSelect = o}
+                options={distanceOptions}
+                onPress={(i) => this.setVal('distance', distanceOptions[i].name, distanceOptions[i].id)}
+              />
          </View>
 
         </StackView>
@@ -137,7 +143,8 @@ const mapStateToProps = ({globalReducer}) => {
     statusOptions: isDriver ? jobStatusOptions : hiringStatusOptions,
     profileExperience: globalReducer.profileExperience,
     equipmentOptions: globalReducer.config.equipmentOptions ,
-    experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('profile.experience.moreThan') + exp.name})),
+    experienceOptions: globalReducer.config.experienceOptions,
+    distanceOptions: globalReducer.config.distanceOptions,
     lang: globalReducer.config.lang
   }
 }

@@ -17,7 +17,7 @@ import { mapStateToProps} from "src/components/";
 
   class MainTabNavigation extends Component {
   state= {
-    selectedTab: 'contacts'
+    selectedTab: 'jobs'
   };
 
 

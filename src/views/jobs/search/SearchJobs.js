@@ -114,7 +114,7 @@ class SearchJobs extends Component {
 
 const mapStateToProps = ({globalReducer}) => ({
   equipmentOptions: [{id:0, name: I18n.t('general.any')}, ...globalReducer.config.equipmentOptions] ,
-  experienceOptions: globalReducer.config.experienceOptions.map((exp) => ({...exp, name: exp.id === 1 ? exp.name : I18n.t('general.atLeast') + exp.name}))
+  experienceOptions: globalReducer.config.experienceOptions 
 });
 
 export default connect(mapStateToProps)(SearchJobs);

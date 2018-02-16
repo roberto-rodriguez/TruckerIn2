@@ -53,6 +53,7 @@ const en = {
       moreThan: 'More than ',
       jobStatus: 'Job Status',
       hiringStatus: 'Hiring Status',
+      distance: 'Prefered Distance',
       emptyText: 'Increase your possibilities by completing your experience information'
     },
     career:{

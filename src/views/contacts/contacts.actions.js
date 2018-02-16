@@ -24,9 +24,10 @@ export function updateUserRelation(receiver, action, callback){
       var connections = getState().globalReducer.profileInfo.connections || 0
 
       switch(action){
-        case 'accept':
+        case 'send':
               connections++
-              //Intentionally dont break here
+              break;
+       case 'accept':
        case 'decline':
               pendingRequest--
        case 'acceptAll':

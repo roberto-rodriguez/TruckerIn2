@@ -22,13 +22,21 @@ import PostedJobs from './sections/PostedJobs'
 const coverImg = require("../../../assets/cover.png");
 const commonColor = require("src/theme/variables/commonColor");
 
-var driverSections = [
-  {name: 'profileInfo', icon: 'phone-square', title: 'contact' },
+var firstSection = [
   {name: 'profileExperience', icon: 'truck', title: 'experience' },
-  {name: 'profileCareer', icon: 'graduation-cap', title: 'career' },
-  {name: 'connections', icon: 'group', title: 'connections', showSubText: true, badge: 'connectionsCount'},
   {name: 'aboutMe', icon: 'user-secret', title: 'aboutMe' },
-  {name: 'aboutUs', icon: 'bank', title: 'aboutUs' },
+  {name: 'aboutUs', icon: 'bank', title: 'aboutUs' }
+]
+
+var commonSection = {name: 'profileInfo', icon: 'phone-square', title: 'contact' }
+
+
+var driverSections = [
+  {name: 'profileCareer', icon: 'graduation-cap', title: 'career' },
+  {name: 'connections', icon: 'group', title: 'connections', showSubText: true, badge: 'connectionsCount'}
+]
+
+var employerSections = [
   {name: 'postedJobs', icon: 'truck', title: 'postedJobs', showSubText: true, badge: 'postedJobs'}
 ]
 
@@ -64,15 +72,19 @@ componentDidMount(){
         navigation
       } = this.props
 
+    var sections = []
+ 
+    if(roleId){
+      sections = [ firstSection[roleId - 1], commonSection ]
 
-    var profileOptions = driverSections.filter((data, i) => {
-        switch(roleId){
-          case roles.DRIVER: return i < 4
-          case roles.BROKER: return (i === 0) || (data.name === 'aboutMe') || (data.name === 'postedJobs')
-          case roles.COMPANY:return (i === 0) || (data.name === 'aboutUs') || (data.name === 'postedJobs')
-        }
-        return false; //Provissional
-    }).map((data, i) => {
+      if(roleId === roles.DRIVER){
+        sections = sections.concat( driverSections )
+      }else{
+        sections = sections.concat( employerSections )
+      }
+    }
+
+    var profileOptions = sections.map((data, i) => {
       if(!selectedSection && i === 0)selectedSection = data.name;  //For the first time
 
       return (

@@ -54,6 +54,14 @@ class Experience extends Component {
                </Column>
              </Row>
 
+            <Row spaceBetween>
+              <Column start columns={2}>
+                <T13 strong>{t('distance')}</T13>
+              </Column>
+              <Column  end columns={2}>
+                <T13>{ profileExperience.distance }</T13>
+              </Column>
+            </Row>
            </Container>)
 
   }

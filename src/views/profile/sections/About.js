@@ -46,11 +46,11 @@ class About extends Component {
 
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
   var {id, isMe} = ownProps
-  var reducer = isMe ? globalReducer : profileReducer[id] 
-
+  var reducer = isMe ? globalReducer : profileReducer[id]
+debugger;
   return {
     isMe,
-    about: reducer.profileExperience.about,
+    about: (reducer.profileExperience && reducer.profileExperience.about) || '',
     roleId:reducer.profileInfo.roleId
   }
 }

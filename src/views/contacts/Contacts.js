@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import { ContactListItem, nav, mapStateToProps } from "src/components/";
+import { ContactListItem, nav} from "src/components/";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 import * as contactActions from "src/views/contacts/contacts.actions";
@@ -27,9 +27,11 @@ class Contacts extends Component {
 
 
   render() {
-    const navigation = this.props.navigation;
+    const {navigation, connections} = this.props
 
     var dataFriendsTraveling = []
+
+    var firstTab = (connections && connections > 0) ? (<MyContacts tabLabel={'myContacts'}  navigation={navigation}/>) : null
 
     return (
       <View style={{minHeight:'100%'}}>
@@ -42,7 +44,7 @@ class Contacts extends Component {
              renderTabBar={()=><ContactsTabBar/>}
              tabBarPosition='overlayTop'
              >
-               <MyContacts tabLabel={'myContacts'}  navigation={navigation}/>
+               {firstTab}
                <Community tabLabel={'allUsers'}  navigation={navigation}/>
                <Messages  tabLabel={'msg'} navigation={navigation}/>
            </ScrollableTabView>
@@ -51,5 +53,9 @@ class Contacts extends Component {
   }
 }
 
+const mapStateToProps = ({globalReducer}) => ({
+  connections: globalReducer.profileInfo.connections,
+  lang: globalReducer.config.lang
+});
 
-  export default connect(null, contactActions)(Contacts);
+  export default connect(mapStateToProps, contactActions)(Contacts);
