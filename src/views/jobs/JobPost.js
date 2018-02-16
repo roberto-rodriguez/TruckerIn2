@@ -12,7 +12,7 @@ import I18n from 'react-native-i18n'
  class JobPost extends Component {
 
   shouldComponentUpdate(nextProps, nextState){
-    if(nextProps.shouldUpdate === undefined || nextProps.shouldUpdate == null){
+    if(nextProps.shouldUpdate === undefined || nextProps.shouldUpdate == null || this.props.lang != nextProps.lang){
       return true;
     }
      return nextProps.shouldUpdate
@@ -86,6 +86,7 @@ import I18n from 'react-native-i18n'
     })
 
     const mapStateToProps = ({globalReducer}) => ({
-      roleId: globalReducer.profileInfo.roleId
+      roleId: globalReducer.profileInfo.roleId,
+      lang: globalReducer.config.lang
     });
     export default connect(mapStateToProps, jobActions)(JobPost);

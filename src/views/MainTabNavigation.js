@@ -12,10 +12,10 @@ import Contacts from 'src/views/contacts/Contacts'
 import Jobs from "src/views/jobs/Jobs";
 import theme from "src/theme/variables/platform";
 import I18n from 'react-native-i18n'
+import { connect } from "react-redux";
+import { mapStateToProps} from "src/components/";
 
-
-
-export default class MainTabNavigation extends Component {
+  class MainTabNavigation extends Component {
   state= {
     selectedTab: 'contacts'
   };
@@ -112,3 +112,5 @@ const styles = StyleSheet.create({
   <BlankPage/>
 </TabNavigator.Item>
 */
+
+  export default connect(mapStateToProps)(MainTabNavigation);

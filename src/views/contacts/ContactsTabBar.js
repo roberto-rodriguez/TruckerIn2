@@ -1,6 +1,9 @@
 const React = require('react');
 const { ViewPropTypes } = ReactNative = require('react-native');
 const { StyleSheet, Text, View, Animated} = ReactNative;
+import { mapStateToProps} from "src/components/";
+import I18n from 'react-native-i18n'
+import { connect } from "react-redux";
 
 const Button = require('react-native-scrollable-tab-view/Button');
 
@@ -44,7 +47,7 @@ const DefaultTabBar = React.createClass({
     >
       <View style={[styles.tab]}>
         <Text style={[{color: textColor, fontWeight}, styles.textStyle]}>
-          {name}
+          {I18n.t(['contacts', name])}
         </Text>
       </View>
     </Button>;
@@ -119,4 +122,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = DefaultTabBar;
+  export default connect(mapStateToProps)(DefaultTabBar);

@@ -28,7 +28,7 @@ const es = {
     successfuly: 'satisfactoriamente',
     sendMsg: 'Envie un mensaje...',
     tabs:{
-      jobs: 'Trabajos',
+      jobs: 'Empleos',
       contacts: 'Contactos'
     },
     error:{

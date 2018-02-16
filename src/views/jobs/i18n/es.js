@@ -2,7 +2,7 @@
 
 const es = {
   jobs:{
-    title: 'Trabajos',
+    title: 'Empleos',
     copy: 'Copiar Trabajo',
     edit: 'Editar Trabajo',
     create: 'Crear Trabajo',

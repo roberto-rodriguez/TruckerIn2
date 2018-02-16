@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import { ContactListItem, nav } from "src/components/";
+import { ContactListItem, nav, mapStateToProps } from "src/components/";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 import * as contactActions from "src/views/contacts/contacts.actions";
@@ -42,9 +42,9 @@ class Contacts extends Component {
              renderTabBar={()=><ContactsTabBar/>}
              tabBarPosition='overlayTop'
              >
-               <MyContacts tabLabel={I18n.t('contacts.myContacts')}  navigation={navigation}/>
-               <Community tabLabel={I18n.t('contacts.allUsers')}  navigation={navigation}/>
-               <Messages  tabLabel={I18n.t('contacts.msg')} navigation={navigation}/>
+               <MyContacts tabLabel={'myContacts'}  navigation={navigation}/>
+               <Community tabLabel={'allUsers'}  navigation={navigation}/>
+               <Messages  tabLabel={'msg'} navigation={navigation}/>
            </ScrollableTabView>
       </View>
     )

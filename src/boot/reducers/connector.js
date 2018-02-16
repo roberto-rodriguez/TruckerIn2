@@ -1,4 +1,6 @@
 
+import { Toast } from 'native-base';
+
 export const showHeaderErrorAction = (headerError) => ({ type: 'SHOW_HEADER_ERROR', headerError })
 
 export const doPOST = (url, dispatch, getState, data, callback) => {
@@ -37,14 +39,24 @@ const doFetch = (url, dispatch, getState, callback, data) => {
       // dispatch( setLoading(false) )
 
       if(response.status){
-         alert(response.statusMessage)  //TODO
+          onError(dispatch, response.statusMessage )
       }else{
           callback && callback( response.data || response );
       }
      }).catch((err) => {
-       dispatch( showHeaderErrorAction('Unexpected Error') )
+        onError(dispatch,err)
       // alert(err)
        // dispatch( setLoading(false) )
        // ToastAndroid.showWithGravity(I18n.t( 'general.error' ), ToastAndroid.LONG, ToastAndroid.CENTER);
      });
+}
+
+const onError = (dispatch, text, delay) => {
+  Toast.show({
+      text,
+      position: 'top', duration: (delay || 4000), type: 'danger'
+    })
+
+    dispatch( showHeaderErrorAction( text) )
+    setTimeout( () => dispatch( showHeaderErrorAction(null) ), 1000)
 }

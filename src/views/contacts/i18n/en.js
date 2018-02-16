@@ -2,7 +2,7 @@
 
 const en = {
   contacts:{
-    title: 'Contactos',
+    title: 'Contacts',
     myContacts: 'My Contacts',
     allUsers: 'All Users',
     msg: 'Messages',

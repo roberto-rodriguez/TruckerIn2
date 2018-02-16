@@ -46,6 +46,9 @@ class JobListHeader extends Component {
   }
 }
 
-const mapStateToProps = ({globalReducer}) => ({ profileInfo: globalReducer.profileInfo })
+const mapStateToProps = ({globalReducer}) => ({
+   profileInfo: globalReducer.profileInfo,
+   lang: globalReducer.config.lang
+  })
 
 export default connect(mapStateToProps, jobActions)(JobListHeader);
