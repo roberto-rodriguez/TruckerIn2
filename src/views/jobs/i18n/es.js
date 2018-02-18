@@ -23,7 +23,7 @@ const es = {
       reject: 'RECHAZAR',
       copy: 'COPIAR',
       apply: 'APPLICAR',
-      save: 'SALVAR',
+      save: 'GUARGAR',
       desc: 'Descripción',
       req: 'Requirimientos',
       resp: 'Responsabilidades',

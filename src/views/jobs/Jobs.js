@@ -8,7 +8,7 @@ import Icon from 'react-native-fa-icons';
 import theme from 'src/theme/variables/platform';
 import { connect } from "react-redux";
 import * as jobActions from "src/views/jobs/jobs.actions";
-import JobPost from './JobPost'
+import JobPost from './XJobPost'
 import * as roles from 'src/components/c/Role'
 import JobListHeader from './list/JobListHeader'
 import I18n from 'react-native-i18n'

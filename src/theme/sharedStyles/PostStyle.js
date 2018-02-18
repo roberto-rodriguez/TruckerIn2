@@ -18,13 +18,14 @@ export default StyleSheet.create({
       paddingTop:5
     },
     header:{
+      paddingTop: 5,
       marginBottom:15,
       justifyContent:'space-between',
       flexDirection: 'row'
     },
     headerLeft:{
       flexDirection: "row",
-      width:availableWidth * 0.65
+      width:availableWidth * 0.70
     },
     headerRight:{
       flexDirection: "column",

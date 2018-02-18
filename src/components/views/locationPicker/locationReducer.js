@@ -6,7 +6,8 @@ const initialState = {
   stateName: null,
   cityName: null,
   timestamp: null,
-  usStates
+  usStates,
+  usStatesObj: usStates.reduce((acc, st) => {acc[st.id] = st.name; return acc;}, {})
 };
 
 export default function(state: any = initialState, action: Function) {

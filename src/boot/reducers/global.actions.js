@@ -21,21 +21,24 @@ export const resetAction = NavigationActions.reset({index: 0, actions: [Navigati
 //Check if there is Token in the local storage, if so, it tries to login with it
 export function setup(callback){
   return function( dispatch, getState ){
-
+debugger;
     Storage.retrieveToken().then(data => {
-
+debugger;
       if(data && data.token && data.token !== '0'){
         doLogin(data, (data) => {
           callback(data)
-          setTimeout(() => Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) )), 2000 )
+          loadConfig(dispatch, getState )
+
         })( dispatch, getState )
       }else{
         callback(false)
-        Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) ))
+        loadConfig(dispatch, getState )
       }
      })
   }
 }
+
+loadConfig = (dispatch, getState) => setTimeout(() => Connector.doGET('config/get/' + I18n.locale, dispatch, getState, (config) => dispatch( loadConfigAction(config) )), 2000 )
 
 export function doLogin(obj, callback){
 

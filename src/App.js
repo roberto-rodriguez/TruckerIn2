@@ -68,7 +68,7 @@ class RootApp extends Component {
 
  componentDidMount() {
      this.props.setupLang()
-     this.props.setup( (isAlreadyLoggedIn) => this.setState({checkedLogin: true, isAlreadyLoggedIn, isAlreadySetup: true})) 
+    this.props.setup( (isAlreadyLoggedIn) => this.setState({checkedLogin: true, isAlreadyLoggedIn, isAlreadySetup: true})) 
   }
 
   componentWillReceiveProps(newProps){
