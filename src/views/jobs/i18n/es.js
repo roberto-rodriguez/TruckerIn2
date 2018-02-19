@@ -29,7 +29,11 @@ const es = {
       resp: 'Responsabilidades',
       benefits: 'Beneficios',
       completeProfile: 'VER PERFIL COMPLETO',
-      jobDetails: 'DETALLES'
+      jobDetails: 'DETALLES',
+      locations: 'Locaciones: ',
+      minExp: 'Mínima Experiencia Requerida: ',
+      category: 'Categoría: ',
+      distance: 'Distancia: '
     },
     app:{
       title: 'Aplicación de Trabajo',

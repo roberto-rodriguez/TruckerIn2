@@ -18,28 +18,36 @@ import * as Progress from 'react-native-progress';
      return nextProps.shouldUpdate
   }
 
-  render() {
-    var {data, applyBar, navigation, roleId} = this.props
+  // <Text style={{color: '#629aa9'}}><Text >{I18n.t('jobs.post.compensation')}</Text>{data.compensation}</Text>
+  // <Content text={data.description} style={{marginTop: 10}}/>
 
-    var authorPrefix = '';
+  render() {
+    var {data, applyBar, navigation, roleId, elemId} = this.props
+
+    var match = data.match
+
+    if(match > 100){
+      match -= 100
+    }
+
+    console.log('Rendering ' + elemId)
 
     return (
     <Card style={postStyle.container}>
       <View style={postStyle.headline}>
-        <T14 style={{color:'#0B3A42'}}>Ozark Motor Lines is now offering hourly pay for our intermodal drivers!, Ozark Motor Lines is now offering hourly pay for our intermodal</T14>
+        <T14 stron style={{color:'#0B3A42'}}>{data.title}</T14>
       </View>
       <View style={postStyle.header}>
         <View style={postStyle.headerLeft} >
             <SimpleButton onPress={() => nav(navigation,  "Profile", {userInfo:data} )}>
              <View>
-                <Avatar name={data.userName}  size={60} src={data.profileImg} square/>
+                <Avatar name={data.company}  size={60} src={data.companyImg} square/>
             </View>
             </SimpleButton>
             <View style={{ flexDirection: "column", marginLeft: 10}}>
-              <T13  shortLine style={{color:'black', width: 160}}> {'Ozark Motor Lines'} </T13>
-              <T12 light shortLine>{'Job Locations:'}</T12>
-            <T12 style={{width: 160}}>{'California • Georgia  • Texas • Florida'} </T12>
-
+              <T13 shortLine style={{color:'black', width: 160}}>{data.company} </T13>
+              <T12 shortLine green ><T12 shortLine>{I18n.t('jobs.post.category')}</T12>{data.category}</T12>
+              <T12 shortLine green ><T12 shortLine>{I18n.t('jobs.post.distance')}</T12>{data.distance}</T12>
             </View>
         </View>
 
@@ -53,29 +61,26 @@ import * as Progress from 'react-native-progress';
           <PostingTime date={data.createdAt}/>
         </View>
       </View>
+      <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states}</T12>
+      <T12 green ><T12>{I18n.t('jobs.post.equipment')}</T12>{data.equipments}</T12>
+      <T12 green ><T12>{I18n.t('jobs.post.minExp')}</T12>{data.experience}</T12>
 
-      <Text style={{color: '#629aa9'}}><Text >{I18n.t('jobs.post.equipment')}</Text>{'Tractor • Dump Truck • Flat Bed • Tanker • Dump Truck • Flat Bed • Tanker'}</Text>
-      <Text style={{color: '#629aa9'}}><Text >{'Minima Experiencia Requerida: '}</Text>{'2 Years'}</Text>
-      <Text style={{color: '#629aa9'}}><Text >{'Category: '}</Text>{'Company Driver'}</Text>
-    <Text style={{color: '#629aa9'}}><Text >{'Distance: '}</Text>{'On the Road'}</Text>
-      <Text style={{color: '#629aa9'}}><Text >{I18n.t('jobs.post.compensation')}</Text>{data.compensation}</Text>
-
-
-      <Content text={data.description} style={{marginTop: 10}}/>
       {
         applyBar && (
-          <Row h={46} spaceBetween style={{marginTop: 10}}>
+          <View  style={{marginTop: 10, height: 45, flexDirection: 'row', justifyContent: 'space-between'}}>
+
+            <Progress.Circle showsText  progress={(match / 100)} size={45} formatText={() => ((match < 100 ? '  ' : '') + match + '% Match')} textStyle={{paddingLeft: 6}} color={match < 50 ? 'red': 'blue'}/>
+
 
             <CustomButton white text={I18n.t('jobs.post.details')}
-             style={styles.button}
-             handler={() => nav(navigation, 'JobDetails', {data})}/>
-
-           <Progress.Circle showsText  progress={0.4} size={45} formatText={this.formatText} textStyle={{paddingLeft: 6}} color={'red'}/>
+             style={styles.button}  handler={() => nav(navigation, 'JobDetails', {data})}/>
 
            <CustomButton white text={I18n.t('jobs.post.save')}
-             style={styles.button}
-             handler={() => this.props.saveJob( data.id ) }/>
-          </Row>
+             style={styles.button} handler={() => this.props.saveJob( data.id ) }/>
+
+           <CustomButton icon={"phone"}
+            style={styles.button} handler={() =>  call({ number: data.phone})}/>
+          </View>
         )
       }
     </Card>)
@@ -90,7 +95,7 @@ import * as Progress from 'react-native-progress';
         height: 50,
         width: 50
       },
-      button: {width:70, marginRight:10},
+      button: {width:70, marginTop:10},
       applyView: {flexDirection: "row",justifyContent:'flex-end'}
     })
 

@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native';
 
 const langKey = '@TruckerIn:language'
 const tokenKey = '@TruckerIn:token'
+const jobsKey = '@TruckerIn:jobs'
 
 export function storeLang(lang) {
   return AsyncStorage.multiSet([
@@ -15,6 +16,14 @@ export function storeToken(token) {
       [tokenKey, token]
   ])
 
+  return result
+}
+
+
+export function storeJobs(jobs) {
+  var result = AsyncStorage.multiSet([
+      [jobsKey, jobs]
+  ])
   return result
 }
 
@@ -35,6 +44,17 @@ export function retrieveToken() {
     AsyncStorage.multiGet([ tokenKey ])
     .then(result => resolve({
       token: result[0][1]
+    }))
+    .catch(ex => reject(ex))
+  })
+}
+
+
+export function retrieveJobs() {
+  return new Promise((resolve, reject) => {
+    AsyncStorage.multiGet([ jobsKey ])
+    .then(result => resolve({
+      jobs: result[0][1]
     }))
     .catch(ex => reject(ex))
   })

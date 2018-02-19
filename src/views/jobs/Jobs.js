@@ -37,10 +37,14 @@ import I18n from 'react-native-i18n'
 loadItems = (page, callback) => {
   var {reset, params} = this.state
 
-  this.props.searchJobs(page, params, callback, reset)
+  if(page === -1){
+    this.props.cachedJobList( callback )
+  }else{
+    this.props.xJobList(page, callback, reset)
 
-  if(reset){
-    this.setState( {reset: false })
+    if(reset){
+      this.setState( {reset: false })
+    }
   }
 }
 
@@ -57,9 +61,10 @@ loadItems = (page, callback) => {
          />
 
          <Feed
+           initialPage={-1}
            reset={this.state.reset}
            feedLoader={this.loadItems}
-           feedBuilder={(data, navigation, i, shouldUpdate) => (<JobPost applyBar navigation={navigation}  key={i} data={data} shouldUpdate={shouldUpdate} />)}
+           feedBuilder={(data, navigation, i, shouldUpdate) => (<JobPost applyBar navigation={navigation}  key={i} elemId={i} data={data} shouldUpdate={shouldUpdate} />)}
            emptyElement={(<AgentImg text={I18n.t('jobs.headers.emptyText')} style={{marginTop: 40}}/>)}
            navigation={navigation}>
 

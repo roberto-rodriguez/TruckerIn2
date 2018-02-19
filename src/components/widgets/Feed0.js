@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Button, Text, Spinner} from 'native-base'
+import {Button, Text} from 'native-base'
 import {  StyleSheet, ScrollView,  View, Dimensions } from 'react-native';
-import {FullSpinner} from 'src/components/'
+import {Spinner} from 'src/components/'
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import I18n from 'react-native-i18n'
 var debbugFeed = false;
@@ -37,7 +37,7 @@ import { connect } from "react-redux";
       this.moreFeed(true);
     }
     debbugFeed && console.log('Feed:: shouldComponentUpdate:: firstLoad' + this.state.firstLoad + ', loading:: ' + this.state.loading + ', reset: ' + nextProps.reset + ' (' + (nextProps.reset ||  this.state.firstLoad || this.state.loading) + ')');
-    return this.state.firstLoad || this.state.loading || (this.state.page <= 0);
+    return this.state.firstLoad || this.state.loading;
   }
 
 
@@ -72,7 +72,7 @@ handleSize = (width, height) => {
 
     this.state.loading = true;
     var page = reset ? 0 : this.state.page
- 
+ debugger;
     this.props.feedLoader(page, (items) => {
 
       if(page === -1 && items.length === 0){
@@ -107,7 +107,7 @@ handleSize = (width, height) => {
     var size = feed.length
 
     if(starting){
-      return (<FullSpinner/>)
+      return (<Spinner/>)
     }
 
     return (
@@ -124,7 +124,12 @@ handleSize = (width, height) => {
         {this.props.children}
         {(size === 0 && emptyElement) ? emptyElement : feed.map((data, i) => feedBuilder(data, navigation, i, (size - i < 10)))}
 
-        { showLoadIndicator && ( <Spinner/> )}
+          { showLoadIndicator && (<Button full transparent style={{marginBottom:40}}>
+              <Text style={{ color: global.secondaryColor }}>
+                {I18n.t('cmp.widgets.loading')}
+              </Text>
+            </Button>
+          )}
       </ScrollView >
     )
 

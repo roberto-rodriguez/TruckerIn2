@@ -2,8 +2,55 @@ import moment from 'moment';
 import { formatDate} from 'src/components/'
 import I18n from 'react-native-i18n'
 import data from './list/data'
+import * as Storage from 'src/boot/reducers/storage.actions'
 import * as Connector from 'src/boot/reducers/connector'
 import * as globalActions from 'src/boot/reducers/global.actions'
+
+export function cachedJobList(callback){
+    return function( dispatch, getState ){
+
+      Storage.retrieveJobs().then(data => {
+          var jobs = JSON.parse( (data && data.jobs) || '[]' )
+          callback( jobs )
+       })
+    }
+}
+
+export function xJobList(page = 0, callback, reset){
+    return function( dispatch, getState ){
+
+      var params = {
+      	page,
+      	"limit": 10,
+      	"experienceId": 3,
+      	"equipmentId": "2",
+      	"categoryId": 1,
+      	"distanceId": 1,
+      	"stateId": "FL",
+      	"cityId": 1
+      }
+
+      Connector.doPOST('xjob/xlist', dispatch, getState, params,  (jobs) => {
+        var usStatesObj = getState().locationReducer.usStatesObj
+        var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
+ 
+        jobs = jobs.map(job => ({
+          ...job,
+          states: job.stateIds.split(',').map(s => (usStatesObj[s])).join(' • '),
+          category: categoryOptionsObj ? categoryOptionsObj[job.categoryId] : '',
+          distance: distanceOptionsObj ? distanceOptionsObj[job.distanceId] : '',
+          equipments: equipmentOptionsObj ? job.equipmentIds.split(',').map(s => (equipmentOptionsObj[s])).join(' • ') : '',
+          experience: experienceOptionsObj ? experienceOptionsObj[job.experienceId] : ''
+        }))
+
+        callback(jobs, reset)
+
+        var jobsToCach = JSON.stringify( (jobs && jobs.slice(0, 2)) || [] )
+        Storage.storeJobs( jobsToCach )
+      })
+    }
+}
+
 
 
 export function searchJobs(page = 0, requestParams, callback, reset){

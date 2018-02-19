@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
     header:{
       paddingTop: 5,
-      marginBottom:15,
+      // marginBottom:15,
       justifyContent:'space-between',
       flexDirection: 'row'
     },

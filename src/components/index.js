@@ -45,6 +45,7 @@ export { default as SimpleListItem } from './listItems/SimpleListItem'
 
 //Spinner
 export { default as Spinner } from './loaders/Spinner'
+export { default as FullSpinner } from './loaders/Spinner'
 
 //Texts
 export { default as Content } from './text/Content'

@@ -29,7 +29,11 @@ const en = {
       desc: 'Description',
       req: 'Requirements',
       resp: 'Responsabilities',
-      benefits: 'Benefits'
+      benefits: 'Benefits',
+      locations: 'Locations: ',
+      minExp: 'Minimum Required Experience: ',
+      category: 'Category: ',
+      distance: 'Distance: '
     },
     app:{
       title: 'Job Application',

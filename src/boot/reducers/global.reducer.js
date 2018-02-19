@@ -34,6 +34,7 @@ const initialState = {
   },
   config:{
     lang: I18n.currentLocale() &&  I18n.currentLocale().split('-')[0],
+    categoryOptions: [],
     equipmentOptions: [],
     experienceOptions: [],
     jobStatusOptions: [],
@@ -41,6 +42,7 @@ const initialState = {
     roleOptions: [],
     distanceOptions: [],
 
+    categoryOptionsObj: {},
     equipmentOptionsObj: {},
     experienceOptionsObj: {},
     jobStatusOptionObj: {},
