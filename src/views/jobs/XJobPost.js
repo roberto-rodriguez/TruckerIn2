@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
 import { connect } from "react-redux";
-import {Text,Row,  Button, CustomButton, PostingTime, SimpleButton, T12, T13, T14, Content, nav, Avatar} from 'src/components/'
+import {Text,Row, Column, Button, CustomButton, PostingTime, SimpleButton, T12, T13, T14, Content, nav, Avatar, LinkButton} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import * as roles from 'src/components/c/Role'
 import * as jobActions from "src/views/jobs/jobs.actions";
 import I18n from 'react-native-i18n'
 import * as Progress from 'react-native-progress';
+import Details from 'src/views/jobs/post/Details'
 
  class JobPost extends Component {
 
@@ -64,6 +65,9 @@ import * as Progress from 'react-native-progress';
       <T12 green ><T12>{I18n.t('jobs.post.equipment')}</T12>{data.equipments}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.minExp')}</T12>{data.experience}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states}</T12>
+
+      <Details/>
+
       {
         applyBar && (
           <View  style={{marginTop: 10, height: 45, flexDirection: 'row', justifyContent: 'space-between'}}>

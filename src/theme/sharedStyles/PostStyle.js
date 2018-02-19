@@ -11,6 +11,12 @@ export default StyleSheet.create({
       borderBottomColor: commonColor.secondaryColor,
       borderBottomWidth: 0.3
     },
+    bottomline:{
+      paddingTop: 5,
+      marginTop: 5,
+      borderTopColor: commonColor.secondaryColor,
+      borderTopWidth: 0.3
+    },
     container:{
       marginLeft:5,
       marginRight:5,
