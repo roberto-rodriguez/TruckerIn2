@@ -31,7 +31,7 @@ class Contacts extends Component {
 
     var dataFriendsTraveling = []
 
-    var firstTab = (connections && connections > 0) ? (<MyContacts tabLabel={'myContacts'}  navigation={navigation}/>) : null
+    var firstTab = (connections && connections > 0) ? (<MyContacts tabLabel={I18n.t(['contacts', 'myContacts'])} navigation={navigation}/>) : null
 
     return (
       <View style={{minHeight:'100%'}}>
@@ -45,8 +45,8 @@ class Contacts extends Component {
              tabBarPosition='overlayTop'
              >
                {firstTab}
-               <Community tabLabel={'allUsers'}  navigation={navigation}/>
-               <Messages  tabLabel={'msg'} navigation={navigation}/>
+               <Community tabLabel={I18n.t(['contacts', 'allUsers'])}  navigation={navigation}/>
+               <Messages tabLabel={I18n.t(['contacts', 'msg'])}   navigation={navigation}/>
            </ScrollableTabView>
       </View>
     )

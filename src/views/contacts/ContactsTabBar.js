@@ -47,7 +47,7 @@ const DefaultTabBar = React.createClass({
     >
       <View style={[styles.tab]}>
         <Text style={[{color: textColor, fontWeight}, styles.textStyle]}>
-          {I18n.t(['contacts', name])}
+          {name}
         </Text>
       </View>
     </Button>;
@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
     width:'100%',
     alignItems: 'center',
     alignSelf: "center",
-    borderRightWidth:0.1,
+    borderRightWidth:0.2,
     borderRightColor:'grey',
-    borderLeftWidth:0.3,
+    borderLeftWidth:0.2,
     borderLeftColor:'grey',
     textAlign: 'center'
   }

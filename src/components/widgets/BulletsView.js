@@ -5,43 +5,21 @@
  */
 
 import React, { Component } from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Text, Row} from 'src/components/'
-import Icon from 'react-native-fa-icons'; 
+import {View} from 'react-native';
+import {T12} from 'src/components/'
 
  class BulletsView extends Component {
 
   render() {
-    var {list, color} = this.props;
+    var {text} = this.props;
     return (
-      <View style={{height:300, width:'100%'}}>
-       {list.map((item, i) => (<Bullet  key={i} text={item}/>))}
+      <View>
+       {text.split('.').map((item, i) => (<T12  key={i}>{' • ' + item}</T12>))}
       </View>
     );
   }
 }
 
-class Bullet extends Component {
- render() {
-   return (
-     <Row >
-       <Icon name='check' style={styles.icon}/>
-       <Text style={styles.text}>
-        {this.props.text}
-       </Text>
-     </Row>
-   );
- }
-}
 
-const styles = StyleSheet.create({
-  icon: {
-    color: global.secondaryColor,
-    margin:5
-  },
-  text:{
-    paddingRight:24
-  }
-})
 
 export default BulletsView;

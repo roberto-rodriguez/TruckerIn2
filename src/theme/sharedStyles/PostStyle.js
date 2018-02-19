@@ -11,9 +11,8 @@ export default StyleSheet.create({
       borderBottomColor: commonColor.secondaryColor,
       borderBottomWidth: 0.3
     },
-    bottomline:{
-      paddingTop: 5,
-      marginTop: 5,
+    details:{
+      marginTop: 20,
       borderTopColor: commonColor.secondaryColor,
       borderTopWidth: 0.3
     },
@@ -35,9 +34,9 @@ export default StyleSheet.create({
     },
     headerRight:{
       flexDirection: "column",
-      width: availableWidth * 0.3,
-      justifyContent:'flex-start',
-     alignItems: 'center'
+      width: availableWidth * 0.25,
+      justifyContent:'flex-end',
+    // alignItems: 'center'
     },
     settingsIcon:{
       fontSize:16,

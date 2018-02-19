@@ -176,7 +176,7 @@ export function sendMsgJobApp(appAction, callback){
 export function loadJobDetails(jobId, callback){
   return function( dispatch, getState ){
     var userId =  getState().globalReducer.profileInfo.id
-    Connector.doGET('job/load/' + userId + '/' + jobId, dispatch, getState, (job) => callback( job ))
+    Connector.doGET('xjob/load/' + userId + '/' + jobId, dispatch, getState, (job) => callback( job ))
   }
 }
 

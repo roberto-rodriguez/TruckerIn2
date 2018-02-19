@@ -12,26 +12,14 @@ import Details from 'src/views/jobs/post/Details'
 
  class JobPost extends Component {
 
-  shouldComponentUpdate(nextProps, nextState){
-    if(nextProps.shouldUpdate === undefined || nextProps.shouldUpdate == null || this.props.lang != nextProps.lang){
-      return true;
-    }
-     return nextProps.shouldUpdate
-  }
 
   // <Text style={{color: '#629aa9'}}><Text >{I18n.t('jobs.post.compensation')}</Text>{data.compensation}</Text>
   // <Content text={data.description} style={{marginTop: 10}}/>
 
   render() {
-    var {data, applyBar, navigation, roleId, elemId} = this.props
+    var {data, navigation, roleId} = this.props
 
-    var match = data.match
 
-    if(match > 100){
-      match -= 100
-    }
-
-    console.log('Rendering ' + elemId)
 
     return (
     <Card style={postStyle.container}>
@@ -65,29 +53,11 @@ import Details from 'src/views/jobs/post/Details'
       <T12 green ><T12>{I18n.t('jobs.post.equipment')}</T12>{data.equipments}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.minExp')}</T12>{data.experience}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states}</T12>
-      
-      {
-        applyBar && (
-          <View  style={{marginTop: 10, height: 45, flexDirection: 'row', justifyContent: 'space-between'}}>
 
-            <Progress.Circle showsText  progress={(match / 100)} size={45} formatText={() => ((match < 100 ? '  ' : '') + match + '% Match')} textStyle={{paddingLeft: 6}} color={match < 50 ? 'red': 'blue'}/>
-
-
-            <CustomButton white text={I18n.t('jobs.post.details')}
-             style={styles.button}  handler={() => nav(navigation, 'JobDetails', {data})}/>
-
-           <CustomButton white text={I18n.t('jobs.post.save')}
-             style={styles.button} handler={() => this.props.saveJob( data.id ) }/>
-
-           {data.phone && (<CustomButton icon={"phone"} style={styles.button} handler={() =>  call({ number: data.phone})}/>)}
-
-          </View>
-        )
-      }
+      {this.props.children}
     </Card>)
     }
 
-    formatText = (progress) => ('40% Match')
 
   }
 

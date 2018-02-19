@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { View  } from 'react-native';
-import { Container, Content } from "native-base";
+import { Container, Content, Spinner } from "native-base";
 import { connect } from "react-redux";
 import {Row, Header, Text, Column, TransparentButton} from 'src/components/'
 import * as jobActions from "src/views/jobs/jobs.actions";
 import BulletsView from 'src/components/widgets/BulletsView'
-import JobPost from 'src/views/jobs/JobPost'
+import JobPost from 'src/views/jobs/post/JobPost'
+import Details from 'src/views/jobs/post/Details'
 import I18n from 'react-native-i18n'
 
 const tabs = [
@@ -23,8 +24,8 @@ class JobDetails extends Component {
                && this.props.navigation.state.params.data
 
       this.state = {
-        selectedTab: 0,
-        data
+        data,
+        details: null
       }
     }
 
@@ -33,41 +34,21 @@ class JobDetails extends Component {
     var _this = this
 
      setTimeout(() => {
-       this.props.loadJobDetails(this.state.data.id, (details) => {
-         _this.setState(prevState => {
-           prevState.data = {
-             ...prevState.data,
-             ...details
-           }
-
-           return prevState
-         })
-       })
-     }, 100)
+       this.props.loadJobDetails(this.state.data.id, (details) => this.setState({details}))
+     }, 200)
    }
 
   render() {
     const navigation = this.props.navigation;
-    var {selectedTab, data} = this.state;
+    var {details, data} = this.state;
 
     return (
       <Container>
         <Header navigation={navigation} back title={I18n.t('jobs.details.title')}/>
         <Content fullscreen>
-         <JobPost data={data} navigation={navigation}/>
-        <View  >
-           <Row style={{height:41, borderBottomWidth: 0.5, borderBottomColor:'grey'}}>
-            {tabs.map(({title}, i) => (
-              <Column columns={3} key={i}>
-                <TransparentButton
-                  text={I18n.t(['jobs','post', title])}
-                  active={selectedTab === i}
-                  handler={() => this.setState({...this.state, selectedTab: i})}/>
-              </Column>
-            )) }
-           </Row>
-           {data && (<BulletsView list={ [data[tabs[selectedTab].prop ] ] }/>)}
-         </View>
+           <JobPost data={data} navigation={navigation}>
+             {details ? ( <Details data={details}/>) : ( <Spinner color={'#629aa9'}/>)}
+           </JobPost>
         </Content>
       </Container>
     );
