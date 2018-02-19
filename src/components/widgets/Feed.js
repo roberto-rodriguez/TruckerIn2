@@ -72,7 +72,7 @@ handleSize = (width, height) => {
 
     this.state.loading = true;
     var page = reset ? 0 : this.state.page
- 
+
     this.props.feedLoader(page, (items) => {
 
       if(page === -1 && items.length === 0){
@@ -124,7 +124,7 @@ handleSize = (width, height) => {
         {this.props.children}
         {(size === 0 && emptyElement) ? emptyElement : feed.map((data, i) => feedBuilder(data, navigation, i, (size - i < 10)))}
 
-        { showLoadIndicator && ( <Spinner/> )}
+        { showLoadIndicator && ( <Spinner color={'#629aa9'}/> )}
       </ScrollView >
     )
 

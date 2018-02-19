@@ -21,7 +21,7 @@ export const resetAction = NavigationActions.reset({index: 0, actions: [Navigati
 //Check if there is Token in the local storage, if so, it tries to login with it
 export function setup(callback){
   return function( dispatch, getState ){
- 
+
     Storage.retrieveToken().then(data => {
 
       if(data && data.token && data.token !== '0'){
@@ -48,6 +48,8 @@ export function doLogin(obj, callback){
 
         var userId = profileInfo && profileInfo.id
 
+        dispatch( setGlobalProfileInfoAction(profileInfo) )
+
         callback(userId)
 
         if(userId){
@@ -55,7 +57,7 @@ export function doLogin(obj, callback){
 
           //  Connector.completeProfileInfo( profileInfo, getState )
 
-            dispatch( setGlobalProfileInfoAction(profileInfo) )
+
 
             setTimeout( () => Connector.doGET('experience/load/' + userId + '/' + userId, dispatch, getState,  (profileExperience) => {
 

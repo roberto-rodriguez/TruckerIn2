@@ -39,13 +39,13 @@ import * as Progress from 'react-native-progress';
       </View>
       <View style={postStyle.header}>
         <View style={postStyle.headerLeft} >
-            <SimpleButton onPress={() => nav(navigation,  "Profile", {userInfo:data} )}>
+            <SimpleButton onPress={() => nav(navigation,  "Profile", {userInfo: data} )}>
              <View>
-                <Avatar name={data.company}  size={60} src={data.companyImg} square/>
+                <Avatar name={data.userName}  size={60} src={data.profileImg} square/>
             </View>
             </SimpleButton>
             <View style={{ flexDirection: "column", marginLeft: 10}}>
-              <T13 shortLine style={{color:'black', width: 160}}>{data.company} </T13>
+              <T13 shortLine style={{color:'black', width: 160}}>{data.userName} </T13>
               <T12 shortLine green ><T12 shortLine>{I18n.t('jobs.post.category')}</T12>{data.category}</T12>
               <T12 shortLine green ><T12 shortLine>{I18n.t('jobs.post.distance')}</T12>{data.distance}</T12>
             </View>
@@ -61,10 +61,9 @@ import * as Progress from 'react-native-progress';
           <PostingTime date={data.createdAt}/>
         </View>
       </View>
-      <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.equipment')}</T12>{data.equipments}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.minExp')}</T12>{data.experience}</T12>
-
+      <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states}</T12>
       {
         applyBar && (
           <View  style={{marginTop: 10, height: 45, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -78,8 +77,8 @@ import * as Progress from 'react-native-progress';
            <CustomButton white text={I18n.t('jobs.post.save')}
              style={styles.button} handler={() => this.props.saveJob( data.id ) }/>
 
-           <CustomButton icon={"phone"}
-            style={styles.button} handler={() =>  call({ number: data.phone})}/>
+           {data.phone && (<CustomButton icon={"phone"} style={styles.button} handler={() =>  call({ number: data.phone})}/>)}
+
           </View>
         )
       }

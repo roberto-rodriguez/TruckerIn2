@@ -16,7 +16,7 @@ const en = {
       ex: 'Experience: ',
       exp: 'Required Experience: ',
       compensation: 'Compensation: ',
-      details: 'DETALLES',
+      details: 'DETAILS',
       discard: 'DISCARD',
       profile: 'PROFILE',
       accept: 'ACCEPT',

@@ -19,21 +19,25 @@ export function cachedJobList(callback){
 export function xJobList(page = 0, callback, reset){
     return function( dispatch, getState ){
 
+      var {experienceId, equipmentId, categoryId, distanceId} = getState().globalReducer.profileExperience
+      var {id, location} = getState().globalReducer.profileInfo
+
       var params = {
+        id,
       	page,
-      	"limit": 10,
-      	"experienceId": 3,
-      	"equipmentId": "2",
-      	"categoryId": 1,
-      	"distanceId": 1,
-      	"stateId": "FL",
-      	"cityId": 1
+      	limit: 10,
+      	experienceId,
+      	equipmentId: equipmentId + '',
+      	categoryId,
+      	distanceId,
+      	stateId: location && location.stateId,
+      	cityId: (location && location.cityId) || 0
       }
 
       Connector.doPOST('xjob/xlist', dispatch, getState, params,  (jobs) => {
         var usStatesObj = getState().locationReducer.usStatesObj
         var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
- 
+
         jobs = jobs.map(job => ({
           ...job,
           states: job.stateIds.split(',').map(s => (usStatesObj[s])).join(' • '),

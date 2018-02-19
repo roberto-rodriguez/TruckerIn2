@@ -22,14 +22,18 @@ const initialState = {
     notifications:0
   },
   profileExperience:{
-    completion: 0,
-    equipmentId: 0,
+  //  completion: 0,
     equipment: '',
-    experienceId: 0,
+    equipmentId: 0,
     experience: '',
-    ownerOperator:0,
-    jobStatusId: 1,
-    jobStatus: '',
+    experienceId: 0,
+    category: '',
+    categoryId: 0,
+    distance: '',
+    distanceId: 0,
+  //  ownerOperator:0,
+  //  jobStatusId: 1,
+  //  jobStatus: '',
     about:''
   },
   config:{
