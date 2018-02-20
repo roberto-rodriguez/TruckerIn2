@@ -75,5 +75,7 @@ export default StyleSheet.create({
     },
     horizontalPadding20: {
       paddingLeft: 20, paddingRight: 20
-    }
+    },
+    postFooter: {marginTop: 10, height: 45, flexDirection: 'row', justifyContent: 'space-between'},
+    button: {width:70, marginTop:10},
   });

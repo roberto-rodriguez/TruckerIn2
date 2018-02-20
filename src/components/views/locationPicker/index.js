@@ -23,10 +23,16 @@ class LocationPicker extends Component {
       this.onBack = this.onBack.bind(this);
  }
 
- componentWillMount() {
+// componentWillMount() {
+ componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBack);
 
-    var {navigation} = this.props
+    var {navigation, MULTIPLE_CITIES} = this.props
+
+    if(MULTIPLE_CITIES){
+      this.props.setLocation( this.props.location )
+      return;
+    }
 
     if(navigation && navigation.state && navigation.state.params && navigation.state.params.data){
       this.props.setLocation( navigation.state.params.data )
@@ -58,7 +64,15 @@ componentWillUnmount() {
    return true;
  }
 
-  onSelectState = (stateId, stateName) => this.setState({pickerPage: 2})
+
+
+  onSelectState = (stateId, stateName) => {
+    if(this.props.MULTIPLE_CITIES){
+      this.props.selectSingleState(stateId, stateName)
+    }
+
+    this.setState({pickerPage: 2})
+  }
 
   onSwipe = (i) => this.setState({pickerPage: i})
 
@@ -66,7 +80,7 @@ componentWillUnmount() {
     const navigation = this.props.navigation;
 
     var { pickerPage} = this.state
-    var { stateName, cityName, hideHeader} = this.props
+    var { stateName, cityName, hideHeader, MULTIPLE_CITIES} = this.props
 
     return (
       <Container>
@@ -89,8 +103,9 @@ componentWillUnmount() {
 
             <CityList
                tabLabel={cityName || I18n.t('cmp.loc.selectCity')}
-               onSelectCity={this.processAndGoBack}
+               onSelectCity={MULTIPLE_CITIES ? this.props.selectMultiCity : this.processAndGoBack}
                navigation={navigation}
+               MULTIPLE_CITIES={MULTIPLE_CITIES}
                key={2}/>
         </ScrollableTabView>
 
@@ -103,7 +118,7 @@ const mapStateToProps = ({locationReducer}, ownProps) => ({
   stateId: locationReducer.stateId,
   cityId: locationReducer.cityId,
   stateName: locationReducer.state || locationReducer.stateName,
-  cityName: locationReducer.city || locationReducer.cityName,
+  cityName: ownProps.MULTIPLE_CITIES ? (locationReducer.cityList && locationReducer.cityList.join(' • ') ) : (locationReducer.city || locationReducer.cityName),
   stateIdList: locationReducer.stateIdList
   })
 

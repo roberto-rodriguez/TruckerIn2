@@ -6,7 +6,7 @@ import {  Header, BlockButton, CustomButton, StackView, Spinner} from 'src/compo
 import styles from "./styles";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
-import * as authActions from "src/views/auth/auth.actions";
+import * as jobActions from "src/views/jobs/jobs.actions";
 
 import Information from './sections/Information'
 import Equipment from './sections/Equipment'
@@ -53,7 +53,11 @@ class NewJob extends Component {
 
         location: {}
         // {
-        //   stateIdList: []
+          // stateId,
+          // stateName
+          // stateIdList: [],
+          // cityIdList:[],
+          // cityNameList: []
         // }
       }
     };
@@ -126,6 +130,7 @@ class NewJob extends Component {
           return
         }
         break;
+       case 4: return this.submit()
     }
 
      this.setState(prevState => {
@@ -154,21 +159,34 @@ class NewJob extends Component {
         break;
       case 1: section = <Equipment setVal={this.setVal} data={data} invalidFields={invalidFields}/>
         break;
-      case 2: section = data.distanceId === 1 ?
+      case 2: section = data.distanceId === 2 ?
              <StateList location={data.location || {}} onSelectState={this.selectMultiState} MULTIPLE_STATES/>
-           : <LocationPicker setVal={this.setVal} data={data} invalidFields={invalidFields} hideHeader/>
+           : <LocationPicker
+              location={data.location || {}}
+              selectSingleState={this.selectSingleState}
+              selectMultiCity={this.selectMultiCity}
+              MULTIPLE_CITIES
+              hideHeader
+              />
         break;
       case 3: section = <Description setVal={this.setVal} data={data} invalidFields={invalidFields}/>
         break;
       case 4: section = <Salary setVal={this.setVal} data={data} invalidFields={invalidFields}/>
-        break;
-    }
+   }
 
     if(flowPage === 2){
       return section;
     }else{
       return this.applyWrapper( section )
     }
+  }
+
+  submit = () => {
+    this.setState({...this.state, view: {...this.state.view, loading: true}})
+    debugger;
+    this.props.createJob(this.state.data, () => {
+      this.setState({...this.state, view: {...this.state.view, loading: false}})
+    }, 'create');
   }
 
   applyWrapper = (children) => (
@@ -207,6 +225,44 @@ selectMultiState = ( stateId ) =>  this.setState((prevState) => {
               }
           }
  })
+
+
+//@ This is for MULTI_CITY mode
+selectSingleState = ( stateId, stateName ) =>  this.setState((prevState) => {
+  return {...prevState,
+          data:{...prevState.data,
+                location: { stateId, stateName }  //Reset cityList
+              }
+          }
+ })
+
+ selectMultiCity = ( cityId, cityName ) =>  this.setState((prevState) => {
+   cityId += '';
+   var existentCityIdList = (prevState.data.location && prevState.data.location.cityIdList ) || [];
+   var existentCityNameList = (prevState.data.location && prevState.data.location.cityNameList ) || [];
+
+   var cityIdList = existentCityIdList.filter(e => e != cityId)
+   var cityNameList = existentCityNameList.filter(e => e != cityName)
+
+   if (existentCityIdList.length === cityIdList.length){
+     cityIdList.push( cityId )
+   }
+
+   if (existentCityNameList.length === cityNameList.length){
+     cityNameList.push( cityName )
+   }
+
+   return {...prevState,
+           data:{...prevState.data,
+                 location: {
+                   ...(prevState.data.location),
+                   cityIdList,
+                   cityNameList
+                 }
+               }
+           }
+  })
+
 }
 
 function mapStateToProps({globalReducer}) {
@@ -217,4 +273,4 @@ function mapStateToProps({globalReducer}) {
   }
 }
 
-export default connect(mapStateToProps, authActions)(NewJob);
+export default connect(mapStateToProps, jobActions)(NewJob);

@@ -15,7 +15,7 @@ const doFetch = (url, dispatch, getState, callback, data) => {
   // var state = getState(),
   // token = state.clientInfo && state.clientInfo.token,
   // lang = state.lang;
-
+debugger;
   var config = {
     method: data ? 'POST': 'GET',
     headers: new Headers({
@@ -44,6 +44,7 @@ const doFetch = (url, dispatch, getState, callback, data) => {
           callback && callback( response.data || response );
       }
      }).catch((err) => {
+       debugger;
         onError(dispatch,err)
       // alert(err)
        // dispatch( setLoading(false) )

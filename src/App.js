@@ -38,7 +38,7 @@ const App = StackNavigator(
   },
   {
     index: 0,
-    initialRouteName: "NewJob",
+    initialRouteName: "Login",
     headerMode: "none"
   }
 );

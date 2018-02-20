@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card } from "native-base";
 import { connect } from "react-redux";
-import {Text,Row, Column, Button, CustomButton, PostingTime, SimpleButton, T12, T13, T14, Content, nav, Avatar, LinkButton} from 'src/components/'
+import {Text,Row, Column, Button, CustomButton, PostingTime, SimpleButton, T11, T12, T13, T14, Content, nav, Avatar, LinkButton} from 'src/components/'
 import postStyle  from 'src/theme/sharedStyles/PostStyle'
 import * as roles from 'src/components/c/Role'
 import * as jobActions from "src/views/jobs/jobs.actions";
@@ -52,7 +52,7 @@ import Details from 'src/views/jobs/post/Details'
       </View>
       <T12 green ><T12>{I18n.t('jobs.post.equipment')}</T12>{data.equipments}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.minExp')}</T12>{data.experience}</T12>
-      <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states}</T12>
+    <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states  }<T11 light>{data.cities}</T11></T12>
 
       {this.props.children}
     </Card>)

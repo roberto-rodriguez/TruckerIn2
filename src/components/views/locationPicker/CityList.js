@@ -76,6 +76,7 @@ class CityList extends Component {
          value={ data.id }
          handler={this.props.onSelectCity}
          shouldUpdate={shouldUpdate}
+         MULTIPLE_CITIES={this.props.MULTIPLE_CITIES}
        /> )
 
 
@@ -118,7 +119,7 @@ class CityList extends Component {
               navigation={navigation}
               searchText={this.state.searchText}
               reset={this.state.reset}>
-             
+
             </Feed>)
           }
         </View>

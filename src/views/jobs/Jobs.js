@@ -73,8 +73,8 @@ loadItems = (page, callback) => {
 
          {
            roleId != roles.DRIVER &&
-           <Button light block rounded onPress={() => nav(navigation, 'PreCreateJob')} style={styles.createButton} >
-             <Icon name={'edit'} style={{fontSize: 23, color: global.secondaryColor }}/>
+           <Button light block rounded onPress={() => nav(navigation, 'NewJob')} style={styles.createButton} >
+             <Icon name={'edit'} style={{fontSize: 23, color: 'white' }}/>
            </Button>
          }
        </View>)
@@ -87,7 +87,9 @@ const styles = StyleSheet.create({
       bottom:70,
       right:20,
       height: 60,
-      width:60
+      width:60,
+      backgroundColor:theme.secondaryColor,
+
     }
   })
 

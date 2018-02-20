@@ -6,6 +6,8 @@ import styles from "../styles";
 import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 
+import PhoneField from '../fields/PhoneField'
+
 const items = [
   {prop: 'experience',  icon: 'tachometer',   title: 'experience'}
 ]
@@ -65,8 +67,8 @@ class Information extends Component {
           handler={(val) => setVal('distanceId', val)}
         />
 
-      <InputListItem
-        label ={'Best Number to Call (Optional)'}
+      <PhoneField
+        label ={'Best Phone Number to Call'}
         keyboardType= {'phone-pad'}
         icon={'phone'}
         value={data.phone}

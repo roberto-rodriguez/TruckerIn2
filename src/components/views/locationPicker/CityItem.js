@@ -21,12 +21,17 @@ class CityItem extends Component {
   }
 
  onSelect = () => {
-   var {value, label} = this.props
+   var {value, label, MULTIPLE_CITIES} = this.props
 
-   this.props.selectCity(value, label)
+   if(MULTIPLE_CITIES){
+     this.props.addCity(value, label)
+   }else{
+     this.props.selectCity(value, label)
+   }
 
    this.props.handler(value, label)
  }
+
 
 
 
@@ -51,8 +56,14 @@ class CityItem extends Component {
 }
 
 
-const mapStateToProps = ({locationReducer}, ownProps) => ({
-    selected: locationReducer.cityId === ownProps.value
-  })
+const mapStateToProps = ({locationReducer}, ownProps) => {
+  var obj = {}
+  if(ownProps.MULTIPLE_CITIES){
+    obj.selected = locationReducer.cityIdList && locationReducer.cityIdList.indexOf( ownProps.value + '') >= 0
+  }else{
+    obj.selected = (locationReducer.cityId === ownProps.value)
+  }
+  return obj;
+}
 
 export default connect(mapStateToProps, locationsActions)(CityItem);

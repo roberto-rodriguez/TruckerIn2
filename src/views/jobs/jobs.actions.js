@@ -38,24 +38,47 @@ export function xJobList(page = 0, callback, reset){
         var usStatesObj = getState().locationReducer.usStatesObj
         var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
 
-        jobs = jobs.map(job => ({
-          ...job,
-          states: job.stateIds.split(',').map(s => (usStatesObj[s])).join(' • '),
-          category: categoryOptionsObj ? categoryOptionsObj[job.categoryId] : '',
-          distance: distanceOptionsObj ? distanceOptionsObj[job.distanceId] : '',
-          equipments: equipmentOptionsObj ? job.equipmentIds.split(',').map(s => (equipmentOptionsObj[s])).join(' • ') : '',
-          experience: experienceOptionsObj ? experienceOptionsObj[job.experienceId] : ''
-        }))
+        if(page > 0){
+          jobs = jobs.map(job => ({
+            ...job,
+            category: categoryOptionsObj ? categoryOptionsObj[job.categoryId] : '',
+            distance: distanceOptionsObj ? distanceOptionsObj[job.distanceId] : '',
+            equipments: equipmentOptionsObj ? job.equipmentIds.split(',').map(s => (equipmentOptionsObj[s])).join(' • ') : '',
+            experience: experienceOptionsObj ? experienceOptionsObj[job.experienceId] : '',
+          //  location: buildLocation (job.distanceId, job.stateIds, job.city, usStatesObj)
+            states: buildStates( job.stateIds, usStatesObj ),
+            cities: buildCities( job.distanceId, job.city)
+          }))
+        }else{
+          jobs = jobs.map(job => ({
+            ...job,
+          //  location: buildLocation(job.distanceId, job.stateIds, job.city, usStatesObj)
+          states: buildStates( job.stateIds, usStatesObj ),
+          cities: buildCities( job.distanceId, job.city)
+          }))
+        }
 
         callback(jobs, reset)
 
-        var jobsToCach = JSON.stringify( (jobs && jobs.slice(0, 2)) || [] )
+        var jobsToCach = JSON.stringify( (jobs && jobs.slice(0, 3)) || [] )
         Storage.storeJobs( jobsToCach )
       })
     }
 }
 
+buildStates = ( stateIds, usStatesObj) =>  ( stateIds &&  stateIds.split(',').map(s => (usStatesObj[s])).join(' • ') + ' ' )
+buildCities = ( distanceId, city) => ( ( distanceId === 1 && city) ?  ( ' ( ' + city.replace(/,/g , ' • ') + ' )') : '')
 
+
+buildLocation = (distanceId, stateIds, city, usStatesObj) => {
+  var location =  ( stateIds &&  stateIds.split(',').map(s => (usStatesObj[s])).join(' • ') + ' ' ) || '';
+
+  if( distanceId === 1 && city){
+    location += '( ' + city.replace(/,/g , ' • ') + ' )';
+  }
+
+  return location;
+}
 
 export function searchJobs(page = 0, requestParams, callback, reset){
     return function( dispatch, getState ){
@@ -182,13 +205,27 @@ export function loadJobDetails(jobId, callback){
 
 export function createJob(job, callback, action){
   return function( dispatch, getState ){
-
+debugger;
     var userId = getState().globalReducer.profileInfo.id
 
-    job.authorId = userId;
+    job.authorId = 1;// userId;
     var isUpdating = job.id
 
-    Connector.doPOST('/job/save', dispatch, getState, job, function( jobId ){
+    if(job.location){
+      if(job.distanceId && job.distanceId === 1){ //If is Regional
+        job.location = {
+          stateIds: job.location.stateId,
+          cityIds: ',' + job.cityIdList && job.cityIdList.join(',') + ',',
+          city: job.cityNameList && job.cityNameList.join(',')
+        }
+      }else{
+        job.location = {
+          stateIds: job.location.stateIdList && job.location.stateIdList.join(',')
+        }
+      }
+    }
+
+    Connector.doPOST('/xjob/save', dispatch, getState, job, function( jobId ){
       if(jobId){
         job.id = jobId
 
