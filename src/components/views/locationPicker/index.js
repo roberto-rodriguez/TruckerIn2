@@ -64,18 +64,13 @@ componentWillUnmount() {
 
   render() {
     const navigation = this.props.navigation;
-    // var {setVal, showAnywareOption} = navigation.state.params
 
     var { pickerPage} = this.state
     var { stateName, cityName, hideHeader} = this.props
-    var setVal = ()=>{}
-    var showAnywareOption = null
-
-    callback = (locationId, location) => {}// setVal('location', location, locationId)
 
     return (
       <Container>
-        {!hideHeader && (  <Header navigation={navigation} back title={I18n.t('cmp.loc.title')} onBack={ this.onBack }/>)} 
+        {!hideHeader && (  <Header navigation={navigation} back title={I18n.t('cmp.loc.title')} onBack={ this.onBack }/>)}
 
         <ScrollableTabView
           style={{paddingTop: 30}}
@@ -89,7 +84,8 @@ componentWillUnmount() {
               tabLabel={stateName || I18n.t('cmp.loc.selectState') }
               onSelectState={this.onSelectState}
               navigation={navigation}
-              key={1}/>
+              key={1}
+            />
 
             <CityList
                tabLabel={cityName || I18n.t('cmp.loc.selectCity')}
@@ -107,7 +103,8 @@ const mapStateToProps = ({locationReducer}, ownProps) => ({
   stateId: locationReducer.stateId,
   cityId: locationReducer.cityId,
   stateName: locationReducer.state || locationReducer.stateName,
-  cityName: locationReducer.city || locationReducer.cityName
+  cityName: locationReducer.city || locationReducer.cityName,
+  stateIdList: locationReducer.stateIdList
   })
 
 export default connect(mapStateToProps, locationsActions )(LocationPicker);

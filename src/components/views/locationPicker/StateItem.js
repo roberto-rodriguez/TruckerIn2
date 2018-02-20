@@ -21,9 +21,13 @@ class StateItem extends Component {
   }
 
  onSelect = () => {
-   var {value, label} = this.props
+   var {value, label, MULTIPLE_STATES} = this.props
 
-   this.props.selectState(value, label)
+   if(MULTIPLE_STATES){
+     this.props.addState(value)
+   }else{
+     this.props.selectState(value, label)
+   }
 
    this.props.handler(value, label)
  }
@@ -51,9 +55,15 @@ class StateItem extends Component {
 }
 
 
-const mapStateToProps = ({locationReducer}, ownProps) => ({
-    selected: locationReducer.stateId === ownProps.value
-  })
+const mapStateToProps = ({locationReducer}, ownProps) => {
+  var obj = {}
+  if(ownProps.MULTIPLE_STATES){
+    obj.selected = locationReducer.stateIdList && locationReducer.stateIdList.indexOf( ownProps.value + '') >= 0
+  }else{
+    obj.selected = (locationReducer.stateId === ownProps.value)
+  }
+  return obj;
+}
 
 
 

@@ -49,7 +49,12 @@ class NewJob extends Component {
         equipmentIds: null,
 
         description: null,
-        salary: null
+        salary: null,
+
+        location: {}
+        // {
+        //   stateIdList: []
+        // }
       }
     };
   }
@@ -109,10 +114,10 @@ class NewJob extends Component {
 
    this.setState({...this.state, view: {...view, loading: true}});
 
-    if(next){
-      invalidFields = requiredFields[flowPage].filter(f => !data[f]) || []
-      validForm = invalidFields.length === 0
-    }
+    // if(next){
+    //   invalidFields = requiredFields[flowPage].filter(f => !data[f]) || []
+    //   validForm = invalidFields.length === 0
+    // }
 
     switch(flowPage){
       case 0:
@@ -149,7 +154,9 @@ class NewJob extends Component {
         break;
       case 1: section = <Equipment setVal={this.setVal} data={data} invalidFields={invalidFields}/>
         break;
-      case 2: section = data.distanceId === 1 ? <StateList/> : <LocationPicker setVal={this.setVal} data={data} invalidFields={invalidFields} hideHeader/>
+      case 2: section = data.distanceId === 1 ?
+             <StateList location={data.location || {}} onSelectState={this.selectMultiState} MULTIPLE_STATES/>
+           : <LocationPicker setVal={this.setVal} data={data} invalidFields={invalidFields} hideHeader/>
         break;
       case 3: section = <Description setVal={this.setVal} data={data} invalidFields={invalidFields}/>
         break;
@@ -182,6 +189,24 @@ class NewJob extends Component {
       })
   }
 }
+
+selectMultiState = ( stateId ) =>  this.setState((prevState) => {
+  stateId += '';
+
+  var existentStateIdList = (prevState.data.location && prevState.data.location.stateIdList ) || [];
+
+  var stateIdList = existentStateIdList.filter(e => e != stateId)
+
+  if (existentStateIdList.length === stateIdList.length){
+    stateIdList.push( stateId )
+  }
+
+  return {...prevState,
+          data:{...prevState.data,
+                location: {stateIdList}
+              }
+          }
+ })
 }
 
 function mapStateToProps({globalReducer}) {

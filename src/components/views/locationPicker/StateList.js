@@ -18,8 +18,8 @@ class StateList extends Component {
         loading: true,
 
         searchText: null,
-        stateName: null,
-        stateId: null,
+        // stateName: null,
+        // stateId: null,
 
         list:null,
         reset: null
@@ -28,6 +28,17 @@ class StateList extends Component {
 
  componentDidMount(){
     setTimeout(this.filterStates, 150)
+
+    var {MULTIPLE_STATES} = this.props
+
+    if(MULTIPLE_STATES){
+      if(this.props.location && this.props.location.stateIdList && this.props.location.stateIdList.length > 0){
+          this.props.setLocation( this.props.location )
+      }else{
+        this.props.clearLocation()
+      }
+      return;
+    }
  }
 
  filterStates  = (text) => {
@@ -58,6 +69,7 @@ class StateList extends Component {
      value={ data.id }
      handler={this.props.onSelectState}
      shouldUpdate={shouldUpdate}
+     MULTIPLE_STATES={this.props.MULTIPLE_STATES}
    />
  )
 
@@ -103,4 +115,4 @@ const mapStateToProps = ({locationReducer}, ownProps) => ({
   timestamp: locationReducer.timestamp
 })
 
-  export default connect(mapStateToProps)(StateList);
+  export default connect(mapStateToProps, locationsActions)(StateList);

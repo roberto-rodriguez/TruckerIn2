@@ -7,7 +7,7 @@ export const setCityAction = (cityId, cityName) => ({ type: 'SET_CITY', cityId, 
 export const setStateAction = (stateId, stateName) => ({ type: 'SET_STATE', stateId , stateName})
 export const setLocationAction = (location) => ({ type: 'SET_LOCATION', location })
 export const clearLocationAction = () => ({ type: 'CLEAR_LOCATION'})
-
+export const addStateAction = (stateId) => ({ type: 'ADD_STATE', stateId})
 
 
 export function listCities(state, callback){
@@ -31,6 +31,12 @@ export function selectCity(cityId, city){
 export function selectState(stateId, state){
   return function( dispatch, getState ){
     dispatch( setStateAction( stateId, state ) )
+  }
+}
+
+export function addState(stateId){
+  return function( dispatch, getState ){
+    dispatch( addStateAction( stateId ) )
   }
 }
 
