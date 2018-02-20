@@ -16,7 +16,7 @@ import Icon from 'react-native-fa-icons';
 
     var action = handler ? handler : () => nav(navigation, routeName || 'TextInputView', params)
 
-      var borderStyle = {borderBottomWidth:0.3, borderColor: global.secondaryColor}
+      var borderStyle = {borderBottomWidth:0.5, borderColor: global.secondaryColor}
 
       if(borderTop){
         borderStyle['borderTopWidth'] = 0.3

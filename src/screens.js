@@ -14,7 +14,7 @@
  export { default as EditProfileAddExperience } from 'src/views/profile/edit/EditProfileAddExperience'
  export { default as EditAbout } from 'src/views/profile/edit/EditAbout'
  export { default as ProfileConnectionList } from 'src/views/profile/sections/ProfileConnectionList'
- export { default as ProfileCareerList } from 'src/views/profile/sections/ProfileCareerList' 
+ export { default as ProfileCareerList } from 'src/views/profile/sections/ProfileCareerList'
 
 //jobs
  export { default as JobDetails } from 'src/views/jobs/details/JobDetails'
@@ -26,6 +26,8 @@
  export { default as PostedJobs } from 'src/views/jobs/postedJobs/PostedJobs'
  export { default as PostedJobApplications } from 'src/views/jobs/postedJobs/PostedJobApplications'
  export { default as JobApp } from 'src/views/jobs/app/JobApp'
+ export { default as NewJob } from 'src/views/jobs/new/NewJob'
+
 
  //Contacts
  export { default as PendingRequestList } from 'src/views/contacts/myContacts/pendingRequest/PendingRequestList'

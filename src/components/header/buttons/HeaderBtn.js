@@ -19,6 +19,7 @@ class HeaderBtn extends Component {
 
     return (
       <Button
+        text={text}
         transparent
         style={[styles.rightBtn, style]}
         onPress={handler}

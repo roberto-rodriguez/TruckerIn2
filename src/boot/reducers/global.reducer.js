@@ -39,8 +39,8 @@ const initialState = {
   config:{
     lang: I18n.currentLocale() &&  I18n.currentLocale().split('-')[0],
     categoryOptions: [],
-    equipmentOptions: [],
-    experienceOptions: [],
+    equipmentOptions: [{id: 1, name: "Dump Truck"}, {id: 2, name: "Tractor (Long Haul)"},{id: 3, name: "Dry Van"}, {id: 4, name: "Auto Hauler"},{id:5, name:  "Flat Bed"}, {id: 6, name:  "Refrigerated"}, {id: 7, name: "Tanker"}], 
+    experienceOptions: [{id: 1, name: '1 Year'}, {id: 2, name: '2 Years'}],
     jobStatusOptions: [],
     hiringStatusOptions: [],
     roleOptions: [],

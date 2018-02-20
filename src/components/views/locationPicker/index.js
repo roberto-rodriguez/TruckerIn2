@@ -28,12 +28,12 @@ class LocationPicker extends Component {
 
     var {navigation} = this.props
 
-    if(navigation.state.params.data){
+    if(navigation && navigation.state && navigation.state.params && navigation.state.params.data){
       this.props.setLocation( navigation.state.params.data )
     }else{
       this.props.clearLocation()
 
-      if(navigation.state.params.showGuidance){
+      if(navigation && navigation.state.params.showGuidance){
         this.props.showGuidance()
       }
     }
@@ -67,7 +67,7 @@ componentWillUnmount() {
     // var {setVal, showAnywareOption} = navigation.state.params
 
     var { pickerPage} = this.state
-    var { stateName, cityName} = this.props
+    var { stateName, cityName, hideHeader} = this.props
     var setVal = ()=>{}
     var showAnywareOption = null
 
@@ -75,7 +75,7 @@ componentWillUnmount() {
 
     return (
       <Container>
-        <Header navigation={navigation} back title={I18n.t('cmp.loc.title')} onBack={ this.onBack }/>
+        {!hideHeader && (  <Header navigation={navigation} back title={I18n.t('cmp.loc.title')} onBack={ this.onBack }/>)} 
 
         <ScrollableTabView
           style={{paddingTop: 30}}

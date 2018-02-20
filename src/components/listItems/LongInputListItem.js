@@ -13,7 +13,7 @@ import Icon from 'react-native-fa-icons';
  export default class LongInputListItem extends Component {
 
   render() {
-    var {icon, label, value, navigation, invalid, onChangeText} = this.props;
+    var {icon, label, value, navigation, invalid, onChangeText, numberOfLines} = this.props;
 
     return (
        <View>
@@ -26,7 +26,7 @@ import Icon from 'react-native-fa-icons';
              <TextInput
                underlineColorAndroid='transparent'
                multiline={true}
-               numberOfLines={8}
+               numberOfLines={numberOfLines || 8}
                style={styles.text}
                defaultValue={value}
                onChangeText={(text) => onChangeText(text)}

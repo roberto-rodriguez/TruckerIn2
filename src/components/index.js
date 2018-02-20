@@ -42,6 +42,8 @@ export { default as YesNoListItem } from './listItems/YesNoListItem'
 export { default as LongInputListItem } from './listItems/LongInputListItem'
 export { default as ContactListItem } from './listItems/ContactListItem'
 export { default as SimpleListItem } from './listItems/SimpleListItem'
+export { default as OptionsListItem } from './listItems/OptionsListItem'
+export { default as TextEntry } from './listItems/TextEntry'
 
 //Spinner
 export { default as Spinner } from './loaders/Spinner'

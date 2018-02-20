@@ -42,7 +42,7 @@ class CityList extends Component {
    }
  }
 
- listCities = (stateId) => { 
+ listCities = (stateId) => {
     if(this.state.loading)return;
 
    this.setState({
@@ -118,7 +118,7 @@ class CityList extends Component {
               navigation={navigation}
               searchText={this.state.searchText}
               reset={this.state.reset}>
-              {this.anyCityItem()}
+             
             </Feed>)
           }
         </View>
@@ -126,13 +126,13 @@ class CityList extends Component {
     );
   }
 
-  anyCityItem = () => (<CityItem
-    key={-1}
-    navigation={this.props.navigation}
-    label={ I18n.t('cmp.loc.anyCity')}
-    value={ 1 }
-    handler={this.props.onSelectCity}
-  />)
+  // anyCityItem = () => (<CityItem
+  //   key={-1}
+  //   navigation={this.props.navigation}
+  //   label={ I18n.t('cmp.loc.anyCity')}
+  //   value={ 1 }
+  //   handler={this.props.onSelectCity}
+  // />)
 }
 
 const mapStateToProps = ({locationReducer}, ownProps) => {

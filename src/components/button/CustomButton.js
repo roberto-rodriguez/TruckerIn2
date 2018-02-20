@@ -58,7 +58,7 @@ import theme from 'src/theme/variables/platform'
 
 const styles = StyleSheet.create({
   text:{
-    fontSize:10,
+    fontSize:11,
     textAlign: 'center',
     textAlignVertical: "center",
     width:'100%',
