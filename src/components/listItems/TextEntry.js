@@ -12,11 +12,22 @@ import Icon from 'react-native-fa-icons';
 
  export default class TextEntry extends Component {
 
-   state = {text: null}
+
+  constructor(props) {
+    super(props);
+    this.state = {
+       text: props.defaultValue || ''
+     }
+  }
+
 
    onChangeText = (text) => {
-     this.setState({text})
-     this.props.onChangeText( text )
+     if(this.props.limit && (text.length > this.props.limit)){
+       return;
+     }
+
+       this.setState({text})
+       this.props.onChangeText( text )
    }
 
   render() {
@@ -31,7 +42,7 @@ import Icon from 'react-native-fa-icons';
              </Column>
              {limit &&
                (<Column h={20} columns={2} end>
-                 <T10 light red={invalid && !text}>0 / 140</T10>
+                 <T10 light red={text.length >= limit}>{text.length + ' / ' + limit}</T10>
                 </Column>)
              }
            </Row>
@@ -44,6 +55,7 @@ import Icon from 'react-native-fa-icons';
              numberOfLines={numberOfLines || 4}
              style={styles.text}
              defaultValue={defaultValue}
+             value={this.state.text}
              onChangeText={(text) => this.onChangeText(text)}
             />
          </View>
@@ -53,7 +65,6 @@ import Icon from 'react-native-fa-icons';
 }
 
 
-const styles = StyleSheet.create({
-    icon: { fontSize: 18 },
+const styles = StyleSheet.create({ 
     text:{borderWidth:0.3, borderColor: global.secondaryColor, width:'100%', textAlignVertical: 'top', borderRadius: 10}
   })

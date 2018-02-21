@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {  View } from "react-native";
+import { View } from "react-native";
 
 import {OptionsListItem,  InputListItem, ListItem,  TextEntry, Select} from 'src/components/'
 import styles from "../styles";
@@ -7,10 +7,6 @@ import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 
 import PhoneField from '../fields/PhoneField'
-
-const items = [
-  {prop: 'experience',  icon: 'tachometer',   title: 'experience'}
-]
 
 class Information extends Component {
   constructor(props) {
@@ -30,63 +26,61 @@ class Information extends Component {
         this.props.setVal(prop, val, valId)
   }
 
+  onPhoneOptionChange = (phoneOption, phone) => {
+    this.setVal('phoneOption', phoneOption)
+    this.setVal('phone', phone)
+  }
 
   showSelect = (prop) => this[prop + 'Select'].show();
 
+  t = (key) => I18n.t(['jobs', 'new', key])
+
   render() {
-    var data = this.state
-    var setVal = this.setVal
-    const {navigation, experienceOptions, invalidFields} = this.props
+    var {state, props, setVal, t} = this
+    var data = state
+    const {navigation, experienceOptions, invalidFields} = props
 
     return (
       <View>
 
       <TextEntry
         limit={140}
-        label={'Headline:'}
+        label={t('headline')}
         defaultValue={data.title}
         invalid={invalidFields.indexOf('title') >= 0}
         onChangeText={(val) => setVal('title', val)}
       />
 
-
-              {
-               items.map( ({icon, title, prop}, i) => (
-               <ListItem borderTop
-                  key={i}
-                  navigation={navigation}
-                  icon={icon}
-                  label={'Minimum Experience Required'}
-                  value={data.experience}
-                  red={invalidFields.indexOf('experienceId') >= 0 && !data.experience}
-                  handler={ () => this.showSelect( 'experience' ) }
-                  />) )
-             }
+      <ListItem borderTop
+         navigation={navigation}
+         icon={'tachometer'}
+         label={ t('experience') }
+         value={data.experience}
+         red={invalidFields.indexOf('experienceId') >= 0 && !data.experience}
+         handler={ () => this.showSelect( 'experience' ) }
+         />
 
         <OptionsListItem
-          label={'Category: '}
-          leftText={'Owner Operator'}
-          rightText={'Company Driver'}
+          label={t('category') }
+          leftText={t('ownerOperator') }
+          rightText={t('companyDriver')}
           value={data.categoryId}
           invalid={invalidFields.indexOf('categoryId') >= 0}
           handler={(val) => setVal('categoryId', val)}
         />
 
         <OptionsListItem
-          label={'Distance: '}
-          leftText={'Regional'}
-          rightText={'On the Road'}
+          label={t('distance')}
+          leftText={t('regional')}
+          rightText={t('onTheRoad')}
           value={data.distanceId}
           invalid={invalidFields.indexOf('distanceId') >= 0}
           handler={(val) => setVal('distanceId', val)}
         />
 
       <PhoneField
-        label ={'Best Phone Number to Call'}
-        keyboardType= {'phone-pad'}
-        icon={'phone'}
-        value={data.phone}
-        onChangeText={(text) => setVal('phone', text)}
+        data={data}
+        onPhoneOptionChange={this.onPhoneOptionChange}
       />
 
 

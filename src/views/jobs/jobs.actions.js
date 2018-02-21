@@ -35,24 +35,26 @@ export function xJobList(page = 0, callback, reset){
       }
 
       Connector.doPOST('xjob/xlist', dispatch, getState, params,  (jobs) => {
-        var usStatesObj = getState().locationReducer.usStatesObj
-        var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
+
+      //  var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
 
         if(page > 0){
-          jobs = jobs.map(job => ({
-            ...job,
-            category: categoryOptionsObj ? categoryOptionsObj[job.categoryId] : '',
-            distance: distanceOptionsObj ? distanceOptionsObj[job.distanceId] : '',
-            equipments: equipmentOptionsObj ? job.equipmentIds.split(',').map(s => (equipmentOptionsObj[s])).join(' • ') : '',
-            experience: experienceOptionsObj ? experienceOptionsObj[job.experienceId] : '',
-          //  location: buildLocation (job.distanceId, job.stateIds, job.city, usStatesObj)
-            states: buildStates( job.stateIds, usStatesObj ),
-            cities: buildCities( job.distanceId, job.city)
-          }))
+          jobs = jobs.map(job => parseJob(job)( dispatch, getState ) )
+
+          // jobs = jobs.map(job => ({
+          //   ...job,
+          //   category: categoryOptionsObj ? categoryOptionsObj[job.categoryId] : '',
+          //   distance: distanceOptionsObj ? distanceOptionsObj[job.distanceId] : '',
+          //   equipments: equipmentOptionsObj ? job.equipmentIds.split(',').map(s => (equipmentOptionsObj[s])).join(' • ') : '',
+          //   experience: experienceOptionsObj ? experienceOptionsObj[job.experienceId] : '',
+          //   states: buildStates( job.stateIds, usStatesObj ),
+          //   cities: buildCities( job.distanceId, job.city)
+          // }))
         }else{
+          var usStatesObj = getState().locationReducer.usStatesObj
+
           jobs = jobs.map(job => ({
             ...job,
-          //  location: buildLocation(job.distanceId, job.stateIds, job.city, usStatesObj)
           states: buildStates( job.stateIds, usStatesObj ),
           cities: buildCities( job.distanceId, job.city)
           }))
@@ -66,19 +68,28 @@ export function xJobList(page = 0, callback, reset){
     }
 }
 
+
+export function parseJob(job){
+    return function( dispatch, getState ){
+
+      var usStatesObj = getState().locationReducer.usStatesObj
+      var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
+
+      return {
+        ...job,
+        category: categoryOptionsObj ? categoryOptionsObj[job.categoryId] : '',
+        distance: distanceOptionsObj ? distanceOptionsObj[job.distanceId] : '',
+        equipments: equipmentOptionsObj ? job.equipmentIds && job.equipmentIds.split(',').map(s => (equipmentOptionsObj[s])).join(' • ') : '',
+        experience: experienceOptionsObj ? experienceOptionsObj[job.experienceId] : '',
+        states: buildStates( job.stateIds, usStatesObj ),
+        cities: buildCities( job.distanceId, job.city)
+      }
+    }
+}
+
 buildStates = ( stateIds, usStatesObj) =>  ( stateIds &&  stateIds.split(',').map(s => (usStatesObj[s])).join(' • ') + ' ' )
 buildCities = ( distanceId, city) => ( ( distanceId === 1 && city) ?  ( ' ( ' + city.replace(/,/g , ' • ') + ' )') : '')
 
-
-buildLocation = (distanceId, stateIds, city, usStatesObj) => {
-  var location =  ( stateIds &&  stateIds.split(',').map(s => (usStatesObj[s])).join(' • ') + ' ' ) || '';
-
-  if( distanceId === 1 && city){
-    location += '( ' + city.replace(/,/g , ' • ') + ' )';
-  }
-
-  return location;
-}
 
 export function searchJobs(page = 0, requestParams, callback, reset){
     return function( dispatch, getState ){
@@ -205,10 +216,10 @@ export function loadJobDetails(jobId, callback){
 
 export function createJob(job, callback, action){
   return function( dispatch, getState ){
-debugger;
+
     var userId = getState().globalReducer.profileInfo.id
 
-    job.authorId = 1;// userId;
+    job.authorId = userId;
     var isUpdating = job.id
 
     if(job.location){

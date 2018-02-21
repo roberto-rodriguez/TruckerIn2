@@ -26,7 +26,7 @@ class CityList extends Component {
  shouldComponentUpdate(nextProps, nextState){
    var {loading, reset} = this.state
 
-    return loading || nextState.reset || this.props.stateId != nextProps.stateId
+    return reset || loading || nextState.reset || this.props.stateId != nextProps.stateId
 
  }
 
@@ -65,7 +65,7 @@ class CityList extends Component {
  }
 
  doSearch = (searchText) => {
-        this.setState({reset: true})
+   this.setState({reset: true})
  }
 
  itemBuilder = (data, navigation, i , shouldUpdate) =>  (
@@ -94,7 +94,9 @@ class CityList extends Component {
 
     callback( filteredList.slice(page * 20, (page + 1) * 20))
 
-    this.setState({ reset: false, loading: false, searchText})
+    setTimeout(() => this.setState({ reset: false, loading: false, searchText}), 1000)
+
+
   }
 
 

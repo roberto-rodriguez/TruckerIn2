@@ -103,6 +103,36 @@ const en = {
     discarded: 'Job has been discarded',
     rejected: 'This application has been rejected',
     deleted: 'This Job has been deleted. All applicants will be notified about it.'
+  },
+  new:{
+    phoneField:{
+      noCalls: 'Not Allow Calls',
+      otherNumber: 'Other Number',
+      bestPhone: 'Best Phone Number to Call',
+      enterPhone: 'Enter Phone Number'
+    },
+    bullets:{
+      information: 'Information',
+      equipment: 'Equipment',
+      locations: 'Locations',
+      description: 'Description',
+      salary: 'Salary'
+    },
+    title: 'Create Job',
+    preview: 'Preview',
+    next: 'Next',
+    acceptAndPublish: 'Accept and Publish',
+    headline: 'Headline:',
+    experience: 'Minimum Experience Required',
+    category: 'Category: ',
+    ownerOperator: 'Owner Operator',
+    companyDriver: 'Company Driver',
+    distance: 'Distance: ',
+    regional: 'Regional',
+    onTheRoad: 'On the Road',
+    equipment: 'Select Equipments',
+    description: 'Job Description',
+    salary: 'Salary, Payment Scale and Benefits'
   }
 
   }

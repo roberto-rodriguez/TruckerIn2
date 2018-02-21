@@ -18,7 +18,7 @@ export default class Search extends Component {
 
     return (
     <Item style={[style, styles.searchBar]}>
-      <Button transparent onPress={searchHandler} style={{height:'100%'}} >
+      <Button transparent onPress={searchHandler} style={styles.searchButton} >
         <Icon name="search" style={styles.searchIcon} />
       </Button>
       <Input
@@ -42,6 +42,9 @@ const stylesGreen = StyleSheet.create({
     borderWidth:0.5,
     backgroundColor: theme.secondaryColor
   },
+  searchButton:{
+    height:'100%'
+  },
   searchIcon:{
     color: 'white',
     padding:10
@@ -63,8 +66,14 @@ const stylesWhite = StyleSheet.create({
     borderWidth:0.5,
     borderColor: theme.secondaryColor
   },
+  searchButton:{
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    height:'100%',
+    backgroundColor: theme.secondaryColor
+  },
   searchIcon:{
-    color: theme.secondaryColor,
+    color:'white',
      padding:10
   },
   input:{

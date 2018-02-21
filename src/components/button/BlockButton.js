@@ -18,7 +18,7 @@ const commonColor = require("src/theme/variables/commonColor");
 
     if(show){
       return (
-        <RowColumn h={60}>
+          <RowColumn h={60}>
                <Button block rounded onPress={ disabled ? null : onPress} style={disabled ? {backgroundColor:'#8CEDBC'} : null} >
                    <Text style={styles.text}>{text || I18n.t('cmp.accept')}</Text>
                </Button>

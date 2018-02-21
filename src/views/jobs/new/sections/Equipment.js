@@ -6,10 +6,6 @@ import I18n from 'react-native-i18n'
 import { connect } from "react-redux";
 import theme from 'src/theme/variables/platform'
 
-const items = [
-  "Dump Truck",  "Tractor (Long Haul)", "Dry Van", "Auto Hauler",  "Flat Bed", "Refrigerated", "Tanker"
-]
-
 
 class Equipment extends Component {
   constructor(props) {
@@ -45,9 +41,10 @@ class Equipment extends Component {
     return (
       <View>
           <RowColumn h={50}>
-            <T14 green red={invalidFields.indexOf('equipmentIds') >= 0 && !selected}>{selected ?
+            <T14 green red={invalidFields.indexOf('equipmentIds') >= 0 && !selected}>
+              {selected ?
                     equipmentIds.map(id => equipmentOptionsObj[id]).join(' • ') :
-                    'Select Equipments'}
+                    I18n.t('jobs.new.equipment')}
              </T14>
           </RowColumn>
 

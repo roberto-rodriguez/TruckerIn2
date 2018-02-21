@@ -41,18 +41,18 @@ import Details from 'src/views/jobs/post/Details'
         </View>
 
         <View style={postStyle.headerRight} >
-          <View style={styles.applyView} >
             {roleId === roles.DRIVER &&
-              <CustomButton text={I18n.t('jobs.post.apply')} style={{width:60}}
-               handler={() => nav(navigation, 'JobApp', {jobId: data.id}) }/>
-             }
-          </View>
+              <View style={styles.applyView} >
+                  <CustomButton text={I18n.t('jobs.post.apply')} style={{width:60}}
+                   handler={() => nav(navigation, 'JobApp', {jobId: data.id}) }/>
+              </View>
+           }
           <PostingTime date={data.createdAt}/>
         </View>
       </View>
       <T12 green ><T12>{I18n.t('jobs.post.equipment')}</T12>{data.equipments}</T12>
       <T12 green ><T12>{I18n.t('jobs.post.minExp')}</T12>{data.experience}</T12>
-    <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states  }<T11 light>{data.cities}</T11></T12>
+    <T12 green ><T12>{I18n.t('jobs.post.locations')} </T12>{data.states}<T11 light>{data.cities}</T11></T12>
 
       {this.props.children}
     </Card>)

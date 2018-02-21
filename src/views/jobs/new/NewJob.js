@@ -12,6 +12,7 @@ import Information from './sections/Information'
 import Equipment from './sections/Equipment'
 import Description from './sections/Description'
 import Salary from './sections/Salary'
+import Preview from './sections/Preview'
 
 import StateList from 'src/components/views/locationPicker/StateList'
 import LocationPicker from 'src/components/views/locationPicker/'
@@ -21,7 +22,7 @@ import StepIndicator from 'react-native-step-indicator';
 const commonColor = require("src/theme/variables/commonColor");
 
 
-var bulletsKeys = ['Information', 'Equipment', 'Locations', 'Description', 'Salary']
+var bulletsKeys = ['information', 'equipment', 'locations', 'description', 'salary']
 
 const requiredFields = {
   0: ['title', 'categoryId', 'distanceId', 'experienceId'],
@@ -37,13 +38,14 @@ class NewJob extends Component {
         flowPage:0,
         invalidFields: [],
         validForm: true,
-        bullets: bulletsKeys
-      },
+        bullets: bulletsKeys.map(key =>  I18n.t( ['jobs', 'new', 'bullets' , key ] ))
+     },
       data:{
         title: null,
         categoryId: null,
         distanceId: null,
         phone: null,
+        phoneOption: 1,
         experienceId: null,
         experience: null,
         equipmentIds: null,
@@ -72,7 +74,7 @@ class NewJob extends Component {
     }
   }
 
-
+ t = (key) => I18n.t(['jobs', 'new', key])
 
   setVal = (prop, val, valId) => this.setState((prevState) => {
          prevState.data[prop] = val
@@ -84,26 +86,34 @@ class NewJob extends Component {
 
 
   render() {
-    const {navigation} = this.props
-    var {role, flowPage, validForm, errorMsg, bullets, validatedAccessCode, loading} = this.state.view
+    var {state, props, t} = this
+    const {navigation} = props
+    var {role, flowPage, validForm, errorMsg, bullets, validatedAccessCode, loading} = state.view
+
+    var preview = flowPage === 5
 
     return (
       <Container white>
-        <Header navigation={navigation} back title={'Create Job'} onBack={() => this.nextBack()}/>
-
-          <View style={styles.subHeader}>
-            <StepIndicator
-                  customStyles={styles.stepIndicator}
-                  currentPosition={flowPage}
-                  stepCount={5}
-                  onPress={(number) => this.goToPage(number)}
-                  labels={bullets}
-                  />
-        </View>
-
+        <Header navigation={navigation} back title={t(preview ? 'preview': 'title')} onBack={() => this.nextBack()}/>
+          {
+            preview ?
+            (
+              <BlockButton text={t('acceptAndPublish')} onPress={() => this.nextBack(true)} style={{marginBottom: 5}}/>
+            ):(
+              <View style={styles.subHeader}>
+                <StepIndicator
+                      customStyles={styles.stepIndicator}
+                      currentPosition={flowPage}
+                      stepCount={5}
+                      onPress={(number) => this.goToPage(number)}
+                      labels={bullets}
+                      />
+              </View>
+            )
+          }
         {this.buildSection()}
 
-        <BlockButton text={'Next'} onPress={() => this.nextBack(true)}/>
+        {(!preview) && (<BlockButton text={ t('next')} onPress={() => this.nextBack(true)}/>)}
       </Container>
     );
   }
@@ -130,7 +140,7 @@ class NewJob extends Component {
           return
         }
         break;
-       case 4: return this.submit()
+      // case 4: return this.submit()
     }
 
      this.setState(prevState => {
@@ -171,7 +181,10 @@ class NewJob extends Component {
         break;
       case 3: section = <Description setVal={this.setVal} data={data} invalidFields={invalidFields}/>
         break;
-      case 4: section = <Salary setVal={this.setVal} data={data} invalidFields={invalidFields}/>
+      case 4:section = <Salary setVal={this.setVal} data={data} invalidFields={invalidFields}/>
+        break;
+      case 5: section = <Preview data={data}/>
+
    }
 
     if(flowPage === 2){

@@ -13,8 +13,8 @@ export default StyleSheet.create({
     },
     details:{
       marginTop: 20,
-      borderTopColor: commonColor.secondaryColor,
-      borderTopWidth: 0.3
+      borderColor: commonColor.secondaryColor,
+      borderWidth: 0.3
     },
     container:{
       marginLeft:5,
@@ -35,7 +35,7 @@ export default StyleSheet.create({
     headerRight:{
       flexDirection: "column",
       width: availableWidth * 0.25,
-      justifyContent:'flex-end',
+      justifyContent:'flex-start',
     // alignItems: 'center'
     },
     settingsIcon:{

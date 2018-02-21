@@ -103,8 +103,39 @@ const es = {
     discarded: 'Trabajo ha sido descartado',
     rejected: 'Esta aplicacion ha sido rechazada.',
     deleted: 'Este empleo ha sido eliminado. Todos los aplicantes serán notificados.'
-  }
+  },
+  new:{
+    phoneField:{
+      noCalls: 'No llamadas',
+      otherNumber: 'Otro número',
+      bestPhone: 'Número telefónico a llamar',
+      enterPhone: 'Entre número telefónico'
+    },
+    bullets:{
+      information: 'Información',
+      equipment: 'Equipos',
+      locations: 'Locaciones',
+      description: 'Descripción',
+      salary: 'Salario'
+    },
+    title: 'Crear Empleo',
+    preview: 'Vista Previa',
+    next: 'Siguiente',
+    acceptAndPublish: 'Aceptar y Publicar',
+    headline: 'Encabezado:',
+    experience: 'Mínima Experiencia Requerida',
+    category: 'Categoría: ',
+    ownerOperator: 'Operador Propietario',
+    companyDriver: 'Chofer de Compañía',
+    distance: 'Distancia: ',
+    regional: 'Regional',
+    onTheRoad: 'En la Carretera',
+    equipment: 'Seleccione Equipo',
+    description: 'Descripción',
+    salary: 'Salario y Beneficios',
 
+  }
+//  á, é, í, ó, ú, ñ
   }
 }
 

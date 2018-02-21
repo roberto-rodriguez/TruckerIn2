@@ -22,7 +22,7 @@ import Post from 'src/views/jobs/post/JobPost'
   }
 
   render() {
-    var {data, applyBar, navigation, roleId, elemId} = this.props
+    var {data,  navigation, roleId, elemId} = this.props
 
     var match = data.match
 
@@ -47,7 +47,7 @@ import Post from 'src/views/jobs/post/JobPost'
         </View>
       </Post>
     )
-    } 
+    }
   }
 
 

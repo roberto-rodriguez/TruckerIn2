@@ -1,33 +1,40 @@
 import React, { Component } from "react";
-import {  View } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 
-import {RowColumn, TextEntry, T14} from 'src/components/'
-import styles from "../styles";
+import {RowColumn, T14} from 'src/components/'
+
 import I18n from 'react-native-i18n'
-import { connect } from "react-redux";
 
-
-class Description extends Component {
+export default class Description extends Component {
 
   render() {
     const {navigation, data, setVal} = this.props
 
     return (
-      <View>
+      <View style={{paddingHorizontal: 15}}>
           <RowColumn h={50}>
-            <T14 green>Job Description</T14>
+            <T14 green>{I18n.t('jobs.new.description')}</T14>
           </RowColumn>
 
-          <TextEntry
-            defaultValue={data['description']}
+          <TextInput
+            underlineColorAndroid='transparent'
+            multiline={true}
             numberOfLines={16}
+            style={styles.text}
+            defaultValue={data['description']}
             onChangeText={(val) => setVal('description', val)}
-          />
+           />
       </View>
     );
   }
 
 }
 
-
-export default connect( )(Description);
+const styles = StyleSheet.create({
+    text:{
+      borderWidth:0.3,
+      width:'100%',
+      textAlignVertical: 'top',
+      borderRadius: 10
+    }
+  })

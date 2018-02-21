@@ -1,32 +1,38 @@
 import React, { Component } from "react";
-import {  View } from "react-native";
-
+import {  View, StyleSheet, TextInput } from "react-native"; 
 import {TextEntry,  RowColumn, T14} from 'src/components/'
-import styles from "../styles";
 import I18n from 'react-native-i18n'
-import { connect } from "react-redux";
 
 
-class Salary extends Component {
+export default class Salary extends Component {
 
   render() {
     const {navigation, data, setVal} = this.props
 
     return (
-      <View>
+      <View style={{paddingHorizontal: 15}}>
           <RowColumn h={50}>
-            <T14 green>Salary, Payment Scale and Benefits</T14>
+            <T14 green>{I18n.t('jobs.new.salary')}</T14>
           </RowColumn>
 
-          <TextEntry
-            defaultValue={data['salary']}
+          <TextInput
+            underlineColorAndroid='transparent'
+            multiline={true}
             numberOfLines={16}
+            style={styles.text}
+            defaultValue={data['salary']}
             onChangeText={(val) => setVal('salary', val)}
-          />
+           />
       </View>
     );
   }
 }
 
-
-export default connect( )(Salary);
+const styles = StyleSheet.create({
+    text:{
+      borderWidth:0.3,
+      width:'100%',
+      textAlignVertical: 'top',
+      borderRadius: 10
+    }
+  })
