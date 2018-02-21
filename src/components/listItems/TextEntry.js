@@ -25,12 +25,12 @@ import Icon from 'react-native-fa-icons';
     return (
        <View>
          {label && (
-           <Row h={30} style={{paddingTop: 10}}>
-             <Column columns={2} start>
+           <Row h={20} style={{paddingTop: 10}}>
+             <Column h={20} columns={2} start>
                <T13 red={invalid && !text}>{label}</T13>
              </Column>
              {limit &&
-               (<Column columns={2} end>
+               (<Column h={20} columns={2} end>
                  <T10 light red={invalid && !text}>0 / 140</T10>
                 </Column>)
              }

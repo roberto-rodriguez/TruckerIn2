@@ -49,7 +49,21 @@ class Information extends Component {
         onChangeText={(val) => setVal('title', val)}
       />
 
-        <OptionsListItem borderTop
+
+              {
+               items.map( ({icon, title, prop}, i) => (
+               <ListItem borderTop
+                  key={i}
+                  navigation={navigation}
+                  icon={icon}
+                  label={'Minimum Experience Required'}
+                  value={data.experience}
+                  red={invalidFields.indexOf('experienceId') >= 0 && !data.experience}
+                  handler={ () => this.showSelect( 'experience' ) }
+                  />) )
+             }
+
+        <OptionsListItem
           label={'Category: '}
           leftText={'Owner Operator'}
           rightText={'Company Driver'}
@@ -75,18 +89,6 @@ class Information extends Component {
         onChangeText={(text) => setVal('phone', text)}
       />
 
-        {
-         items.map( ({icon, title, prop}, i) => (
-         <ListItem
-            key={i}
-            navigation={navigation}
-            icon={icon}
-            label={'Minimum Experience Required'}
-            value={data.experience}
-            red={invalidFields.indexOf('experienceId') >= 0 && !data.experience}
-            handler={ () => this.showSelect( 'experience' ) }
-            />) )
-       }
 
        <Select
           ref={o => this.experienceSelect = o}

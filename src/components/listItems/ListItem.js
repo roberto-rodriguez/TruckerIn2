@@ -30,16 +30,10 @@ import Icon from 'react-native-fa-icons';
              <Icon name={icon} style={styles.icon}/>
            </Column>
            <Column h={60}  columns={7} colspan={5} style={{alignItems:'flex-start'}}>
-             {borderTop ?
-                (<T14 red={red}>{value}</T14>)
-                :
-                (
-                  <View>
-                    {label && <T12 light  red={red}>{label}</T12>}
-                    <T13  red={red}>{value && (value.length < 30 ? value : (value + '').substring(0, 30) + '...')}</T13>
-                  </View>
-                )
-              }
+             <View>
+               {label && <T12 light  red={red}>{label}</T12>}
+               <T13  red={red}>{value && (value.length < 30 ? value : (value + '').substring(0, 30) + '...')}</T13>
+             </View>
            </Column>
            <Column  h={60}  columns={7}  >
              <Icon name={'angle-right'}  style={styles.icon}/>

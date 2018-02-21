@@ -49,6 +49,7 @@
     "react-native-message-bar": "^2.0.9",
     "react-native-phone-call": "^1.0.4",
     "react-native-progress": "^3.4.0",
+    "react-native-prompt": "^1.0.0",
     "react-native-scrollable-tab-view": "^0.6.7",
     "react-native-step-indicator": "0.0.7",
     "react-native-tab-navigator": "^0.3.4",
