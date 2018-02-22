@@ -32,7 +32,8 @@ const en = {
       welcome: 'The fastest growing network of Truckers',
       validatePhone: 'We just sent you a 4 digits access code via SMS',
       contact: 'We will never share it without asking you',
-      loading: 'Loading...'
+      loading: 'Loading...',
+      experience: 'Job Preferences'
     },
     subTitlesError:{
       completeRed: 'Please complete fields marked in red',

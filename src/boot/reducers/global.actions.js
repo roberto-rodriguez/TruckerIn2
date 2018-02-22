@@ -3,6 +3,7 @@
 import I18n from 'react-native-i18n'
 import * as Connector from './connector'
 import * as Storage from './storage.actions'
+import * as auxFunctions from 'src/views/profile/profile.actionsAuxFunctions'
 import { NavigationActions } from "react-navigation";
 import { Toast } from 'native-base';
 
@@ -61,7 +62,7 @@ export function doLogin(obj, callback){
 
             setTimeout( () => Connector.doGET('experience/load/' + userId + '/' + userId, dispatch, getState,  (profileExperience) => {
 
-              //  Connector.completeProfileExperience(profileInfo.roleId, profileExperience, getState)
+
 
                 dispatch( setGlobalProfileExperienceAction(profileExperience) )
               }), 3000);

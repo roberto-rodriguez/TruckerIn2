@@ -19,12 +19,12 @@ const commonColor = require("src/theme/variables/commonColor");
 
 
     return (
-      <View style={{ alignItems: 'flex-end'}}>
+      <View style={{ alignItems: 'flex-end',   justifyContent:'flex-end'}}>
         <View note style={[{flexDirection: "row", justifyContent: 'flex-end' }, style]}>
           <Icon name='globe' style={styles.globeIcon} />
         <T11 light shortLine>{text || I18n.t('cmp.widgets.posted')}</T11>
         </View>
-        <T11 light shortLine>{formatDate(date)}</T11>
+        <T11 light shortLine style={{textAlign: 'right'}}>{formatDate(date)}</T11>
     </View>
     );
   }

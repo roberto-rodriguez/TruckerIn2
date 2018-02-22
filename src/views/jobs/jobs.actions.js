@@ -16,13 +16,13 @@ export function cachedJobList(callback){
     }
 }
 
-export function xJobList(page = 0, callback, reset){
+export function xJobList(page = 0, params, callback, reset){
     return function( dispatch, getState ){
 
       var {experienceId, equipmentId, categoryId, distanceId} = getState().globalReducer.profileExperience
       var {id, location} = getState().globalReducer.profileInfo
 
-      var params = {
+      var request = {
         id,
       	page,
       	limit: 10,
@@ -31,10 +31,11 @@ export function xJobList(page = 0, callback, reset){
       	categoryId,
       	distanceId,
       	stateId: location && location.stateId,
-      	cityId: (location && location.cityId) || 0
+      	cityId: (location && location.cityId) || 0,
+        params
       }
 
-      Connector.doPOST('xjob/xlist', dispatch, getState, params,  (jobs) => {
+      Connector.doPOST('xjob/xlist', dispatch, getState, request,  (jobs) => {
 
       //  var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
 
@@ -222,16 +223,18 @@ export function createJob(job, callback, action){
     job.authorId = userId;
     var isUpdating = job.id
 
-    if(job.location){
+    var location = job.location
+
+    if(location){
       if(job.distanceId && job.distanceId === 1){ //If is Regional
         job.location = {
-          stateIds: job.location.stateId,
-          cityIds: ',' + job.cityIdList && job.cityIdList.join(',') + ',',
-          city: job.cityNameList && job.cityNameList.join(',')
+          stateIds: location.stateId,
+          cityIds: ',' + (location.cityIdList && location.cityIdList.join(',')) + ',',
+          city: (location.cityNameList && location.cityNameList.join(','))
         }
       }else{
         job.location = {
-          stateIds: job.location.stateIdList && job.location.stateIdList.join(',')
+          stateIds: (location.stateIdList &&  location.stateIdList.join(','))
         }
       }
     }

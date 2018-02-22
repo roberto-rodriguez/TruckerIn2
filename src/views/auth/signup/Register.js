@@ -24,9 +24,9 @@ import StepIndicator from 'react-native-step-indicator';
 
 const commonColor = require("src/theme/variables/commonColor");
 
-var titles = ['welcome','personal','contact','experience','validatePhone', 'tos', 'loading']
-const subTitles=['welcome',null     ,'contact',null      ,'validatePhone',  null, 'loading' ]
-const subTitlesError = [null, null  ,null     ,null      ,'validatePhone', 'tos']
+var titles = ['welcome','personal', 'contact', 'experience','validatePhone', 'tos', 'loading']
+const subTitles=['welcome',null     ,'contact', null       ,'validatePhone',  null, 'loading' ]
+const subTitlesError = [null, null  ,null     ,null        ,'validatePhone', 'tos']
 
 var bulletsKeys = ['personal', 'contact', 'about', 'validatePhone', 'tos']
 
@@ -283,8 +283,7 @@ class Register extends Component {
 selectRole = ( role, roleKey ) => {
   switch(role){
     case roles.DRIVER: titles[3] = 'experience'
-        break;
-    case roles.BROKER: titles[3] = 'aboutMe'
+                       subTitles[3] = 'experience'
         break;
     case roles.COMPANY: titles[3] = 'aboutUs'
                         titles[1] = 'companyInfo'
@@ -300,7 +299,8 @@ selectRole = ( role, roleKey ) => {
      })
    }
 
-   requestAccessCode = (stayInSamePage) => this.props.sendAccessCode( this.state.data.phone, (newAccessCode) => this.setState(prevState => {
+   requestAccessCode = (stayInSamePage) =>this.setState(prevState => {
+     newAccessCode = '1234';
      var isValid = newAccessCode && newAccessCode !== '1'
 
      prevState.view = {
@@ -315,7 +315,23 @@ selectRole = ( role, roleKey ) => {
      }
 
      return prevState
-     }))
+     })
+
+   // requestAccessCode = (stayInSamePage) => this.props.sendAccessCode( this.state.data.phone, (newAccessCode) => this.setState(prevState => {
+   //   var isValid = newAccessCode && newAccessCode !== '1'
+   //
+   //   prevState.view = {
+   //    ...prevState.view,
+   //    loading: false,
+   //    validForm: isValid,
+   //    invalidFields: ['phone'],
+   //    sentAccessCode: isValid,
+   //    realAccessCode: newAccessCode,
+   //    flowPage:  prevState.view.flowPage + (isValid && !stayInSamePage ? 1 : 0),
+   //    errorMsg: isValid ? null : 'This phone number already exist'
+   //   } 
+     // return prevState
+     // }))
 
 
   validateAccessCode = (accessCode) => {
@@ -345,7 +361,7 @@ selectRole = ( role, roleKey ) => {
 
 function mapStateToProps({globalReducer}) {
 	return {
-    lang: globalReducer.config.lang, 
+    lang: globalReducer.config.lang,
     headerError: globalReducer.view.headerError,
     headerTimestamp: globalReducer.view.headerTimestamp
   }

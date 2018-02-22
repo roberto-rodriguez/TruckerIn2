@@ -89,7 +89,7 @@ class StateList extends Component {
             (<Feed feedLoader={this.loadItems}
               feedBuilder={this.itemBuilder}
               navigation={navigation}
-              reset={this.state.reset} >
+              starting={this.state.reset} >
 
             </Feed>)
           }

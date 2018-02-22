@@ -32,6 +32,7 @@ const es = {
       jobDetails: 'DETALLES',
       locations: 'Locaciones: ',
       minExp: 'Mínima Experiencia Requerida: ',
+      exp_less_than: 'Experiencia Requerida (Menor o igual)',
       category: 'Categoría: ',
       distance: 'Distancia: '
     },
@@ -118,6 +119,11 @@ const es = {
       description: 'Descripción',
       salary: 'Salario'
     },
+    error:{
+      required: 'Campos en rojo deben ser completados',
+      city:  'Seleccione al menos una ciudad.',
+      state: 'Seleccione al menos un estado.'
+    },
     title: 'Crear Empleo',
     preview: 'Vista Previa',
     next: 'Siguiente',
@@ -133,7 +139,7 @@ const es = {
     equipment: 'Seleccione Equipo',
     description: 'Descripción',
     salary: 'Salario y Beneficios',
-
+    successfuly: 'Su empleo ha sido creado existosamente.'
   }
 //  á, é, í, ó, ú, ñ
   }

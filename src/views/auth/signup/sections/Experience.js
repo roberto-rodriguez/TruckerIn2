@@ -1,20 +1,13 @@
 import React, { Component } from "react";
 import { View } from 'react-native';
-import { ListItem, Select, YesNoListItem} from 'src/components/'
+import { ListItem, Select, OptionsListItem, T11, RowColumn} from 'src/components/'
 import { connect } from "react-redux";
 import I18n from 'react-native-i18n'
 
 const items = [
   {prop: 'experience',  icon: 'tachometer', title: 'experience'},
-  {prop: 'equipment',  icon: 'truck', title: 'equipment'},
-  {prop: 'distance',  icon: 'location-arrow', title: 'distance'},
-  {prop: 'jobStatus',  icon: 'hourglass-end', title:'jobStatus'}
+  {prop: 'equipment',  icon: 'truck', title: 'equipment'}
 ]
-
-const yesNoItems = [
-  {prop: 'ownerOperator',  icon: 'street-view', title:'ownerOperator'}
-]
-
 
 class Experience extends Component {
 
@@ -44,10 +37,13 @@ class Experience extends Component {
    this[prop + 'Select'].show();
  }
 
+  t = (key) => I18n.t(['jobs', 'new', key])
+
 
   render() {
-    const {navigation, equipmentOptions, experienceOptions, jobStatusOptions, invalidFields, distanceOptions} = this.props
+    const {navigation, equipmentOptions, experienceOptions, invalidFields } = this.props
     var data = this.state;
+    var t = this.t
 
     return (
           <View >
@@ -59,41 +55,38 @@ class Experience extends Component {
               icon={icon}
               label={I18n.t(['profile','experience' , title])}
               value={ data[prop] }
-              red={!data[prop] && invalidFields.indexOf(prop) >= 0}
+              red={!data[prop] && invalidFields.indexOf(prop + 'Id') >= 0}
               handler={ () => this.showSelect( prop ) }
               />) )
          }
 
-         {
-          yesNoItems.map( ({icon, title, prop}, i) => (
-            <YesNoListItem
-               key={i}
-               icon={icon}
-               label={I18n.t(['profile','experience' , title])}
-               value={ data[prop] }
-               invalid={!data[prop] && invalidFields.indexOf(prop) >= 0}
-               handler={ (val) => this.setVal( prop, val ) }
-               />) )
-          }
+           <OptionsListItem
+             invalid={!data['categoryId'] && invalidFields.indexOf('categoryId') >= 0}
+             label={t('category') }
+             leftText={t('ownerOperator') }
+             rightText={t('companyDriver')}
+             value={data.categoryId}
+             handler={(val) => this.setVal('categoryId', val)}
+           />
+
+           <OptionsListItem
+             invalid={!data['distanceId'] && invalidFields.indexOf('distanceId') >= 0}
+             label={t('distance')}
+             leftText={t('regional')}
+             rightText={t('onTheRoad')}
+             value={data.distanceId}
+             handler={(val) => this.setVal('distanceId', val)}
+           />
+
          <Select
             ref={o => this.equipmentSelect = o}
             options={ equipmentOptions}
-            onPress={(i) => this.setVal('equipment', equipmentOptions[i].name, equipmentOptions[i].id)}
+            onPress={(id) => this.setVal('equipment', equipmentOptions[id], id)}
           />
           <Select
              ref={o => this.experienceSelect = o}
              options={ experienceOptions}
-             onPress={(i) => this.setVal('experience', experienceOptions[i].name, experienceOptions[i].id)}
-           />
-           <Select
-              ref={o => this.jobStatusSelect = o}
-              options={jobStatusOptions}
-              onPress={(i) => this.setVal('jobStatus', jobStatusOptions[i].name, jobStatusOptions[i].id)}
-            />
-          <Select
-             ref={o => this.distanceSelect = o}
-             options={distanceOptions}
-             onPress={(i) => this.setVal('distance', distanceOptions[i].name, distanceOptions[i].id)}
+             onPress={(id) => this.setVal('experience', experienceOptions[id], id)}
            />
          </View>
 
@@ -102,10 +95,8 @@ class Experience extends Component {
 }
 
 const mapStateToProps = ({globalReducer}) => ({
-  experienceOptions: globalReducer.config.experienceOptions,
-  equipmentOptions: globalReducer.config.equipmentOptions,
-  jobStatusOptions: globalReducer.config.jobStatusOptions,
-  distanceOptions: globalReducer.config.distanceOptions,
+  experienceOptions: globalReducer.config.experienceOptionsObj || {},
+  equipmentOptions: globalReducer.config.equipmentOptionsObj || {},
   lang: globalReducer.config.lang
 })
 

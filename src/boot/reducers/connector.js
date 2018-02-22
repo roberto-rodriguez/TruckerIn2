@@ -4,6 +4,10 @@ import { Toast } from 'native-base';
 export const showHeaderErrorAction = (headerError) => ({ type: 'SHOW_HEADER_ERROR', headerError })
 
 export const doPOST = (url, dispatch, getState, data, callback) => {
+  if(data){
+    data.lang = getState().globalReducer.config.lang === 'es'
+  }
+
    doFetch(url, dispatch, getState, callback, data)
 }
 
@@ -15,7 +19,6 @@ const doFetch = (url, dispatch, getState, callback, data) => {
   // var state = getState(),
   // token = state.clientInfo && state.clientInfo.token,
   // lang = state.lang;
-debugger;
   var config = {
     method: data ? 'POST': 'GET',
     headers: new Headers({

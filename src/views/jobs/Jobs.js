@@ -40,7 +40,7 @@ loadItems = (page, callback) => {
   if(page === -1){
     this.props.cachedJobList( callback )
   }else{
-    this.props.xJobList(page, callback, reset)
+    this.props.xJobList(page, params, callback, reset)
 
     if(reset){
       this.setState( {reset: false })
@@ -61,8 +61,8 @@ loadItems = (page, callback) => {
          />
 
          <Feed
-           initialPage={-1}
-           reset={this.state.reset}
+           initialPage={this.state.reset ? 0 : -1} 
+           starting={this.state.reset}
            feedLoader={this.loadItems}
            feedBuilder={(data, navigation, i, shouldUpdate) => (<JobPost applyBar navigation={navigation}  key={i} elemId={i} data={data} shouldUpdate={shouldUpdate} />)}
            emptyElement={(<AgentImg text={I18n.t('jobs.headers.emptyText')} style={{marginTop: 40}}/>)}

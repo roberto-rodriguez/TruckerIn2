@@ -41,19 +41,13 @@ export function completeProfileInfo(profileInfo, getState) {
     }
 }
 
-export function completeProfileExperience(roleId, profileExperience, getState) {
-  ['equipment', 'experience', 'jobStatus'].forEach( prop => {
-    var config = getState().globalReducer.config[prop + 'Options']
+export function completeProfileExperience( profileExperience, getState) {
+ debugger;
+  ['equipment', 'experience', 'category', 'role', 'distance'].forEach( prop => {
+    var config = getState().globalReducer.config[prop + 'OptionsObj']
 
-    if(roleId != 1){
-      config = getState().globalReducer.config['hiringStatusOptions']
-    }
-
-    if(config){
-      var selectedConfig = config.filter(c => c.id === profileExperience[prop + 'Id'])
-      if(selectedConfig && selectedConfig.length > 0){
-        profileExperience[prop] = selectedConfig[0].name
-      }
+    if(profileExperience[ prop + 'Id' ] &&  config){
+        profileExperience[prop] = config[ profileExperience[ prop + 'Id' ] ]
     }
   })
 }

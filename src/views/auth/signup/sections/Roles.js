@@ -7,7 +7,6 @@ import * as roles from 'src/components/c/Role'
 
 const items = [
   { icon: 'truck',   title: 'driver', prop: roles.DRIVER, desc: 'canApply' },
-  { icon: 'user-secret',   title: 'broker', prop: roles.BROKER, desc: 'canPost' },
   { icon: 'bank',   title: 'company', prop: roles.COMPANY, desc: 'canPost' }
 ]
 

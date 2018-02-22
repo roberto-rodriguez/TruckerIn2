@@ -44,6 +44,7 @@ const en = {
       clickToMsg: '( Click here to send him a message )'
     },
     experience:{
+      category: 'Cetegory',
       experience: 'Experience',
       equipment: 'Equipment',
       ownerOperator: 'Owner Operator',

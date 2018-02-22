@@ -32,6 +32,7 @@ const en = {
       benefits: 'Benefits',
       locations: 'Locations: ',
       minExp: 'Minimum Required Experience: ',
+      exp_less_than: 'required Experience (Less or equal)',
       category: 'Category: ',
       distance: 'Distance: '
     },
@@ -118,6 +119,11 @@ const en = {
       description: 'Description',
       salary: 'Salary'
     },
+    error:{
+      required: 'Fields marked in red should be completed.',
+      city:  'You need to select at least one city',
+      state: 'You need to select at least one state'
+    },
     title: 'Create Job',
     preview: 'Preview',
     next: 'Next',
@@ -132,7 +138,8 @@ const en = {
     onTheRoad: 'On the Road',
     equipment: 'Select Equipments',
     description: 'Job Description',
-    salary: 'Salary, Payment Scale and Benefits'
+    salary: 'Salary, Payment Scale and Benefits',
+    successfuly: 'Job Created successfully'
   }
 
   }

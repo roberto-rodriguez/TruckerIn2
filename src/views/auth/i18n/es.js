@@ -32,7 +32,8 @@ const es = {
       welcome: 'Red de Camioneros y Empleadores',
       validatePhone: 'Le enviamos un código de 4 dijitos via SMS',
       contact: 'Nunca la compartiremos sin consultarle',
-      loading: 'Entrando...'
+      loading: 'Entrando...',
+      experience: 'Preferencias Laborales'
     },
     subTitlesError:{
       completeRed: 'Complete los campos marcados en rojo',

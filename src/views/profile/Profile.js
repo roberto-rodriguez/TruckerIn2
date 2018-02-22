@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Image, View, TouchableOpacity,ScrollView, Dimensions } from "react-native";
 import { Container, Content, Text, Thumbnail, H1, H2, H3, Spinner } from "native-base";
-import {Header,Row, Column, TransparentButton,ConnectButton, Button, T13, T11, nav, Avatar } from 'src/components/'
+import {Header,Row, Column, TransparentButton,ConnectButton, Button, T13, T11, nav, Avatar, FullSpinner } from 'src/components/'
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import * as profileActions from "src/views/profile/profile.actions";
@@ -45,19 +45,21 @@ class Profile extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        selectedSection: null
+        selectedSection: null,
+        mounted: false
       };
     }
 
 componentDidMount(){
-  var _this = this;
-
-  setTimeout(() => _this.props.loadProfile(this.props.userId || this.props.id), 200)
+  setTimeout(() => {
+      this.setState({mounted: true})
+      this.props.loadProfile(this.props.userId || this.props.id)
+  }, 100)
 }
 
   render() {
     var _this = this;
-    var selectedSection = this.state.selectedSection;
+    var {selectedSection, mounted} = this.state
 
     const {
         isMe,
@@ -73,7 +75,7 @@ componentDidMount(){
       } = this.props
 
     var sections = []
- 
+
     if(roleId){
       sections = [ firstSection[roleId - 1], commonSection ]
 
@@ -112,51 +114,55 @@ componentDidMount(){
               <Button text={I18n.t('profile.edit')} handler={() => nav(navigation, 'EditProfile')} style={styles.topBarButton}/>
             : <Button text={I18n.t('profile.message')} handler={()=> nav(navigation, 'Chat', {id, name})} style={styles.topBarButton}/>}
         />
+        {
+          mounted ? (
+             <View>
 
-          <View style={styles.coverBlock}>
-            <Image source={coverImg} style={styles.coverImage} />
-          </View>
+                <View style={styles.coverBlock}>
+                  <Image source={coverImg} style={styles.coverImage} />
+                </View>
 
-          <View>
-            <View style={styles.profileImgInnerView}>
-            <TouchableOpacity style={styles.profileImg}  onPress={()=>{}}>
-              <Avatar name={name} src={profileImg} size={(deviceWidth / 2 - 10)} square/>
-            </TouchableOpacity>
+                <View>
+                  <View style={styles.profileImgInnerView}>
+                  <TouchableOpacity style={styles.profileImg}  onPress={()=>{}}>
+                    <Avatar name={name} src={profileImg} size={(deviceWidth / 2 - 10)} square/>
+                  </TouchableOpacity>
 
-            {isMe && <TouchableOpacity style={styles.editProfileButton}  onPress={()=>this.props.changeProfilePricture()}>
-                        <Icon name='camera'  style={styles.editProfileIcon}/>
-                      </TouchableOpacity>}
-            </View>
+                  {isMe && <TouchableOpacity style={styles.editProfileButton}  onPress={()=>this.props.changeProfilePricture()}>
+                              <Icon name='camera'  style={styles.editProfileIcon}/>
+                            </TouchableOpacity>}
+                  </View>
+                </View>
 
+                <Row h={70}/>
+                <Row h={40}>
+                  <H3 style={styles.name}>{name}</H3>
+                </Row>
+                <Row  h={60}>
+                  <Column  h={60} columns={5}>
 
-          </View>
+                  </Column>
+                  <Column h={60} columns={5} colspan={3}>
+                    <T13 light>{role}</T13>
+                    <Text style={styles.pendingPostText}>{location}</Text>
+                  </Column>
+                  <Column h={40} columns={5} style={{marginTop:15}}>
+                    {!isMe && <ConnectButton data={{id, status}} profile/>}
+                  </Column>
+                </Row>
 
-          <Row h={70}/>
-          <Row h={40}>
-            <H3 style={styles.name}>{name}</H3>
-          </Row>
-          <Row  h={60}>
-            <Column  h={60} columns={5}>
+                {
+                (profileOptions && profileOptions.length > 0) ? (<View style={styles.optionsContainerView}>{profileOptions}</View>) :  (<Spinner color={commonColor.secondaryColor} />)
+                }
 
-            </Column>
-            <Column h={60} columns={5} colspan={3}>
-              <T13 light>{role}</T13>
-              <Text style={styles.pendingPostText}>{location}</Text>
-            </Column>
-            <Column h={40} columns={5} style={{marginTop:15}}>
-              {!isMe && <ConnectButton data={{id, status}} profile/>}
-            </Column>
-          </Row>
+                {this.buildSection(selectedSection, isMe, navigation, id)}
 
-          {
-          (profileOptions && profileOptions.length > 0) ? (<View style={styles.optionsContainerView}>{profileOptions}</View>) :  (<Spinner color={commonColor.secondaryColor} />)
-          }
+              </View>
+          ) : (<FullSpinner/>)
+        }
 
-
-          {this.buildSection(selectedSection, isMe, navigation, id)}
-
-          </Content>
-      </Container>
+       </Content>
+    </Container>
     );
   }
 

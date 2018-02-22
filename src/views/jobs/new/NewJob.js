@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StatusBar, Platform, TouchableHighlight, View } from "react-native";
 import {Container, Content } from "native-base";
-
+import { Toast } from 'native-base';
 import {  Header, BlockButton, CustomButton, StackView, Spinner} from 'src/components/'
 import styles from "./styles";
 import I18n from 'react-native-i18n'
@@ -25,8 +25,10 @@ const commonColor = require("src/theme/variables/commonColor");
 var bulletsKeys = ['information', 'equipment', 'locations', 'description', 'salary']
 
 const requiredFields = {
-  0: ['title', 'categoryId', 'distanceId', 'experienceId'],
-  1: ['equipmentIds']
+  // 0: ['title', 'categoryId', 'distanceId', 'experienceId'],
+  // 1: ['equipmentIds'],
+  3: ['description'],
+  4: ['salary']
 }
 
 class NewJob extends Component {
@@ -44,7 +46,7 @@ class NewJob extends Component {
         title: null,
         categoryId: null,
         distanceId: null,
-        phone: null,
+        phone: props.phone,
         phoneOption: 1,
         experienceId: null,
         experience: null,
@@ -98,7 +100,7 @@ class NewJob extends Component {
           {
             preview ?
             (
-              <BlockButton text={t('acceptAndPublish')} onPress={() => this.nextBack(true)} style={{marginBottom: 5}}/>
+              <BlockButton  loading={loading} text={t('acceptAndPublish')} onPress={() => this.submit()} style={{marginBottom: 5}}/>
             ):(
               <View style={styles.subHeader}>
                 <StepIndicator
@@ -113,25 +115,43 @@ class NewJob extends Component {
           }
         {this.buildSection()}
 
-        {(!preview) && (<BlockButton text={ t('next')} onPress={() => this.nextBack(true)}/>)}
+        {(!preview) && (<BlockButton loading={loading} text={ t('next')} onPress={() => this.nextBack(true)}/>)}
       </Container>
     );
   }
 
   nextBack = (next) => {
     var {view, data} = this.state
-    var {flowPage, validForm, invalidFields, loading} = view
-
-
-
+    var {flowPage, validForm, loading} = view
+   invalidFields = []
    if(loading)return;
 
    this.setState({...this.state, view: {...view, loading: true}});
 
-    // if(next){
-    //   invalidFields = requiredFields[flowPage].filter(f => !data[f]) || []
-    //   validForm = invalidFields.length === 0
-    // }
+   if(next){
+     if(flowPage === 2){
+       var loc = data.location || {}
+       if(data.distanceId === 1){
+         if(!loc.cityIdList || loc.cityIdList.length === 0){
+           invalidFields.push('location')
+           this.showError( I18n.t('jobs.new.error.city'));
+         }
+       }else{
+         if(!loc.stateIdList || loc.stateIdList.length === 0){
+           invalidFields.push('location')
+           this.showError(I18n.t('jobs.new.error.state'));
+         }
+       }
+     }else{
+       invalidFields = ( requiredFields[flowPage] && requiredFields[flowPage].filter(f => !data[f]) )|| []
+     }
+
+     validForm = invalidFields.length === 0
+
+     if(!validForm && flowPage !== 2){
+        this.showError(  I18n.t('jobs.new.error.required') );
+     }
+   }
 
     switch(flowPage){
       case 0:
@@ -160,7 +180,7 @@ class NewJob extends Component {
     const navigation = this.props.navigation;
     var {flowPage, validForm, invalidFields, loading} = view
 
-    if(loading)return <Spinner/>
+
 
     var section = null;
 
@@ -198,7 +218,9 @@ class NewJob extends Component {
     this.setState({...this.state, view: {...this.state.view, loading: true}})
     debugger;
     this.props.createJob(this.state.data, () => {
-      this.setState({...this.state, view: {...this.state.view, loading: false}})
+       this.props.navigation.goBack();
+       Toast.show({text: I18n.t('jobs.new.successfuly') , position: 'top', duration:  4000 , type: 'success'  })
+    //  this.setState({...this.state, view: {...this.state.view, loading: false}})
     }, 'create');
   }
 
@@ -220,6 +242,8 @@ class NewJob extends Component {
       })
   }
 }
+
+showError = (text) => Toast.show({ text, position: 'top', duration:  4000 , type: 'danger'  })
 
 selectMultiState = ( stateId ) =>  this.setState((prevState) => {
   stateId += '';
@@ -280,6 +304,7 @@ selectSingleState = ( stateId, stateName ) =>  this.setState((prevState) => {
 
 function mapStateToProps({globalReducer}) {
 	return {
+    phone: globalReducer.profileInfo.phone,
     lang: globalReducer.config.lang,
     headerError: globalReducer.view.headerError,
     headerTimestamp: globalReducer.view.headerTimestamp

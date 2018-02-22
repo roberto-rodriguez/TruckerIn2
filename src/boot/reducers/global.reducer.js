@@ -38,19 +38,19 @@ const initialState = {
   },
   config:{
     lang: I18n.currentLocale() &&  I18n.currentLocale().split('-')[0],
-    categoryOptions: [],
-    equipmentOptions: [],  // [{id: 1, name: "Dump Truck"}, {id: 2, name: "Tractor (Long Haul)"},{id: 3, name: "Dry Van"}, {id: 4, name: "Auto Hauler"},{id:5, name:  "Flat Bed"}, {id: 6, name:  "Refrigerated"}, {id: 7, name: "Tanker"}], 
-    experienceOptions: [], // [{id: 1, name: '1 Year'}, {id: 2, name: '2 Years'}],
-    jobStatusOptions: [],
-    hiringStatusOptions: [],
-    roleOptions: [],
-    distanceOptions: [],
+    // categoryOptions: [],
+    // equipmentOptions: [],  // [{id: 1, name: "Dump Truck"}, {id: 2, name: "Tractor (Long Haul)"},{id: 3, name: "Dry Van"}, {id: 4, name: "Auto Hauler"},{id:5, name:  "Flat Bed"}, {id: 6, name:  "Refrigerated"}, {id: 7, name: "Tanker"}],
+    // experienceOptions: [], // [{id: 1, name: '1 Year'}, {id: 2, name: '2 Years'}],
+    // jobStatusOptions: [],
+    // hiringStatusOptions: [],
+    // roleOptions: [],
+    // distanceOptions: [],
 
     categoryOptionsObj: {},
     equipmentOptionsObj: {},
     experienceOptionsObj: {},
-    jobStatusOptionObj: {},
-    hiringStatusOptionsObj: {},
+    // jobStatusOptionObj: {},
+    // hiringStatusOptionsObj: {},
     roleOptionsObj: {},
     distanceOptionsObj: {}
   },
@@ -70,14 +70,7 @@ export default function(state: any = initialState, action: Function) {
     case "RESET_GLOBAL":
         return {...initialState, config: state.config};
     case "LOAD_CONFIG":
-        var config = {...action.config}
-
-        Object.keys(config).forEach(optionsKey => {config[optionsKey + 'Obj'] = config[optionsKey].reduce((acc, elem) => {acc[elem.id] = elem.name
-                                       return acc;
-                                     }, {})
-									 })
-
-      return { ...state, config: {...state.config, ...config} };
+      return { ...state, config: {...state.config, ...action.config}};
     case 'SET_GLOBAL_PROFILE_INFO':
       return { ...state, profileInfo: {...state.profileInfo, ...action.profileInfo }};
     case 'SET_GLOBAL_PROFILE_EXPERIENCE':

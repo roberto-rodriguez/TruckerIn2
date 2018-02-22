@@ -26,8 +26,8 @@ import Post from 'src/views/jobs/post/JobPost'
 
     var match = data.match
 
-    if(match > 100){
-      match -= 100
+    if(match % 10 === 9){
+      match -= 99
     }
 
 

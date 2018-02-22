@@ -31,7 +31,9 @@ class CityList extends Component {
  }
 
  componentWillReceiveProps(newProps) {
-   if(this.props.stateId != newProps.stateId){
+   if(
+     newProps.stateId && //ADDED this new (net tested yet)
+     (this.props.stateId != newProps.stateId)){
      this.listCities( newProps.stateId )
    }
  }
@@ -61,7 +63,7 @@ class CityList extends Component {
  }
 
  onSearchChangeText = (searchText) => {
-     this.setState({searchText})
+     this.setState({searchText, reset: true})
  }
 
  doSearch = (searchText) => {
@@ -120,9 +122,8 @@ class CityList extends Component {
               feedBuilder={this.itemBuilder}
               navigation={navigation}
               searchText={this.state.searchText}
-              reset={this.state.reset}>
-
-            </Feed>)
+              starting={this.state.reset} />
+            )
           }
         </View>
       </Container>

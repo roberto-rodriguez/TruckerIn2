@@ -18,14 +18,7 @@ class Experience extends Component {
           <Container>
             <BlockButton show={isMe} text={'Edit'}  onPress={() => nav(navigation, 'EditProfileExperience')}/>
 
-            <Row h={50}  spaceBetween>
-              <Column start columns={2} h={50} >
-                <T13 strong>{t(isDriver ? 'jobStatus' : 'hiringStatus')}</T13>
-              </Column>
-                <Column end  columns={2} h={50}  >
-                <T13>{profileExperience.jobStatus}</T13>
-              </Column>
-            </Row>
+
 
              <Row spaceBetween>
                <Column start columns={2}>
@@ -44,16 +37,14 @@ class Experience extends Component {
                  <T13>{profileExperience.equipment}</T13>
                </Column>
              </Row>
-
-             <Row spaceBetween>
-               <Column start columns={2}>
-                 <T13 strong>{t('ownerOperator')}</T13>
+             <Row h={50}  spaceBetween>
+               <Column start columns={2} h={50} >
+                 <T13 strong>{t('category')}</T13>
                </Column>
-               <Column  end columns={2}>
-                 <T13>{this.getValString(profileExperience.ownerOperator)}</T13>
+                 <Column end  columns={2} h={50}  >
+                 <T13>{profileExperience.category}</T13>
                </Column>
              </Row>
-
             <Row spaceBetween>
               <Column start columns={2}>
                 <T13 strong>{t('distance')}</T13>
@@ -91,10 +82,10 @@ const style = StyleSheet.create({
 
 const mapStateToProps = ({globalReducer, profileReducer}, ownProps) => {
   var {id, isMe} = ownProps
-  var profileExperience = isMe ? globalReducer.profileExperience : profileReducer[id].profileExperience
-  var profileInfo = isMe ? globalReducer.profileInfo : profileReducer[id].profileInfo
+  var userInfo =  profileReducer[id] || {}
 
-  //var configs = parseConfig(['jobStatus', 'experience', 'equipment'],  profileInfo, profileExperience, globalReducer.config)
+  var profileExperience = isMe ? globalReducer.profileExperience : (userInfo.profileExperience || {})
+  var profileInfo = isMe ? globalReducer.profileInfo : (userInfo.profileInfo || {})
 
   return {
           profileExperience,

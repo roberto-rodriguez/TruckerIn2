@@ -28,16 +28,21 @@ import { connect } from "react-redux";
     if(newProps.headerError){
       this.setState({starting: false, loading: false, showLoadIndicator: false})
     }
+
+    if(!this.state.starting && newProps.starting){
+      this.setState({starting: true})
+      this.moreFeed(true)
+    }
   }
 
 
   shouldComponentUpdate(nextProps, nextState){
 
-    if(nextProps.reset){
-      this.moreFeed(true);
-    }
+    // if(nextProps.reset){
+    //   this.moreFeed(true);
+    // }
     debbugFeed && console.log('Feed:: shouldComponentUpdate:: firstLoad' + this.state.firstLoad + ', loading:: ' + this.state.loading + ', reset: ' + nextProps.reset + ' (' + (nextProps.reset ||  this.state.firstLoad || this.state.loading) + ')');
-    return this.state.firstLoad || this.state.loading || (this.state.page <= 0);
+    return this.state.firstLoad || this.state.loading || (this.state.page <= 0) || (nextProps.starting || false);
   }
 
 

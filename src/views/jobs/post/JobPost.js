@@ -47,7 +47,7 @@ import Details from 'src/views/jobs/post/Details'
                    handler={() => nav(navigation, 'JobApp', {jobId: data.id}) }/>
               </View>
            }
-          <PostingTime date={data.createdAt}/>
+          <PostingTime date={data.createdAt}/> 
         </View>
       </View>
       <T12 green ><T12>{I18n.t('jobs.post.equipment')}</T12>{data.equipments}</T12>

@@ -37,12 +37,17 @@ debugger;
 
               Connector.doGET('experience/load/' + myUserId + '/' + userId, dispatch, getState, (profileExperience) => {
 
-                auxFunctions.completeProfileExperience(profileInfo.roleId, profileExperience, getState )
+                auxFunctions.completeProfileExperience( profileExperience, getState )
                 dispatch( saveProfileExperienceAction(userId, profileExperience) )
                 auxFunctions.completeLoadProfile(userId, profileInfo.roleId, dispatch, getState)
               })
         })
     }else{
+      var profileExperience = getState().globalReducer.profileExperience
+      debugger;
+      auxFunctions.completeProfileExperience( profileExperience, getState)
+      dispatch( globalActions.setGlobalProfileExperienceAction(profileExperience) )
+
       auxFunctions.completeLoadProfile(userId, getState().globalReducer.profileInfo.roleId, dispatch, getState)
     }
 

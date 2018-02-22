@@ -6,7 +6,7 @@ import styles from "../styles";
 import I18n from 'react-native-i18n'
 import * as roles from 'src/components/c/Role'
 
-  class About extends Component {
+export default   class About extends Component {
 
     constructor(props) {
         super(props)
@@ -16,18 +16,12 @@ import * as roles from 'src/components/c/Role'
    componentDidMount(){
      var data = this.props.data || {}
      this.setState({
-       jobStatus: data.jobStatus,
-       jobStatusId: data.jobStatusId,
        about: data.about,
        roleId: data.roleId
      });
    }
 
   t = key => I18n.t(['signup', 'about', key])
-
-  showSelect( ) {
-    this['statusSelect'].show();
-  }
 
 
    setVal(prop, val, valId) {
@@ -52,32 +46,15 @@ import * as roles from 'src/components/c/Role'
 
     return (
           <View>
-            <AgentMsg text={I18n.t(['signup', 'about', (data.roleId === roles.BROKER ? 'descBroker' : 'descCompany')])}/>
+            <AgentMsg text={I18n.t(['signup', 'about','descCompany'])}/>
 
-            <ListItem
-               key={100}
-               navigation={navigation}
-               icon={'hourglass-end'}
-               label={I18n.t('profile.experience.hiringStatus') }
-               value={ data[ 'jobStatus' ]}
-               handler={ () => this.showSelect( ) }
-               />
 
               <LongInputListItem icon='quote-left'
                 label={ I18n.t( 'general.typeHere' ) }
                 value={data['about']}
                 onChangeText={(text) => this.setVal('about', text)}/>
 
-                <Select
-                   ref={o => this.statusSelect = o}
-                   options={statusOptions}
-                   onPress={(i) => this.setVal( 'jobStatus', statusOptions[i].name, statusOptions[i].id)}
-                 />
          </View>
     )
   }
 }
-
-const mapStateToProps = ({ globalReducer}) => ({statusOptions:  globalReducer.config.hiringStatusOptions})
-
-export default connect(mapStateToProps)(About);

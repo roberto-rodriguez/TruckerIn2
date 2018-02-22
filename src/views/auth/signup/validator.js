@@ -8,7 +8,7 @@ export function validate(page, data){
     var fields = null
     var invalidFields = []
 
-   // switch(page){
+  switch(page){
    //    case 1:
    //         fields =  ['firstName', 'password']
    //
@@ -23,18 +23,17 @@ export function validate(page, data){
    //          //  invalidFields.push('location')
    //          // }
    //       break;
-   //    case 3:
-   //          fields =  ['jobStatus']
-   //
-   //          if(role === roles.DRIVER){
-   //            fields = fields.concat([ 'experienceId', 'equipmentId', 'ownerOperator', 'distance'])
-   //          }
-   //       break;
-   // }
-   //
-   //  if(fields){
-   //        invalidFields =  invalidFields.concat( validatePage(data, fields) )
-   //  }
+       case 3:
+            if(role === roles.DRIVER){
+              fields = [ 'experienceId', 'equipmentId', 'categoryId', 'distanceId']
+            }
+         break;
+
+    }
+    
+    if(fields){
+          invalidFields =  invalidFields.concat( validatePage(data, fields) )
+    }
 
 
    return invalidFields

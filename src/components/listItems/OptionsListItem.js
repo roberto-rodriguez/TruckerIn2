@@ -13,7 +13,7 @@ import I18n from 'react-native-i18n'
  export default class OptionsListItem extends Component {
 
   render() {
-    var {icon, label, value, handler, leftText, rightText, invalid, borderTop} = this.props;
+    var {icon, label, value, handler, leftText, rightText, invalid, borderTop, strong} = this.props;
 
     var borderStyle = {borderBottomWidth:0.3, borderColor: global.secondaryColor}
 
@@ -25,7 +25,7 @@ import I18n from 'react-native-i18n'
        <View>
          <Row h={60}  style={borderStyle}>
            <Column h={60}  columns={8} colspan={2} style={{alignItems:'flex-start'}}>
-             <T13 shortLine red={invalid && !value}>{label}</T13>
+             <T13 shortLine red={invalid && !value} strong={strong}>{label}</T13>
            </Column>
            <Column  h={60}  columns={8}  colspan={3} end>
               <CustomButton radius={'left'} white={value != 1} text={leftText} handler={()=>handler(1)} style={{width:'99%'}}/>
