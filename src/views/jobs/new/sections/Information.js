@@ -87,7 +87,7 @@ class Information extends Component {
        <Select
           ref={o => this.experienceSelect = o}
           options={ experienceOptions}
-          onPress={(i) => setVal('experience', experienceOptions[i].name, experienceOptions[i].id)}
+          onPress={(id) => setVal('experience', experienceOptions[id], id)}
         />
 
       </View>
@@ -99,7 +99,7 @@ class Information extends Component {
 
 
 const mapStateToProps = ({globalReducer}) => ({
-  experienceOptions:  globalReducer.config.experienceOptions
+  experienceOptions:  globalReducer.config.experienceOptionsObj
 })
 
 export default connect( mapStateToProps )(Information);

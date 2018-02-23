@@ -5,6 +5,7 @@ import data from './list/data'
 import * as Storage from 'src/boot/reducers/storage.actions'
 import * as Connector from 'src/boot/reducers/connector'
 import * as globalActions from 'src/boot/reducers/global.actions'
+import * as roles from 'src/components/c/Role'
 
 export function cachedJobList(callback){
     return function( dispatch, getState ){
@@ -19,38 +20,37 @@ export function cachedJobList(callback){
 export function xJobList(page = 0, params, callback, reset){
     return function( dispatch, getState ){
 
-      var {experienceId, equipmentId, categoryId, distanceId} = getState().globalReducer.profileExperience
-      var {id, location} = getState().globalReducer.profileInfo
+      var {id, location, roleId} = getState().globalReducer.profileInfo
 
       var request = {
         id,
       	page,
-      	limit: 10,
-      	experienceId,
-      	equipmentId: equipmentId + '',
-      	categoryId,
-      	distanceId,
-      	stateId: location && location.stateId,
-      	cityId: (location && location.cityId) || 0,
+        limit: 10,
         params
       }
 
-      Connector.doPOST('xjob/xlist', dispatch, getState, request,  (jobs) => {
+      var ws = 'list';
 
-      //  var {categoryOptionsObj, distanceOptionsObj, equipmentOptionsObj, experienceOptionsObj}  = getState().globalReducer.config
+      if(roleId === roles.DRIVER){
+        ws = 'xlist';
+
+        var {experienceId, equipmentId, categoryId, distanceId} = getState().globalReducer.profileExperience
+
+        request = {
+          ...request,
+        	experienceId,
+        	equipmentId: equipmentId + '',
+        	categoryId,
+        	distanceId,
+        	stateId: location && location.stateId,
+        	cityId: (location && location.cityId) || 0,
+        }
+      }
+
+      Connector.doPOST('xjob/' + ws, dispatch, getState, request,  (jobs) => {
 
         if(page > 0){
           jobs = jobs.map(job => parseJob(job)( dispatch, getState ) )
-
-          // jobs = jobs.map(job => ({
-          //   ...job,
-          //   category: categoryOptionsObj ? categoryOptionsObj[job.categoryId] : '',
-          //   distance: distanceOptionsObj ? distanceOptionsObj[job.distanceId] : '',
-          //   equipments: equipmentOptionsObj ? job.equipmentIds.split(',').map(s => (equipmentOptionsObj[s])).join(' • ') : '',
-          //   experience: experienceOptionsObj ? experienceOptionsObj[job.experienceId] : '',
-          //   states: buildStates( job.stateIds, usStatesObj ),
-          //   cities: buildCities( job.distanceId, job.city)
-          // }))
         }else{
           var usStatesObj = getState().locationReducer.usStatesObj
 
@@ -210,6 +210,7 @@ export function sendMsgJobApp(appAction, callback){
 
 export function loadJobDetails(jobId, callback){
   return function( dispatch, getState ){
+    debugger;
     var userId =  getState().globalReducer.profileInfo.id
     Connector.doGET('xjob/load/' + userId + '/' + jobId, dispatch, getState, (job) => callback( job ))
   }

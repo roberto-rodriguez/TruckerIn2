@@ -22,7 +22,7 @@ export function loadProfile(userId){
 
     var myProfile = getState().globalReducer.profileInfo
     var myUserId = myProfile.id
-debugger;
+
     if(userId != myUserId){
 
       if(getState().profileReducer[userId]){
@@ -44,7 +44,7 @@ debugger;
         })
     }else{
       var profileExperience = getState().globalReducer.profileExperience
-      debugger;
+
       auxFunctions.completeProfileExperience( profileExperience, getState)
       dispatch( globalActions.setGlobalProfileExperienceAction(profileExperience) )
 

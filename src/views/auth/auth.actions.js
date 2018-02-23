@@ -28,6 +28,7 @@ export function sendAccessCode(phone, callback ){
 export function register(data, callback){
   return function( dispatch, getState ){
    var userId = getState().globalReducer.profileInfo.id
+   var currentLastName = getState().globalReducer.profileInfo.lastName
    var resultCode = 1  //Everything OK
    var resultMessage = 'SUCCESS'
 
@@ -35,9 +36,7 @@ export function register(data, callback){
       data.id = userId
     }
 
-    if(!data.lastName){
-      data.lastName = ''
-    }
+    data.lastName = (data.lastName || currentLastName || '')
 
    Connector.doPOST('/user/save', dispatch, getState, data, function( response ){
      if(response){

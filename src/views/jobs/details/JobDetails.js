@@ -32,7 +32,7 @@ class JobDetails extends Component {
   componentDidMount(){
     if(!this.state.data.id)return;
     var _this = this
-
+debugger;
      setTimeout(() => {
        this.props.loadJobDetails(this.state.data.id, (details) => this.setState({details}))
      }, 200)

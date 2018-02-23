@@ -34,7 +34,16 @@ import Post from 'src/views/jobs/post/JobPost'
     return (
       <Post data={data} navigation={navigation}>
         <View  style={styles.postFooter}>
-          <Progress.Circle showsText  progress={(match / 100)} size={45} formatText={() => ((match < 100 ? '  ' : '') + match + '% Match')} textStyle={{paddingLeft: 6}} color={match < 50 ? 'red': 'blue'}/>
+
+          {
+            (roleId === roles.DRIVER) && (
+              <Progress.Circle showsText
+                 progress={(match / 100)} size={45}
+                 formatText={() => ((match < 100 ? '  ' : '') + match + '% Match')}
+                 textStyle={{paddingLeft: 6}}
+                  color={match < 50 ? 'red': 'blue'}/>
+            )
+          }
 
           <CustomButton white text={I18n.t('jobs.post.details')}
            style={styles.button}  handler={() => nav(navigation, 'JobDetails', {data})}/>

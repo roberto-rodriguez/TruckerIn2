@@ -34,7 +34,7 @@ class Equipment extends Component {
 
 
   render() {
-    const {navigation, equipmentOptions, equipmentOptionsObj, invalidFields} = this.props
+    const {navigation,   equipmentOptionsObj, invalidFields} = this.props
     var {equipmentIds} = this.state
 
     var selected = equipmentIds && equipmentIds.length > 0
@@ -48,13 +48,15 @@ class Equipment extends Component {
              </T14>
           </RowColumn>
 
-          {equipmentOptions.map(this.buildItem)}
+          {Object.entries(equipmentOptionsObj).map(this.buildItem)}
       </View>
     );
   }
 
 
   buildItem = (item, key) =>  {
+    var id = item[0]
+    var name = item[1]
     var borderStyle = {borderBottomWidth:0.3, borderColor: global.secondaryColor}
 
     if(key === 0){
@@ -63,19 +65,19 @@ class Equipment extends Component {
 
     var style = {}
 
-    if(this.state.equipmentIds && this.state.equipmentIds.indexOf(item.id + '') >= 0){
+    if(this.state.equipmentIds && this.state.equipmentIds.indexOf(id + '') >= 0){
       style = {backgroundColor: theme.lightGreen}
     }
 
     return (
-      <TouchableHighlight key={key}  underlayColor={'transparent'}  onPress={() => this.setVal(item.id + '')}>
+      <TouchableHighlight key={key}  underlayColor={'transparent'}  onPress={() => this.setVal(id + '')}>
        <View style={style}>
          <Row h={60}  style={borderStyle}>
            <Column  h={60}  columns={7}  >
              <Icon name={'truck'} style={styles.icon}/>
            </Column>
            <Column h={60} start columns={7} colspan={5} >
-             <T14>{item.name}</T14>
+             <T14>{name}</T14>
            </Column>
          </Row>
        </View>
@@ -90,7 +92,6 @@ const styles = StyleSheet.create({
   })
 
 const mapStateToProps = ({globalReducer}) => ({
-  equipmentOptions:  globalReducer.config.equipmentOptions,
   equipmentOptionsObj:  globalReducer.config.equipmentOptionsObj
 })
 
